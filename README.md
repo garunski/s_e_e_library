@@ -9,14 +9,14 @@ After GitHub Pages deploy:
 - Manifest: `https://garunski.github.io/s_e_e_library/catalog.json`
 - Payloads: `https://garunski.github.io/s_e_e_library/packages/{slug}/{version}/{file}`
 
-Schema: `see.library/v1` (see S.E.E. knowledge doc-23).
+Schema: `see.library/v1`; see the `/schema/` pages (source in `content/schema/`).
 
 ## Layout
 
-- `catalog.json` — manifest (`packages[]` entries with `files[]` install map)
-- `packages/{slug}/{version}/` — package payloads
-- `scripts/build-catalog.mjs` — validate payloads and refresh `catalog.json` `updated` timestamp
-- `scripts/harvest.mjs` — copy assets from a local S.E.E. hub checkout into `packages/` and regenerate `catalog.json`
+- `catalog.json`: manifest (`packages[]` entries with `files[]` install map)
+- `packages/{slug}/{version}/`: package payloads
+- `scripts/build-catalog.mjs`: validate payloads and refresh `catalog.json` `updated` timestamp
+- `scripts/harvest.mjs`: copy assets from a local S.E.E. hub checkout into `packages/` and regenerate `catalog.json`
 
 ## Local development
 
@@ -36,11 +36,23 @@ npm run validate
 
 Install `to` paths must start with `.s_e_e/`, `.agents/`, `.cursor/`, or `templates/`.
 
+## Docs site
+
+A Next.js + Nextra (React + MDX) site lives under `content/`, `app/`, and `components/`:
+
+```bash
+npm install
+npm run docs:dev     # local preview at http://localhost:3000/s_e_e_library
+npm run docs:build   # static export to out/ and assemble catalog + packages
+```
+
+`docs:build` runs `build-llms.mjs`, statically exports the site to `out/`, then copies `catalog.json` and `packages/` into it (plus `.nojekyll`), so the manifest and payloads keep their published URLs.
+
 ## GitHub Pages
 
-1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-2. Push to `main`; `.github/workflows/pages.yml` validates the catalog and deploys the repo root.
+1. Repo **Settings, Pages, Build and deployment, Source: GitHub Actions**.
+2. Push to `main`; `.github/workflows/pages.yml` validates the catalog, builds the docs site, and deploys `out/` (docs + `catalog.json` + `packages/`).
 
 ## License
 
-AGPL-3.0 — see [LICENSE](LICENSE).
+AGPL-3.0-only; see [LICENSE](LICENSE).

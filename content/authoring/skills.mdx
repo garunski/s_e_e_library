@@ -1,0 +1,51 @@
+# Skills
+
+A **skill** package is an agent skill: a `SKILL.md` file with YAML frontmatter
+and a markdown body that teaches an agent a repeatable capability.
+
+- Category: `skill`
+- Payload: a `SKILL.md` file
+- Installs to: `.agents/skills/{slug}/SKILL.md`
+
+## File shape
+
+The payload must be a `SKILL.md` that starts with YAML frontmatter. The
+validator requires:
+
+- `name` - non-empty skill name.
+- `description` - non-empty; the activation description an agent uses to decide
+  when to load the skill.
+
+The markdown body after the frontmatter is the skill instructions.
+
+## Reference example
+
+Frontmatter from `packages/workflow/1.0.0/SKILL.md`:
+
+```markdown
+---
+name: workflow
+description: >-
+  Authors and edits S.E.E. workflow JSON definitions stored under the hub
+  `.s_e_e/workflows/definitions/`. Validates against `workflow.schema.json`, the
+  engine task handlers (cli_command, command, user_input, git_action,
+  story_action, foreach, custom), and template expansion. Activates on
+  `/workflow`, requests to "create a workflow", or edits to workflow JSON.
+---
+
+# S.E.E. workflow authoring
+
+Authors and edits workflow JSON for the S.E.E. engine...
+```
+
+## Guidance
+
+- Write the `description` as activation triggers: name the phrases and file
+  types that should load the skill. This is what an agent matches against.
+- Keep the body task-focused: MUST/NEVER rules, a minimal working example, and
+  an authoring checklist.
+
+## Schema reference
+
+`see.library/v1` - see the [skill schema](/schema/skill) and the
+[catalog schema](/schema/).

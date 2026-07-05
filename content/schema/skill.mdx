@@ -1,0 +1,33 @@
+# Skill schema
+
+Category `skill`. Payload file `SKILL.md`. Installs to
+`.agents/skills/{slug}/SKILL.md`.
+
+`SKILL.md` is YAML frontmatter plus a markdown body. Frontmatter:
+
+- `name` - non-empty skill name.
+- `description` - non-empty activation description an agent matches against.
+
+The markdown after the frontmatter is the skill instructions.
+
+## JSON Schema
+
+The payload is a markdown file; this schema describes its YAML frontmatter
+block. Download: [skill-frontmatter.schema.json](https://garunski.github.io/s_e_e_library/schema/skill-frontmatter.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/skill-frontmatter.schema.json",
+  "title": "Skill SKILL.md YAML frontmatter",
+  "type": "object",
+  "required": ["name", "description"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 }
+  }
+}
+```
+
+See the [skill authoring guide](/authoring/skills) and the
+[catalog schema](/schema/).

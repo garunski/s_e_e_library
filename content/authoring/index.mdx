@@ -1,0 +1,25 @@
+# Authoring guide
+
+How to create each S.E.E. library piece and publish it to the catalog.
+
+A **package** is a versioned payload plus a manifest entry. Every package has a
+`category` that decides its file shape and where it installs on a target
+(`.s_e_e/`, `.agents/`, `.cursor/`, or `templates/`).
+
+## Pieces
+
+- [Commands](./commands) - agent runner definitions that map inputs to a CLI binary.
+- [Prompts](./prompts) - reusable system prompts referenced by workflows and commands.
+- [Skills](./skills) - `SKILL.md` guides that teach an agent a repeatable capability.
+- [Workflows](./workflows) - multi-step task definitions the engine runs against a spoke.
+- [Bundles](./bundles) - curated sets of packages installed together.
+
+## Publishing
+
+- [Publish to the catalog](./publish) - payload layout, the `catalog.json` entry, and the build/validate scripts.
+
+## Schema reference
+
+The manifest schema is `see.library/v1`. See the [catalog schema](/schema/) for
+the authoritative contract, and the per-type payload schemas linked from each
+guide above.

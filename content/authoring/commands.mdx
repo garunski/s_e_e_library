@@ -1,0 +1,80 @@
+# Commands
+
+A **command** package is an agent-runner definition: it maps typed inputs to a
+CLI binary invocation. Workflows reference a command by `id` from a `command`
+task.
+
+- Category: `command`
+- Payload: a single `command.json`
+- Installs to: `.s_e_e/commands/{id}.json` (the install path must be exactly this)
+
+## File shape
+
+Key fields:
+
+- `id` - unique command id; also the install filename. Required, non-empty.
+- `name`, `icon` - display metadata.
+- `binary` - the executable to run. Required, non-empty.
+- `base_args` - args always passed to the binary.
+- `forced_args` - args the runner appends and the operator cannot override.
+- `workspace_arg` - how the working directory is passed (`flag` + templated `value`).
+- `prompt` - how the prompt is delivered (e.g. `{ "delivery": "stdin" }`).
+- `params` - typed parameters, each with a `map.target` describing where the
+  value goes (`env`, `timeout`, `args_append`, `lock_policy`, `stream_toggle`).
+- `env` - static environment variables.
+- `result` - success condition and captured fields.
+- `execution` - cwd (`spoke`/`hub`), lock scope/policy, streaming, interactivity.
+
+## Reference example
+
+From `packages/cursor-agent/1.0.0/command.json`:
+
+```json
+{
+  "id": "cursor-agent",
+  "name": "Cursor Agent",
+  "icon": "cursor",
+  "binary": "cursor",
+  "base_args": ["agent", "-p", "--trust", "--force"],
+  "forced_args": ["--output-format", "stream-json", "--stream-partial-output"],
+  "workspace_arg": { "flag": "--workspace", "value": "{{workspace}}" },
+  "prompt": { "delivery": "stdin" },
+  "params": [
+    {
+      "key": "cursor_model",
+      "type": "string",
+      "default": "composer-2.5",
+      "map": { "target": "env", "name": "CURSOR_MODEL" }
+    },
+    {
+      "key": "timeout_secs",
+      "type": "number",
+      "default": 1800,
+      "map": { "target": "timeout" }
+    }
+  ],
+  "env": { "CURSOR_NON_INTERACTIVE": "1", "GIT_TERMINAL_PROMPT": "0" },
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": ["run_id", "exit_code", "duration_ms", "stdout_tail", "stderr_tail", "truncated"]
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": { "scope": "spoke", "default_policy": "force" },
+    "stream": { "format": "stream-json" },
+    "non_interactive": true
+  }
+}
+```
+
+## Rules
+
+- The catalog validator requires `command` payloads to install under
+  `.s_e_e/commands/`, and the path must equal `.s_e_e/commands/{id}.json`.
+- A payload with a `content` field but no `binary` is treated as a prompt, not a
+  command.
+
+## Schema reference
+
+`see.library/v1` - see the [command schema](/schema/command) and the
+[catalog schema](/schema/).

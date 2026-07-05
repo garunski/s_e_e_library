@@ -1,0 +1,1031 @@
+# S.E.E. Official Library
+
+> Every authoring guide for the S.E.E. Official Library, combined on one page. Learn how to create workflows, prompts, skills, commands, and bundles and publish them to the catalog.
+
+## Contents
+
+- Bundles
+- Commands
+- Authoring guide
+- Prompts
+- Publish to the catalog
+- Skills
+- Workflows
+- Bundle schema
+- Command schema
+- Catalog schema
+- Prompt schema
+- Rule &amp; template schema
+- Skill schema
+- Workflow schema
+
+---
+
+# Bundles
+
+Source: content/authoring/bundles.mdx
+
+A **bundle** package installs several packages together as one unit - for
+example a workflow plus the prompt, skill, and command it references.
+
+- Category: `bundle`
+- Payload: none of its own; a bundle points at other packages' payloads
+- Metadata: `s_e_e_package.json`
+
+## Metadata shape
+
+A bundle's `s_e_e_package.json`:
+
+- `id` - bundle id (e.g. `bundle-author-story`).
+- `slug` - url/file-safe slug.
+- `category` - `bundle`.
+- `name` - display name.
+- `description` - one-line summary.
+- `labels` - string array (deduped and sorted by the build).
+- `dependencies` - string array of other package ids.
+
+Reference example (`packages/author-story/s_e_e_package.json`):
+
+```json
+{
+  "id": "bundle-author-story",
+  "slug": "author-story",
+  "category": "bundle",
+  "name": "Author story from description",
+  "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+  "labels": ["story"],
+  "dependencies": []
+}
+```
+
+## The `files[]` install map
+
+The bundle's `catalog.json` entry carries a `files[]` array - one `{ to, from }`
+per installed file. `from` is the source payload path in this repo
+(`packages/{slug}/{version}/{file}`); `to` is where it lands on the install
+target.
+
+```json
+{
+  "files": [
+    { "to": ".agents/skills/stories/SKILL.md", "from": "packages/author-story/1.0.0/stories/SKILL.md" },
+    { "to": ".s_e_e/commands/cursor-agent.json", "from": "packages/author-story/1.0.0/cursor-agent/command.json" },
+    { "to": ".s_e_e/workflows/definitions/system-author-story.json", "from": "packages/author-story/1.0.0/system-author-story/definition.json" }
+  ]
+}
+```
+
+For a bundle, the validator infers each file's kind from its `to` path, so the
+`to` prefix must be namespaced correctly:
+
+- `.s_e_e/workflows/definitions/…` → workflow
+- `.s_e_e/prompts/…` → prompt
+- `.s_e_e/commands/…` → command
+- `.agents/skills/…/SKILL.md` → skill
+- `*.mdc` → rule
+- `templates/…` → template
+
+## `to`-path rule
+
+Every install path must start with one of `.s_e_e/`, `.agents/`, `.cursor/`, or
+`templates/`, use forward slashes, and be unique within the package.
+
+## Schema reference
+
+`see.library/v1` - see the [bundle schema](/schema/bundle) and the
+[catalog schema](/schema/).
+
+---
+
+# Commands
+
+Source: content/authoring/commands.mdx
+
+A **command** package is an agent-runner definition: it maps typed inputs to a
+CLI binary invocation. Workflows reference a command by `id` from a `command`
+task.
+
+- Category: `command`
+- Payload: a single `command.json`
+- Installs to: `.s_e_e/commands/{id}.json` (the install path must be exactly this)
+
+## File shape
+
+Key fields:
+
+- `id` - unique command id; also the install filename. Required, non-empty.
+- `name`, `icon` - display metadata.
+- `binary` - the executable to run. Required, non-empty.
+- `base_args` - args always passed to the binary.
+- `forced_args` - args the runner appends and the operator cannot override.
+- `workspace_arg` - how the working directory is passed (`flag` + templated `value`).
+- `prompt` - how the prompt is delivered (e.g. `{ "delivery": "stdin" }`).
+- `params` - typed parameters, each with a `map.target` describing where the
+  value goes (`env`, `timeout`, `args_append`, `lock_policy`, `stream_toggle`).
+- `env` - static environment variables.
+- `result` - success condition and captured fields.
+- `execution` - cwd (`spoke`/`hub`), lock scope/policy, streaming, interactivity.
+
+## Reference example
+
+From `packages/cursor-agent/1.0.0/command.json`:
+
+```json
+{
+  "id": "cursor-agent",
+  "name": "Cursor Agent",
+  "icon": "cursor",
+  "binary": "cursor",
+  "base_args": ["agent", "-p", "--trust", "--force"],
+  "forced_args": ["--output-format", "stream-json", "--stream-partial-output"],
+  "workspace_arg": { "flag": "--workspace", "value": "{{workspace}}" },
+  "prompt": { "delivery": "stdin" },
+  "params": [
+    {
+      "key": "cursor_model",
+      "type": "string",
+      "default": "composer-2.5",
+      "map": { "target": "env", "name": "CURSOR_MODEL" }
+    },
+    {
+      "key": "timeout_secs",
+      "type": "number",
+      "default": 1800,
+      "map": { "target": "timeout" }
+    }
+  ],
+  "env": { "CURSOR_NON_INTERACTIVE": "1", "GIT_TERMINAL_PROMPT": "0" },
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": ["run_id", "exit_code", "duration_ms", "stdout_tail", "stderr_tail", "truncated"]
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": { "scope": "spoke", "default_policy": "force" },
+    "stream": { "format": "stream-json" },
+    "non_interactive": true
+  }
+}
+```
+
+## Rules
+
+- The catalog validator requires `command` payloads to install under
+  `.s_e_e/commands/`, and the path must equal `.s_e_e/commands/{id}.json`.
+- A payload with a `content` field but no `binary` is treated as a prompt, not a
+  command.
+
+## Schema reference
+
+`see.library/v1` - see the [command schema](/schema/command) and the
+[catalog schema](/schema/).
+
+---
+
+# Authoring guide
+
+Source: content/authoring/index.mdx
+
+How to create each S.E.E. library piece and publish it to the catalog.
+
+A **package** is a versioned payload plus a manifest entry. Every package has a
+`category` that decides its file shape and where it installs on a target
+(`.s_e_e/`, `.agents/`, `.cursor/`, or `templates/`).
+
+## Pieces
+
+- [Commands](/authoring/commands) - agent runner definitions that map inputs to a CLI binary.
+- [Prompts](/authoring/prompts) - reusable system prompts referenced by workflows and commands.
+- [Skills](/authoring/skills) - `SKILL.md` guides that teach an agent a repeatable capability.
+- [Workflows](/authoring/workflows) - multi-step task definitions the engine runs against a spoke.
+- [Bundles](/authoring/bundles) - curated sets of packages installed together.
+
+## Publishing
+
+- [Publish to the catalog](/authoring/publish) - payload layout, the `catalog.json` entry, and the build/validate scripts.
+
+## Schema reference
+
+The manifest schema is `see.library/v1`. See the [catalog schema](/schema/) for
+the authoritative contract, and the per-type payload schemas linked from each
+guide above.
+
+---
+
+# Prompts
+
+Source: content/authoring/prompts.mdx
+
+A **prompt** package is a reusable system prompt. Workflows inject it with the
+`{{prompt.ID}}` template placeholder; commands can deliver it to a binary.
+
+- Category: `prompt`
+- Payload: a single `prompt.json`
+- Installs to: `.s_e_e/prompts/{file}.json`
+
+## File shape
+
+- `id` - prompt id used by `{{prompt.ID}}`. Required, non-empty. May carry a
+  namespace prefix (e.g. `system-story-authoring`).
+- `name` - display name. Required, non-empty.
+- `content` - the prompt body (a single string; use `\n` for line breaks).
+- `created_at` - ISO-8601 timestamp (optional).
+
+A payload that contains `tasks` is treated as a workflow, not a prompt.
+
+## Reference example
+
+Abbreviated from `packages/system-story-authoring/1.0.0/prompt.json`:
+
+```json
+{
+  "id": "system-story-authoring",
+  "name": "Author story",
+  "content": "You are authoring a new S.E.E. story for the backlog board.\n\nGoals:\n- Turn the operator request into one atomic story markdown file under `.s_e_e/stories/stories/`.\n...",
+  "created_at": "2026-07-04T11:34:01.585966809Z"
+}
+```
+
+## Guidance
+
+- Keep the prompt self-contained: name the deliverable, the constraints, and the
+  references the agent should read.
+- Reference the prompt from a workflow `command` task via
+  `{{prompt.system-story-authoring}}`; the id must exist in the hub prompt store
+  when the workflow runs (installing the bundle satisfies this).
+
+## Schema reference
+
+`see.library/v1` - see the [prompt schema](/schema/prompt) and the
+[catalog schema](/schema/).
+
+---
+
+# Publish to the catalog
+
+Source: content/authoring/publish.mdx
+
+Adding a package is two parts: the payload files under `packages/`, and a
+manifest entry in `catalog.json`. Then run the build to validate and refresh the
+manifest.
+
+## 1. Payload layout
+
+Place the payload under a versioned directory:
+
+```
+packages/{slug}/{version}/{file}
+```
+
+For a bundle, also add `packages/{slug}/s_e_e_package.json` metadata (when a slug
+has multiple entries, the file is `s_e_e_package.{id}.json`).
+
+## 2. Catalog entry
+
+Append an entry to `catalog.json` `packages[]`. Required fields:
+
+- `id` - globally unique within the source.
+- `slug` - url/file-safe.
+- `category` - `workflow` | `prompt` | `skill` | `rule` | `template` | `command` | `bundle`.
+- `version` - semver.
+- `author` - string.
+- `verified` - bool.
+- `license` - SPDX id (e.g. `AGPL-3.0-only`).
+- `requires` - string array of external tools (empty when none).
+- `dependencies` - string array of other package ids.
+- `files[]` - install map of `{ to, from }`.
+
+```json
+{
+  "id": "prompt-system-story-authoring",
+  "slug": "system-story-authoring",
+  "category": "prompt",
+  "version": "1.0.0",
+  "author": "garunski",
+  "verified": true,
+  "license": "AGPL-3.0-only",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "to": ".s_e_e/prompts/system-story-authoring.json",
+      "from": "packages/system-story-authoring/1.0.0/prompt.json"
+    }
+  ]
+}
+```
+
+Every `to` path must start with `.s_e_e/`, `.agents/`, `.cursor/`, or
+`templates/`.
+
+## 3. Build and validate
+
+```bash
+npm run build      # validate payloads and refresh catalog.json `updated`
+npm run validate   # build-catalog.mjs --check: no writes, fails if invalid or stale
+```
+
+`npm run validate` is what CI runs. It fails if the catalog is invalid or out of
+sync with `packages/`, so run `npm run build` and commit both the payload and
+the updated `catalog.json`.
+
+## Schema reference
+
+`see.library/v1` - see the [catalog schema](/schema/).
+
+---
+
+# Skills
+
+Source: content/authoring/skills.mdx
+
+A **skill** package is an agent skill: a `SKILL.md` file with YAML frontmatter
+and a markdown body that teaches an agent a repeatable capability.
+
+- Category: `skill`
+- Payload: a `SKILL.md` file
+- Installs to: `.agents/skills/{slug}/SKILL.md`
+
+## File shape
+
+The payload must be a `SKILL.md` that starts with YAML frontmatter. The
+validator requires:
+
+- `name` - non-empty skill name.
+- `description` - non-empty; the activation description an agent uses to decide
+  when to load the skill.
+
+The markdown body after the frontmatter is the skill instructions.
+
+## Reference example
+
+Frontmatter from `packages/workflow/1.0.0/SKILL.md`:
+
+```markdown
+---
+name: workflow
+description: >-
+  Authors and edits S.E.E. workflow JSON definitions stored under the hub
+  `.s_e_e/workflows/definitions/`. Validates against `workflow.schema.json`, the
+  engine task handlers (cli_command, command, user_input, git_action,
+  story_action, foreach, custom), and template expansion. Activates on
+  `/workflow`, requests to "create a workflow", or edits to workflow JSON.
+---
+
+# S.E.E. workflow authoring
+
+Authors and edits workflow JSON for the S.E.E. engine...
+```
+
+## Guidance
+
+- Write the `description` as activation triggers: name the phrases and file
+  types that should load the skill. This is what an agent matches against.
+- Keep the body task-focused: MUST/NEVER rules, a minimal working example, and
+  an authoring checklist.
+
+## Schema reference
+
+`see.library/v1` - see the [skill schema](/schema/skill) and the
+[catalog schema](/schema/).
+
+---
+
+# Workflows
+
+Source: content/authoring/workflows.mdx
+
+A **workflow** package is a JSON definition the S.E.E. engine executes as a tree
+of tasks against a spoke. It can drive agents, run shell commands, collect
+operator input, and mutate the stories/knowledge stores.
+
+- Category: `workflow`
+- Payload: a single `definition.json`
+- Installs to: `.s_e_e/workflows/definitions/{slug}.json`
+
+## File shape
+
+An outer envelope wraps the engine `content`:
+
+- `id` - `system-<name>` for defaults, `user-<name>` for user-created.
+- `name`, `description`, `version`.
+- `content` - the engine workflow.
+
+The engine `content` requires `id`, `name`, and a non-empty `tasks` array, and
+optionally declares `runtime_inputs` and root paths (`spoke_root`, `hub_root`,
+`stories_root`, `knowledge_root`).
+
+Each task has a unique `id`, a `name`, a single-handler `function`, and optional
+nested `next_tasks` (depth-first execution).
+
+## Task handlers
+
+- `cli_command` - deterministic shell (`input.command`, `input.args`).
+- `command` - run an installed command by `input.command_id`, with optional
+  `input.prompt` and `input.config`.
+- `user_input` - pause for operator input; later tasks read it via
+  `{{userinput.TASK_ID.value}}`.
+- `git_action` - git operation.
+- `story_action` - stories/knowledge read or mutation.
+- `foreach` - loop over a string array (`input.item_runtime_key` + a collection
+  source).
+- `custom` - escape hatch.
+
+A `function` object must contain exactly one handler key.
+
+## Template expansion
+
+- `{{prompt.ID}}` - injects a stored prompt; the id must exist in the hub.
+- `{{runtime.KEY}}` - a run-start value; every key must be declared in
+  `runtime_inputs` and must not contain dots.
+- `{{userinput.TASK_ID.value}}` - a value from an earlier `user_input` task.
+
+## Reference example
+
+Minimal valid workflow (from the `workflow` skill):
+
+```json
+{
+  "id": "system-hello-workflow",
+  "name": "Hello workflow",
+  "description": "Smallest valid workflow.",
+  "version": "1.0.0",
+  "content": {
+    "id": "hello-workflow",
+    "name": "Hello workflow",
+    "spoke_root": "{{runtime.spoke_root}}",
+    "runtime_inputs": [
+      { "key": "spoke_root", "input_type": "string", "required": true, "label": "Spoke repo root" }
+    ],
+    "tasks": [
+      {
+        "id": "say_hello",
+        "name": "Say hello",
+        "function": { "name": "cli_command", "input": { "command": "echo", "args": ["hello"] } }
+      }
+    ]
+  }
+}
+```
+
+A command-driven step that reuses a prompt (from
+`packages/system-author-story/1.0.0/definition.json`):
+
+```json
+{
+  "id": "author_story_cursor",
+  "name": "Author story with Cursor (auto mode)",
+  "function": {
+    "name": "command",
+    "input": {
+      "command_id": "cursor-agent",
+      "config": {},
+      "prompt": "{{prompt.system-story-authoring}}\n\n## Operator request\n{{runtime.story_request}}"
+    }
+  },
+  "next_tasks": []
+}
+```
+
+## Rules
+
+- Declare every `{{runtime.KEY}}` under `runtime_inputs`.
+- `{{userinput.TASK_ID.value}}` must reference a `user_input` task that runs earlier.
+- Set `spoke_root` when `command` tasks run with cwd `spoke`.
+- No secrets in workflow JSON.
+
+The bundled `workflow` skill (installed with the workflow-authoring bundle)
+carries the full task-handler and template-expansion reference.
+
+## Schema reference
+
+`see.library/v1` - see the [workflow schema](/schema/workflow) and the
+[catalog schema](/schema/).
+
+---
+
+# Bundle schema
+
+Source: content/schema/bundle.mdx
+
+Category `bundle`. No payload of its own.
+
+A bundle's catalog `files[]` array installs the payloads of several other
+packages together; the build infers each file's kind from its `to` prefix (see
+[Install paths](/schema/#install-paths)).
+
+Bundle metadata lives in its `s_e_e_package.json`:
+
+- `id` - bundle id (e.g. `bundle-author-story`).
+- `slug` - url/file-safe slug.
+- `category` - `bundle`.
+- `name` - display name.
+- `description` - one-line summary.
+- `labels` - string array.
+- `dependencies` - string array of the package `id`s it pulls in.
+
+## JSON Schema
+
+Schema for a bundle's `s_e_e_package.json`. Download:
+[bundle-package.schema.json](https://garunski.github.io/s_e_e_library/schema/bundle-package.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/bundle-package.schema.json",
+  "title": "Bundle metadata (s_e_e_package.json)",
+  "type": "object",
+  "required": ["id", "slug", "category", "name"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "slug": { "type": "string", "minLength": 1 },
+    "category": { "const": "bundle" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "labels": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "dependencies": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  }
+}
+```
+
+The bundle's `files[]` entries follow the `file` definition in the
+[catalog schema](/schema/#json-schema).
+
+See the [bundle authoring guide](/authoring/bundles) and the
+[catalog schema](/schema/).
+
+---
+
+# Command schema
+
+Source: content/schema/command.mdx
+
+Category `command`. Payload file `command.json`. Installs to
+`.s_e_e/commands/{id}.json` (the `to` path must equal this exactly).
+
+- `id` - unique command id; also the install filename. Required, non-empty.
+- `name`, `icon` - display metadata.
+- `binary` - executable to run. Required, non-empty.
+- `base_args` - args always passed.
+- `forced_args` - args the runner appends; not operator-overridable.
+- `workspace_arg` - `{ flag, value }` for passing the working directory.
+- `prompt` - prompt delivery (e.g. `{ "delivery": "stdin" }`).
+- `params[]` - typed parameters; each has `key`, `type`, optional `default`, and `map.target` (`env`, `timeout`, `args_append`, `lock_policy`, `stream_toggle`).
+- `env` - static environment variables.
+- `result` - `success_when` plus `capture[]`.
+- `execution` - `cwd` (`spoke`/`hub`), `lock`, `stream`, `non_interactive`.
+
+A payload with `content` but no `binary` is treated as a prompt.
+
+## JSON Schema
+
+Download: [command.schema.json](https://garunski.github.io/s_e_e_library/schema/command.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/command.schema.json",
+  "title": "Command package payload (command.json)",
+  "type": "object",
+  "required": ["id", "binary"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string" },
+    "icon": { "type": "string" },
+    "binary": { "type": "string", "minLength": 1 },
+    "base_args": { "type": "array", "items": { "type": "string" } },
+    "forced_args": { "type": "array", "items": { "type": "string" } },
+    "workspace_arg": {
+      "type": "object",
+      "properties": { "flag": { "type": "string" }, "value": { "type": "string" } }
+    },
+    "prompt": { "type": "object", "properties": { "delivery": { "type": "string" } } },
+    "params": { "type": "array", "items": { "$ref": "#/$defs/param" } },
+    "env": { "type": "object", "additionalProperties": { "type": "string" } },
+    "result": {
+      "type": "object",
+      "properties": {
+        "success_when": { "type": "string" },
+        "capture": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "cwd": { "enum": ["spoke", "hub"] },
+        "lock": { "type": "object" },
+        "stream": { "type": "object" },
+        "non_interactive": { "type": "boolean" }
+      }
+    }
+  },
+  "$defs": {
+    "param": {
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": { "type": "string", "minLength": 1 },
+        "type": { "type": "string" },
+        "default": {},
+        "map": {
+          "type": "object",
+          "required": ["target"],
+          "properties": {
+            "target": { "enum": ["env", "timeout", "args_append", "lock_policy", "stream_toggle"] },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+See the [command authoring guide](/authoring/commands) and the
+[catalog schema](/schema/).
+
+---
+
+# Catalog schema
+
+Source: content/schema/index.mdx
+
+The catalog is a single JSON manifest (`catalog.json`) plus versioned payload
+files under `packages/`. The manifest schema tag is `see.library/v1`. This
+section is the authoritative contract for this repository;
+`scripts/build-catalog.mjs` enforces it.
+
+Per-type payload schemas:
+
+- [Workflow](/schema/workflow)
+- [Prompt](/schema/prompt)
+- [Skill](/schema/skill)
+- [Command](/schema/command)
+- [Rule &amp; template](/schema/rule-template)
+- [Bundle](/schema/bundle)
+
+## Manifest
+
+`catalog.json`:
+
+- `schema` - must be `see.library/v1`.
+- `name` - catalog display name.
+- `updated` - ISO-8601 timestamp (refreshed by `npm run build`).
+- `packages[]` - array of package entries.
+
+## Package entry
+
+Each entry in `packages[]`:
+
+- `id` - string, globally unique within the catalog.
+- `slug` - string, url/file-safe.
+- `category` - one of `workflow`, `prompt`, `skill`, `rule`, `template`, `command`, `bundle`.
+- `version` - semver string.
+- `author` - string.
+- `verified` - bool.
+- `license` - SPDX id (e.g. `AGPL-3.0-only`).
+- `requires` - string array of external tools that must be present (empty when none).
+- `dependencies` - string array of other package `id`s installed alongside this one.
+- `files[]` - install map; each entry is `{ to, from }`:
+  - `from` - source path in this repo, `packages/{slug}/{version}/{file}`.
+  - `to` - destination path written on the install target, relative to the target root.
+
+## Package metadata sidecar
+
+Every package carries a `packages/{slug}/s_e_e_package.json` (or
+`s_e_e_package.{id}.json` when a slug has multiple entries); the build
+cross-checks it against the catalog entry:
+
+- `id` - package id; matches the catalog entry.
+- `slug` - url/file-safe slug.
+- `category` - one of the category values above.
+- `name` - display name.
+- `description` - one-line summary.
+- `labels` - string array (the build dedupes and sorts it).
+- `dependencies` - string array of other package `id`s.
+
+## Categories
+
+Each category has a fixed payload shape and install destination:
+
+- `workflow` - a workflow definition JSON. Installs to `.s_e_e/workflows/definitions/{slug}.json`.
+- `prompt` - a prompt JSON (`id`, `name`, `content`). Installs to `.s_e_e/prompts/{file}.json`.
+- `skill` - a `SKILL.md` with `name` + `description` frontmatter. Installs to `.agents/skills/{slug}/SKILL.md`.
+- `rule` - a Cursor rule `.mdc` file. Installs to `.cursor/rules/{slug}.mdc`.
+- `template` - a scaffold file. Installs under `templates/`.
+- `command` - a command definition JSON (`id`, `binary`). Installs to `.s_e_e/commands/{id}.json` (the `to` path must equal this exactly).
+- `bundle` - no payload of its own; its `files[]` install several other packages together. The build infers each file's kind from its `to` path.
+
+## Install paths
+
+Every `files[]` `to` path must:
+
+- start with one of `.s_e_e/`, `.agents/`, `.cursor/`, or `templates/`;
+- use forward slashes;
+- be unique within the package.
+
+For a `bundle`, the `to` prefix determines the payload kind that is validated:
+
+- `.s_e_e/workflows/definitions/…` → workflow
+- `.s_e_e/prompts/…` → prompt
+- `.s_e_e/commands/…` → command
+- `.agents/skills/…/SKILL.md` → skill
+- `*.mdc` → rule
+- `templates/…` → template
+
+## Validation
+
+`dependencies` must reference package `id`s present in the catalog, and a
+package cannot depend on itself. Run `npm run build` to validate payloads and
+refresh the manifest, or `npm run validate` (`--check`, no writes) in CI.
+
+## JSON Schema
+
+Download: [catalog.schema.json](https://garunski.github.io/s_e_e_library/schema/catalog.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/catalog.schema.json",
+  "title": "S.E.E. Library catalog manifest",
+  "type": "object",
+  "required": ["schema", "name", "packages"],
+  "properties": {
+    "schema": { "const": "see.library/v1" },
+    "name": { "type": "string", "minLength": 1 },
+    "updated": { "type": "string", "format": "date-time" },
+    "packages": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/package" }
+    }
+  },
+  "$defs": {
+    "package": {
+      "type": "object",
+      "required": [
+        "id", "slug", "category", "version", "author",
+        "verified", "license", "requires", "dependencies", "files"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "slug": { "type": "string", "minLength": 1 },
+        "category": {
+          "enum": ["workflow", "prompt", "skill", "rule", "template", "command", "bundle"]
+        },
+        "version": { "type": "string", "minLength": 1 },
+        "author": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "license": { "type": "string" },
+        "requires": { "type": "array", "items": { "type": "string" } },
+        "dependencies": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "labels": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "files": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/file" } }
+      }
+    },
+    "file": {
+      "type": "object",
+      "required": ["to", "from"],
+      "properties": {
+        "to": { "type": "string", "pattern": "^(\\.s_e_e/|\\.agents/|\\.cursor/|templates/)[^\\\\]*$" },
+        "from": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
+```
+
+Package metadata sidecar - download:
+[package-meta.schema.json](https://garunski.github.io/s_e_e_library/schema/package-meta.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/package-meta.schema.json",
+  "title": "Package metadata sidecar (s_e_e_package.json)",
+  "type": "object",
+  "required": ["id", "slug", "category", "name"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "slug": { "type": "string", "minLength": 1 },
+    "category": {
+      "enum": ["workflow", "prompt", "skill", "rule", "template", "command", "bundle"]
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "labels": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "dependencies": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  }
+}
+```
+
+---
+
+# Prompt schema
+
+Source: content/schema/prompt.mdx
+
+Category `prompt`. Payload file `prompt.json`. Installs to
+`.s_e_e/prompts/{file}.json`.
+
+- `id` - prompt id used by `{{prompt.ID}}`. Required, non-empty; may carry a namespace prefix.
+- `name` - display name. Required, non-empty.
+- `content` - prompt body; a single string (use `\n` for line breaks).
+- `created_at` - ISO-8601 timestamp. Optional.
+
+A payload that contains `tasks` is treated as a workflow, not a prompt.
+
+## JSON Schema
+
+Download: [prompt.schema.json](https://garunski.github.io/s_e_e_library/schema/prompt.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/prompt.schema.json",
+  "title": "Prompt package payload (prompt.json)",
+  "type": "object",
+  "required": ["id", "name"],
+  "not": { "required": ["tasks"] },
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "content": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}
+```
+
+See the [prompt authoring guide](/authoring/prompts) and the
+[catalog schema](/schema/).
+
+---
+
+# Rule &amp; template schema
+
+Source: content/schema/rule-template.mdx
+
+Two lightweight, file-only categories.
+
+## Rule
+
+Category `rule`. Payload is a Cursor rule `.mdc` file (markdown with rule
+frontmatter). Installs to `.cursor/rules/{slug}.mdc`.
+
+## Template
+
+Category `template`. Payload is an arbitrary scaffold file. Installs under
+`templates/`.
+
+See the [catalog schema](/schema/) for the manifest and install-path rules.
+
+---
+
+# Skill schema
+
+Source: content/schema/skill.mdx
+
+Category `skill`. Payload file `SKILL.md`. Installs to
+`.agents/skills/{slug}/SKILL.md`.
+
+`SKILL.md` is YAML frontmatter plus a markdown body. Frontmatter:
+
+- `name` - non-empty skill name.
+- `description` - non-empty activation description an agent matches against.
+
+The markdown after the frontmatter is the skill instructions.
+
+## JSON Schema
+
+The payload is a markdown file; this schema describes its YAML frontmatter
+block. Download: [skill-frontmatter.schema.json](https://garunski.github.io/s_e_e_library/schema/skill-frontmatter.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/skill-frontmatter.schema.json",
+  "title": "Skill SKILL.md YAML frontmatter",
+  "type": "object",
+  "required": ["name", "description"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 }
+  }
+}
+```
+
+See the [skill authoring guide](/authoring/skills) and the
+[catalog schema](/schema/).
+
+---
+
+# Workflow schema
+
+Source: content/schema/workflow.mdx
+
+Category `workflow`. Payload file `definition.json`. Installs to
+`.s_e_e/workflows/definitions/{slug}.json`.
+
+An outer envelope wraps the engine `content`:
+
+- `id` - `system-<name>` (defaults) or `user-<name>`. Required.
+- `name`, `description`, `version` - strings.
+- `content` - the engine workflow object:
+  - `id` - required, non-empty.
+  - `name` - required.
+  - `tasks[]` - required, non-empty.
+  - `runtime_inputs[]` - optional; each `{ key, input_type, required, label }`; `key` must not contain dots.
+  - `spoke_root`, `hub_root`, `stories_root`, `knowledge_root` - optional root paths.
+
+## Tasks
+
+Each task:
+
+- `id` - unique within the workflow.
+- `name` - string.
+- `function` - exactly one handler key: `cli_command`, `command`, `user_input`, `git_action`, `story_action`, `foreach`, or `custom`.
+- `next_tasks[]` - optional nested tasks (depth-first execution).
+
+A payload containing `tasks` is treated as a workflow (not a prompt).
+
+## Template expansion
+
+- `{{prompt.ID}}` - injects a stored prompt; the id must exist in the hub.
+- `{{runtime.KEY}}` - a run-start value; declared in `runtime_inputs`, no dots.
+- `{{userinput.TASK_ID.value}}` - a value from an earlier `user_input` task.
+
+## JSON Schema
+
+Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema/workflow.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow.schema.json",
+  "title": "Workflow package payload (definition.json)",
+  "type": "object",
+  "required": ["id", "name", "content"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "version": { "type": "string" },
+    "content": {
+      "oneOf": [
+        { "type": "string", "description": "JSON-encoded workflow object" },
+        { "$ref": "#/$defs/workflow" }
+      ]
+    }
+  },
+  "$defs": {
+    "workflow": {
+      "type": "object",
+      "required": ["id", "name", "tasks"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "spoke_root": { "type": "string" },
+        "hub_root": { "type": "string" },
+        "stories_root": { "type": "string" },
+        "knowledge_root": { "type": "string" },
+        "runtime_inputs": { "type": "array", "items": { "$ref": "#/$defs/runtime_input" } },
+        "tasks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/task" } }
+      }
+    },
+    "runtime_input": {
+      "type": "object",
+      "required": ["key", "input_type"],
+      "properties": {
+        "key": { "type": "string", "pattern": "^[^.]+$" },
+        "input_type": { "type": "string" },
+        "required": { "type": "boolean" },
+        "label": { "type": "string" }
+      }
+    },
+    "task": {
+      "type": "object",
+      "required": ["id", "name", "function"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string" },
+        "function": { "$ref": "#/$defs/function" },
+        "next_tasks": { "type": "array", "items": { "$ref": "#/$defs/task" } }
+      }
+    },
+    "function": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "enum": ["cli_command", "command", "user_input", "git_action", "story_action", "foreach", "custom"]
+        },
+        "input": { "type": "object" }
+      }
+    }
+  }
+}
+```
+
+See the [workflow authoring guide](/authoring/workflows) and the
+[catalog schema](/schema/).

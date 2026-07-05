@@ -1,0 +1,85 @@
+# Command schema
+
+Category `command`. Payload file `command.json`. Installs to
+`.s_e_e/commands/{id}.json` (the `to` path must equal this exactly).
+
+- `id` - unique command id; also the install filename. Required, non-empty.
+- `name`, `icon` - display metadata.
+- `binary` - executable to run. Required, non-empty.
+- `base_args` - args always passed.
+- `forced_args` - args the runner appends; not operator-overridable.
+- `workspace_arg` - `{ flag, value }` for passing the working directory.
+- `prompt` - prompt delivery (e.g. `{ "delivery": "stdin" }`).
+- `params[]` - typed parameters; each has `key`, `type`, optional `default`, and `map.target` (`env`, `timeout`, `args_append`, `lock_policy`, `stream_toggle`).
+- `env` - static environment variables.
+- `result` - `success_when` plus `capture[]`.
+- `execution` - `cwd` (`spoke`/`hub`), `lock`, `stream`, `non_interactive`.
+
+A payload with `content` but no `binary` is treated as a prompt.
+
+## JSON Schema
+
+Download: [command.schema.json](https://garunski.github.io/s_e_e_library/schema/command.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/command.schema.json",
+  "title": "Command package payload (command.json)",
+  "type": "object",
+  "required": ["id", "binary"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string" },
+    "icon": { "type": "string" },
+    "binary": { "type": "string", "minLength": 1 },
+    "base_args": { "type": "array", "items": { "type": "string" } },
+    "forced_args": { "type": "array", "items": { "type": "string" } },
+    "workspace_arg": {
+      "type": "object",
+      "properties": { "flag": { "type": "string" }, "value": { "type": "string" } }
+    },
+    "prompt": { "type": "object", "properties": { "delivery": { "type": "string" } } },
+    "params": { "type": "array", "items": { "$ref": "#/$defs/param" } },
+    "env": { "type": "object", "additionalProperties": { "type": "string" } },
+    "result": {
+      "type": "object",
+      "properties": {
+        "success_when": { "type": "string" },
+        "capture": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "cwd": { "enum": ["spoke", "hub"] },
+        "lock": { "type": "object" },
+        "stream": { "type": "object" },
+        "non_interactive": { "type": "boolean" }
+      }
+    }
+  },
+  "$defs": {
+    "param": {
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": { "type": "string", "minLength": 1 },
+        "type": { "type": "string" },
+        "default": {},
+        "map": {
+          "type": "object",
+          "required": ["target"],
+          "properties": {
+            "target": { "enum": ["env", "timeout", "args_append", "lock_policy", "stream_toggle"] },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+See the [command authoring guide](/authoring/commands) and the
+[catalog schema](/schema/).

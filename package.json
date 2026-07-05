@@ -4,6 +4,25 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-catalog.mjs",
-    "validate": "node scripts/build-catalog.mjs --check"
+    "validate": "node scripts/build-catalog.mjs --check",
+    "predev": "node scripts/build-llms.mjs",
+    "dev": "next dev",
+    "predocs:build": "node scripts/build-llms.mjs",
+    "docs:build": "next build && pagefind --site out --output-path out/_pagefind && node scripts/assemble-site.mjs",
+    "docs:dev": "node scripts/build-llms.mjs && next dev"
+  },
+  "dependencies": {
+    "next": "^16.2.10",
+    "next-themes": "^0.4.6",
+    "nextra": "^4.6.1",
+    "nextra-theme-docs": "^4.6.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "overrides": {
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
   }
 }

@@ -1,0 +1,69 @@
+# Publish to the catalog
+
+Adding a package is two parts: the payload files under `packages/`, and a
+manifest entry in `catalog.json`. Then run the build to validate and refresh the
+manifest.
+
+## 1. Payload layout
+
+Place the payload under a versioned directory:
+
+```
+packages/{slug}/{version}/{file}
+```
+
+For a bundle, also add `packages/{slug}/s_e_e_package.json` metadata (when a slug
+has multiple entries, the file is `s_e_e_package.{id}.json`).
+
+## 2. Catalog entry
+
+Append an entry to `catalog.json` `packages[]`. Required fields:
+
+- `id` - globally unique within the source.
+- `slug` - url/file-safe.
+- `category` - `workflow` | `prompt` | `skill` | `rule` | `template` | `command` | `bundle`.
+- `version` - semver.
+- `author` - string.
+- `verified` - bool.
+- `license` - SPDX id (e.g. `AGPL-3.0-only`).
+- `requires` - string array of external tools (empty when none).
+- `dependencies` - string array of other package ids.
+- `files[]` - install map of `{ to, from }`.
+
+```json
+{
+  "id": "prompt-system-story-authoring",
+  "slug": "system-story-authoring",
+  "category": "prompt",
+  "version": "1.0.0",
+  "author": "garunski",
+  "verified": true,
+  "license": "AGPL-3.0-only",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "to": ".s_e_e/prompts/system-story-authoring.json",
+      "from": "packages/system-story-authoring/1.0.0/prompt.json"
+    }
+  ]
+}
+```
+
+Every `to` path must start with `.s_e_e/`, `.agents/`, `.cursor/`, or
+`templates/`.
+
+## 3. Build and validate
+
+```bash
+npm run build      # validate payloads and refresh catalog.json `updated`
+npm run validate   # build-catalog.mjs --check: no writes, fails if invalid or stale
+```
+
+`npm run validate` is what CI runs. It fails if the catalog is invalid or out of
+sync with `packages/`, so run `npm run build` and commit both the payload and
+the updated `catalog.json`.
+
+## Schema reference
+
+`see.library/v1` - see the [catalog schema](/schema/).

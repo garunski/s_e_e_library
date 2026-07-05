@@ -1,0 +1,71 @@
+# Bundles
+
+A **bundle** package installs several packages together as one unit - for
+example a workflow plus the prompt, skill, and command it references.
+
+- Category: `bundle`
+- Payload: none of its own; a bundle points at other packages' payloads
+- Metadata: `s_e_e_package.json`
+
+## Metadata shape
+
+A bundle's `s_e_e_package.json`:
+
+- `id` - bundle id (e.g. `bundle-author-story`).
+- `slug` - url/file-safe slug.
+- `category` - `bundle`.
+- `name` - display name.
+- `description` - one-line summary.
+- `labels` - string array (deduped and sorted by the build).
+- `dependencies` - string array of other package ids.
+
+Reference example (`packages/author-story/s_e_e_package.json`):
+
+```json
+{
+  "id": "bundle-author-story",
+  "slug": "author-story",
+  "category": "bundle",
+  "name": "Author story from description",
+  "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+  "labels": ["story"],
+  "dependencies": []
+}
+```
+
+## The `files[]` install map
+
+The bundle's `catalog.json` entry carries a `files[]` array - one `{ to, from }`
+per installed file. `from` is the source payload path in this repo
+(`packages/{slug}/{version}/{file}`); `to` is where it lands on the install
+target.
+
+```json
+{
+  "files": [
+    { "to": ".agents/skills/stories/SKILL.md", "from": "packages/author-story/1.0.0/stories/SKILL.md" },
+    { "to": ".s_e_e/commands/cursor-agent.json", "from": "packages/author-story/1.0.0/cursor-agent/command.json" },
+    { "to": ".s_e_e/workflows/definitions/system-author-story.json", "from": "packages/author-story/1.0.0/system-author-story/definition.json" }
+  ]
+}
+```
+
+For a bundle, the validator infers each file's kind from its `to` path, so the
+`to` prefix must be namespaced correctly:
+
+- `.s_e_e/workflows/definitions/…` → workflow
+- `.s_e_e/prompts/…` → prompt
+- `.s_e_e/commands/…` → command
+- `.agents/skills/…/SKILL.md` → skill
+- `*.mdc` → rule
+- `templates/…` → template
+
+## `to`-path rule
+
+Every install path must start with one of `.s_e_e/`, `.agents/`, `.cursor/`, or
+`templates/`, use forward slashes, and be unique within the package.
+
+## Schema reference
+
+`see.library/v1` - see the [bundle schema](/schema/bundle) and the
+[catalog schema](/schema/).

@@ -1,0 +1,108 @@
+# Workflows
+
+A **workflow** package is a JSON definition the S.E.E. engine executes as a tree
+of tasks against a spoke. It can drive agents, run shell commands, collect
+operator input, and mutate the stories/knowledge stores.
+
+- Category: `workflow`
+- Payload: a single `definition.json`
+- Installs to: `.s_e_e/workflows/definitions/{slug}.json`
+
+## File shape
+
+An outer envelope wraps the engine `content`:
+
+- `id` - `system-<name>` for defaults, `user-<name>` for user-created.
+- `name`, `description`, `version`.
+- `content` - the engine workflow.
+
+The engine `content` requires `id`, `name`, and a non-empty `tasks` array, and
+optionally declares `runtime_inputs` and root paths (`spoke_root`, `hub_root`,
+`stories_root`, `knowledge_root`).
+
+Each task has a unique `id`, a `name`, a single-handler `function`, and optional
+nested `next_tasks` (depth-first execution).
+
+## Task handlers
+
+- `cli_command` - deterministic shell (`input.command`, `input.args`).
+- `command` - run an installed command by `input.command_id`, with optional
+  `input.prompt` and `input.config`.
+- `user_input` - pause for operator input; later tasks read it via
+  `{{userinput.TASK_ID.value}}`.
+- `git_action` - git operation.
+- `story_action` - stories/knowledge read or mutation.
+- `foreach` - loop over a string array (`input.item_runtime_key` + a collection
+  source).
+- `custom` - escape hatch.
+
+A `function` object must contain exactly one handler key.
+
+## Template expansion
+
+- `{{prompt.ID}}` - injects a stored prompt; the id must exist in the hub.
+- `{{runtime.KEY}}` - a run-start value; every key must be declared in
+  `runtime_inputs` and must not contain dots.
+- `{{userinput.TASK_ID.value}}` - a value from an earlier `user_input` task.
+
+## Reference example
+
+Minimal valid workflow (from the `workflow` skill):
+
+```json
+{
+  "id": "system-hello-workflow",
+  "name": "Hello workflow",
+  "description": "Smallest valid workflow.",
+  "version": "1.0.0",
+  "content": {
+    "id": "hello-workflow",
+    "name": "Hello workflow",
+    "spoke_root": "{{runtime.spoke_root}}",
+    "runtime_inputs": [
+      { "key": "spoke_root", "input_type": "string", "required": true, "label": "Spoke repo root" }
+    ],
+    "tasks": [
+      {
+        "id": "say_hello",
+        "name": "Say hello",
+        "function": { "name": "cli_command", "input": { "command": "echo", "args": ["hello"] } }
+      }
+    ]
+  }
+}
+```
+
+A command-driven step that reuses a prompt (from
+`packages/system-author-story/1.0.0/definition.json`):
+
+```json
+{
+  "id": "author_story_cursor",
+  "name": "Author story with Cursor (auto mode)",
+  "function": {
+    "name": "command",
+    "input": {
+      "command_id": "cursor-agent",
+      "config": {},
+      "prompt": "{{prompt.system-story-authoring}}\n\n## Operator request\n{{runtime.story_request}}"
+    }
+  },
+  "next_tasks": []
+}
+```
+
+## Rules
+
+- Declare every `{{runtime.KEY}}` under `runtime_inputs`.
+- `{{userinput.TASK_ID.value}}` must reference a `user_input` task that runs earlier.
+- Set `spoke_root` when `command` tasks run with cwd `spoke`.
+- No secrets in workflow JSON.
+
+The bundled `workflow` skill (installed with the workflow-authoring bundle)
+carries the full task-handler and template-expansion reference.
+
+## Schema reference
+
+`see.library/v1` - see the [workflow schema](/schema/workflow) and the
+[catalog schema](/schema/).

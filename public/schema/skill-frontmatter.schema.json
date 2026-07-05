@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/skill-frontmatter.schema.json",
+  "title": "Skill SKILL.md YAML frontmatter",
+  "type": "object",
+  "required": ["name", "description"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 }
+  }
+}

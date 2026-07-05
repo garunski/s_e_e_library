@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/prompt.schema.json",
+  "title": "Prompt package payload (prompt.json)",
+  "type": "object",
+  "required": ["id", "name"],
+  "not": { "required": ["tasks"] },
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "content": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

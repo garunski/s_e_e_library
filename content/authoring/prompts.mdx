@@ -1,0 +1,44 @@
+# Prompts
+
+A **prompt** package is a reusable system prompt. Workflows inject it with the
+`{{prompt.ID}}` template placeholder; commands can deliver it to a binary.
+
+- Category: `prompt`
+- Payload: a single `prompt.json`
+- Installs to: `.s_e_e/prompts/{file}.json`
+
+## File shape
+
+- `id` - prompt id used by `{{prompt.ID}}`. Required, non-empty. May carry a
+  namespace prefix (e.g. `system-story-authoring`).
+- `name` - display name. Required, non-empty.
+- `content` - the prompt body (a single string; use `\n` for line breaks).
+- `created_at` - ISO-8601 timestamp (optional).
+
+A payload that contains `tasks` is treated as a workflow, not a prompt.
+
+## Reference example
+
+Abbreviated from `packages/system-story-authoring/1.0.0/prompt.json`:
+
+```json
+{
+  "id": "system-story-authoring",
+  "name": "Author story",
+  "content": "You are authoring a new S.E.E. story for the backlog board.\n\nGoals:\n- Turn the operator request into one atomic story markdown file under `.s_e_e/stories/stories/`.\n...",
+  "created_at": "2026-07-04T11:34:01.585966809Z"
+}
+```
+
+## Guidance
+
+- Keep the prompt self-contained: name the deliverable, the constraints, and the
+  references the agent should read.
+- Reference the prompt from a workflow `command` task via
+  `{{prompt.system-story-authoring}}`; the id must exist in the hub prompt store
+  when the workflow runs (installing the bundle satisfies this).
+
+## Schema reference
+
+`see.library/v1` - see the [prompt schema](/schema/prompt) and the
+[catalog schema](/schema/).

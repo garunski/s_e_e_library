@@ -1,0 +1,35 @@
+# Prompt schema
+
+Category `prompt`. Payload file `prompt.json`. Installs to
+`.s_e_e/prompts/{file}.json`.
+
+- `id` - prompt id used by `{{prompt.ID}}`. Required, non-empty; may carry a namespace prefix.
+- `name` - display name. Required, non-empty.
+- `content` - prompt body; a single string (use `\n` for line breaks).
+- `created_at` - ISO-8601 timestamp. Optional.
+
+A payload that contains `tasks` is treated as a workflow, not a prompt.
+
+## JSON Schema
+
+Download: [prompt.schema.json](https://garunski.github.io/s_e_e_library/schema/prompt.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/prompt.schema.json",
+  "title": "Prompt package payload (prompt.json)",
+  "type": "object",
+  "required": ["id", "name"],
+  "not": { "required": ["tasks"] },
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "content": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}
+```
+
+See the [prompt authoring guide](/authoring/prompts) and the
+[catalog schema](/schema/).

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/command.schema.json",
+  "title": "Command package payload (command.json)",
+  "type": "object",
+  "required": ["id", "binary"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string" },
+    "icon": { "type": "string" },
+    "binary": { "type": "string", "minLength": 1 },
+    "base_args": { "type": "array", "items": { "type": "string" } },
+    "forced_args": { "type": "array", "items": { "type": "string" } },
+    "workspace_arg": {
+      "type": "object",
+      "properties": {
+        "flag": { "type": "string" },
+        "value": { "type": "string" }
+      }
+    },
+    "prompt": {
+      "type": "object",
+      "properties": { "delivery": { "type": "string" } }
+    },
+    "params": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/param" }
+    },
+    "env": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "success_when": { "type": "string" },
+        "capture": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "cwd": { "enum": ["spoke", "hub"] },
+        "lock": { "type": "object" },
+        "stream": { "type": "object" },
+        "non_interactive": { "type": "boolean" }
+      }
+    }
+  },
+  "$defs": {
+    "param": {
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": { "type": "string", "minLength": 1 },
+        "type": { "type": "string" },
+        "default": {},
+        "map": {
+          "type": "object",
+          "required": ["target"],
+          "properties": {
+            "target": {
+              "enum": ["env", "timeout", "args_append", "lock_policy", "stream_toggle"]
+            },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

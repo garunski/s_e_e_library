@@ -22,10 +22,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - run: npm ci
       - run: node scripts/build-catalog.mjs --check
+      - run: node scripts/build-llms.mjs --check
+      - run: npm run docs:build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: out
 
   deploy:
     needs: build

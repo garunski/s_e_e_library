@@ -1,0 +1,171 @@
+# Catalog schema
+
+The catalog is a single JSON manifest (`catalog.json`) plus versioned payload
+files under `packages/`. The manifest schema tag is `see.library/v1`. This
+section is the authoritative contract for this repository;
+`scripts/build-catalog.mjs` enforces it.
+
+Per-type payload schemas:
+
+- [Workflow](/schema/workflow)
+- [Prompt](/schema/prompt)
+- [Skill](/schema/skill)
+- [Command](/schema/command)
+- [Rule &amp; template](/schema/rule-template)
+- [Bundle](/schema/bundle)
+
+## Manifest
+
+`catalog.json`:
+
+- `schema` - must be `see.library/v1`.
+- `name` - catalog display name.
+- `updated` - ISO-8601 timestamp (refreshed by `npm run build`).
+- `packages[]` - array of package entries.
+
+## Package entry
+
+Each entry in `packages[]`:
+
+- `id` - string, globally unique within the catalog.
+- `slug` - string, url/file-safe.
+- `category` - one of `workflow`, `prompt`, `skill`, `rule`, `template`, `command`, `bundle`.
+- `version` - semver string.
+- `author` - string.
+- `verified` - bool.
+- `license` - SPDX id (e.g. `AGPL-3.0-only`).
+- `requires` - string array of external tools that must be present (empty when none).
+- `dependencies` - string array of other package `id`s installed alongside this one.
+- `files[]` - install map; each entry is `{ to, from }`:
+  - `from` - source path in this repo, `packages/{slug}/{version}/{file}`.
+  - `to` - destination path written on the install target, relative to the target root.
+
+## Package metadata sidecar
+
+Every package carries a `packages/{slug}/s_e_e_package.json` (or
+`s_e_e_package.{id}.json` when a slug has multiple entries); the build
+cross-checks it against the catalog entry:
+
+- `id` - package id; matches the catalog entry.
+- `slug` - url/file-safe slug.
+- `category` - one of the category values above.
+- `name` - display name.
+- `description` - one-line summary.
+- `labels` - string array (the build dedupes and sorts it).
+- `dependencies` - string array of other package `id`s.
+
+## Categories
+
+Each category has a fixed payload shape and install destination:
+
+- `workflow` - a workflow definition JSON. Installs to `.s_e_e/workflows/definitions/{slug}.json`.
+- `prompt` - a prompt JSON (`id`, `name`, `content`). Installs to `.s_e_e/prompts/{file}.json`.
+- `skill` - a `SKILL.md` with `name` + `description` frontmatter. Installs to `.agents/skills/{slug}/SKILL.md`.
+- `rule` - a Cursor rule `.mdc` file. Installs to `.cursor/rules/{slug}.mdc`.
+- `template` - a scaffold file. Installs under `templates/`.
+- `command` - a command definition JSON (`id`, `binary`). Installs to `.s_e_e/commands/{id}.json` (the `to` path must equal this exactly).
+- `bundle` - no payload of its own; its `files[]` install several other packages together. The build infers each file's kind from its `to` path.
+
+## Install paths
+
+Every `files[]` `to` path must:
+
+- start with one of `.s_e_e/`, `.agents/`, `.cursor/`, or `templates/`;
+- use forward slashes;
+- be unique within the package.
+
+For a `bundle`, the `to` prefix determines the payload kind that is validated:
+
+- `.s_e_e/workflows/definitions/…` → workflow
+- `.s_e_e/prompts/…` → prompt
+- `.s_e_e/commands/…` → command
+- `.agents/skills/…/SKILL.md` → skill
+- `*.mdc` → rule
+- `templates/…` → template
+
+## Validation
+
+`dependencies` must reference package `id`s present in the catalog, and a
+package cannot depend on itself. Run `npm run build` to validate payloads and
+refresh the manifest, or `npm run validate` (`--check`, no writes) in CI.
+
+## JSON Schema
+
+Download: [catalog.schema.json](https://garunski.github.io/s_e_e_library/schema/catalog.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/catalog.schema.json",
+  "title": "S.E.E. Library catalog manifest",
+  "type": "object",
+  "required": ["schema", "name", "packages"],
+  "properties": {
+    "schema": { "const": "see.library/v1" },
+    "name": { "type": "string", "minLength": 1 },
+    "updated": { "type": "string", "format": "date-time" },
+    "packages": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/package" }
+    }
+  },
+  "$defs": {
+    "package": {
+      "type": "object",
+      "required": [
+        "id", "slug", "category", "version", "author",
+        "verified", "license", "requires", "dependencies", "files"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "slug": { "type": "string", "minLength": 1 },
+        "category": {
+          "enum": ["workflow", "prompt", "skill", "rule", "template", "command", "bundle"]
+        },
+        "version": { "type": "string", "minLength": 1 },
+        "author": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "license": { "type": "string" },
+        "requires": { "type": "array", "items": { "type": "string" } },
+        "dependencies": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "labels": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "files": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/file" } }
+      }
+    },
+    "file": {
+      "type": "object",
+      "required": ["to", "from"],
+      "properties": {
+        "to": { "type": "string", "pattern": "^(\\.s_e_e/|\\.agents/|\\.cursor/|templates/)[^\\\\]*$" },
+        "from": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
+```
+
+Package metadata sidecar - download:
+[package-meta.schema.json](https://garunski.github.io/s_e_e_library/schema/package-meta.schema.json)
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/package-meta.schema.json",
+  "title": "Package metadata sidecar (s_e_e_package.json)",
+  "type": "object",
+  "required": ["id", "slug", "category", "name"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "slug": { "type": "string", "minLength": 1 },
+    "category": {
+      "enum": ["workflow", "prompt", "skill", "rule", "template", "command", "bundle"]
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "labels": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "dependencies": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  }
+}
+```
