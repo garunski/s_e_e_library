@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "author-stories-from-doc",
+    "name": "Author stories from doc",
+    "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+    "members": [
+      "cmd-cursor-agent",
+      "prompt-system-stories-from-doc-authoring",
+      "skill-doc",
+      "skill-stories",
+      "skill-work",
+      "wf-system-author-stories-from-doc"
+    ],
+    "labels": [
+      "knowledge",
+      "story"
+    ]
+  },
+  {
+    "slug": "author-story",
+    "name": "Author story from description",
+    "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+    "members": [
+      "cmd-cursor-agent",
+      "prompt-system-story-authoring",
+      "skill-stories",
+      "skill-work",
+      "wf-system-author-story"
+    ],
+    "labels": [
+      "story"
+    ]
+  },
+  {
+    "slug": "author-workflow",
+    "name": "Author workflow",
+    "description": "Packages linked by template references: workflows, prompts, commands.",
+    "members": [
+      "cmd-cursor-agent",
+      "prompt-system-workflow-authoring",
+      "wf-system-author-workflow"
+    ],
+    "labels": []
+  },
+  {
+    "slug": "implement-story",
+    "name": "Implement Story workflows",
+    "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+    "members": [
+      "cmd-cursor-agent",
+      "prompt-system-implement-story",
+      "skill-work",
+      "wf-system-implement-stories-bulk",
+      "wf-system-implement-story"
+    ],
+    "labels": [
+      "bulk",
+      "story"
+    ]
+  },
+  {
+    "slug": "work-swimlane-stories",
+    "name": "Work swimlane stories",
+    "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+    "members": [
+      "cmd-cursor-agent",
+      "prompt-system-work-story",
+      "skill-work",
+      "wf-system-work-swimlane-stories"
+    ],
+    "labels": [
+      "bulk",
+      "story",
+      "swimlane"
+    ]
+  }
+]

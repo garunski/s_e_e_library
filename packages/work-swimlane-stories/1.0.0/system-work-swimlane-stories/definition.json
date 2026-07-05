@@ -1,0 +1,16 @@
+{
+  "id": "system-work-swimlane-stories",
+  "name": "Work swimlane stories",
+  "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5) executing the /work skill on each story in a loop.",
+  "content": "{\"id\":\"work-swimlane-stories\",\"name\":\"Work swimlane stories\",\"runtime_inputs\":[{\"input_type\":\"string\",\"key\":\"swimlane\",\"label\":\"Board swimlane (status)\",\"required\":true}],\"spoke_root\":\"/home/fang/code/s_e_e_project/s_e_e_project\",\"tasks\":[{\"capture_output\":true,\"function\":{\"input\":{\"action\":\"list_stories\",\"status\":\"{{runtime.swimlane}}\"},\"name\":\"story_action\"},\"id\":\"resolve_story_ids\",\"name\":\"Resolve story ids for swimlane\",\"next_tasks\":[{\"function\":{\"input\":{\"collection_task_id\":\"resolve_story_ids\",\"collection_task_path\":[\"story_ids\"],\"item_runtime_key\":\"story_id\"},\"name\":\"foreach\"},\"id\":\"for_each_story\",\"name\":\"For each story\",\"next_tasks\":[{\"function\":{\"input\":{\"command_id\":\"cursor-agent\",\"config\":{\"cursor_model\":\"composer-2.5\"},\"prompt\":\"{{prompt.system-work-story}}\"},\"name\":\"command\"},\"id\":\"work_story\",\"name\":\"Work story (Cursor CLI, composer-2.5, auto mode)\",\"next_tasks\":[{\"function\":{\"input\":{\"args\":[\"work skill finished for {{runtime.story_id}}; verify status: Done in the story file.\"],\"command\":\"echo\"},\"name\":\"cli_command\"},\"id\":\"report_done\",\"name\":\"Report completion\",\"next_tasks\":[]}]}]}]}]}",
+  "is_default": true,
+  "is_edited": false,
+  "requires_story_id": false,
+  "labels": [
+    "story",
+    "swimlane",
+    "bulk"
+  ],
+  "created_at": "2026-07-05T00:11:36.910000000Z",
+  "updated_at": "2026-07-05T00:11:36.910000000Z"
+}

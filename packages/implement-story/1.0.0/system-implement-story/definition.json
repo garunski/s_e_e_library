@@ -1,0 +1,14 @@
+{
+  "id": "system-implement-story",
+  "name": "Implement story",
+  "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) to implement a single story; requires story id at run start.",
+  "content": "{\"id\":\"implement-story\",\"metadata\":{\"node_positions\":{\"__start__\":{\"x\":225,\"y\":100},\"implement_story\":{\"x\":0,\"y\":214},\"report_done\":{\"x\":0,\"y\":444}}},\"name\":\"Implement story\",\"runtime_inputs\":[{\"input_type\":\"string\",\"key\":\"story_id\",\"label\":\"Story id\",\"required\":true}],\"spoke_root\":\"/home/fang/code/s_e_e_project/s_e_e_project\",\"tasks\":[{\"function\":{\"input\":{\"command_id\":\"cursor-agent\",\"config\":{\"cursor_model\":\"composer-2.5\"},\"prompt\":\"{{prompt.system-implement-story}}\"},\"name\":\"command\"},\"id\":\"implement_story\",\"name\":\"Implement story (Cursor CLI, composer-2.5, auto mode)\",\"next_tasks\":[{\"function\":{\"input\":{\"args\":[\"implement-story finished for {{runtime.story_id}}; verify status: Done in the story file.\"],\"command\":\"echo\"},\"name\":\"cli_command\"},\"id\":\"report_done\",\"name\":\"Report completion\",\"next_tasks\":[]}]}]}",
+  "is_default": true,
+  "is_edited": false,
+  "requires_story_id": true,
+  "labels": [
+    "story"
+  ],
+  "created_at": "2026-07-04T11:34:00.427113612Z",
+  "updated_at": "2026-07-04T11:34:00.427113825Z"
+}

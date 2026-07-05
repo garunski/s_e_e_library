@@ -1,0 +1,13 @@
+{
+  "id": "bundle-work-swimlane-stories",
+  "slug": "work-swimlane-stories",
+  "category": "bundle",
+  "name": "Work swimlane stories",
+  "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+  "labels": [
+    "bulk",
+    "story",
+    "swimlane"
+  ],
+  "dependencies": []
+}

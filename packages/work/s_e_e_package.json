@@ -1,0 +1,9 @@
+{
+  "id": "skill-work",
+  "slug": "work",
+  "category": "skill",
+  "name": "work",
+  "description": "Implements an S.E.E. story with tests until acceptance criteria pass: load",
+  "labels": [],
+  "dependencies": []
+}

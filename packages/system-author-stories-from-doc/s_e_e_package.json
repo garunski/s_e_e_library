@@ -1,0 +1,14 @@
+{
+  "id": "wf-system-author-stories-from-doc",
+  "slug": "system-author-stories-from-doc",
+  "category": "workflow",
+  "name": "Author stories from doc",
+  "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/stories/stories/`.",
+  "labels": [
+    "knowledge",
+    "story"
+  ],
+  "dependencies": [
+    "prompt-system-stories-from-doc-authoring"
+  ]
+}

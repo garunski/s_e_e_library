@@ -1,0 +1,13 @@
+{
+  "id": "wf-system-implement-story",
+  "slug": "system-implement-story",
+  "category": "workflow",
+  "name": "Implement story",
+  "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) to implement a single story; requires story id at run start.",
+  "labels": [
+    "story"
+  ],
+  "dependencies": [
+    "prompt-system-implement-story"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "system-author-story",
+  "name": "Author story from description",
+  "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/stories/stories/`.",
+  "content": "{\"id\":\"author-story\",\"name\":\"Author story from description\",\"runtime_inputs\":[{\"input_type\":\"multiline_string\",\"key\":\"story_request\",\"label\":\"Describe the story to create\",\"required\":true}],\"spoke_root\":\"/home/fang/code/s_e_e_project/s_e_e_project\",\"tasks\":[{\"function\":{\"input\":{\"command_id\":\"cursor-agent\",\"config\":{},\"prompt\":\"{{prompt.system-story-authoring}}\\n\\n## Operator request\\n{{runtime.story_request}}\\n\\nThe Cursor workspace is this workflow's `spoke_root` (set on the definition; restore-defaults assigns the project's hub spoke).\"},\"name\":\"command\"},\"id\":\"author_story_cursor\",\"name\":\"Author story with Cursor (auto mode)\",\"next_tasks\":[]}]}",
+  "is_default": true,
+  "is_edited": false,
+  "requires_story_id": false,
+  "labels": [
+    "story"
+  ],
+  "created_at": "2026-07-04T11:34:00.422580819Z",
+  "updated_at": "2026-07-04T11:34:00.422581072Z"
+}

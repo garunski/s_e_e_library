@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-quality-full-fix",
+  "slug": "system-quality-full-fix",
+  "category": "prompt",
+  "name": "Quality full — fix to green",
+  "description": "",
+  "labels": [],
+  "dependencies": []
+}

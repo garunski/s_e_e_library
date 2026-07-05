@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-work-story",
+  "slug": "system-work-story",
+  "category": "prompt",
+  "name": "Work story (/work skill)",
+  "description": "",
+  "labels": [],
+  "dependencies": []
+}

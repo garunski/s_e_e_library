@@ -1,0 +1,15 @@
+{
+  "id": "wf-system-work-swimlane-stories",
+  "slug": "system-work-swimlane-stories",
+  "category": "workflow",
+  "name": "Work swimlane stories",
+  "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5) executing the /work skill on each story in a loop.",
+  "labels": [
+    "bulk",
+    "story",
+    "swimlane"
+  ],
+  "dependencies": [
+    "prompt-system-work-story"
+  ]
+}

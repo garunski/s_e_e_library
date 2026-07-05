@@ -1,0 +1,9 @@
+{
+  "id": "bundle-author-workflow",
+  "slug": "author-workflow",
+  "category": "bundle",
+  "name": "Author workflow",
+  "description": "Packages linked by template references: workflows, prompts, commands.",
+  "labels": [],
+  "dependencies": []
+}

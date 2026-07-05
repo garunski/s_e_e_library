@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-workflow-authoring",
+  "slug": "system-workflow-authoring",
+  "category": "prompt",
+  "name": "Author workflow",
+  "description": "",
+  "labels": [],
+  "dependencies": []
+}

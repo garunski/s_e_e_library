@@ -1,0 +1,12 @@
+{
+  "id": "bundle-author-stories-from-doc",
+  "slug": "author-stories-from-doc",
+  "category": "bundle",
+  "name": "Author stories from doc",
+  "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+  "labels": [
+    "knowledge",
+    "story"
+  ],
+  "dependencies": []
+}

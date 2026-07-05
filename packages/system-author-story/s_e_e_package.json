@@ -1,0 +1,13 @@
+{
+  "id": "wf-system-author-story",
+  "slug": "system-author-story",
+  "category": "workflow",
+  "name": "Author story from description",
+  "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/stories/stories/`.",
+  "labels": [
+    "story"
+  ],
+  "dependencies": [
+    "prompt-system-story-authoring"
+  ]
+}

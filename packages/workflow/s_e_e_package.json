@@ -1,0 +1,9 @@
+{
+  "id": "skill-workflow",
+  "slug": "workflow",
+  "category": "skill",
+  "name": "workflow",
+  "description": "Authors and edits S.E.E. workflow JSON definitions stored under the hub",
+  "labels": [],
+  "dependencies": []
+}

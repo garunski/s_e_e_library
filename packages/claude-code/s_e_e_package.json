@@ -1,0 +1,9 @@
+{
+  "id": "cmd-claude-code",
+  "slug": "claude-code",
+  "category": "command",
+  "name": "Claude Code",
+  "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
+  "labels": [],
+  "dependencies": []
+}

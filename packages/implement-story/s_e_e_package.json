@@ -1,0 +1,12 @@
+{
+  "id": "bundle-implement-story",
+  "slug": "implement-story",
+  "category": "bundle",
+  "name": "Implement Story workflows",
+  "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+  "labels": [
+    "bulk",
+    "story"
+  ],
+  "dependencies": []
+}

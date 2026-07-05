@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-story-authoring",
+  "slug": "system-story-authoring",
+  "category": "prompt",
+  "name": "Author story",
+  "description": "",
+  "labels": [],
+  "dependencies": []
+}

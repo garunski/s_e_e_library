@@ -1,0 +1,9 @@
+{
+  "id": "cmd-cursor-agent",
+  "slug": "cursor-agent",
+  "category": "command",
+  "name": "Cursor Agent",
+  "description": "",
+  "labels": [],
+  "dependencies": []
+}

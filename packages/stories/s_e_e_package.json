@@ -1,0 +1,9 @@
+{
+  "id": "skill-stories",
+  "slug": "stories",
+  "category": "skill",
+  "name": "stories",
+  "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
+  "labels": [],
+  "dependencies": []
+}

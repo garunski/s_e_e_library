@@ -1,8 +1,192 @@
 {
   "schema": "see.library/v1",
   "name": "S.E.E. Official Library",
-  "updated": "2026-07-05T00:11:36.910Z",
+  "updated": "2026-07-05T12:00:32.038Z",
   "packages": [
+    {
+      "id": "bundle-author-stories-from-doc",
+      "slug": "author-stories-from-doc",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/doc/SKILL.md",
+          "from": "packages/author-stories-from-doc/1.0.0/doc/SKILL.md"
+        },
+        {
+          "to": ".agents/skills/stories/SKILL.md",
+          "from": "packages/author-stories-from-doc/1.0.0/stories/SKILL.md"
+        },
+        {
+          "to": ".agents/skills/work/SKILL.md",
+          "from": "packages/author-stories-from-doc/1.0.0/work/SKILL.md"
+        },
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/author-stories-from-doc/1.0.0/cursor-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json",
+          "from": "packages/author-stories-from-doc/1.0.0/system-stories-from-doc-authoring/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json",
+          "from": "packages/author-stories-from-doc/1.0.0/system-author-stories-from-doc/definition.json"
+        }
+      ],
+      "name": "Author stories from doc",
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "labels": [
+        "knowledge",
+        "story"
+      ]
+    },
+    {
+      "id": "bundle-author-story",
+      "slug": "author-story",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/stories/SKILL.md",
+          "from": "packages/author-story/1.0.0/stories/SKILL.md"
+        },
+        {
+          "to": ".agents/skills/work/SKILL.md",
+          "from": "packages/author-story/1.0.0/work/SKILL.md"
+        },
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/author-story/1.0.0/cursor-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-story-authoring.json",
+          "from": "packages/author-story/1.0.0/system-story-authoring/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-author-story.json",
+          "from": "packages/author-story/1.0.0/system-author-story/definition.json"
+        }
+      ],
+      "name": "Author story from description",
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "labels": [
+        "story"
+      ]
+    },
+    {
+      "id": "bundle-author-workflow",
+      "slug": "author-workflow",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/author-workflow/1.0.0/cursor-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-workflow-authoring.json",
+          "from": "packages/author-workflow/1.0.0/system-workflow-authoring/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-author-workflow.json",
+          "from": "packages/author-workflow/1.0.0/system-author-workflow/definition.json"
+        }
+      ],
+      "name": "Author workflow",
+      "description": "Packages linked by template references: workflows, prompts, commands.",
+      "labels": []
+    },
+    {
+      "id": "bundle-implement-story",
+      "slug": "implement-story",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/work/SKILL.md",
+          "from": "packages/implement-story/1.0.0/work/SKILL.md"
+        },
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/implement-story/1.0.0/cursor-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-implement-story.json",
+          "from": "packages/implement-story/1.0.0/system-implement-story/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json",
+          "from": "packages/implement-story/1.0.0/system-implement-stories-bulk/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-implement-story.json",
+          "from": "packages/implement-story/1.0.0/system-implement-story/definition.json"
+        }
+      ],
+      "name": "Implement Story workflows",
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "labels": [
+        "bulk",
+        "story"
+      ]
+    },
+    {
+      "id": "bundle-work-swimlane-stories",
+      "slug": "work-swimlane-stories",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/work/SKILL.md",
+          "from": "packages/work-swimlane-stories/1.0.0/work/SKILL.md"
+        },
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/work-swimlane-stories/1.0.0/cursor-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-work-story.json",
+          "from": "packages/work-swimlane-stories/1.0.0/system-work-story/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
+          "from": "packages/work-swimlane-stories/1.0.0/system-work-swimlane-stories/definition.json"
+        }
+      ],
+      "name": "Work swimlane stories",
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "labels": [
+        "bulk",
+        "story",
+        "swimlane"
+      ]
+    },
     {
       "id": "cmd-claude-code",
       "slug": "claude-code",
@@ -18,7 +202,10 @@
           "to": ".s_e_e/commands/claude-code.json",
           "from": "packages/claude-code/1.0.0/command.json"
         }
-      ]
+      ],
+      "name": "Claude Code",
+      "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
+      "labels": []
     },
     {
       "id": "cmd-cursor-agent",
@@ -35,7 +222,9 @@
           "to": ".s_e_e/commands/cursor-agent.json",
           "from": "packages/cursor-agent/1.0.0/command.json"
         }
-      ]
+      ],
+      "name": "Cursor Agent",
+      "labels": []
     },
     {
       "id": "prompt-system-implement-story",
@@ -52,7 +241,9 @@
           "to": ".s_e_e/prompts/system-implement-story.json",
           "from": "packages/system-implement-story/1.0.0/prompt.json"
         }
-      ]
+      ],
+      "name": "Implement story",
+      "labels": []
     },
     {
       "id": "prompt-system-quality-full-fix",
@@ -69,7 +260,9 @@
           "to": ".s_e_e/prompts/system-quality-full-fix.json",
           "from": "packages/system-quality-full-fix/1.0.0/prompt.json"
         }
-      ]
+      ],
+      "name": "Quality full — fix to green",
+      "labels": []
     },
     {
       "id": "prompt-system-stories-from-doc-authoring",
@@ -86,7 +279,9 @@
           "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json",
           "from": "packages/system-stories-from-doc-authoring/1.0.0/prompt.json"
         }
-      ]
+      ],
+      "name": "Author stories from doc",
+      "labels": []
     },
     {
       "id": "prompt-system-story-authoring",
@@ -103,7 +298,9 @@
           "to": ".s_e_e/prompts/system-story-authoring.json",
           "from": "packages/system-story-authoring/1.0.0/prompt.json"
         }
-      ]
+      ],
+      "name": "Author story",
+      "labels": []
     },
     {
       "id": "prompt-system-work-story",
@@ -120,7 +317,9 @@
           "to": ".s_e_e/prompts/system-work-story.json",
           "from": "packages/system-work-story/1.0.0/prompt.json"
         }
-      ]
+      ],
+      "name": "Work story (/work skill)",
+      "labels": []
     },
     {
       "id": "prompt-system-workflow-authoring",
@@ -137,7 +336,9 @@
           "to": ".s_e_e/prompts/system-workflow-authoring.json",
           "from": "packages/system-workflow-authoring/1.0.0/prompt.json"
         }
-      ]
+      ],
+      "name": "Author workflow",
+      "labels": []
     },
     {
       "id": "skill-doc",
@@ -154,7 +355,10 @@
           "to": ".agents/skills/doc/SKILL.md",
           "from": "packages/doc/1.0.0/SKILL.md"
         }
-      ]
+      ],
+      "name": "doc",
+      "description": "Expert author for the S.E.E. knowledge store: docs (overview/reference) and",
+      "labels": []
     },
     {
       "id": "skill-stories",
@@ -171,7 +375,10 @@
           "to": ".agents/skills/stories/SKILL.md",
           "from": "packages/stories/1.0.0/SKILL.md"
         }
-      ]
+      ],
+      "name": "stories",
+      "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
+      "labels": []
     },
     {
       "id": "skill-work",
@@ -188,7 +395,10 @@
           "to": ".agents/skills/work/SKILL.md",
           "from": "packages/work/1.0.0/SKILL.md"
         }
-      ]
+      ],
+      "name": "work",
+      "description": "Implements an S.E.E. story with tests until acceptance criteria pass: load",
+      "labels": []
     },
     {
       "id": "skill-workflow",
@@ -205,7 +415,10 @@
           "to": ".agents/skills/workflow/SKILL.md",
           "from": "packages/workflow/1.0.0/SKILL.md"
         }
-      ]
+      ],
+      "name": "workflow",
+      "description": "Authors and edits S.E.E. workflow JSON definitions stored under the hub",
+      "labels": []
     },
     {
       "id": "wf-system-author-stories-from-doc",
@@ -227,6 +440,12 @@
           "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json",
           "from": "packages/system-author-stories-from-doc/1.0.0/definition.json"
         }
+      ],
+      "name": "Author stories from doc",
+      "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/stories/stories/`.",
+      "labels": [
+        "knowledge",
+        "story"
       ]
     },
     {
@@ -249,6 +468,11 @@
           "to": ".s_e_e/workflows/definitions/system-author-story.json",
           "from": "packages/system-author-story/1.0.0/definition.json"
         }
+      ],
+      "name": "Author story from description",
+      "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/stories/stories/`.",
+      "labels": [
+        "story"
       ]
     },
     {
@@ -271,7 +495,10 @@
           "to": ".s_e_e/workflows/definitions/system-author-workflow.json",
           "from": "packages/system-author-workflow/1.0.0/definition.json"
         }
-      ]
+      ],
+      "name": "Author workflow",
+      "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
+      "labels": []
     },
     {
       "id": "wf-system-implement-stories-bulk",
@@ -293,6 +520,12 @@
           "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json",
           "from": "packages/system-implement-stories-bulk/1.0.0/definition.json"
         }
+      ],
+      "name": "Implement stories (bulk)",
+      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) on each story id from board column bulk selection.",
+      "labels": [
+        "bulk",
+        "story"
       ]
     },
     {
@@ -315,6 +548,40 @@
           "to": ".s_e_e/workflows/definitions/system-implement-story.json",
           "from": "packages/system-implement-story/1.0.0/definition.json"
         }
+      ],
+      "name": "Implement story",
+      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) to implement a single story; requires story id at run start.",
+      "labels": [
+        "story"
+      ]
+    },
+    {
+      "id": "wf-system-work-swimlane-stories",
+      "slug": "system-work-swimlane-stories",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-work-story"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
+          "from": "packages/system-work-swimlane-stories/1.0.0/definition.json"
+        }
+      ],
+      "name": "Work swimlane stories",
+      "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5) executing the /work skill on each story in a loop.",
+      "labels": [
+        "bulk",
+        "story",
+        "swimlane"
       ]
     }
   ]

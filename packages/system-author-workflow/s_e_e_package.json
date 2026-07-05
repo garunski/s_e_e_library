@@ -1,0 +1,11 @@
+{
+  "id": "wf-system-author-workflow",
+  "slug": "system-author-workflow",
+  "category": "workflow",
+  "name": "Author workflow",
+  "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
+  "labels": [],
+  "dependencies": [
+    "prompt-system-workflow-authoring"
+  ]
+}

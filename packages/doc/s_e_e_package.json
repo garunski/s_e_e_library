@@ -1,0 +1,9 @@
+{
+  "id": "skill-doc",
+  "slug": "doc",
+  "category": "skill",
+  "name": "doc",
+  "description": "Expert author for the S.E.E. knowledge store: docs (overview/reference) and",
+  "labels": [],
+  "dependencies": []
+}
