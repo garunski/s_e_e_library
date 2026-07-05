@@ -1,0 +1,81 @@
+{
+  "id": "claude-code",
+  "name": "Claude Code",
+  "icon": "sparkles",
+  "tone": "violet",
+  "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
+  "binary": "claude",
+  "base_args": [
+    "-p",
+    "--permission-mode",
+    "acceptEdits"
+  ],
+  "workspace_arg": {
+    "flag": "--add-dir",
+    "value": "{{workspace}}"
+  },
+  "prompt": {
+    "delivery": "stdin"
+  },
+  "params": [
+    {
+      "key": "model",
+      "type": "enum",
+      "values": [
+        "sonnet",
+        "opus"
+      ],
+      "default": "sonnet",
+      "map": {
+        "target": "env",
+        "name": "ANTHROPIC_MODEL"
+      }
+    },
+    {
+      "key": "timeout_secs",
+      "type": "number",
+      "default": 1800,
+      "map": {
+        "target": "timeout"
+      }
+    },
+    {
+      "key": "extra_args",
+      "type": "string_array",
+      "default": [],
+      "map": {
+        "target": "args_append"
+      }
+    }
+  ],
+  "env": {
+    "CLAUDE_NONINTERACTIVE": "1",
+    "GIT_TERMINAL_PROMPT": "0"
+  },
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": [
+      "stdout_tail",
+      "stderr_tail",
+      "exit_code",
+      "duration_ms"
+    ],
+    "applied_paths": {
+      "strategy": "git_porcelain_diff"
+    },
+    "run_id": {
+      "strategy": "ulid"
+    }
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": {
+      "scope": "spoke",
+      "default_policy": "force"
+    },
+    "stream": {
+      "format": "lines"
+    },
+    "non_interactive": true
+  }
+}

@@ -1,0 +1,321 @@
+{
+  "schema": "see.library/v1",
+  "name": "S.E.E. Official Library",
+  "updated": "2026-07-05T00:11:36.910Z",
+  "packages": [
+    {
+      "id": "cmd-claude-code",
+      "slug": "claude-code",
+      "category": "command",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/commands/claude-code.json",
+          "from": "packages/claude-code/1.0.0/command.json"
+        }
+      ]
+    },
+    {
+      "id": "cmd-cursor-agent",
+      "slug": "cursor-agent",
+      "category": "command",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/cursor-agent/1.0.0/command.json"
+        }
+      ]
+    },
+    {
+      "id": "prompt-system-implement-story",
+      "slug": "system-implement-story",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-implement-story.json",
+          "from": "packages/system-implement-story/1.0.0/prompt.json"
+        }
+      ]
+    },
+    {
+      "id": "prompt-system-quality-full-fix",
+      "slug": "system-quality-full-fix",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-quality-full-fix.json",
+          "from": "packages/system-quality-full-fix/1.0.0/prompt.json"
+        }
+      ]
+    },
+    {
+      "id": "prompt-system-stories-from-doc-authoring",
+      "slug": "system-stories-from-doc-authoring",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json",
+          "from": "packages/system-stories-from-doc-authoring/1.0.0/prompt.json"
+        }
+      ]
+    },
+    {
+      "id": "prompt-system-story-authoring",
+      "slug": "system-story-authoring",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-story-authoring.json",
+          "from": "packages/system-story-authoring/1.0.0/prompt.json"
+        }
+      ]
+    },
+    {
+      "id": "prompt-system-work-story",
+      "slug": "system-work-story",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-work-story.json",
+          "from": "packages/system-work-story/1.0.0/prompt.json"
+        }
+      ]
+    },
+    {
+      "id": "prompt-system-workflow-authoring",
+      "slug": "system-workflow-authoring",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-workflow-authoring.json",
+          "from": "packages/system-workflow-authoring/1.0.0/prompt.json"
+        }
+      ]
+    },
+    {
+      "id": "skill-doc",
+      "slug": "doc",
+      "category": "skill",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/doc/SKILL.md",
+          "from": "packages/doc/1.0.0/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "skill-stories",
+      "slug": "stories",
+      "category": "skill",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/stories/SKILL.md",
+          "from": "packages/stories/1.0.0/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "skill-work",
+      "slug": "work",
+      "category": "skill",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/work/SKILL.md",
+          "from": "packages/work/1.0.0/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "skill-workflow",
+      "slug": "workflow",
+      "category": "skill",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/workflow/SKILL.md",
+          "from": "packages/workflow/1.0.0/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "wf-system-author-stories-from-doc",
+      "slug": "system-author-stories-from-doc",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-stories-from-doc-authoring"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json",
+          "from": "packages/system-author-stories-from-doc/1.0.0/definition.json"
+        }
+      ]
+    },
+    {
+      "id": "wf-system-author-story",
+      "slug": "system-author-story",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-story-authoring"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-author-story.json",
+          "from": "packages/system-author-story/1.0.0/definition.json"
+        }
+      ]
+    },
+    {
+      "id": "wf-system-author-workflow",
+      "slug": "system-author-workflow",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-workflow-authoring"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-author-workflow.json",
+          "from": "packages/system-author-workflow/1.0.0/definition.json"
+        }
+      ]
+    },
+    {
+      "id": "wf-system-implement-stories-bulk",
+      "slug": "system-implement-stories-bulk",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-implement-story"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json",
+          "from": "packages/system-implement-stories-bulk/1.0.0/definition.json"
+        }
+      ]
+    },
+    {
+      "id": "wf-system-implement-story",
+      "slug": "system-implement-story",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-implement-story"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-implement-story.json",
+          "from": "packages/system-implement-story/1.0.0/definition.json"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "system-author-workflow",
+  "name": "Author workflow",
+  "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
+  "content": "{\"id\":\"author-workflow\",\"name\":\"Author workflow\",\"runtime_inputs\":[{\"input_type\":\"multiline_string\",\"key\":\"workflow_description\",\"label\":\"Describe the workflow to create\",\"required\":true}],\"spoke_root\":\"/home/fang/code/s_e_e_project/s_e_e_project\",\"tasks\":[{\"function\":{\"input\":{\"command_id\":\"cursor-agent\",\"config\":{},\"prompt\":\"{{prompt.system-workflow-authoring}}\\n\\n## Operator request\\n{{runtime.workflow_description}}\\n\\nThe Cursor workspace is this workflow's `spoke_root` (set on the definition; restore-defaults assigns the project's hub spoke).\"},\"name\":\"command\"},\"id\":\"author_workflow_cursor\",\"name\":\"Author workflow with Cursor\",\"next_tasks\":[]}]}",
+  "is_default": true,
+  "is_edited": false,
+  "requires_story_id": false,
+  "labels": [],
+  "created_at": "2026-07-04T11:34:00.421254257Z",
+  "updated_at": "2026-07-04T11:34:00.421254565Z"
+}

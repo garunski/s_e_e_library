@@ -1,0 +1,15 @@
+{
+  "id": "system-implement-stories-bulk",
+  "name": "Implement stories (bulk)",
+  "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) on each story id from board column bulk selection.",
+  "content": "{\"id\":\"implement-stories-bulk\",\"name\":\"Implement stories (bulk)\",\"runtime_inputs\":[{\"input_type\":\"string_array\",\"key\":\"story_ids\",\"label\":\"Story ids\",\"required\":true}],\"spoke_root\":\"/home/fang/code/s_e_e_project/s_e_e_project\",\"tasks\":[{\"function\":{\"input\":{\"collection_runtime_key\":\"story_ids\",\"item_runtime_key\":\"story_id\"},\"name\":\"foreach\"},\"id\":\"for_each_story\",\"name\":\"For each story\",\"next_tasks\":[{\"function\":{\"input\":{\"command_id\":\"cursor-agent\",\"config\":{\"cursor_model\":\"composer-2.5\"},\"prompt\":\"{{prompt.system-implement-story}}\"},\"name\":\"command\"},\"id\":\"implement_story\",\"name\":\"Implement story (Cursor CLI, composer-2.5, auto mode)\",\"next_tasks\":[{\"function\":{\"input\":{\"args\":[\"implement-story finished for {{runtime.story_id}}; verify status: Done in the story file.\"],\"command\":\"echo\"},\"name\":\"cli_command\"},\"id\":\"report_done\",\"name\":\"Report completion\",\"next_tasks\":[]}]}]}]}",
+  "is_default": true,
+  "is_edited": false,
+  "requires_story_id": false,
+  "labels": [
+    "story",
+    "bulk"
+  ],
+  "created_at": "2026-07-04T11:34:00.425617791Z",
+  "updated_at": "2026-07-04T11:34:00.425618056Z"
+}

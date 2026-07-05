@@ -1,0 +1,9 @@
+{
+  "name": "s_e_e_library",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-catalog.mjs",
+    "validate": "node scripts/build-catalog.mjs --check"
+  }
+}

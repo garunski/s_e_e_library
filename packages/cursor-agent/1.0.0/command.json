@@ -1,0 +1,104 @@
+{
+  "id": "cursor-agent",
+  "name": "Cursor Agent",
+  "icon": "cursor",
+  "binary": "cursor",
+  "base_args": [
+    "agent",
+    "-p",
+    "--trust",
+    "--force"
+  ],
+  "forced_args": [
+    "--output-format",
+    "stream-json",
+    "--stream-partial-output"
+  ],
+  "workspace_arg": {
+    "flag": "--workspace",
+    "value": "{{workspace}}"
+  },
+  "prompt": {
+    "delivery": "stdin"
+  },
+  "params": [
+    {
+      "key": "cursor_model",
+      "type": "string",
+      "default": "composer-2.5",
+      "map": {
+        "target": "env",
+        "name": "CURSOR_MODEL"
+      }
+    },
+    {
+      "key": "timeout_secs",
+      "type": "number",
+      "default": 1800,
+      "map": {
+        "target": "timeout"
+      }
+    },
+    {
+      "key": "extra_args",
+      "type": "string_array",
+      "default": [],
+      "map": {
+        "target": "args_append"
+      }
+    },
+    {
+      "key": "lock_policy",
+      "type": "enum",
+      "values": [
+        "force",
+        "wait",
+        "fail_fast"
+      ],
+      "default": "force",
+      "map": {
+        "target": "lock_policy"
+      }
+    },
+    {
+      "key": "verbose",
+      "type": "boolean",
+      "default": true,
+      "map": {
+        "target": "stream_toggle"
+      }
+    }
+  ],
+  "env": {
+    "CURSOR_NON_INTERACTIVE": "1",
+    "GIT_TERMINAL_PROMPT": "0"
+  },
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": [
+      "run_id",
+      "exit_code",
+      "duration_ms",
+      "stdout_tail",
+      "stderr_tail",
+      "truncated"
+    ],
+    "applied_paths": {
+      "strategy": "git_porcelain_diff"
+    },
+    "run_id": {
+      "strategy": "ulid"
+    }
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": {
+      "scope": "spoke",
+      "default_policy": "force"
+    },
+    "stream": {
+      "format": "stream-json"
+    },
+    "non_interactive": true
+  }
+}
