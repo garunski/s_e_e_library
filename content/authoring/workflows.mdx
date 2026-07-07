@@ -21,7 +21,9 @@ optionally declares `runtime_inputs` and root paths (`spoke_root`, `hub_root`,
 `stories_root`, `knowledge_root`).
 
 Each task has a unique `id`, a `name`, a single-handler `function`, and optional
-nested `next_tasks` (depth-first execution).
+nested `next_tasks` (depth-first execution). Optional fields: `capture_output`,
+`wait_for`, `continue_on_failure`, and `run_when` (conditional execution on a
+prior task's captured output).
 
 ## Task handlers
 
@@ -44,6 +46,18 @@ A `function` object must contain exactly one handler key.
 - `{{runtime.KEY}}` - a run-start value; every key must be declared in
   `runtime_inputs` and must not contain dots.
 - `{{userinput.TASK_ID.value}}` - a value from an earlier `user_input` task.
+- `{{task.TASK_ID.output...}}` - captured output from a task with
+  `capture_output: true` (`cli_command` yields `{ exit_code, stdout, stderr }`).
+
+## Conditional tasks
+
+- `run_when` - run only when a comparison on a producer task's captured output is
+  true. Producer must set `capture_output: true`. Ops: `eq`, `ne`, `gt`, `lt`,
+  `ge`, `le`, `exists`.
+- `continue_on_failure` - when a producer may fail but descendants should still
+  run (pair with `run_when` on `exit_code` for fix-on-fail patterns).
+- `wait_for` - block until listed task ids (or all iterations of a foreach id)
+  complete.
 
 ## Reference example
 

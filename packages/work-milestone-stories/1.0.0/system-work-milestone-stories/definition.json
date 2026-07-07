@@ -1,0 +1,120 @@
+{
+  "id": "system-work-milestone-stories",
+  "name": "Work milestone stories",
+  "description": "Resolves every story id assigned to a milestone, runs a Cursor CLI agent on each story in a loop, marks each Done, then runs quality once and optionally fixes failures via cursor-agent.",
+  "version": "1.0.0",
+  "labels": [
+    "bulk",
+    "milestone",
+    "story"
+  ],
+  "content": {
+    "id": "work-milestone-stories",
+    "name": "Work milestone stories",
+    "spoke_root": "/home/fang/code/s_e_e_project/s_e_e_project",
+    "runtime_inputs": [
+      {
+        "key": "milestone_id",
+        "label": "Milestone id",
+        "input_type": "string",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "resolve_story_ids",
+        "name": "Resolve story ids for milestone",
+        "capture_output": true,
+        "function": {
+          "name": "story_action",
+          "input": {
+            "action": "list_stories_by_milestone",
+            "milestone_id": "{{runtime.milestone_id}}"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_story",
+            "name": "For each story",
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "resolve_story_ids",
+                "collection_task_path": ["story_ids"],
+                "item_runtime_key": "story_id"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "work_story",
+                "name": "Work story (Cursor CLI, composer-2.5, auto mode)",
+                "function": {
+                  "name": "command",
+                  "input": {
+                    "command_id": "cursor-agent",
+                    "config": {
+                      "cursor_model": "composer-2.5"
+                    },
+                    "prompt": "You are implementing S.E.E. story {{runtime.story_id}} to completion. Operate fully autonomously in auto mode: do not pause for approval, do not ask the user, do not stop until the story is fully implemented or you hit a hard failure you cannot resolve. Do NOT invoke the /work skill; do the work directly.\n\nProcedure:\n1. Find the story file by globbing `.s_e_e/stories/stories/{{runtime.story_id}} - *.md`. If zero or multiple match, abort and report.\n2. Read the story: Description, every `- [ ] #N` acceptance criterion, Implementation Plan, and frontmatter `status` / `dependencies` / `labels`.\n3. Read every file the Implementation Plan references before editing.\n4. Implement in tight loops: one focused change per iteration, add or update tests for that change, run `mise run build` and fix failures, run the relevant targeted tests and fix failures. Flip each `- [ ] #N` to `- [x] #N` only after that acceptance criterion is verified.\n5. Run `mise run quality` and fix until green. Never declare done while build, tests, or quality are red.\n6. Fill `## Implementation Notes` and `## Final Summary` between their existing HTML section markers. Do not touch the markers themselves.\n\nHard rules: never proceed past a failing build or test; every code change needs a test; do not flip acceptance criteria you did not verify; do not edit other stories or knowledge files unless an acceptance criterion requires it; keep code and text terse."
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "mark_story_done",
+                    "name": "Mark story Done",
+                    "function": {
+                      "name": "story_action",
+                      "input": {
+                        "action": "set_status",
+                        "story_id": "{{runtime.story_id}}",
+                        "status": "Done"
+                      }
+                    },
+                    "next_tasks": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "run_quality",
+            "name": "Run quality",
+            "wait_for": ["for_each_story"],
+            "capture_output": true,
+            "continue_on_failure": true,
+            "function": {
+              "name": "cli_command",
+              "input": {
+                "command": "mise",
+                "args": ["run", "quality"]
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "fix_quality",
+                "name": "Fix quality failures (Cursor CLI)",
+                "run_when": {
+                  "task": "run_quality",
+                  "path": ["exit_code"],
+                  "op": "ne",
+                  "value": 0
+                },
+                "function": {
+                  "name": "command",
+                  "input": {
+                    "command_id": "cursor-agent",
+                    "config": {
+                      "cursor_model": "composer-2.5"
+                    },
+                    "prompt": "Quality checks failed after working all milestone stories. Fix every failure until `mise run quality` passes.\n\nStdout:\n{{task.run_quality.output.stdout}}\n\nStderr:\n{{task.run_quality.output.stderr}}"
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

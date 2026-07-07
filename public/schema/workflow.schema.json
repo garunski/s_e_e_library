@@ -62,6 +62,49 @@
         "next_tasks": {
           "type": "array",
           "items": { "$ref": "#/$defs/task" }
+        },
+        "capture_output": {
+          "type": "boolean",
+          "default": false,
+          "description": "Record handler output for `{{task.<id>.output...}}` templates"
+        },
+        "wait_for": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Task ids that must complete before this task runs"
+        },
+        "continue_on_failure": {
+          "type": "boolean",
+          "default": false,
+          "description": "Treat a failed task as complete so descendants and captured output stay reachable"
+        },
+        "run_when": {
+          "$ref": "#/$defs/condition",
+          "description": "Gate execution on a prior task's captured output"
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": ["task", "op"],
+      "properties": {
+        "task": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Producer task id (capture_output: true)"
+        },
+        "path": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "default": [],
+          "description": "Path into producer output (e.g. exit_code, stdout)"
+        },
+        "op": {
+          "type": "string",
+          "enum": ["eq", "ne", "gt", "lt", "ge", "le", "exists"]
+        },
+        "value": {
+          "description": "Comparison value; omit when op is exists"
         }
       }
     },

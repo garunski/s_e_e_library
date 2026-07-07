@@ -1,0 +1,15 @@
+{
+  "id": "bundle-work-milestone-stories",
+  "slug": "work-milestone-stories",
+  "category": "bundle",
+  "name": "Work milestone stories",
+  "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
+  "labels": [
+    "bulk",
+    "milestone",
+    "story"
+  ],
+  "dependencies": [
+    "cmd-cursor-agent"
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "schema": "see.library/v1",
   "name": "S.E.E. Official Library",
-  "updated": "2026-07-05T12:00:32.038Z",
+  "updated": "2026-07-06T22:46:46.202Z",
   "packages": [
     {
       "id": "bundle-author-stories-from-doc",
@@ -148,6 +148,35 @@
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "labels": [
         "bulk",
+        "story"
+      ]
+    },
+    {
+      "id": "bundle-work-milestone-stories",
+      "slug": "work-milestone-stories",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "cmd-cursor-agent"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json",
+          "from": "packages/work-milestone-stories/1.0.0/system-work-milestone-stories/definition.json"
+        }
+      ],
+      "name": "Work milestone stories",
+      "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
+      "labels": [
+        "bulk",
+        "milestone",
         "story"
       ]
     },

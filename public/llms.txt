@@ -416,7 +416,9 @@ optionally declares `runtime_inputs` and root paths (`spoke_root`, `hub_root`,
 `stories_root`, `knowledge_root`).
 
 Each task has a unique `id`, a `name`, a single-handler `function`, and optional
-nested `next_tasks` (depth-first execution).
+nested `next_tasks` (depth-first execution). Optional fields: `capture_output`,
+`wait_for`, `continue_on_failure`, and `run_when` (conditional execution on a
+prior task's captured output).
 
 ## Task handlers
 
@@ -439,6 +441,18 @@ A `function` object must contain exactly one handler key.
 - `{{runtime.KEY}}` - a run-start value; every key must be declared in
   `runtime_inputs` and must not contain dots.
 - `{{userinput.TASK_ID.value}}` - a value from an earlier `user_input` task.
+- `{{task.TASK_ID.output...}}` - captured output from a task with
+  `capture_output: true` (`cli_command` yields `{ exit_code, stdout, stderr }`).
+
+## Conditional tasks
+
+- `run_when` - run only when a comparison on a producer task's captured output is
+  true. Producer must set `capture_output: true`. Ops: `eq`, `ne`, `gt`, `lt`,
+  `ge`, `le`, `exists`.
+- `continue_on_failure` - when a producer may fail but descendants should still
+  run (pair with `run_when` on `exit_code` for fix-on-fail patterns).
+- `wait_for` - block until listed task ids (or all iterations of a foreach id)
+  complete.
 
 ## Reference example
 
@@ -946,6 +960,10 @@ Each task:
 - `name` - string.
 - `function` - exactly one handler key: `cli_command`, `command`, `user_input`, `git_action`, `story_action`, `foreach`, or `custom`.
 - `next_tasks[]` - optional nested tasks (depth-first execution).
+- `capture_output` - when true, record handler output for `{{task.<id>.output...}}`.
+- `wait_for` - task ids that must complete before this task runs (use a foreach id to wait for all iterations).
+- `continue_on_failure` - when true, a failed task completes without failing the workflow; output is still captured when `capture_output` is true.
+- `run_when` - object `{ task, path?, op, value? }` gating this task on a prior task's captured output (`op`: `eq`, `ne`, `gt`, `lt`, `ge`, `le`, `exists`).
 
 A payload containing `tasks` is treated as a workflow (not a prompt).
 
@@ -954,6 +972,7 @@ A payload containing `tasks` is treated as a workflow (not a prompt).
 - `{{prompt.ID}}` - injects a stored prompt; the id must exist in the hub.
 - `{{runtime.KEY}}` - a run-start value; declared in `runtime_inputs`, no dots.
 - `{{userinput.TASK_ID.value}}` - a value from an earlier `user_input` task.
+- `{{task.TASK_ID.output...}}` - captured output from an earlier task with `capture_output: true` (`cli_command` output is `{ exit_code, stdout, stderr }`).
 
 ## JSON Schema
 
@@ -989,15 +1008,26 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
         "hub_root": { "type": "string" },
         "stories_root": { "type": "string" },
         "knowledge_root": { "type": "string" },
-        "runtime_inputs": { "type": "array", "items": { "$ref": "#/$defs/runtime_input" } },
-        "tasks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/task" } }
+        "runtime_inputs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/runtime_input" }
+        },
+        "tasks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/task" }
+        }
       }
     },
     "runtime_input": {
       "type": "object",
       "required": ["key", "input_type"],
       "properties": {
-        "key": { "type": "string", "pattern": "^[^.]+$" },
+        "key": {
+          "type": "string",
+          "pattern": "^[^.]+$",
+          "description": "Referenced as {{runtime.KEY}}; no dots."
+        },
         "input_type": { "type": "string" },
         "required": { "type": "boolean" },
         "label": { "type": "string" }
@@ -1010,7 +1040,53 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string" },
         "function": { "$ref": "#/$defs/function" },
-        "next_tasks": { "type": "array", "items": { "$ref": "#/$defs/task" } }
+        "next_tasks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/task" }
+        },
+        "capture_output": {
+          "type": "boolean",
+          "default": false,
+          "description": "Record handler output for `{{task.<id>.output...}}` templates"
+        },
+        "wait_for": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Task ids that must complete before this task runs"
+        },
+        "continue_on_failure": {
+          "type": "boolean",
+          "default": false,
+          "description": "Treat a failed task as complete so descendants and captured output stay reachable"
+        },
+        "run_when": {
+          "$ref": "#/$defs/condition",
+          "description": "Gate execution on a prior task's captured output"
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": ["task", "op"],
+      "properties": {
+        "task": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Producer task id (capture_output: true)"
+        },
+        "path": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "default": [],
+          "description": "Path into producer output (e.g. exit_code, stdout)"
+        },
+        "op": {
+          "type": "string",
+          "enum": ["eq", "ne", "gt", "lt", "ge", "le", "exists"]
+        },
+        "value": {
+          "description": "Comparison value; omit when op is exists"
+        }
       }
     },
     "function": {
@@ -1018,7 +1094,15 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
       "required": ["name"],
       "properties": {
         "name": {
-          "enum": ["cli_command", "command", "user_input", "git_action", "story_action", "foreach", "custom"]
+          "enum": [
+            "cli_command",
+            "command",
+            "user_input",
+            "git_action",
+            "story_action",
+            "foreach",
+            "custom"
+          ]
         },
         "input": { "type": "object" }
       }
