@@ -6,7 +6,8 @@
   "labels": [
     "bulk",
     "milestone",
-    "story"
+    "story",
+    "system"
   ],
   "content": {
     "id": "work-milestone-stories",
@@ -40,7 +41,9 @@
               "name": "foreach",
               "input": {
                 "collection_task_id": "resolve_story_ids",
-                "collection_task_path": ["story_ids"],
+                "collection_task_path": [
+                  "story_ids"
+                ],
                 "item_runtime_key": "story_id"
               }
             },
@@ -79,14 +82,19 @@
           {
             "id": "run_quality",
             "name": "Run quality",
-            "wait_for": ["for_each_story"],
+            "wait_for": [
+              "for_each_story"
+            ],
             "capture_output": true,
             "continue_on_failure": true,
             "function": {
               "name": "cli_command",
               "input": {
                 "command": "mise",
-                "args": ["run", "quality"]
+                "args": [
+                  "run",
+                  "quality"
+                ]
               }
             },
             "next_tasks": [
@@ -95,7 +103,9 @@
                 "name": "Fix quality failures (Cursor CLI)",
                 "run_when": {
                   "task": "run_quality",
-                  "path": ["exit_code"],
+                  "path": [
+                    "exit_code"
+                  ],
                   "op": "ne",
                   "value": 0
                 },
