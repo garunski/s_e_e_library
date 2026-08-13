@@ -45,9 +45,26 @@
         "stream": { "type": "object" },
         "non_interactive": { "type": "boolean" }
       }
+    },
+    "mcp": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "mechanism": { "$ref": "#/$defs/mcpMechanism" }
+      }
     }
   },
   "$defs": {
+    "mcpMechanism": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["env", "config_file", "arg"] },
+        "path": { "type": "string" },
+        "flag": { "type": "string" },
+        "format": { "type": "string", "enum": ["mcp_servers"] }
+      }
+    },
     "param": {
       "type": "object",
       "required": ["key"],

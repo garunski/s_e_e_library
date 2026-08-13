@@ -14,6 +14,10 @@ Category `command`. Payload file `command.json`. Installs to
 - `env` - static environment variables.
 - `result` - `success_when` plus `capture[]`.
 - `execution` - `cwd` (`spoke`/`hub`), `lock`, `stream`, `non_interactive`.
+- `mcp` - optional MCP provisioning. `{ enabled, mechanism? }`. When `enabled` is true and `mechanism` is omitted, delivery defaults to `env`. Mechanisms:
+  - `{ "type": "env" }` - inject `SEE_MCP_*` and `MCP_CONFIG`.
+  - `{ "type": "config_file", "path": ".cursor/mcp.json", "format": "mcp_servers" }` - write workspace-relative config (restored after the run).
+  - `{ "type": "arg", "flag": "--mcp-config", "format": "mcp_servers" }` - pass a temp config file via argv.
 
 A payload with `content` but no `binary` is treated as a prompt.
 
@@ -37,11 +41,23 @@ Download: [command.schema.json](https://garunski.github.io/s_e_e_library/schema/
     "forced_args": { "type": "array", "items": { "type": "string" } },
     "workspace_arg": {
       "type": "object",
-      "properties": { "flag": { "type": "string" }, "value": { "type": "string" } }
+      "properties": {
+        "flag": { "type": "string" },
+        "value": { "type": "string" }
+      }
     },
-    "prompt": { "type": "object", "properties": { "delivery": { "type": "string" } } },
-    "params": { "type": "array", "items": { "$ref": "#/$defs/param" } },
-    "env": { "type": "object", "additionalProperties": { "type": "string" } },
+    "prompt": {
+      "type": "object",
+      "properties": { "delivery": { "type": "string" } }
+    },
+    "params": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/param" }
+    },
+    "env": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
     "result": {
       "type": "object",
       "properties": {
@@ -57,9 +73,26 @@ Download: [command.schema.json](https://garunski.github.io/s_e_e_library/schema/
         "stream": { "type": "object" },
         "non_interactive": { "type": "boolean" }
       }
+    },
+    "mcp": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "mechanism": { "$ref": "#/$defs/mcpMechanism" }
+      }
     }
   },
   "$defs": {
+    "mcpMechanism": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["env", "config_file", "arg"] },
+        "path": { "type": "string" },
+        "flag": { "type": "string" },
+        "format": { "type": "string", "enum": ["mcp_servers"] }
+      }
+    },
     "param": {
       "type": "object",
       "required": ["key"],
@@ -71,7 +104,9 @@ Download: [command.schema.json](https://garunski.github.io/s_e_e_library/schema/
           "type": "object",
           "required": ["target"],
           "properties": {
-            "target": { "enum": ["env", "timeout", "args_append", "lock_policy", "stream_toggle"] },
+            "target": {
+              "enum": ["env", "timeout", "args_append", "lock_policy", "stream_toggle"]
+            },
             "name": { "type": "string" }
           }
         }
