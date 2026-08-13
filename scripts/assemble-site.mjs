@@ -3,10 +3,10 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = join(ROOT, "out");
+const SITE = join(ROOT, ".site");
 
 if (!existsSync(SITE)) {
-  console.error("error: out/ not found; run next build first");
+  console.error("error: .site/ not found; run vitepress build docs first");
   process.exit(1);
 }
 

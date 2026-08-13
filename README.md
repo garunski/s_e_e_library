@@ -38,20 +38,20 @@ Install `to` paths must start with `.s_e_e/`, `.agents/`, `.cursor/`, or `templa
 
 ## Docs site
 
-A Next.js + Nextra (React + MDX) site lives under `content/`, `app/`, and `components/`:
+A VitePress site lives under `docs/`:
 
 ```bash
 npm install
-npm run docs:dev     # local preview at http://localhost:3000/s_e_e_library
-npm run docs:build   # static export to out/ and assemble catalog + packages
+npm run docs:dev     # local preview (VitePress dev server)
+npm run docs:build   # static build to .site/ and assemble catalog + packages
 ```
 
-`docs:build` runs `build-llms.mjs`, statically exports the site to `out/`, then copies `catalog.json` and `packages/` into it (plus `.nojekyll`), so the manifest and payloads keep their published URLs.
+`docs:build` runs `vitepress build docs`, then copies `catalog.json` and `packages/` into `.site/` (plus `.nojekyll`), so the manifest and payloads keep their published URLs.
 
 ## GitHub Pages
 
 1. Repo **Settings, Pages, Build and deployment, Source: GitHub Actions**.
-2. Push to `main`; `.github/workflows/pages.yml` validates the catalog, builds the docs site, and deploys `out/` (docs + `catalog.json` + `packages/`).
+2. Push to `main`; `.github/workflows/pages.yml` validates the catalog, builds the docs site, and deploys `.site/` (docs + `catalog.json` + `packages/`).
 
 ## License
 

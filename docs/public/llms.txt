@@ -1,0 +1,11 @@
+# S.E.E. Official Library
+
+> LLM-facing authoring docs for the S.E.E. Official Library catalog. Full guides will be published here.
+
+## Docs
+
+- [Human docs](/s_e_e_library/humans/): Authoring guides for commands, prompts, skills, workflows, bundles, and publishing
+
+## Reference
+
+- [Catalog manifest](/s_e_e_library/catalog.json): see.library/v1 package index
