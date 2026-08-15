@@ -6,7 +6,7 @@
     "build": "node scripts/build-catalog.mjs",
     "validate": "node scripts/build-catalog.mjs --check",
     "test": "node --test scripts/verify-docs-site.test.mjs",
-    "docs:build": "node scripts/verify-human-docs.mjs && vitepress build docs && node scripts/assemble-site.mjs",
+    "docs:build": "node scripts/verify-human-docs.mjs && node scripts/build-llms.mjs && vitepress build docs && node scripts/assemble-site.mjs",
     "docs:dev": "vitepress dev docs"
   },
   "overrides": {

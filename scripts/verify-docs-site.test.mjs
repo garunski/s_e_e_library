@@ -12,6 +12,19 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = join(ROOT, ".site");
 const CONFIG = join(ROOT, "docs", ".vitepress", "config.mjs");
 
+test("Next.js runtime artifacts are absent", () => {
+  assert.ok(!existsSync(join(ROOT, "next.config.mjs")));
+  assert.ok(!existsSync(join(ROOT, "app")));
+  const needle = "nex" + "tra";
+  const rg = spawnSync(
+    "rg",
+    ["-n", needle, ROOT, "--glob", "!node_modules/**", "--glob", "!.next/**"],
+    { encoding: "utf8" }
+  );
+  assert.equal(rg.status, 1);
+  assert.equal(rg.stdout.trim(), "");
+});
+
 test("vitepress config sets GitHub Pages base path", async () => {
   const mod = await import(CONFIG);
   assert.equal(mod.default.base, "/s_e_e_library/");
@@ -61,6 +74,43 @@ test("verifyHumanDocs fails when a piece type page is missing", () => {
   }
 });
 
+test("duplicate authoring tree is absent", () => {
+  assert.ok(!existsSync(join(ROOT, "content", "authoring")));
+  assert.ok(existsSync(join(ROOT, "docs", "humans")));
+});
+
+test("build-llms --check passes", () => {
+  const check = spawnSync("node", ["scripts/build-llms.mjs", "--check"], {
+    cwd: ROOT,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  assert.equal(
+    check.status,
+    0,
+    `build-llms --check failed:\n${check.stdout}\n${check.stderr}`
+  );
+});
+
+test("vitepress config exposes schema sidebar entries", async () => {
+  const mod = await import(CONFIG);
+  const sidebar = mod.default.themeConfig.sidebar["/schema/"];
+  assert.ok(Array.isArray(sidebar));
+  for (const slug of [
+    "workflow",
+    "prompt",
+    "skill",
+    "command",
+    "rule-template",
+    "bundle",
+  ]) {
+    assert.ok(
+      sidebar.some((entry) => entry.link === `/schema/${slug}`),
+      `sidebar missing /schema/${slug}`
+    );
+  }
+});
+
 test("docs:build emits assembled deploy directory", () => {
   const build = spawnSync("npm", ["run", "docs:build"], {
     cwd: ROOT,
@@ -85,6 +135,8 @@ test("docs:build emits assembled deploy directory", () => {
     "humans/workflows.html",
     "humans/bundles.html",
     "humans/publish.html",
+    "schema/index.html",
+    "schema/workflow.html",
     ".nojekyll",
   ]) {
     assert.ok(
@@ -97,6 +149,11 @@ test("docs:build emits assembled deploy directory", () => {
   assert.match(index, /\/s_e_e_library\//);
   assert.match(index, /S\.E\.E\. Official Library/);
   assert.match(index, /\/s_e_e_library\/humans\//);
+
+  const llms = readFileSync(join(SITE, "llms.txt"), "utf8");
+  assert.match(llms, /Source: docs\/humans\/commands\.md/);
+  assert.match(llms, /Source: docs\/schema\/workflow\.md/);
+  assert.match(llms, /Catalog schema/);
 
   const catalog = JSON.parse(readFileSync(join(SITE, "catalog.json"), "utf8"));
   assert.ok(Array.isArray(catalog.packages));

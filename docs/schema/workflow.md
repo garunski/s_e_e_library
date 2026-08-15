@@ -22,19 +22,22 @@ Each task:
 - `name` - string.
 - `function` - exactly one handler key: `cli_command`, `command`, `user_input`, `git_action`, `story_action`, `foreach`, or `custom`.
 - `next_tasks[]` - optional nested tasks (depth-first execution).
-- `capture_output` - when true, record handler output for `{{task.<id>.output...}}`.
+- `capture_output` - when true, record handler output for <span v-pre>{{task.TASK_ID.output}}</span> placeholders.
 - `wait_for` - task ids that must complete before this task runs (use a foreach id to wait for all iterations).
 - `continue_on_failure` - when true, a failed task completes without failing the workflow; output is still captured when `capture_output` is true.
-- `run_when` - object `{ task, path?, op, value? }` gating this task on a prior task's captured output (`op`: `eq`, `ne`, `gt`, `lt`, `ge`, `le`, `exists`).
+- `run_when` - object `{ task, path?, op, value? }` gating this task on the captured output of a prior task (`op`: `eq`, `ne`, `gt`, `lt`, `ge`, `le`, `exists`).
 
 A payload containing `tasks` is treated as a workflow (not a prompt).
 
 ## Template expansion
 
-- `{{prompt.ID}}` - injects a stored prompt; the id must exist in the hub.
-- `{{runtime.KEY}}` - a run-start value; declared in `runtime_inputs`, no dots.
-- `{{userinput.TASK_ID.value}}` - a value from an earlier `user_input` task.
-- `{{task.TASK_ID.output...}}` - captured output from an earlier task with `capture_output: true` (`cli_command` output is `{ exit_code, stdout, stderr }`).
+```
+{{prompt.ID}}              injects a stored prompt; the id must exist in the hub
+{{runtime.KEY}}            run-start value; declared in runtime_inputs, no dots
+{{userinput.TASK_ID.value}} value from an earlier user_input task
+{{task.TASK_ID.output}}    captured output from an earlier task with capture_output: true
+                           (cli_command output is { exit_code, stdout, stderr })
+```
 
 ## JSON Schema
 
@@ -173,5 +176,5 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
 }
 ```
 
-See the [workflow authoring guide](/authoring/workflows) and the
+See the [workflow authoring guide](/humans/workflows) and the
 [catalog schema](/schema/).

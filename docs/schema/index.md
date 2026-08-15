@@ -11,7 +11,7 @@ Per-type payload schemas:
 - [Prompt](/schema/prompt)
 - [Skill](/schema/skill)
 - [Command](/schema/command)
-- [Rule &amp; template](/schema/rule-template)
+- [Rule & template](/schema/rule-template)
 - [Bundle](/schema/bundle)
 
 ## Manifest

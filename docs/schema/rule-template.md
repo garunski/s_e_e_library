@@ -1,4 +1,4 @@
-# Rule &amp; template schema
+# Rule & template schema
 
 Two lightweight, file-only categories.
 

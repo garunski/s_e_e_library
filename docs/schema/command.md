@@ -116,5 +116,5 @@ Download: [command.schema.json](https://garunski.github.io/s_e_e_library/schema/
 }
 ```
 
-See the [command authoring guide](/authoring/commands) and the
+See the [command authoring guide](/humans/commands) and the
 [catalog schema](/schema/).

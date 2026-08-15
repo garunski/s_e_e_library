@@ -3,7 +3,7 @@
 Category `prompt`. Payload file `prompt.json`. Installs to
 `.s_e_e/prompts/{file}.json`.
 
-- `id` - prompt id used by `{{prompt.ID}}`. Required, non-empty; may carry a namespace prefix.
+- `id` - prompt id used by <span v-pre>{{prompt.ID}}</span>. Required, non-empty; may carry a namespace prefix.
 - `name` - display name. Required, non-empty.
 - `content` - prompt body; a single string (use `\n` for line breaks).
 - `created_at` - ISO-8601 timestamp. Optional.
@@ -31,5 +31,5 @@ Download: [prompt.schema.json](https://garunski.github.io/s_e_e_library/schema/p
 }
 ```
 
-See the [prompt authoring guide](/authoring/prompts) and the
+See the [prompt authoring guide](/humans/prompts) and the
 [catalog schema](/schema/).

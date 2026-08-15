@@ -16,6 +16,16 @@ const humanSidebar = [
   })),
 ];
 
+const schemaSidebar = [
+  { text: "Catalog schema", link: "/schema/" },
+  { text: "Workflow", link: "/schema/workflow" },
+  { text: "Prompt", link: "/schema/prompt" },
+  { text: "Skill", link: "/schema/skill" },
+  { text: "Command", link: "/schema/command" },
+  { text: "Rule & template", link: "/schema/rule-template" },
+  { text: "Bundle", link: "/schema/bundle" },
+];
+
 export default defineConfig({
   title: "S.E.E. Official Library",
   description:
@@ -26,10 +36,12 @@ export default defineConfig({
     nav: [
       { text: "Catalog", link: "/catalog.json" },
       { text: "Human docs", link: "/humans/" },
+      { text: "Schema", link: "/schema/" },
       { text: "LLM docs", link: "/llms.txt" },
     ],
     sidebar: {
       "/humans/": humanSidebar,
+      "/schema/": schemaSidebar,
     },
   },
 });

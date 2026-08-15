@@ -43,5 +43,5 @@ Schema for a bundle's `s_e_e_package.json`. Download:
 The bundle's `files[]` entries follow the `file` definition in the
 [catalog schema](/schema/#json-schema).
 
-See the [bundle authoring guide](/authoring/bundles) and the
+See the [bundle authoring guide](/humans/bundles) and the
 [catalog schema](/schema/).

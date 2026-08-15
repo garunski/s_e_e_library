@@ -29,5 +29,5 @@ block. Download: [skill-frontmatter.schema.json](https://garunski.github.io/s_e_
 }
 ```
 
-See the [skill authoring guide](/authoring/skills) and the
+See the [skill authoring guide](/humans/skills) and the
 [catalog schema](/schema/).

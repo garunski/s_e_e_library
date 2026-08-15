@@ -10,10 +10,9 @@ import { join, dirname, relative, sep, posix } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const CONTENT = join(ROOT, "content");
-const PUBLIC = join(ROOT, "public");
-const PAGE = join(CONTENT, "for-llms.mdx");
-const INDEX = join(PUBLIC, "llms.txt");
+const DOCS = join(ROOT, "docs");
+const WALK_ROOTS = [join(DOCS, "humans"), join(DOCS, "schema")];
+const INDEX = join(DOCS, "public", "llms.txt");
 const SITE = "S.E.E. Official Library";
 const SITE_URL = "https://garunski.github.io/s_e_e_library";
 const SUMMARY =
@@ -21,15 +20,13 @@ const SUMMARY =
 
 const checkOnly = process.argv.includes("--check");
 
-const SKIP = new Set([join(CONTENT, "index.mdx"), PAGE]);
-
 function walk(dir) {
   const out = [];
   for (const name of readdirSync(dir)) {
     const full = join(dir, name);
     if (statSync(full).isDirectory()) {
       out.push(...walk(full));
-    } else if (name.endsWith(".mdx") && !SKIP.has(full)) {
+    } else if (name.endsWith(".md")) {
       out.push(full);
     }
   }
@@ -50,7 +47,7 @@ function stripFrontmatter(text) {
   return { frontmatter, body };
 }
 
-function stripMdx(body) {
+function stripMarkup(body) {
   return body
     .split("\n")
     .filter((line) => !/^import\s.+from\s.+;?\s*$/.test(line.trim()))
@@ -71,8 +68,8 @@ function titleOf(frontmatter, body, fallback) {
 }
 
 function slugFor(file) {
-  return relative(CONTENT, file)
-    .replace(/\.mdx$/, "")
+  return relative(DOCS, file)
+    .replace(/\.md$/, "")
     .split(sep)
     .join("-")
     .replace(/[^a-z0-9-]/gi, "-")
@@ -84,7 +81,7 @@ function stripLeadingH1(body) {
 }
 
 function pagePath(relPath) {
-  let p = relPath.split(sep).join("/").replace(/\.mdx$/, "");
+  let p = relPath.split(sep).join("/").replace(/\.md$/, "");
   if (p.endsWith("/index")) {
     p = p.slice(0, -"index".length);
   } else if (p === "index") {
@@ -120,19 +117,19 @@ function rewriteRelativeLinks(body, relPath) {
   const baseDir = dir === "." ? "/" : `/${dir}`;
   return body.replace(/\]\((\.\.?\/[^)]+)\)/g, (_m, target) => {
     const [path, hash] = target.split("#");
-    const resolved = posix.join(baseDir, path).replace(/\.mdx$/, "");
+    const resolved = posix.join(baseDir, path).replace(/\.md$/, "");
     return `](${resolved}${hash ? `#${hash}` : ""})`;
   });
 }
 
-const files = walk(CONTENT).sort();
+const files = WALK_ROOTS.flatMap((root) => walk(root)).sort();
 const docs = files.map((file) => {
   const raw = readFileSync(file, "utf8");
   const { frontmatter, body } = stripFrontmatter(raw);
-  const relPath = relative(CONTENT, file);
-  const fallback = relPath.replace(/\.mdx$/, "");
+  const relPath = relative(DOCS, file);
+  const fallback = relPath.replace(/\.md$/, "");
   const cleanBody = rewriteRelativeLinks(
-    stripLeadingH1(stripMdx(body)),
+    stripLeadingH1(stripMarkup(body)),
     relPath
   ).trim();
   return {
@@ -145,51 +142,25 @@ const docs = files.map((file) => {
   };
 });
 
-const page = `---
-title: For LLMs
----
-
-# For LLMs
-
-Every doc in one file. Copy this URL and fetch it:
-
-\`\`\`txt
-${SITE_URL}/llms.txt
-\`\`\`
-`;
-
 const rawContents = docs.map((d) => `- ${d.title}`).join("\n");
 const rawSections = docs
-  .map((d) => `# ${d.title}\n\nSource: content/${d.path}\n\n${d.body}`)
+  .map((d) => `# ${d.title}\n\nSource: docs/${d.path}\n\n${d.body}`)
   .join("\n\n---\n\n");
 const rawText = `# ${SITE}\n\n> ${SUMMARY}\n\n## Contents\n\n${rawContents}\n\n---\n\n${rawSections}\n`;
 
-const outputs = [
-  { path: PAGE, label: "content/for-llms.mdx", content: page },
-  { path: INDEX, label: "public/llms.txt", content: rawText },
-];
-
 if (checkOnly) {
-  const stale = [];
-  for (const out of outputs) {
-    const current = existsSync(out.path) ? readFileSync(out.path, "utf8") : null;
-    if (current !== out.content) {
-      stale.push(out.label);
-    }
-  }
-  if (stale.length > 0) {
+  const current = existsSync(INDEX) ? readFileSync(INDEX, "utf8") : null;
+  if (current !== rawText) {
     console.error(
-      `error: LLM docs are out of date; run npm run docs:build. Stale: ${stale.join(", ")}`
+      "error: LLM docs are out of date; run node scripts/build-llms.mjs or npm run docs:build"
     );
     process.exit(1);
   }
   console.log(`ok: LLM docs in sync (${docs.length} docs)`);
 } else {
-  mkdirSync(PUBLIC, { recursive: true });
-  for (const out of outputs) {
-    writeFileSync(out.path, out.content);
-  }
+  mkdirSync(dirname(INDEX), { recursive: true });
+  writeFileSync(INDEX, rawText);
   console.log(
-    `ok: generated content/llms.mdx and public/llms.txt (all docs) from ${docs.length} docs`
+    `ok: generated docs/public/llms.txt from ${docs.length} docs`
   );
 }

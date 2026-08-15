@@ -9,7 +9,7 @@ After GitHub Pages deploy:
 - Manifest: `https://garunski.github.io/s_e_e_library/catalog.json`
 - Payloads: `https://garunski.github.io/s_e_e_library/packages/{slug}/{version}/{file}`
 
-Schema: `see.library/v1`; see the `/schema/` pages (source in `content/schema/`).
+Schema: `see.library/v1`; see the `/schema/` pages (source in `docs/schema/`).
 
 ## Layout
 
