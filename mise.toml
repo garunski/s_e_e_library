@@ -1,0 +1,12 @@
+min_version = "2026.4.4"
+
+[tools]
+node = "20"
+
+[tasks.validate]
+description = "Validate the package catalog"
+run = "node scripts/build-catalog.mjs --check"
+
+[tasks.quality]
+description = "Baseline quality gate (read by the spoke baseline service)"
+run = "node scripts/build-catalog.mjs --check"
