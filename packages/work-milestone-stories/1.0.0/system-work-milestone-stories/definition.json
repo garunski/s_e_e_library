@@ -4,9 +4,6 @@
   "description": "Resolves every story id assigned to a milestone, runs a Cursor CLI agent on each story in a loop, marks each Done, then runs quality once and optionally fixes failures via cursor-agent.",
   "version": "1.0.0",
   "labels": [
-    "bulk",
-    "milestone",
-    "story",
     "system"
   ],
   "content": {
@@ -126,5 +123,8 @@
         ]
       }
     ]
-  }
+  },
+  "subject_kinds": [
+    "milestone"
+  ]
 }
