@@ -201,7 +201,11 @@ body {
 
 .page .human,
 .page .machine {
-  padding-top: 22vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(2.5rem, 6vh, 4rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4rem);
 }
 
 .human {
@@ -1884,7 +1888,8 @@ pre {
 @media (max-width: 1000px) and (min-width: 801px) {
   .page .human,
   .page .machine {
-    padding-top: 10rem;
+    padding-top: 7rem;
+    padding-bottom: 3rem;
   }
 
   .page .machine {
