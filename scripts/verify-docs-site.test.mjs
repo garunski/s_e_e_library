@@ -117,6 +117,12 @@ test("llms.txt states the catalog contract without stale markup", () => {
   assert.ok(!llms.includes("/humans/"));
 });
 
+test("public branding includes raster favicons", () => {
+  for (const name of ["logo-32.png", "logo-64.png", "logo-128.png", "logo-256.png"]) {
+    assert.ok(existsSync(join(ROOT, "public", name)), `missing public/${name}`);
+  }
+});
+
 test("copy-public-assets copies catalog.json and packages into public/", () => {
   const copy = spawnSync("node", ["scripts/copy-public-assets.mjs"], {
     cwd: ROOT,
@@ -149,6 +155,10 @@ test("npm run build emits assembled deploy directory", () => {
     "catalog.json",
     "packages",
     "llms.txt",
+    "logo-32.png",
+    "logo-64.png",
+    "logo-128.png",
+    "logo-256.png",
     "authoring/index.html",
     ...AUTHORING_PAGES.map((slug) => `authoring/${slug}/index.html`),
     "schema/index.html",

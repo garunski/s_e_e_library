@@ -24,7 +24,11 @@ export const metadata: Metadata = {
   description:
     "Versioned workflows, prompts, skills, commands, and bundles for hub and spoke projects.",
   icons: {
-    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
+    icon: [
+      { url: "/logo-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/logo-128.png", sizes: "128x128", type: "image/png" }],
   },
 };
 
