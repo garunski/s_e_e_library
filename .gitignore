@@ -1,4 +1,6 @@
 node_modules/
 .next/
 out/
-.site/
+*.tsbuildinfo
+public/catalog.json
+public/packages/

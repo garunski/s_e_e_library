@@ -1,118 +1,139 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import test from "node:test";
-import { HUMAN_DOC_PAGES } from "./human-docs-piece-types.mjs";
-import { verifyHumanDocs } from "./verify-human-docs.mjs";
+import { AUTHORING_PAGES, SCHEMA_PAGES } from "./authoring-pages.mjs";
+import {
+  verifyAuthoringDocs,
+  verifyLlmsCoverage,
+} from "./verify-authoring-docs.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = join(ROOT, ".site");
-const CONFIG = join(ROOT, "docs", ".vitepress", "config.mjs");
+const OUT = join(ROOT, "out");
 
-test("Next.js runtime artifacts are absent", () => {
-  assert.ok(!existsSync(join(ROOT, "next.config.mjs")));
-  assert.ok(!existsSync(join(ROOT, "app")));
-  const needle = "nex" + "tra";
-  const rg = spawnSync(
-    "rg",
-    ["-n", needle, ROOT, "--glob", "!node_modules/**", "--glob", "!.next/**"],
-    { encoding: "utf8" }
-  );
-  assert.equal(rg.status, 1);
-  assert.equal(rg.stdout.trim(), "");
+test("legacy docs publisher artifacts are absent", () => {
+  assert.ok(!existsSync(join(ROOT, "docs")));
+  assert.ok(!existsSync(join(ROOT, "scripts", "build-llms.mjs")));
+  assert.ok(!existsSync(join(ROOT, "scripts", "assemble-site.mjs")));
 });
 
-test("vitepress config sets GitHub Pages base path", async () => {
-  const mod = await import(CONFIG);
-  assert.equal(mod.default.base, "/s_e_e_library/");
-  assert.equal(mod.default.outDir, "../.site");
+test("Next.js config exports a static GitHub Pages site", () => {
+  const src = readFileSync(join(ROOT, "next.config.ts"), "utf8");
+  assert.match(src, /output:\s*"export"/);
+  assert.match(src, /trailingSlash:\s*true/);
 });
 
-test("vitepress config exposes human docs sidebar entries", async () => {
-  const mod = await import(CONFIG);
-  const sidebar = mod.default.themeConfig.sidebar["/humans/"];
-  assert.ok(Array.isArray(sidebar));
-  for (const page of HUMAN_DOC_PAGES) {
-    const slug = page.replace(/\.md$/, "");
+test("authoring pages exist for every package type", () => {
+  for (const slug of AUTHORING_PAGES) {
     assert.ok(
-      sidebar.some((entry) => entry.link === `/humans/${slug}`),
-      `sidebar missing /humans/${slug}`
+      existsSync(join(ROOT, "src", "app", "authoring", slug, "page.tsx")),
+      `missing src/app/authoring/${slug}/page.tsx`,
     );
   }
 });
 
-test("verifyHumanDocs passes for the repository", () => {
-  const errors = verifyHumanDocs();
-  assert.deepEqual(errors, []);
+test("schema pages exist", () => {
+  for (const slug of SCHEMA_PAGES) {
+    assert.ok(
+      existsSync(join(ROOT, "src", "app", "schema", slug, "page.tsx")),
+      `missing src/app/schema/${slug}/page.tsx`,
+    );
+  }
 });
 
-test("verifyHumanDocs fails when a piece type page is missing", () => {
-  const tempRoot = mkdtempSync(join(tmpdir(), "see-human-docs-"));
+test("the authoring section has no leftover humans route", () => {
+  assert.ok(!existsSync(join(ROOT, "src", "app", "humans")));
+  const nav = readFileSync(join(ROOT, "src", "lib", "nav.ts"), "utf8");
+  assert.ok(!nav.includes("/humans/"));
+});
+
+test("verifyAuthoringDocs passes for the repository", () => {
+  assert.deepEqual(verifyAuthoringDocs(), []);
+});
+
+test("verifyAuthoringDocs fails when a package type page is missing", () => {
+  const tempRoot = mkdtempSync(join(tmpdir(), "see-authoring-docs-"));
   try {
-    const humansDir = join(tempRoot, "docs", "humans");
-    mkdirSync(humansDir, { recursive: true });
-    const index = HUMAN_DOC_PAGES.map((page) => {
-      const slug = page.replace(/\.md$/, "");
-      return `- [${slug}](./${page})`;
-    }).join("\n");
-    writeFileSync(join(humansDir, "index.md"), index);
-    for (const page of HUMAN_DOC_PAGES) {
-      if (page === "commands.md") {
+    const authoringDir = join(tempRoot, "src", "app", "authoring");
+    mkdirSync(authoringDir, { recursive: true });
+    const index = AUTHORING_PAGES.map(
+      (slug) => `<Link href="/authoring/${slug}/">${slug}</Link>`,
+    ).join("\n");
+    writeFileSync(join(authoringDir, "page.tsx"), index);
+    for (const slug of AUTHORING_PAGES) {
+      if (slug === "commands") {
         continue;
       }
-      writeFileSync(join(humansDir, page), `# ${page}\n`);
+      mkdirSync(join(authoringDir, slug), { recursive: true });
+      writeFileSync(
+        join(authoringDir, slug, "page.tsx"),
+        `export default function Page() { return null; }\n`,
+      );
     }
-    const errors = verifyHumanDocs(tempRoot);
+    const errors = verifyAuthoringDocs(tempRoot);
     assert.ok(
-      errors.some((message) => message.includes("command") && message.includes("commands.md"))
+      errors.some(
+        (message) =>
+          message.includes("command") && message.includes("commands"),
+      ),
     );
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
 });
 
-test("duplicate authoring tree is absent", () => {
-  assert.ok(!existsSync(join(ROOT, "content", "authoring")));
-  assert.ok(existsSync(join(ROOT, "docs", "humans")));
+test("llms.txt carries a section for every page", () => {
+  assert.deepEqual(verifyLlmsCoverage(), []);
 });
 
-test("build-llms --check passes", () => {
-  const check = spawnSync("node", ["scripts/build-llms.mjs", "--check"], {
+test("verifyLlmsCoverage fails when a section is missing", () => {
+  const tempRoot = mkdtempSync(join(tmpdir(), "see-llms-"));
+  try {
+    mkdirSync(join(tempRoot, "public"), { recursive: true });
+    writeFileSync(join(tempRoot, "public", "llms.txt"), "Source: /authoring/\n");
+    const errors = verifyLlmsCoverage(tempRoot);
+    assert.ok(errors.some((message) => message.includes("/schema/workflow/")));
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("llms.txt states the catalog contract without stale markup", () => {
+  const llms = readFileSync(join(ROOT, "public", "llms.txt"), "utf8");
+  assert.match(llms, /S\.E\.E\. Official Library/);
+  assert.match(llms, /see\.library\/v1/);
+  assert.ok(!llms.includes("v-pre"));
+  assert.ok(!llms.includes("maintained by hand"));
+  assert.ok(!llms.includes("/humans/"));
+});
+
+test("copy-public-assets copies catalog.json and packages into public/", () => {
+  const copy = spawnSync("node", ["scripts/copy-public-assets.mjs"], {
     cwd: ROOT,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
   });
   assert.equal(
-    check.status,
+    copy.status,
     0,
-    `build-llms --check failed:\n${check.stdout}\n${check.stderr}`
+    `copy-public-assets failed:\n${copy.stdout}\n${copy.stderr}`,
   );
+  assert.ok(existsSync(join(ROOT, "public", "catalog.json")));
+  assert.ok(existsSync(join(ROOT, "public", "packages")));
 });
 
-test("vitepress config exposes schema sidebar entries", async () => {
-  const mod = await import(CONFIG);
-  const sidebar = mod.default.themeConfig.sidebar["/schema/"];
-  assert.ok(Array.isArray(sidebar));
-  for (const slug of [
-    "workflow",
-    "prompt",
-    "skill",
-    "command",
-    "rule-template",
-    "bundle",
-  ]) {
-    assert.ok(
-      sidebar.some((entry) => entry.link === `/schema/${slug}`),
-      `sidebar missing /schema/${slug}`
-    );
-  }
-});
-
-test("docs:build emits assembled deploy directory", () => {
-  const build = spawnSync("npm", ["run", "docs:build"], {
+test("npm run build emits assembled deploy directory", () => {
+  const build = spawnSync("npm", ["run", "build"], {
     cwd: ROOT,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
@@ -120,7 +141,7 @@ test("docs:build emits assembled deploy directory", () => {
   assert.equal(
     build.status,
     0,
-    `docs:build failed:\n${build.stdout}\n${build.stderr}`
+    `build failed:\n${build.stdout}\n${build.stderr}`,
   );
 
   for (const rel of [
@@ -128,34 +149,22 @@ test("docs:build emits assembled deploy directory", () => {
     "catalog.json",
     "packages",
     "llms.txt",
-    "humans/index.html",
-    "humans/commands.html",
-    "humans/prompts.html",
-    "humans/skills.html",
-    "humans/workflows.html",
-    "humans/bundles.html",
-    "humans/publish.html",
+    "authoring/index.html",
+    ...AUTHORING_PAGES.map((slug) => `authoring/${slug}/index.html`),
     "schema/index.html",
-    "schema/workflow.html",
+    ...SCHEMA_PAGES.map((slug) => `schema/${slug}/index.html`),
     ".nojekyll",
   ]) {
-    assert.ok(
-      existsSync(join(SITE, rel)),
-      `expected ${rel} in deploy directory`
-    );
+    assert.ok(existsSync(join(OUT, rel)), `expected ${rel} in deploy directory`);
   }
 
-  const index = readFileSync(join(SITE, "index.html"), "utf8");
-  assert.match(index, /\/s_e_e_library\//);
+  assert.ok(!existsSync(join(OUT, "humans")));
+
+  const index = readFileSync(join(OUT, "index.html"), "utf8");
   assert.match(index, /S\.E\.E\. Official Library/);
-  assert.match(index, /\/s_e_e_library\/humans\//);
+  assert.match(index, /authoring\//);
 
-  const llms = readFileSync(join(SITE, "llms.txt"), "utf8");
-  assert.match(llms, /Source: docs\/humans\/commands\.md/);
-  assert.match(llms, /Source: docs\/schema\/workflow\.md/);
-  assert.match(llms, /Catalog schema/);
-
-  const catalog = JSON.parse(readFileSync(join(SITE, "catalog.json"), "utf8"));
+  const catalog = JSON.parse(readFileSync(join(OUT, "catalog.json"), "utf8"));
   assert.ok(Array.isArray(catalog.packages));
   assert.ok(catalog.packages.length > 0);
 });

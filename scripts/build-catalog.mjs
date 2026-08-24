@@ -454,7 +454,7 @@ if (checkOnly) {
   const currentBody = stableStringify(catalogWithoutUpdated(current));
   const nextBody = stableStringify(catalogWithoutUpdated(next));
   if (currentBody !== nextBody) {
-    fail("catalog.json is out of date; run npm run build");
+    fail("catalog.json is out of date; run npm run catalog");
   }
   console.log(
     `ok: ${current.packages.length} packages validated (${current.updated})`

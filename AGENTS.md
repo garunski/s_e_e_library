@@ -1,6 +1,6 @@
 ## Workspace layout
 
-This checkout is a **library spoke**. It hosts the public catalog documentation site (VitePress); it has **no hub data root**.
+This checkout is a **library spoke**. It hosts the public catalog and a Next.js documentation site; it has **no hub data root**.
 
 Sibling checkouts:
 

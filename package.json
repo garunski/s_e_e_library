@@ -1,18 +1,22 @@
 {
-  "name": "s_e_e_library",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build": "node scripts/build-catalog.mjs",
+    "dev": "node scripts/copy-public-assets.mjs && next dev --turbo",
+    "build": "node scripts/copy-public-assets.mjs && next build",
+    "copy": "node scripts/copy-public-assets.mjs",
+    "catalog": "node scripts/build-catalog.mjs",
     "validate": "node scripts/build-catalog.mjs --check",
-    "test": "node --test scripts/verify-docs-site.test.mjs",
-    "docs:build": "node scripts/verify-human-docs.mjs && node scripts/build-llms.mjs && vitepress build docs && node scripts/assemble-site.mjs",
-    "docs:dev": "vitepress dev docs"
+    "test": "node --test scripts/verify-docs-site.test.mjs"
   },
-  "overrides": {
-    "zod": "4.1.12"
+  "dependencies": {
+    "next": "15.1.11",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3"
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3"
   }
 }
