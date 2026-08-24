@@ -64,15 +64,15 @@ body {
   align-items: center;
   gap: 0.65rem;
   color: var(--zinc-900);
-  font-size: 0.92rem;
+  font-size: clamp(1.05rem, 1.25vw, 1.4rem);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-decoration: none;
 }
 
 .site-brand img {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: clamp(2.9rem, 3.2vw, 3.35rem);
+  height: clamp(2.9rem, 3.2vw, 3.35rem);
   filter: drop-shadow(0 0 8px rgb(251 191 36 / 0.35));
 }
 
@@ -84,10 +84,10 @@ body {
 }
 
 .primary-nav a {
-  padding: 0.65rem 0.8rem;
+  padding: 0.65rem clamp(0.85rem, 1.05vw, 1.3rem);
   border-bottom: 2px solid transparent;
   color: var(--zinc-600);
-  font-size: 0.78rem;
+  font-size: clamp(0.9rem, 1.05vw, 1.15rem);
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -101,10 +101,10 @@ body {
 
 .header-cta {
   justify-self: end;
-  padding: 0.72rem 1rem;
+  padding: 0.72rem clamp(1.05rem, 1.3vw, 1.6rem);
   background: var(--zinc-900);
   color: var(--sky-400);
-  font-size: 0.76rem;
+  font-size: clamp(0.88rem, 1vw, 1.1rem);
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -137,16 +137,16 @@ body {
 .section-label {
   margin-right: 0.8rem;
   color: var(--sky-700);
-  font-size: 0.66rem;
+  font-size: clamp(0.76rem, 0.9vw, 0.95rem);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .section-nav a {
-  padding: 0.5rem 0.7rem;
+  padding: 0.5rem clamp(0.75rem, 0.92vw, 1.15rem);
   color: var(--zinc-600);
-  font-size: 0.76rem;
+  font-size: clamp(0.88rem, 1vw, 1.1rem);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -1091,7 +1091,7 @@ pre {
   max-width: 22rem;
   margin: 0;
   color: #a1a1aa;
-  font-size: 0.88rem;
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
   line-height: 1.6;
 }
 
@@ -1101,15 +1101,15 @@ pre {
   gap: 0.65rem;
   color: var(--white);
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: clamp(1.05rem, 1.25vw, 1.4rem);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-decoration: none;
 }
 
 .footer-mark img {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: clamp(2.9rem, 3.2vw, 3.35rem);
+  height: clamp(2.9rem, 3.2vw, 3.35rem);
 }
 
 .footer-links {
@@ -1122,7 +1122,7 @@ pre {
 
 .footer-links a {
   color: #d4d4d8;
-  font-size: 0.8rem;
+  font-size: clamp(0.9rem, 1.05vw, 1.15rem);
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -1146,7 +1146,7 @@ pre {
 .footer-bottom a {
   margin: 0;
   color: #71717a;
-  font-size: 0.72rem;
+  font-size: clamp(0.82rem, 0.95vw, 1rem);
 }
 
 .footer-bottom a {
@@ -2027,14 +2027,14 @@ pre {
 }
 
 .brand-lockup strong {
-  font-size: 1rem;
+  font-size: clamp(1.1rem, 1.3vw, 1.45rem);
   font-weight: 600;
   letter-spacing: 0.11em;
 }
 
 .brand-lockup small {
   color: var(--zinc-600);
-  font-size: 0.62rem;
+  font-size: clamp(0.72rem, 0.85vw, 0.9rem);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2076,12 +2076,12 @@ pre {
   .site-brand {
     min-width: 0;
     gap: 0.45rem;
-    font-size: 0.82rem;
+    font-size: 0.95rem;
   }
 
   .site-brand img {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .header-cta {
@@ -2108,7 +2108,7 @@ pre {
     background: var(--white);
     color: var(--zinc-900);
     font-family: inherit;
-    font-size: 0.76rem;
+    font-size: 0.88rem;
     font-weight: 600;
     cursor: pointer;
   }
