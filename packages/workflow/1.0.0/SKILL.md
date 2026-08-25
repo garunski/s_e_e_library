@@ -31,7 +31,7 @@ Do NOT use for: editing prompt bodies (use the prompt store), editing stories (`
 - **MUST** set `spoke_root` on the workflow for command tasks with cwd spoke and for `git_action` tasks that omit per-task `spoke`.
 - **NEVER** put literal secrets, tokens, or API keys in workflow JSON.
 - **NEVER** use dots in `runtime_inputs[].key` (schema rejects them).
-- **NEVER** use a `function` object with more than one handler key — the schema is `oneOf`.
+- **NEVER** use a `function` object with more than one handler key - the schema is `oneOf`.
 
 ## Authoritative references (load on demand)
 
@@ -41,7 +41,7 @@ Read only the file relevant to the task:
 - Template expansion semantics (`{{prompt.*}}`, `{{runtime.*}}`, `{{userinput.*}}`): `.s_e_e/knowledge/docs/overview/workflow-engine/doc-13 - 13-Prompts-and-Workflow-Template-Expansion.md`
 - Canonical JSON schema: `core/schema/workflow.schema.json`
 - Copy-paste baseline with runtime and prompt placeholders: `core/initial_data/workflows/implement-story.json`
-- Bundled **author from description** seed (`system-author-workflow`): `core/initial_data/workflows/author-workflow.json` — run-start `multiline_string` (`workflow_description`) only; `spoke_root` is on the definition and **Restore default workflows** assigns the hub spoke (`core/initial_data/prompts/workflow-authoring.json` for `{{prompt.system-workflow-authoring}}`).
+- Bundled **author from description** seed (`system-author-workflow`): `core/initial_data/workflows/author-workflow.json` - run-start `multiline_string` (`workflow_description`) only; `spoke_root` is on the definition and **Restore default workflows** assigns the hub spoke (`core/initial_data/prompts/workflow-authoring.json` for `{{prompt.system-workflow-authoring}}`).
 
 ## File location
 
@@ -122,22 +122,22 @@ Each task:
 
 **Default first reach**: `command` with `command_id` `cursor-agent` for AI-driven steps, `cli_command` for deterministic shell. Reach for the others only when listed below.
 
-`cli_command` — deterministic shell command.
+`cli_command` - deterministic shell command.
 - `input.command` (string, required), `input.args` (string array, optional).
 
-`command` — run an installed command definition from `.s_e_e/commands/`.
+`command` - run an installed command definition from `.s_e_e/commands/`.
 - `input.command_id` (string, required).
 - `input.prompt` (string, optional; required when the command definition uses prompt delivery).
 - `input.config` (object, optional): parameter values keyed by the command definition `params`.
 
-`user_input` — pause for operator input.
+`user_input` - pause for operator input.
 - `input.prompt` (string), `input.input_type` (`string` | `number` | `boolean`), `input.required` (bool), optional `input.default`.
 - Later tasks read the captured value via `{{userinput.<this_task_id>.value}}`.
 
-`git_action` — git operation. Use only when story-driven workflows need it.
+`git_action` - git operation. Use only when story-driven workflows need it.
 - `input.action` plus paths per schema.
 
-`story_action` — stories / knowledge store read and mutation. Set workflow `stories_root` / `knowledge_root`; per-task `input.stories_root` / `input.knowledge_root` override for that step. `delete_*` requires `confirm: true`. Optional `client_mtime_ms` on `update_story` and `delete_*` (optimistic lock). Set `capture_output: true` on list tasks to feed `foreach` via `collection_task_id` (+ optional `collection_task_path`, e.g. `["story_ids"]`).
+`story_action` - stories / knowledge store read and mutation. Set workflow `stories_root` / `knowledge_root`; per-task `input.stories_root` / `input.knowledge_root` override for that step. `delete_*` requires `confirm: true`. Optional `client_mtime_ms` on `update_story` and `delete_*` (optimistic lock). Set `capture_output: true` on list tasks to feed `foreach` via `collection_task_id` (+ optional `collection_task_path`, e.g. `["story_ids"]`).
 
 | `action` | Required input | Optional input | Output |
 | --- | --- | --- | --- |
@@ -149,7 +149,7 @@ Each task:
 | `set_labels` | `story_id`, `labels` | root overrides | `{ story_id }` |
 | `update_story` | `story_id` | `title`, `description`, `implementation_plan`, `implementation_notes`, `final_summary`, `status`, `labels`, `priority`, `dependencies`, `assignee`, `milestone`, `client_mtime_ms`, root overrides | `{ story_id }` |
 | `archive_story` | `story_id` | root overrides | `{ story_id }` |
-| `list_stories` | — | `status`, `labels`, root overrides | `{ story_ids, count }` |
+| `list_stories` | - | `status`, `labels`, root overrides | `{ story_ids, count }` |
 | `list_stories_by_milestone` | `milestone_id` | root overrides | `{ milestone_id, story_ids, count }` |
 | `delete_story` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
 | `delete_document` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
@@ -158,9 +158,9 @@ Each task:
 
 `create_story` defaults omitted `status` to `To Do`. `update_story` applies only present fields. List outputs sort `story_ids` numerically by id suffix.
 
-`foreach` — structural loop over a string array. **Exactly one** `next_tasks` entry (linear body subtree) and `input.item_runtime_key` (per-iteration `{{runtime.<key>}}`). Source the array **one** of two ways: `input.collection_runtime_key` (a `runtime_inputs` key of type `string_array`, expanded at run start), or `input.collection_task_id` (+ optional `input.collection_task_path`, e.g. `["story_ids"]`) referencing the captured output of an earlier task (`capture_output: true`). The task-output form expands lazily once that task completes, so `foreach` can consume ids computed during the run (e.g. a `story_action` `list_stories_by_milestone` resolver).
+`foreach` - structural loop over a string array. **Exactly one** `next_tasks` entry (linear body subtree) and `input.item_runtime_key` (per-iteration `{{runtime.<key>}}`). Source the array **one** of two ways: `input.collection_runtime_key` (a `runtime_inputs` key of type `string_array`, expanded at run start), or `input.collection_task_id` (+ optional `input.collection_task_path`, e.g. `["story_ids"]`) referencing the captured output of an earlier task (`capture_output: true`). The task-output form expands lazily once that task completes, so `foreach` can consume ids computed during the run (e.g. a `story_action` `list_stories_by_milestone` resolver).
 
-`custom` — escape hatch when no handler fits. Avoid unless the product defines a runtime for it.
+`custom` - escape hatch when no handler fits. Avoid unless the product defines a runtime for it.
 
 Schema constraint: exactly one handler key per `function` object (`oneOf`).
 
@@ -168,9 +168,9 @@ Schema constraint: exactly one handler key per `function` object (`oneOf`).
 
 Three placeholder kinds (expanded at task ready-to-execute time):
 
-- `{{prompt.<namespace>-<id>}}` — injects stored prompt content (e.g. `{{prompt.system-implement-story}}`). The prompt id must already exist in the hub, or be created in the same change.
-- `{{runtime.<key>}}` — value supplied at run start. Every key must be declared in `runtime_inputs`. Keys cannot contain dots.
-- `{{userinput.<task_id>.value}}` — value collected by a `user_input` task with that exact `id`. Must appear in a task that runs **after** the producing `user_input` task.
+- `{{prompt.<namespace>-<id>}}` - injects stored prompt content (e.g. `{{prompt.system-implement-story}}`). The prompt id must already exist in the hub, or be created in the same change.
+- `{{runtime.<key>}}` - value supplied at run start. Every key must be declared in `runtime_inputs`. Keys cannot contain dots.
+- `{{userinput.<task_id>.value}}` - value collected by a `user_input` task with that exact `id`. Must appear in a task that runs **after** the producing `user_input` task.
 
 ## `runtime_inputs` rules
 
@@ -216,7 +216,7 @@ Workflow author checklist:
 
 ## Authoring loop
 
-1. Read `doc-18` (design) and `doc-13` (template expansion) — only the sections relevant to the change.
+1. Read `doc-18` (design) and `doc-13` (template expansion) - only the sections relevant to the change.
 2. Copy `core/initial_data/workflows/implement-story.json`, `author-workflow.json`, or the closest existing seed as the baseline.
 3. Edit ids, names, `runtime_inputs`, tasks, handlers, and placeholders.
 4. Validate against `core/schema/workflow.schema.json` (IDE schema association or `jsonschema` CLI if available).

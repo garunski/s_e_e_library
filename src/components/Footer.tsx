@@ -17,7 +17,7 @@ export function Footer() {
         <nav className="footer-links" aria-label="S.E.E. links">
           {footerLinks.map((link) => (
             <a key={link.href} href={link.href} rel="noreferrer">
-              {link.label} <span aria-hidden="true">↗</span>
+              {link.label}
             </a>
           ))}
         </nav>
@@ -30,9 +30,7 @@ export function Footer() {
             Garunski
           </a>
         </p>
-        <a href="#top">
-          Back to top <span aria-hidden="true">↑</span>
-        </a>
+        <a href="#top">Back to top</a>
       </div>
     </footer>
   );

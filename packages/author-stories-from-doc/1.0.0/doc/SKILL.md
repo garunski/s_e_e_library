@@ -24,11 +24,11 @@ S.E.E. has no knowledge CLI. Files are created and edited as markdown directly. 
     └── decision-<n> - <Kebab-Title>.md            # architecture decisions (ADRs)
 ```
 
-- `<n>` is the next free integer — list the relevant directory and pick above the current max. Doc and decision counters are independent.
+- `<n>` is the next free integer - list the relevant directory and pick above the current max. Doc and decision counters are independent.
 - `<area>` is a kebab-case subdirectory; reuse an existing one before introducing a new one.
 - Filenames mirror the frontmatter `title`: docs use the title verbatim with spaces; decisions use kebab case.
 
-## Doc File — Required Shape
+## Doc File - Required Shape
 
 ```markdown
 ---
@@ -49,8 +49,8 @@ Plain markdown body. Headings follow a single H2 per topic; H3 for subtopics.
 
 ## References
 
-- `doc-<m>` — adjacent domain.
-- `decision-<k>` — relevant decision.
+- `doc-<m>` - adjacent domain.
+- `decision-<k>` - relevant decision.
 - Repo paths to source files this doc explains.
 ```
 
@@ -58,12 +58,12 @@ Plain markdown body. Headings follow a single H2 per topic; H3 for subtopics.
 
 ## Doc Frontmatter Rules
 
-- `id` — `doc-<n>` matching the filename's `<n>`.
-- `title` — by convention, prefix with the doc number for sortability: `13 - Prompts and Workflow Template Expansion`.
-- `type` — `technical`, `guide`, `reference`, or `overview`. Match the directory: `overview/` → `technical` or `overview`; `reference/` → `reference`.
-- `created_date` / `updated_date` — `'YYYY-MM-DD HH:mm'` quoted strings. Bump `updated_date` on every substantive edit.
+- `id` - `doc-<n>` matching the filename's `<n>`.
+- `title` - by convention, prefix with the doc number for sortability: `13 - Prompts and Workflow Template Expansion`.
+- `type` - `technical`, `guide`, `reference`, or `overview`. Match the directory: `overview/` maps to `technical` or `overview`; `reference/` maps to `reference`.
+- `created_date` / `updated_date` - `'YYYY-MM-DD HH:mm'` quoted strings. Bump `updated_date` on every substantive edit.
 
-## Decision File — Required Shape
+## Decision File - Required Shape
 
 ```markdown
 ---
@@ -89,18 +89,18 @@ The decision itself in one paragraph plus a bulleted list of concrete choices.
 
 ## References
 
-- `story-<n>` — implementing story.
-- `doc-<m>` — domain doc.
+- `story-<n>` - implementing story.
+- `doc-<m>` - domain doc.
 ```
 
 **Critical**: decisions use plain markdown. **No HTML comment markers.**
 
 ## Decision Frontmatter Rules
 
-- `id` — `decision-<n>` matching the filename's `<n>`.
-- `title` — sentence case; reuse in filename as `decision-<n> - <Kebab-Title>.md`.
-- `date` — quoted `'YYYY-MM-DD HH:mm'`.
-- `status` — `proposed`, `accepted`, `superseded`, or `rejected`. New decisions default to `accepted`.
+- `id` - `decision-<n>` matching the filename's `<n>`.
+- `title` - sentence case; reuse in filename as `decision-<n> - <Kebab-Title>.md`.
+- `date` - quoted `'YYYY-MM-DD HH:mm'`.
+- `status` - `proposed`, `accepted`, `superseded`, or `rejected`. New decisions default to `accepted`.
 
 ## Path Organization
 
@@ -118,18 +118,18 @@ Place a new doc next to the doc it most builds on. A new domain is a new subdire
 
 A good doc:
 
-- **Owns a scope** — first H2 is `## Scope`; states what the doc is the source of truth for and who depends on it.
-- **Cross-references** — explicitly lists `Builds on:` and `Companion docs:` near the top.
-- **Cites repo paths** — when describing implementation, link the actual `crate/src/file.rs:NN` so changes can be located.
-- **Avoids duplication** — when content overlaps another doc, reference it instead of repeating.
-- **Has a `## References` tail** — pointers to companion docs, decisions, and source files.
+- **Owns a scope** - first H2 is `## Scope`; states what the doc is the source of truth for and who depends on it.
+- **Cross-references** - explicitly lists `Builds on:` and `Companion docs:` near the top.
+- **Cites repo paths** - when describing implementation, link the actual `crate/src/file.rs:NN` so changes can be located.
+- **Avoids duplication** - when content overlaps another doc, reference it instead of repeating.
+- **Has a `## References` tail** - pointers to companion docs, decisions, and source files.
 
 A good decision:
 
-- **States Context, Decision, Consequences** — those three H2s exist, in order.
-- **Is one decision** — split compound decisions into sibling files.
-- **Links its drivers** — references the stories or docs that motivated it.
-- **Is final** — accepted decisions are not edited; supersede them by writing a new decision and changing the old one's `status: superseded` with a pointer.
+- **States Context, Decision, Consequences** - those three H2s exist, in order.
+- **Is one decision** - split compound decisions into sibling files.
+- **Links its drivers** - references the stories or docs that motivated it.
+- **Is final** - accepted decisions are not edited; supersede them by writing a new decision and changing the old one's `status: superseded` with a pointer.
 
 Never:
 
@@ -209,7 +209,7 @@ Split into two crates and two stores:
 - `s_e_e_stories` owns work items (stories, milestones) on disk under `.s_e_e/stories/`.
 - `s_e_e_knowledge` owns reference content (docs, decisions) on disk under `.s_e_e/knowledge/`.
 - HTTP routes split: `/api/stories/*`, `/api/knowledge/*`.
-- Engine handler renamed `backlog_action` → `story_action`.
+- Engine handler renamed `backlog_action` to `story_action`.
 
 ## Consequences
 
@@ -220,8 +220,8 @@ Split into two crates and two stores:
 
 ## References
 
-- `doc-2` — Stories & Knowledge.
-- `story-126` — `story_action` handler.
+- `doc-2` - Stories & Knowledge.
+- `story-126` - `story_action` handler.
 ```
 
 ## Related

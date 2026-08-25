@@ -109,7 +109,7 @@ export default function HomePage() {
                 install map, and the validation step.
               </p>
               <Link href="/authoring/publish/">
-                Publish a package <span aria-hidden="true">→</span>
+                Publish a package
               </Link>
             </div>
           </div>
@@ -130,8 +130,7 @@ export default function HomePage() {
               Catalog schema
             </Link>
             <a href={assetPath("/llms.txt")}>
-              Everything as one text file{" "}
-              <span aria-hidden="true">↗</span>
+              Everything as one text file
             </a>
           </div>
         </section>

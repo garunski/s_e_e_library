@@ -73,7 +73,7 @@ Do not touch any HTML section markers in this step.
 - AC #2: how this plan satisfies it
 ```
 
-Then proceed immediately to Step 4 — do not wait for user approval.
+Then proceed immediately to Step 4 - do not wait for user approval.
 
 ## Step 4: Implement Loop
 
@@ -91,18 +91,18 @@ After each iteration, state:
 - Which AC(s) now pass.
 - What is next, or: **All AC pass, ready to complete.**
 
-Run **`mise run quality`** after substantive changes during the implement loop and again before declaring done — the completion gate. Do not declare done if `quality` fails.
+Run **`mise run quality`** after substantive changes during the implement loop and again before declaring done - the completion gate. Do not declare done if `quality` fails.
 
 ### Per-AC Tracking
 
-As each AC passes, edit the story file and flip its checkbox: `- [ ] #N ...` → `- [x] #N ...`. Do not flip checkboxes speculatively.
+As each AC passes, edit the story file and flip its checkbox from `- [ ] #N ...` to `- [x] #N ...`. Do not flip checkboxes speculatively.
 
 ## Step 5: Fill In Notes and Final Summary
 
 Before marking Done, edit the story file:
 
-- `## Implementation Notes` — short bullet list of what actually changed: modified files, trade-offs, deviations from the plan, key tests added.
-- `## Final Summary` — one-paragraph summary of the outcome and verification (which crates' tests passed, whether `mise run quality` passed, any caveats).
+- `## Implementation Notes` - short bullet list of what actually changed: modified files, trade-offs, deviations from the plan, key tests added.
+- `## Final Summary` - one-paragraph summary of the outcome and verification (which crates' tests passed, whether `mise run quality` passed, any caveats).
 
 Both sections must stay between their existing HTML comment markers (`<!-- SECTION:NOTES:BEGIN -->` / `END`, `<!-- SECTION:FINAL_SUMMARY:BEGIN -->` / `END`). Do not duplicate or rename them.
 

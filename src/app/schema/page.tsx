@@ -231,22 +231,22 @@ export default function Page() {
       </p>
       <ul>
         <li>
-          <code>.s_e_e/workflows/definitions/…</code> → workflow
+          <code>.s_e_e/workflows/definitions/…</code> validates as a workflow;
         </li>
         <li>
-          <code>.s_e_e/prompts/…</code> → prompt
+          <code>.s_e_e/prompts/…</code> validates as a prompt;
         </li>
         <li>
-          <code>.s_e_e/commands/…</code> → command
+          <code>.s_e_e/commands/…</code> validates as a command;
         </li>
         <li>
-          <code>.agents/skills/…/SKILL.md</code> → skill
+          <code>.agents/skills/…/SKILL.md</code> validates as a skill;
         </li>
         <li>
-          <code>*.mdc</code> → rule
+          <code>*.mdc</code> validates as a rule;
         </li>
         <li>
-          <code>templates/…</code> → template
+          <code>templates/…</code> validates as a template.
         </li>
       </ul>
 

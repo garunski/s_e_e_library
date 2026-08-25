@@ -31,11 +31,11 @@ S.E.E. has no story CLI. Files are created and edited as markdown directly. The 
     └── docs/<category>/<area>/doc-<n> - <Title>.md   # see doc skill
 ```
 
-- `<n>` is allocated by the store — never guess from globs. Reserve via `POST /api/projects/{pid}/stories/reserve-id` (returns `{"id":"story-<n>","n":<n>}`) or read `.s_e_e/stories/next-id` only after a successful reserve/create. The on-disk counter lives at `.s_e_e/stories/next-id`.
+- `<n>` is allocated by the store - never guess from globs. Reserve via `POST /api/projects/{pid}/stories/reserve-id` (returns `{"id":"story-<n>","n":<n>}`) or read `.s_e_e/stories/next-id` only after a successful reserve/create. The on-disk counter lives at `.s_e_e/stories/next-id`.
 - `<Kebab-Title>` matches the frontmatter `title` with spaces replaced by `-`. Keep punctuation minimal.
 - Stories live in `.s_e_e/stories/stories/`; milestones in `.s_e_e/stories/milestones/`. Decisions and docs live under `.s_e_e/knowledge/` (use the `doc` skill).
 
-## Story File — Required Shape
+## Story File - Required Shape
 
 ```markdown
 ---
@@ -85,25 +85,25 @@ Goal and scope. Why this story exists. No implementation details.
 
 ## Frontmatter Rules
 
-- `id` — `story-<n>`. Must match the filename's `<n>`.
-- `title` — sentence case; reuse in the filename as `story-<n> - <Kebab-Title>.md`.
-- `status` — one of the values in `.s_e_e/stories/config.yml` (`New`, `Ready for Dev`, `In Progress`, `Done`). Start at `New`.
-- `assignee` — empty list on creation; populated when work starts.
-- `created_date` / `updated_date` — `'YYYY-MM-DD HH:mm'` quoted strings.
-- `labels` — list of strings; pick from existing labels first (look across `.s_e_e/stories/stories/`); only invent a new label when no existing one fits. Common labels reference architecture areas (e.g. `engine`, `gui`, `core`, `types`) or doc ids (e.g. `doc-13`, `doc-18`).
-- `dependencies` — list of `story-<m>` ids that must be Done before this story can start. Only reference lower ids.
-- `priority` — `low`, `medium`, or `high`.
+- `id` - `story-<n>`. Must match the filename's `<n>`.
+- `title` - sentence case; reuse in the filename as `story-<n> - <Kebab-Title>.md`.
+- `status` - one of the values in `.s_e_e/stories/config.yml` (`New`, `Ready for Dev`, `In Progress`, `Done`). Start at `New`.
+- `assignee` - empty list on creation; populated when work starts.
+- `created_date` / `updated_date` - `'YYYY-MM-DD HH:mm'` quoted strings.
+- `labels` - list of strings; pick from existing labels first (look across `.s_e_e/stories/stories/`); only invent a new label when no existing one fits. Common labels reference architecture areas (e.g. `engine`, `gui`, `core`, `types`) or doc ids (e.g. `doc-13`, `doc-18`).
+- `dependencies` - list of `story-<m>` ids that must be Done before this story can start. Only reference lower ids.
+- `priority` - `low`, `medium`, or `high`.
 
 ## Story Quality Rules
 
 A good story is:
 
-- **Atomic** — one PR-sized scope; one or two source files plus tests.
-- **Independent** — does not assume future stories.
-- **Testable** — every AC is verifiable by running tests, checking files, or invoking an HTTP endpoint.
-- **AI-implementable** — another agent reading just this story can do the work.
-- **Dependency-safe** — only references lower-numbered stories.
-- **Schema-correct** — frontmatter fields match `config.yml`; HTML markers present and balanced.
+- **Atomic** - one PR-sized scope; one or two source files plus tests.
+- **Independent** - does not assume future stories.
+- **Testable** - every AC is verifiable by running tests, checking files, or invoking an HTTP endpoint.
+- **AI-implementable** - another agent reading just this story can do the work.
+- **Dependency-safe** - only references lower-numbered stories.
+- **Schema-correct** - frontmatter fields match `config.yml`; HTML markers present and balanced.
 
 A story MUST NOT:
 
@@ -122,13 +122,13 @@ A story MUST NOT:
 
 ## Workflow (No CLI)
 
-1. **Reserve the next id** — `POST /api/projects/{pid}/stories/reserve-id` (HTTP 201, body `{"id":"story-<n>","n":<n>}`). Use that id exactly; do not glob `story-*.md` to pick `<n>`. After reserve, `.s_e_e/stories/next-id` holds the next suffix (read-only confirmation).
-2. **Create the file** — `.s_e_e/stories/stories/story-<n> - <Kebab-Title>.md` with the frontmatter and section markers above.
-3. **Author content** — Description, AC, Plan. Leave Notes and Final Summary empty.
-4. **Save** — the file watcher reflects the new story in the GUI; verify the executions/stories list shows it.
-5. **Hand off** — when an agent works the story, they update `status`, check off AC, and fill Notes / Final Summary using the `work` skill.
+1. **Reserve the next id** - `POST /api/projects/{pid}/stories/reserve-id` (HTTP 201, body `{"id":"story-<n>","n":<n>}`). Use that id exactly; do not glob `story-*.md` to pick `<n>`. After reserve, `.s_e_e/stories/next-id` holds the next suffix (read-only confirmation).
+2. **Create the file** - `.s_e_e/stories/stories/story-<n> - <Kebab-Title>.md` with the frontmatter and section markers above.
+3. **Author content** - Description, AC, Plan. Leave Notes and Final Summary empty.
+4. **Save** - the file watcher reflects the new story in the GUI; verify the executions/stories list shows it.
+5. **Hand off** - when an agent works the story, they update `status`, check off AC, and fill Notes / Final Summary using the `work` skill.
 
-When *editing* an existing story to change metadata (status, labels, assignee), edit the frontmatter directly and bump `updated_date`. Do not rename the file unless `title` itself changes — and if it does, both filename and frontmatter `title` change together.
+When *editing* an existing story to change metadata (status, labels, assignee), edit the frontmatter directly and bump `updated_date`. Do not rename the file unless `title` itself changes - and if it does, both filename and frontmatter `title` change together.
 
 ## Milestones (No CLI)
 
@@ -151,7 +151,7 @@ Stories may reference a milestone via a `milestone` label (e.g. `m-3`); this is 
 
 ## Decisions and Docs
 
-These are knowledge artifacts and live under `.s_e_e/knowledge/`. Use the `doc` skill ([../doc/SKILL.md](../doc/SKILL.md)) — different shape (no AC/plan/notes, different frontmatter). Do not author decisions or docs from this skill.
+These are knowledge artifacts and live under `.s_e_e/knowledge/`. Use the `doc` skill ([../doc/SKILL.md](../doc/SKILL.md)) - different shape (no AC/plan/notes, different frontmatter). Do not author decisions or docs from this skill.
 
 ## Definition of Done
 

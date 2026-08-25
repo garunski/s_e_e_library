@@ -430,12 +430,12 @@ Each entry maps a repo path to an install target:
 
 The build infers payload kind from the `to` prefix:
 
-- `.s_e_e/workflows/definitions/` → workflow
-- `.s_e_e/prompts/` → prompt
-- `.s_e_e/commands/` → command
-- `.agents/skills/` → skill
-- `.cursor/` → rule
-- `templates/` → template
+- `.s_e_e/workflows/definitions/` is a workflow;
+- `.s_e_e/prompts/` is a prompt;
+- `.s_e_e/commands/` is a command;
+- `.agents/skills/` is a skill;
+- `.cursor/` is a rule;
+- `templates/` is a template.
 
 ## Install path rules
 
@@ -642,12 +642,12 @@ Every `files[]` `to` path must:
 
 For a `bundle`, the `to` prefix determines the payload kind that is validated:
 
-- `.s_e_e/workflows/definitions/…` → workflow
-- `.s_e_e/prompts/…` → prompt
-- `.s_e_e/commands/…` → command
-- `.agents/skills/…/SKILL.md` → skill
-- `*.mdc` → rule
-- `templates/…` → template
+- `.s_e_e/workflows/definitions/…` validates as a workflow;
+- `.s_e_e/prompts/…` validates as a prompt;
+- `.s_e_e/commands/…` validates as a command;
+- `.agents/skills/…/SKILL.md` validates as a skill;
+- `*.mdc` validates as a rule;
+- `templates/…` validates as a template.
 
 ## Validation
 

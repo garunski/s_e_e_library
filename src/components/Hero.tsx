@@ -50,7 +50,7 @@ export function Hero({ variant = "page", human, machine, scrollCue }: HeroProps)
       {scrollCue ? (
         <a className="scroll-cue" href={scrollCue.href}>
           <span>{scrollCue.label}</span>
-          <span aria-hidden="true">↓</span>
+          <span className="cue-rule" aria-hidden="true"></span>
         </a>
       ) : null}
     </div>

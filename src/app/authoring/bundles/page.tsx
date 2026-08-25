@@ -117,22 +117,22 @@ export default function Page() {
       </p>
       <ul>
         <li>
-          <code>.s_e_e/workflows/definitions/</code> → workflow
+          <code>.s_e_e/workflows/definitions/</code> is a workflow;
         </li>
         <li>
-          <code>.s_e_e/prompts/</code> → prompt
+          <code>.s_e_e/prompts/</code> is a prompt;
         </li>
         <li>
-          <code>.s_e_e/commands/</code> → command
+          <code>.s_e_e/commands/</code> is a command;
         </li>
         <li>
-          <code>.agents/skills/</code> → skill
+          <code>.agents/skills/</code> is a skill;
         </li>
         <li>
-          <code>.cursor/</code> → rule
+          <code>.cursor/</code> is a rule;
         </li>
         <li>
-          <code>templates/</code> → template
+          <code>templates/</code> is a template.
         </li>
       </ul>
 
