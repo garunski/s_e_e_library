@@ -19,7 +19,7 @@ S.E.E. has no story CLI. Files are created and edited as markdown directly. The 
 ```
 .s_e_e/
 ├── stories/
-│   ├── config.yml              # statuses, labels, prefixes (read-only for agents)
+│   ├── config.json              # statuses, labels, prefixes (read-only for agents)
 │   ├── next-id                 # next numeric suffix to allocate (decimal); reserved by the store
 │   ├── stories/
 │   │   └── story-<n> - <Kebab-Title>.md
@@ -87,7 +87,7 @@ Goal and scope. Why this story exists. No implementation details.
 
 - `id` - `story-<n>`. Must match the filename's `<n>`.
 - `title` - sentence case; reuse in the filename as `story-<n> - <Kebab-Title>.md`.
-- `status` - one of the values in `.s_e_e/stories/config.yml` (`New`, `Ready for Dev`, `In Progress`, `Done`). Start at `New`.
+- `status` - one of the `stories.statuses` values in `.s_e_e/config.json` (`New`, `Ready for Dev`, `In Progress`, `Done`). Start at `New`.
 - `assignee` - empty list on creation; populated when work starts.
 - `created_date` / `updated_date` - `'YYYY-MM-DD HH:mm'` quoted strings.
 - `labels` - list of strings; pick from existing labels first (look across `.s_e_e/stories/stories/`); only invent a new label when no existing one fits. Common labels reference architecture areas (e.g. `engine`, `gui`, `core`, `types`) or doc ids (e.g. `doc-13`, `doc-18`).
@@ -103,7 +103,7 @@ A good story is:
 - **Testable** - every AC is verifiable by running tests, checking files, or invoking an HTTP endpoint.
 - **AI-implementable** - another agent reading just this story can do the work.
 - **Dependency-safe** - only references lower-numbered stories.
-- **Schema-correct** - frontmatter fields match `config.yml`; HTML markers present and balanced.
+- **Schema-correct** - frontmatter fields match `config.json`; HTML markers present and balanced.
 
 A story MUST NOT:
 
@@ -221,4 +221,4 @@ The pre-run runtime-inputs modal shows declared keys but ignores the `default` f
 - Story implementation flow: [../work/SKILL.md](../work/SKILL.md)
 - Knowledge docs and decisions: [../doc/SKILL.md](../doc/SKILL.md)
 - Domain: `.s_e_e/knowledge/docs/overview/stories/doc-2 - 2-Stories-and-Knowledge.md`
-- Store config: `.s_e_e/stories/config.yml`
+- Store config: `.s_e_e/config.json` (`stories` section)
