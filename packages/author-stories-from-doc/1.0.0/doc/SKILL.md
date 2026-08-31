@@ -7,6 +7,25 @@ description: >-
   works with knowledge content in the S.E.E. project.
 ---
 
+## Current state only, never history (VERY IMPORTANT)
+
+Docs and decisions describe the system as it is now. They are not a changelog, a postmortem, or a record of how the code got here.
+
+- Write in the present tense about what exists. When the current state changes, edit the doc so it describes the new current state.
+- Never narrate the past. No incident, no past bug, no past mistake, no past agent run, and none of: "previously", "used to", "was changed from", "originally", "the old", "this was introduced by", "we tried".
+- State a rejected alternative as a property of the option, not as a story about someone choosing it.
+- Never name a file that is about to be deleted or work that is about to happen. State the rule; the change is a story's job.
+- No dates in the body. Frontmatter carries the date.
+- Supersede a decision by writing a new one and setting the old one's `status` to `superseded`. Do not narrate the transition inside either file.
+
+## Never reference stories or milestones (VERY IMPORTANT)
+
+Stories and milestones are deleted once their work lands. A doc or decision that cites one rots into a dangling reference.
+
+- A `## References` tail may cite `doc-<n>`, `decision-<n>`, and repo paths. Nothing else.
+- Never write `story-<n>`, `m-<n>`, a story title, or a milestone title anywhere in a doc or decision, including Context, Decision, Consequences, and References.
+- If the motivation behind a decision matters, state the motivation itself. Do not point at the story that carried it.
+
 # S.E.E. Knowledge Authoring Agent
 
 **Role**: Expert author for the S.E.E. knowledge store. Create and maintain technical docs and architecture decisions with clear structure.
@@ -85,12 +104,13 @@ The decision itself in one paragraph plus a bulleted list of concrete choices.
 
 - Positive consequence.
 - Negative consequence / trade-off.
-- Follow-on stories or constraints.
+- Constraints the decision imposes.
 
 ## References
 
-- `story-<n>` - implementing story.
 - `doc-<m>` - domain doc.
+- `decision-<k>` - related decision.
+- Repo paths this decision governs.
 ```
 
 **Critical**: decisions use plain markdown. **No HTML comment markers.**
@@ -128,7 +148,7 @@ A good decision:
 
 - **States Context, Decision, Consequences** - those three H2s exist, in order.
 - **Is one decision** - split compound decisions into sibling files.
-- **Links its drivers** - references the stories or docs that motivated it.
+- **States its own motivation** - Context explains the forces in the present tense and cites no story or milestone.
 - **Is final** - accepted decisions are not edited; supersede them by writing a new decision and changing the old one's `status: superseded` with a pointer.
 
 Never:
@@ -137,6 +157,8 @@ Never:
 - Put paths inside frontmatter.
 - Mix doc and decision shapes.
 - Author from a doc that has no clear owning domain.
+- Cite a story or a milestone.
+- Narrate history, an incident, or work that has not happened yet.
 
 ## Workflow (No CLI)
 
@@ -193,35 +215,34 @@ Builds on: `doc-5`, `doc-13`. Companion: `doc-6`.
 ```markdown
 ---
 id: decision-11
-title: Replace backlog module with stories and knowledge
+title: Keep work items and reference content in separate stores
 date: '2026-04-25 08:25'
 status: accepted
 ---
 
 ## Context
 
-The legacy `backlog/` crate conflated work items (tasks) with reference content (docs and decisions). The single store was hard to evolve, the API surface mixed two domains, and the term collided with the unrelated Backlog.md tool.
+Work items and reference content have different lifetimes. A story is deleted once its work lands; a doc outlives every story that touched it. One store for both means one schema, one API surface, and one set of retention rules serving two lifetimes, and reference content ends up carrying pointers to entities that no longer exist.
 
 ## Decision
 
-Split into two crates and two stores:
+Two crates and two stores:
 
 - `s_e_e_stories` owns work items (stories, milestones) on disk under `.s_e_e/stories/`.
 - `s_e_e_knowledge` owns reference content (docs, decisions) on disk under `.s_e_e/knowledge/`.
-- HTTP routes split: `/api/stories/*`, `/api/knowledge/*`.
-- Engine handler renamed `backlog_action` to `story_action`.
+- HTTP routes are separate: `/api/stories/*`, `/api/knowledge/*`.
+- The engine handler for work items is `story_action`.
 
 ## Consequences
 
-- Two narrow crates with clearer APIs.
-- Existing workflows referencing `backlog_action` break and must migrate to `story_action`.
-- The GUI gains separate Stories and Knowledge hubs (doc-2).
-- One-time migration of file paths; old archive content kept under `.s_e_e/stories/archive/`.
+- Two narrow crates with separate APIs.
+- Separate Stories and Knowledge hubs in the GUI (doc-2).
+- A doc or decision that cites a story or a milestone is forbidden.
 
 ## References
 
-- `doc-2` - Stories & Knowledge.
-- `story-126` - `story_action` handler.
+- `doc-2` - Stories and Knowledge.
+- `stories/src/store/mod.rs`, `knowledge/src/store/mod.rs`.
 ```
 
 ## Related
