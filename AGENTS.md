@@ -22,3 +22,15 @@ This checkout is the one place TypeScript is allowed, and only the minimum the N
 - TOML, JSON, YAML, and JSON Schema are data, not languages, and are unaffected.
 
 If you believe a task genuinely needs another language, stop and ask the user first. Do not write it speculatively. If review surfaces a language violation you introduced, delete the file without argument.
+
+## Git: work on main, never detach HEAD (VERY IMPORTANT)
+
+Every checkout in this workspace commits directly to `main`. There is no branching model and no feature branches.
+
+- Never create a branch: no `git branch <name>`, no `git checkout -b`, no `git switch -c`, no pushing a branch to origin.
+- Never check out a bare commit SHA or tag. `git checkout <sha>` detaches HEAD, and every commit made from that state belongs to no branch. It survives only in the reflog and is deleted by `git gc` once the reflog expires.
+- Before committing, confirm `git symbolic-ref --short HEAD` prints `main`. If it errors or prints anything else, stop and run `git checkout main` before doing anything else.
+- To read history, use `git show <sha>`, `git log`, or `git diff <sha>`. None of those move HEAD. Never check out an old commit just to look at it.
+- To discard local work, use `git restore` or `git reset` while attached to `main`. Do not detach first.
+
+If review surfaces a branch or a detached commit you created, reattach to `main` and fast-forward it before continuing.
