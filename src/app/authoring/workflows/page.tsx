@@ -29,9 +29,8 @@ export default function Page() {
       </p>
       <p>
         Authoring rules live in the bundled <strong>workflow</strong> skill (
-        <code>packages/workflow/1.0.0/SKILL.md</code>) and S.E.E. knowledge docs
-        doc-13 (template expansion) and doc-18 (workflow authoring). This page
-        covers the library payload shape only.
+        <code>packages/workflow/1.0.0/SKILL.md</code>). This page covers the
+        library payload shape only.
       </p>
 
       <h2>Envelope (definition.json)</h2>

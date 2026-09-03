@@ -77,9 +77,8 @@ spoke. Payload file: `definition.json`. Installs to
 `.s_e_e/workflows/definitions/{slug}.json`.
 
 Authoring rules live in the bundled **workflow** skill
-(`packages/workflow/1.0.0/SKILL.md`) and S.E.E. knowledge docs **doc-13**
-(template expansion) and **doc-18** (workflow authoring). This page covers the
-library payload shape only.
+(`packages/workflow/1.0.0/SKILL.md`). This page covers the library payload
+shape only.
 
 ## Envelope (`definition.json`)
 
