@@ -4,3 +4,4 @@ out/
 *.tsbuildinfo
 public/catalog.json
 public/packages/
+/.s_e_e/logs/
