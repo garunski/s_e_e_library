@@ -592,6 +592,7 @@
                 "list_milestones",
                 "list_component_documents",
                 "list_change_records",
+                "list_documentation_inventory",
                 "publish_documentation",
                 "list_dangling_references",
                 "delete_story",
