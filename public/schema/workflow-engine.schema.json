@@ -1,0 +1,1361 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow-engine.schema.json",
+  "title": "Workflow Schema",
+  "description": "Schema for workflow definitions with tasks and dependencies",
+  "version": "1.0.4",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "tasks"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the workflow"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable workflow name"
+    },
+    "hub_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Hub workspace root (contains .s_e_e); optional, injected for hub-scoped runs"
+    },
+    "stories_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Story store root (`.s_e_e/stories/` with config.json, stories/, milestones/, …); optional if resolvable from registry"
+    },
+    "knowledge_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Knowledge root (`.s_e_e/knowledge/` with docs/, decisions/); optional; defaults next to stories_root"
+    },
+    "spoke_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Default spoke workspace root for command tasks with cwd spoke"
+    },
+    "spoke_lock_policy": {
+      "type": "string",
+      "enum": [
+        "fail_fast",
+        "wait",
+        "force"
+      ],
+      "description": "Default per-spoke mutex policy for command tasks in this workflow"
+    },
+    "runtime_inputs": {
+      "type": "array",
+      "description": "Optional execute-time input declarations (see doc-13); engine validates supplied map at run start",
+      "items": {
+        "$ref": "#/definitions/RuntimeInputDeclaration"
+      },
+      "default": []
+    },
+    "evidence_contract": {
+      "type": "array",
+      "description": "Evidence kinds required before a run may complete (doc-51)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "tests",
+          "build",
+          "screenshot"
+        ]
+      },
+      "default": []
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Task"
+      },
+      "description": "Array of root-level tasks"
+    }
+  },
+  "definitions": {
+    "RuntimeInputDeclaration": {
+      "type": "object",
+      "required": [
+        "key",
+        "input_type"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^.]+$",
+          "description": "Key for {{runtime.key}}; dots are reserved for namespaces"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human label for UIs (optional)"
+        },
+        "input_type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "number",
+            "boolean",
+            "string_array",
+            "multiline_string"
+          ]
+        },
+        "required": {
+          "type": "boolean",
+          "description": "If true, a value must be supplied at run start (unless default is set)"
+        },
+        "default": {
+          "description": "Optional default when the run-time map omits this key",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "function"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique identifier for the task within the workflow"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable task name"
+        },
+        "function": {
+          "$ref": "#/definitions/Function"
+        },
+        "next_tasks": {
+          "type": "array",
+          "default": [],
+          "description": "Optional array of tasks that execute after this task",
+          "items": {
+            "$ref": "#/definitions/Task"
+          }
+        },
+        "capture_output": {
+          "type": "boolean",
+          "default": false,
+          "description": "Record this task's handler output for {{task.<id>.output}} reference (doc-13)"
+        },
+        "wait_for": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Task ids (or foreach ids) that must complete before this task runs"
+        },
+        "continue_on_failure": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, a failed task is recorded as complete so descendants and captured output remain available"
+        },
+        "run_when": {
+          "$ref": "#/definitions/Condition",
+          "description": "Run this task only when the condition on a prior task's captured output is true"
+        }
+      }
+    },
+    "Condition": {
+      "type": "object",
+      "required": [
+        "task",
+        "op"
+      ],
+      "properties": {
+        "task": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Producer task id (must have capture_output: true)"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": [],
+          "description": "Path into the producer output JSON (e.g. [\"exit_code\"])"
+        },
+        "op": {
+          "type": "string",
+          "enum": [
+            "eq",
+            "ne",
+            "gt",
+            "lt",
+            "ge",
+            "le",
+            "exists"
+          ],
+          "description": "Comparison operator"
+        },
+        "value": {
+          "description": "Right-hand value for eq/ne/gt/lt/ge/le; omit for exists"
+        }
+      }
+    },
+    "Function": {
+      "description": "Task function with oneOf constraints",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/CliCommandFunction"
+        },
+        {
+          "$ref": "#/definitions/CommandFunction"
+        },
+        {
+          "$ref": "#/definitions/UserInputFunction"
+        },
+        {
+          "$ref": "#/definitions/CustomFunction"
+        },
+        {
+          "$ref": "#/definitions/GitActionFunction"
+        },
+        {
+          "$ref": "#/definitions/StoryActionFunction"
+        },
+        {
+          "$ref": "#/definitions/ForeachFunction"
+        },
+        {
+          "$ref": "#/definitions/RepairLoopFunction"
+        },
+        {
+          "$ref": "#/definitions/SpokeDiffReviewFunction"
+        },
+        {
+          "$ref": "#/definitions/DeliberateFunction"
+        }
+      ]
+    },
+    "CliCommandFunction": {
+      "type": "object",
+      "description": "CLI command execution function",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "cli_command"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "command"
+          ],
+          "properties": {
+            "command": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The command to execute"
+            },
+            "args": {
+              "type": "array",
+              "default": [],
+              "description": "Command arguments",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CommandFunction": {
+      "type": "object",
+      "description": "Installed command definition (e.g. cursor-agent)",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "command"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "command_id"
+          ],
+          "properties": {
+            "command_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Id of the installed command definition under .s_e_e/commands/"
+            },
+            "prompt": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Prompt text when the command definition uses prompt delivery"
+            },
+            "config": {
+              "type": "object",
+              "description": "Command parameter values keyed by param key",
+              "default": {}
+            }
+          }
+        }
+      }
+    },
+    "UserInputFunction": {
+      "type": "object",
+      "description": "User input function",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "user_input"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "prompt",
+            "input_type"
+          ],
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The prompt to display to the user"
+            },
+            "input_type": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Type of input expected (string, number, boolean, etc.)"
+            },
+            "required": {
+              "type": "boolean",
+              "default": true,
+              "description": "Whether the input is required"
+            },
+            "default": {
+              "description": "Default value if user doesn't provide input"
+            }
+          }
+        }
+      }
+    },
+    "CustomFunction": {
+      "type": "object",
+      "description": "Custom function",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "custom"
+        },
+        "input": {
+          "type": "object",
+          "description": "Custom function input data (any valid JSON object)",
+          "default": {}
+        }
+      }
+    },
+    "GitActionFunction": {
+      "type": "object",
+      "description": "Git write/read via doc-3 runner",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "git_action"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "action"
+          ],
+          "properties": {
+            "spoke": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Spoke repo root; workflow spoke_root applies when omitted"
+            },
+            "action": {
+              "type": "string",
+              "enum": [
+                "commit",
+                "push",
+                "pull",
+                "fetch",
+                "checkout",
+                "stash",
+                "stash_pop"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "description": "Commit message (commit) or stash message (stash, optional)"
+            },
+            "paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Paths for commit (omit for all)"
+            },
+            "branch": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Branch for checkout"
+            },
+            "stash_ref": {
+              "type": "string",
+              "description": "Stash ref for stash_pop (e.g. stash@{0})"
+            },
+            "id": {
+              "type": "string",
+              "description": "Alias for stash_ref on stash_pop"
+            }
+          },
+          "oneOf": [
+            {
+              "properties": {
+                "action": {
+                  "const": "commit"
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "action",
+                "message"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "push"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "pull"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "fetch"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "checkout"
+                },
+                "branch": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "action",
+                "branch"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "stash"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "stash_pop"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "StoryActionFunction": {
+      "type": "object",
+      "description": "Story/knowledge store operations (doc-6)",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "story_action"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "action"
+          ],
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "create_story",
+                "create_milestone",
+                "create_document",
+                "create_decision",
+                "create_change_record",
+                "create_component_document",
+                "update_component_document",
+                "claim_component_refresh",
+                "finalize_component_refresh",
+                "resolve_live_spoke_sha_set",
+                "get_change_record",
+                "resolve_contract_trace_spokes",
+                "record_contract_trace_finding",
+                "create_impact_report",
+                "select_audit_targets",
+                "audit_component_heads",
+                "resolve_audit_consumer_spokes",
+                "record_audit_finding",
+                "repair_component_consumed_by",
+                "create_audit_report",
+                "set_status",
+                "set_labels",
+                "update_story",
+                "archive_story",
+                "list_stories",
+                "list_stories_by_milestone",
+                "update_milestone",
+                "set_milestone",
+                "list_milestones",
+                "list_component_documents",
+                "list_change_records",
+                "publish_documentation",
+                "list_dangling_references",
+                "delete_story",
+                "delete_document",
+                "delete_decision",
+                "delete_milestone"
+              ]
+            },
+            "milestone_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stories_root": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Override workflow stories_root for this workflow step (e.g. story_action inputs)"
+            },
+            "knowledge_root": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Override workflow knowledge_root for this workflow step (e.g. story_action inputs)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required true for delete_* actions"
+            },
+            "client_mtime_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Optimistic lock for delete_*, update_story, and update_milestone (optional)"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "type": "string"
+            },
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string",
+              "minLength": 1
+            },
+            "body": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "readme",
+                "guide",
+                "specification",
+                "other"
+              ]
+            },
+            "context": {
+              "type": "string"
+            },
+            "decision": {
+              "type": "string"
+            },
+            "consequences": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "alternatives": {
+              "type": "string"
+            },
+            "related_story_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "implementation_plan": {
+              "type": "string"
+            },
+            "implementation_notes": {
+              "type": "string"
+            },
+            "final_summary": {
+              "type": "string"
+            },
+            "priority": {
+              "type": "string",
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "dependencies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "assignee": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "milestone": {
+              "type": "string"
+            },
+            "story_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "repository": {
+              "type": "string",
+              "minLength": 1
+            },
+            "previous_sha": {
+              "type": "string",
+              "minLength": 1
+            },
+            "current_sha": {
+              "type": "string",
+              "minLength": 1
+            },
+            "behavior_changed": {
+              "type": [
+                "boolean",
+                "string"
+              ]
+            },
+            "contract_changed": {
+              "type": "string"
+            },
+            "components": {
+              "type": [
+                "array",
+                "string"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "related_story_id": {
+              "type": "string"
+            },
+            "related_run_id": {
+              "type": "string"
+            },
+            "spoke_sha_set": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "owned_by": {
+              "type": "string",
+              "minLength": 1
+            },
+            "owner": {
+              "type": "string",
+              "minLength": 1
+            },
+            "consumed_by": {
+              "type": [
+                "array",
+                "string"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "consumers": {
+              "type": [
+                "array",
+                "string"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "verified_against": {
+              "type": [
+                "array",
+                "string"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "component": {
+              "type": "string",
+              "minLength": 1
+            },
+            "inputs": {
+              "type": [
+                "array",
+                "string"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "live_spoke_sha_set": {
+              "type": [
+                "array",
+                "string"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "max_targets": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "max_flows": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "kind": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "consumer": {
+              "type": "string",
+              "minLength": 1
+            },
+            "component_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "component_name": {
+              "type": "string"
+            },
+            "spoke_roots": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "create_story"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "title"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "create_milestone"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "title"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "create_document"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "title",
+                  "category"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "create_decision"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "title"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "create_change_record"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "repository",
+                  "previous_sha",
+                  "current_sha",
+                  "behavior_changed"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "create_component_document"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "name"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "update_component_document"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "id",
+                  "body"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "claim_component_refresh"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "component"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "finalize_component_refresh"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "component",
+                  "name",
+                  "body",
+                  "verified_against",
+                  "live_spoke_sha_set"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "resolve_live_spoke_sha_set"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "verified_against"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "set_status"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "story_id",
+                  "status"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "set_labels"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "story_id",
+                  "labels"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "update_story"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "story_id"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "archive_story"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "story_id"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "list_stories_by_milestone"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "milestone_id"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "update_milestone"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "id"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "const": "set_milestone"
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "story_id",
+                  "milestone"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "enum": [
+                      "delete_story",
+                      "delete_document",
+                      "delete_decision",
+                      "delete_milestone"
+                    ]
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              "then": {
+                "required": [
+                  "id",
+                  "confirm"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ForeachFunction": {
+      "type": "object",
+      "description": "Repeat next_tasks once per element of a string array. The array comes from a string_array runtime input (collection_runtime_key) or from the captured output of an earlier task (collection_task_id).",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "foreach"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "item_runtime_key"
+          ],
+          "properties": {
+            "collection_runtime_key": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^.]+$",
+              "description": "Must match a runtime_inputs key declared as string_array"
+            },
+            "collection_task_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Id of an earlier task (capture_output: true) whose output holds the string array"
+            },
+            "collection_task_path": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Path into the referenced task output that resolves to the string array (e.g. [\"story_ids\"])"
+            },
+            "item_runtime_key": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^.]+$",
+              "description": "Per-iteration key for {{runtime.<key>}} inside the loop body"
+            }
+          },
+          "oneOf": [
+            {
+              "required": [
+                "collection_runtime_key"
+              ]
+            },
+            {
+              "required": [
+                "collection_task_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "RepairLoopFunction": {
+      "type": "object",
+      "description": "Run a body task, evaluate a verifier, and re-dispatch the body when the verifier fails until attempts or wall clock are exhausted. Verifier output is available to the body on retry via {{runtime.<verifier_feedback_runtime_key>}}.",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "repair_loop"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "max_attempts",
+            "wall_clock_ms",
+            "verifier_feedback_runtime_key"
+          ],
+          "properties": {
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Maximum body-plus-verifier attempts before the loop fails"
+            },
+            "wall_clock_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Wall clock budget in milliseconds across all attempts"
+            },
+            "verifier_feedback_runtime_key": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^.]+$",
+              "description": "Runtime overlay key for failed verifier output on retry ({{runtime.<key>}})"
+            }
+          }
+        }
+      }
+    },
+    "SpokeDiffReviewFunction": {
+      "type": "object",
+      "description": "Pause for operator review of a spoke working tree diff before continuing",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "spoke_diff_review"
+        },
+        "input": {
+          "type": "object",
+          "properties": {
+            "spoke": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Spoke root path; defaults to workflow spoke_root"
+            },
+            "baseline_task_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Task id whose pre_head output defines the reject restore point"
+            },
+            "prompt": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Operator-facing review prompt"
+            }
+          }
+        }
+      }
+    },
+    "DeliberateFunction": {
+      "type": "object",
+      "description": "Orchestrator deliberation step that proposes a change set (doc-50)",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "deliberate"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "step"
+          ],
+          "properties": {
+            "step": {
+              "type": "string",
+              "enum": [
+                "direction",
+                "stories",
+                "workflows",
+                "prompt_assemblies",
+                "execution_plan",
+                "readiness"
+              ],
+              "description": "Deliberation step kind"
+            }
+          }
+        }
+      }
+    }
+  }
+}

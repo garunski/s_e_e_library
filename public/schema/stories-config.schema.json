@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/stories-config.schema.json",
+  "title": "Stories config section",
+  "type": "object",
+  "required": [
+    "project_name"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "project_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "statuses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "story_prefix": {
+      "type": "string",
+      "minLength": 1
+    },
+    "date_format": {
+      "type": "string",
+      "minLength": 1
+    },
+    "default_create_status": {
+      "type": "string"
+    }
+  }
+}

@@ -14,7 +14,7 @@ export default function Page() {
       human={{
         kicker: "Workflow payload",
         title: "An envelope wraps engine content.",
-        body: "id, name, and content are required. content may be an object or a JSON string.",
+        body: "id, name, and content are required. content is the engine workflow object.",
       }}
       machine={{
         kicker: "Category workflow",
@@ -115,7 +115,22 @@ export default function Page() {
                            (cli_command output is { exit_code, stdout, stderr })`}</pre>
 
       <h2>JSON Schema</h2>
+      <p>Library package envelope (id, name, content):</p>
       <SchemaBlock file="workflow.schema.json" />
+
+      <h2>Stored definition envelope</h2>
+      <p>
+        The hub stores a definition object. <code>content</code> is the engine
+        workflow object. <code>version</code> is an integer.
+      </p>
+      <SchemaBlock file="workflow-definition.schema.json" />
+
+      <h2>Engine content schema</h2>
+      <p>
+        The object in <code>content</code>: tasks, handlers, runtime inputs, and
+        template expansion.
+      </p>
+      <SchemaBlock file="workflow-engine.schema.json" />
 
       <p>
         See the <Link href="/authoring/workflows/">workflow authoring guide</Link>{" "}

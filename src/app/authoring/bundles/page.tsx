@@ -120,6 +120,13 @@ export default function Page() {
           <code>.s_e_e/workflows/definitions/</code> is a workflow;
         </li>
         <li>
+          <code>.s_e_e/workflows/schedules/</code> is a schedule;
+        </li>
+        <li>
+          <code>.s_e_e/workflows/schedule_rule_sets/</code> is a schedule rule
+          set;
+        </li>
+        <li>
           <code>.s_e_e/prompts/</code> is a prompt;
         </li>
         <li>
@@ -166,6 +173,12 @@ export default function Page() {
         </li>
         <li>
           <Link href="/schema/bundle/">Bundle schema</Link>
+        </li>
+        <li>
+          <Link href="/schema/schedule/">Schedule schema</Link>
+        </li>
+        <li>
+          <Link href="/schema/schedule-rule-set/">Schedule rule set schema</Link>
         </li>
       </ul>
     </AuthoringPage>

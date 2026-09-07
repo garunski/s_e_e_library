@@ -66,6 +66,14 @@ export const schemaSection: NavSection = {
     { href: "/schema/command/", label: "Command" },
     { href: "/schema/rule-template/", label: "Rule and template" },
     { href: "/schema/bundle/", label: "Bundle" },
+    { href: "/schema/hub-config/", label: "Hub config" },
+    { href: "/schema/global-config/", label: "Global config" },
+    { href: "/schema/app-settings/", label: "App settings" },
+    { href: "/schema/routing-rules/", label: "Routing rules" },
+    { href: "/schema/stories-config/", label: "Stories config" },
+    { href: "/schema/orchestrator-policy/", label: "Orchestrator policy" },
+    { href: "/schema/schedule/", label: "Schedule" },
+    { href: "/schema/schedule-rule-set/", label: "Schedule rule set" },
   ],
 };
 

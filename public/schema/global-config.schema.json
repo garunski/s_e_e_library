@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/global-config.schema.json",
+  "title": "Global ~/.s_e_e/config.json",
+  "type": "object",
+  "additionalProperties": true
+}

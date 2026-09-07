@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/app-settings.schema.json",
+  "title": "App settings.json",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "theme": {
+      "enum": [
+        "light",
+        "dark",
+        "system"
+      ]
+    },
+    "auto_save": {
+      "type": "boolean"
+    },
+    "notifications": {
+      "type": "boolean"
+    },
+    "default_workflow": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "server_url": {
+      "type": "string"
+    },
+    "api_port": {
+      "type": "string"
+    },
+    "cors_origins": {
+      "type": "string"
+    },
+    "audit_retention_hours": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "log_retention_hours": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "auth_enabled": {
+      "type": "boolean"
+    },
+    "session_ttl_hours": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "schedule_retention": {
+      "type": "object"
+    },
+    "command_timeout_secs": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "command_binary_allowlist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "command_secrets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "mcp_enabled": {
+      "type": "boolean"
+    },
+    "llm_content_capture_enabled": {
+      "type": "boolean"
+    }
+  }
+}

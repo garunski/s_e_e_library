@@ -276,6 +276,45 @@ function validatePayload(category, toPath, content) {
       }
       return null;
     }
+    case "schedule": {
+      let value;
+      try {
+        value = JSON.parse(content);
+      } catch (e) {
+        return `invalid schedule JSON: ${e.message}`;
+      }
+      if (!value?.id?.trim()) {
+        return "schedule requires a non-empty id";
+      }
+      if (!value?.name?.trim()) {
+        return "schedule requires a non-empty name";
+      }
+      if (!value?.workflow_id?.trim()) {
+        return "schedule requires a non-empty workflow_id";
+      }
+      if (!value?.kind || typeof value.kind !== "object" || !value.kind.kind) {
+        return "schedule requires kind.kind";
+      }
+      if (typeof value.enabled !== "boolean") {
+        return "schedule requires enabled boolean";
+      }
+      return null;
+    }
+    case "schedule-rule-set": {
+      let value;
+      try {
+        value = JSON.parse(content);
+      } catch (e) {
+        return `invalid schedule rule set JSON: ${e.message}`;
+      }
+      if (!value?.id?.trim()) {
+        return "schedule rule set requires a non-empty id";
+      }
+      if (!value?.name?.trim()) {
+        return "schedule rule set requires a non-empty name";
+      }
+      return null;
+    }
     default:
       return `unknown category: ${category}`;
   }
@@ -284,6 +323,12 @@ function validatePayload(category, toPath, content) {
 function inferKindFromTo(toPath) {
   if (toPath.startsWith(".s_e_e/workflows/definitions/")) {
     return "workflow";
+  }
+  if (toPath.startsWith(".s_e_e/workflows/schedules/")) {
+    return "schedule";
+  }
+  if (toPath.startsWith(".s_e_e/workflows/schedule_rule_sets/")) {
+    return "schedule-rule-set";
   }
   if (toPath.startsWith(".s_e_e/prompts/")) {
     return "prompt";

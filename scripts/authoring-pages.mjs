@@ -22,4 +22,12 @@ export const SCHEMA_PAGES = [
   "command",
   "rule-template",
   "bundle",
+  "hub-config",
+  "global-config",
+  "app-settings",
+  "routing-rules",
+  "stories-config",
+  "orchestrator-policy",
+  "schedule",
+  "schedule-rule-set",
 ];

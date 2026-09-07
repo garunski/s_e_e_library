@@ -48,7 +48,7 @@ export default function Page() {
         <dt>
           <code>content</code>
         </dt>
-        <dd>Engine workflow object (object or JSON-encoded string on disk).</dd>
+        <dd>Engine workflow object.</dd>
       </dl>
 
       <h2>Inner content</h2>
@@ -170,8 +170,7 @@ export default function Page() {
   }
 }`}</pre>
       <p>
-        On disk the engine may store <code>content</code> as a JSON string; both
-        forms validate.
+        On disk <code>content</code> is a nested JSON object, not a string.
       </p>
 
       <h2>Install path</h2>

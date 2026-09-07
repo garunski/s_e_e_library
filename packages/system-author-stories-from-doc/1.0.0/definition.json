@@ -2,7 +2,34 @@
   "id": "system-author-stories-from-doc",
   "name": "Author stories from doc",
   "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/stories/stories/`.",
-  "content": "{\"id\":\"author-stories-from-doc\",\"name\":\"Author stories from doc\",\"runtime_inputs\":[{\"input_type\":\"string\",\"key\":\"doc_id\",\"label\":\"Doc id (e.g. 13 or doc-13)\",\"required\":true}],\"spoke_root\":\"/home/fang/code/s_e_e_project/s_e_e_project\",\"tasks\":[{\"function\":{\"input\":{\"command_id\":\"cursor-agent\",\"config\":{},\"prompt\":\"{{prompt.system-stories-from-doc-authoring}}\\n\\n## Target doc id\\n{{runtime.doc_id}}\\n\\nThe Cursor workspace is this workflow's `spoke_root` (set on the definition; restore-defaults assigns the project's hub spoke).\"},\"name\":\"command\"},\"id\":\"author_stories_from_doc_cursor\",\"name\":\"Author stories from doc (Cursor, auto mode)\",\"next_tasks\":[]}]}",
+  "content": {
+    "id": "author-stories-from-doc",
+    "name": "Author stories from doc",
+    "runtime_inputs": [
+      {
+        "input_type": "string",
+        "key": "doc_id",
+        "label": "Doc id (e.g. 13 or doc-13)",
+        "required": true
+      }
+    ],
+    "spoke_root": "/home/fang/code/s_e_e_project/s_e_e_project",
+    "tasks": [
+      {
+        "function": {
+          "input": {
+            "command_id": "cursor-agent",
+            "config": {},
+            "prompt": "{{prompt.system-stories-from-doc-authoring}}\n\n## Target doc id\n{{runtime.doc_id}}\n\nThe Cursor workspace is this workflow's `spoke_root` (set on the definition; restore-defaults assigns the project's hub spoke)."
+          },
+          "name": "command"
+        },
+        "id": "author_stories_from_doc_cursor",
+        "name": "Author stories from doc (Cursor, auto mode)",
+        "next_tasks": []
+      }
+    ]
+  },
   "is_edited": false,
   "labels": [
     "system"

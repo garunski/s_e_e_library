@@ -121,8 +121,9 @@ export default function HomePage() {
             <h2 id="contract-heading">Schema pages own the payload shape.</h2>
             <p className="section-lede">
               Every schema page carries its JSON Schema file, downloadable under
-              /schema/. Authoring guides explain how to write a package that
-              satisfies one.
+              /schema/. That includes package payloads and hub documents the
+              runtime validates on save. Authoring guides explain how to write a
+              package that satisfies one.
             </p>
           </div>
           <div className="external-actions">

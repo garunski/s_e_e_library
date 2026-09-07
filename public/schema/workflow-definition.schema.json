@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow-definition.schema.json",
+  "title": "Stored workflow definition envelope",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "content"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "content": {
+      "type": "object"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "is_edited": {
+      "type": "boolean"
+    },
+    "subject_kinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "subject_required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

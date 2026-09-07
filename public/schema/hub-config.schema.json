@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/hub-config.schema.json",
+  "title": "Hub config.json",
+  "type": "object",
+  "minProperties": 1,
+  "additionalProperties": true,
+  "properties": {
+    "project": {
+      "type": "object"
+    },
+    "overrides": {
+      "type": "object"
+    },
+    "stories": {
+      "type": "object"
+    },
+    "library": {
+      "type": "object"
+    },
+    "llm": {
+      "type": "object"
+    },
+    "orchestrator": {
+      "type": "object"
+    }
+  }
+}

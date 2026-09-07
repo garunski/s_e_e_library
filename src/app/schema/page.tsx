@@ -71,6 +71,78 @@ export default function Page() {
         </li>
       </ul>
 
+      <h2>Hub document schemas</h2>
+      <p>
+        JSON documents the hub stores besides catalog payloads. Each has a
+        schema file and is validated on save.
+      </p>
+      <ul className="example-list named-examples">
+        <li>
+          <strong>
+            <Link href="/schema/hub-config/">Hub config</Link>
+          </strong>
+          <span>
+            <code>.s_e_e/config.json</code> at the hub data root.
+          </span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/schema/global-config/">Global config</Link>
+          </strong>
+          <span>
+            <code>~/.s_e_e/config.json</code>.
+          </span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/schema/app-settings/">App settings</Link>
+          </strong>
+          <span>
+            <code>~/.s_e_e/settings.json</code>.
+          </span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/schema/routing-rules/">Routing rules</Link>
+          </strong>
+          <span>
+            <code>llm.routing</code> in hub config.
+          </span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/schema/stories-config/">Stories config</Link>
+          </strong>
+          <span>
+            <code>stories</code> in hub config.
+          </span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/schema/orchestrator-policy/">Orchestrator policy</Link>
+          </strong>
+          <span>
+            <code>orchestrator</code> in hub config.
+          </span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/schema/schedule/">Schedule</Link>
+          </strong>
+          <span>
+            <code>.s_e_e/workflows/schedules/{"{id}"}.json</code>.
+          </span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/schema/schedule-rule-set/">Schedule rule set</Link>
+          </strong>
+          <span>
+            <code>.s_e_e/workflows/schedule_rule_sets/{"{id}"}.json</code>.
+          </span>
+        </li>
+      </ul>
+
       <h2>Manifest</h2>
       <p>
         <code>catalog.json</code>:
@@ -238,6 +310,13 @@ export default function Page() {
         </li>
         <li>
           <code>.s_e_e/commands/…</code> validates as a command;
+        </li>
+        <li>
+          <code>.s_e_e/workflows/schedules/…</code> validates as a schedule;
+        </li>
+        <li>
+          <code>.s_e_e/workflows/schedule_rule_sets/…</code> validates as a
+          schedule rule set;
         </li>
         <li>
           <code>.agents/skills/…/SKILL.md</code> validates as a skill;

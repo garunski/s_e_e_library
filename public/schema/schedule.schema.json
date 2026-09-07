@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/schedule.schema.json",
+  "title": "Workflow schedule",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "workflow_id",
+    "kind",
+    "enabled"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workflow_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "object",
+      "required": [
+        "kind"
+      ]
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "concurrency": {
+      "type": "object"
+    },
+    "runtime_inputs": {
+      "type": "object"
+    },
+    "story_rules": {
+      "type": "object"
+    },
+    "catchup_policy": {
+      "type": "object"
+    },
+    "notifications": {
+      "type": "object"
+    }
+  }
+}

@@ -78,8 +78,8 @@ export default function Page() {
       <h2>The contract</h2>
       <ul className="example-list">
         <li>
-          <Link href="/schema/">Catalog schema</Link> and the per-type payload
-          schemas
+          <Link href="/schema/">Catalog schema</Link>, per-type payload schemas,
+          and hub document schemas
         </li>
         <li>
           Catalog manifest:{" "}
