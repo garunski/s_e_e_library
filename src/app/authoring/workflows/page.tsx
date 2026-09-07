@@ -145,7 +145,7 @@ export default function Page() {
           "name": "command",
           "input": {
             "command_id": "cursor-agent",
-            "config": { "cursor_model": "composer-2.5" },
+            "config": { "cursor_model": "composer-2.5[fast=false]" },
             "prompt": "{{prompt.system-implement-story}}"
           }
         },

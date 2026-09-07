@@ -551,7 +551,7 @@
         }
       ],
       "name": "Implement stories (bulk)",
-      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) on each story id from board column bulk selection.",
+      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) on each story id from board column bulk selection.",
       "labels": [
         "bulk",
         "story"
@@ -579,7 +579,7 @@
         }
       ],
       "name": "Implement story",
-      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) to implement a single story; requires story id at run start.",
+      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
       "labels": [
         "story"
       ]
@@ -606,7 +606,7 @@
         }
       ],
       "name": "Work swimlane stories",
-      "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5) executing the /work skill on each story in a loop.",
+      "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) executing the /work skill on each story in a loop.",
       "labels": [
         "bulk",
         "story",

@@ -1,7 +1,7 @@
 {
   "id": "system-implement-story",
   "name": "Implement story",
-  "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) to implement a single story; requires story id at run start.",
+  "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
   "content": {
     "id": "implement-story",
     "metadata": {
@@ -36,7 +36,7 @@
           "input": {
             "command_id": "cursor-agent",
             "config": {
-              "cursor_model": "composer-2.5"
+              "cursor_model": "composer-2.5[fast=false]"
             },
             "prompt": "{{prompt.system-implement-story}}"
           },

@@ -89,7 +89,7 @@ export default function Page() {
     {
       "key": "cursor_model",
       "type": "string",
-      "default": "composer-2.5",
+      "default": "composer-2.5[fast=false]",
       "map": { "target": "env", "name": "CURSOR_MODEL" }
     },
     {

@@ -3,7 +3,7 @@
   "slug": "system-implement-stories-bulk",
   "category": "workflow",
   "name": "Implement stories (bulk)",
-  "description": "Runs a Cursor CLI agent (auto mode, composer-2.5) on each story id from board column bulk selection.",
+  "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) on each story id from board column bulk selection.",
   "labels": [
     "bulk",
     "story"
