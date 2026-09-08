@@ -1,0 +1,142 @@
+{
+  "id": "system-trace-contract",
+  "name": "Trace contract across consumer spokes",
+  "description": "Inspects consumer spokes when a change record names a public contract, writes one impact report, and creates stories for incompatible consumers.",
+  "labels": [
+    "system"
+  ],
+  "subject_kinds": [
+    "component"
+  ],
+  "subject_required": true,
+  "version": "1.0.0",
+  "content": {
+    "id": "trace-contract",
+    "name": "Trace contract across consumer spokes",
+    "spoke_root": "/tmp/see-embedded-trace-contract-template",
+    "runtime_inputs": [
+      {
+        "key": "component",
+        "label": "Component name",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "change_record_id",
+        "label": "Change record id",
+        "input_type": "string",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "load_change_record",
+        "name": "Load change record",
+        "capture_output": true,
+        "function": {
+          "name": "change_action",
+          "input": {
+            "action": "get_change_record",
+            "change_record_id": "{{runtime.change_record_id}}"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "resolve_spokes",
+            "name": "Resolve consumer spokes",
+            "capture_output": true,
+            "run_when": {
+              "task": "load_change_record",
+              "path": [
+                "contract_changed"
+              ],
+              "op": "ne",
+              "value": ""
+            },
+            "function": {
+              "name": "impact_action",
+              "input": {
+                "action": "resolve_contract_trace_spokes",
+                "change_record_id": "{{runtime.change_record_id}}"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "for_each_consumer",
+                "name": "For each consumer spoke",
+                "function": {
+                  "name": "foreach",
+                  "input": {
+                    "collection_task_id": "resolve_spokes",
+                    "collection_task_path": [
+                      "consumer_spokes"
+                    ],
+                    "item_runtime_key": "consumer_spoke"
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "inspect_spoke",
+                    "name": "Inspect consumer spoke",
+                    "capture_output": true,
+                    "function": {
+                      "name": "command",
+                      "input": {
+                        "command_id": "cursor-agent",
+                        "prompt": "{{prompt.system-trace-contract}}",
+                        "config": {
+                          "cursor_model": "composer-2.5[fast=false]",
+                          "timeout_secs": 1800
+                        }
+                      }
+                    },
+                    "next_tasks": [
+                      {
+                        "id": "record_finding",
+                        "name": "Record trace finding",
+                        "function": {
+                          "name": "impact_action",
+                          "input": {
+                            "action": "record_contract_trace_finding",
+                            "change_record_id": "{{runtime.change_record_id}}",
+                            "spoke": "{{runtime.consumer_spoke}}",
+                            "contract_changed": "{{task.resolve_spokes.output.contract_changed}}",
+                            "status": "{{task.inspect_spoke.output.status}}"
+                          }
+                        },
+                        "next_tasks": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "persist_impact_report",
+                "name": "Persist impact report",
+                "wait_for": [
+                  "for_each_consumer"
+                ],
+                "run_when": {
+                  "task": "load_change_record",
+                  "path": [
+                    "contract_changed"
+                  ],
+                  "op": "ne",
+                  "value": ""
+                },
+                "function": {
+                  "name": "impact_action",
+                  "input": {
+                    "action": "create_impact_report",
+                    "change_record_id": "{{runtime.change_record_id}}"
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

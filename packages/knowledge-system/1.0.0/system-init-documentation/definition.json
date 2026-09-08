@@ -1,0 +1,115 @@
+{
+  "id": "system-init-documentation",
+  "name": "Init documentation",
+  "description": "Reads the knowledge inventory, inspects each named component at current spoke heads, writes current component notes, then publishes topic pages and the index.",
+  "labels": [
+    "system"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "init-documentation",
+    "name": "Init documentation",
+    "spoke_root": "/tmp/see-embedded-init-documentation-template",
+    "runtime_inputs": [
+      {
+        "key": "spoke_sha_set",
+        "label": "Spoke SHA set at run start",
+        "input_type": "string_array",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "resolve_heads",
+        "name": "Resolve spoke SHA set",
+        "capture_output": true,
+        "function": {
+          "name": "component_action",
+          "input": {
+            "action": "resolve_live_spoke_sha_set",
+            "verified_against": []
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "list_inventory",
+            "name": "List documentation inventory",
+            "capture_output": true,
+            "function": {
+              "name": "component_action",
+              "input": {
+                "action": "list_documentation_inventory"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "for_each_component",
+                "name": "For each inventory component",
+                "function": {
+                  "name": "foreach",
+                  "input": {
+                    "collection_task_id": "list_inventory",
+                    "collection_task_path": [
+                      "names"
+                    ],
+                    "item_runtime_key": "component"
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "inspect_component",
+                    "name": "Inspect component",
+                    "capture_output": true,
+                    "function": {
+                      "name": "command",
+                      "input": {
+                        "command_id": "cursor-agent",
+                        "prompt": "{{prompt.system-init-documentation}}",
+                        "config": {
+                          "cursor_model": "composer-2.5[fast=false]",
+                          "timeout_secs": 1800
+                        }
+                      }
+                    },
+                    "next_tasks": [
+                      {
+                        "id": "write_note",
+                        "name": "Write component note",
+                        "function": {
+                          "name": "component_action",
+                          "input": {
+                            "action": "create_component_document",
+                            "name": "{{runtime.component}}",
+                            "owned_by": "{{task.inspect_component.output.owned_by}}",
+                            "consumed_by": "{{task.inspect_component.output.consumed_by}}",
+                            "body": "{{task.inspect_component.output.body}}",
+                            "verified_against": "{{task.resolve_heads.output.spoke_sha_set}}"
+                          }
+                        },
+                        "next_tasks": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "publish_views",
+                "name": "Publish documentation",
+                "wait_for": [
+                  "for_each_component"
+                ],
+                "function": {
+                  "name": "component_action",
+                  "input": {
+                    "action": "publish_documentation"
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

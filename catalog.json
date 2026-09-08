@@ -1,7 +1,7 @@
 {
   "schema": "see.library/v1",
   "name": "S.E.E. Official Library",
-  "updated": "2026-07-06T22:46:46.202Z",
+  "updated": "2026-09-08T23:01:21.063Z",
   "packages": [
     {
       "id": "bundle-author-stories-from-doc",
@@ -214,6 +214,108 @@
         "bulk",
         "story",
         "swimlane"
+      ]
+    },
+    {
+      "id": "bundle-knowledge-system",
+      "slug": "knowledge-system",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "cursor-agent",
+        "git"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/knowledge/INSTRUCTIONS.md",
+          "from": "packages/knowledge-system/1.0.0/knowledge/INSTRUCTIONS.md"
+        },
+        {
+          "to": ".s_e_e/commands/audit-system-agent.json",
+          "from": "packages/knowledge-system/1.0.0/audit-system-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/knowledge-system/1.0.0/cursor-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-audit-system.json",
+          "from": "packages/knowledge-system/1.0.0/system-audit-system-prompt/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-fix-broken-links.json",
+          "from": "packages/knowledge-system/1.0.0/system-fix-broken-links-prompt/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-init-documentation.json",
+          "from": "packages/knowledge-system/1.0.0/system-init-documentation-prompt/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-record-git-change.json",
+          "from": "packages/knowledge-system/1.0.0/system-record-git-change-prompt/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-refresh-component.json",
+          "from": "packages/knowledge-system/1.0.0/system-refresh-component-prompt/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-trace-contract.json",
+          "from": "packages/knowledge-system/1.0.0/system-trace-contract-prompt/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-audit-system.json",
+          "from": "packages/knowledge-system/1.0.0/system-audit-system/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-fix-broken-links.json",
+          "from": "packages/knowledge-system/1.0.0/system-fix-broken-links/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-init-documentation.json",
+          "from": "packages/knowledge-system/1.0.0/system-init-documentation/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-publish-documentation.json",
+          "from": "packages/knowledge-system/1.0.0/system-publish-documentation/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-record-git-change.json",
+          "from": "packages/knowledge-system/1.0.0/system-record-git-change/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-refresh-component.json",
+          "from": "packages/knowledge-system/1.0.0/system-refresh-component/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-trace-contract.json",
+          "from": "packages/knowledge-system/1.0.0/system-trace-contract/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/schedules/system-audit-weekly.json",
+          "from": "packages/knowledge-system/1.0.0/schedules/system-audit-weekly.json"
+        },
+        {
+          "to": ".s_e_e/workflows/schedules/system-publish-milestone-completion.json",
+          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-milestone-completion.json"
+        },
+        {
+          "to": ".s_e_e/workflows/schedules/system-publish-quiet-period.json",
+          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-quiet-period.json"
+        },
+        {
+          "to": ".s_e_e/workflows/schedules/system-publish-release.json",
+          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-release.json"
+        }
+      ],
+      "name": "Knowledge system",
+      "description": "The seven-stage knowledge loop: definitions, prompts, commands, schedules, and component inventory.",
+      "labels": [
+        "knowledge",
+        "system"
       ]
     },
     {

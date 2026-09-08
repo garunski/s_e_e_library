@@ -1,0 +1,22 @@
+{
+  "id": "system-publish-milestone-completion",
+  "name": "Publish on milestone story completion",
+  "workflow_id": "system-publish-documentation",
+  "kind": {
+    "kind": "entity_event",
+    "entity_kind": "story",
+    "predicate": {
+      "predicate": "field_transition_to",
+      "field": "status",
+      "value": "Done"
+    }
+  },
+  "enabled": false,
+  "concurrency": {},
+  "runtime_inputs": {},
+  "story_rules": { "kind": "inline" },
+  "catchup_policy": { "kind": "run_latest_once" },
+  "notifications": {},
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z"
+}

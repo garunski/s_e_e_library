@@ -1,0 +1,18 @@
+{
+  "id": "system-publish-quiet-period",
+  "name": "Publish after quiet period",
+  "workflow_id": "system-publish-documentation",
+  "kind": {
+    "kind": "interval",
+    "every_seconds": 1800,
+    "align_to_wall_clock": false
+  },
+  "enabled": false,
+  "concurrency": {},
+  "runtime_inputs": {},
+  "story_rules": { "kind": "inline" },
+  "catchup_policy": { "kind": "run_latest_once" },
+  "notifications": {},
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z"
+}

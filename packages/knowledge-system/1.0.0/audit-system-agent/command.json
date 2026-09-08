@@ -1,0 +1,51 @@
+{
+  "id": "audit-system-agent",
+  "name": "Audit system agent",
+  "icon": "t",
+  "binary": "cursor-agent",
+  "base_args": [],
+  "prompt": {
+    "delivery": "stdin"
+  },
+  "params": [],
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": [
+      "stdout_tail",
+      "exit_code"
+    ],
+    "applied_paths": {
+      "strategy": "none"
+    },
+    "run_id": {
+      "strategy": "none"
+    },
+    "extract": [
+      {
+        "name": "missing_consumer",
+        "source": "stdout",
+        "path": "$.missing_consumer",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "unverified",
+        "source": "stdout",
+        "path": "$.unverified",
+        "type": "string",
+        "optional": true
+      }
+    ]
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": {
+      "scope": "spoke",
+      "default_policy": "force"
+    },
+    "stream": {
+      "format": "lines"
+    },
+    "non_interactive": true
+  }
+}

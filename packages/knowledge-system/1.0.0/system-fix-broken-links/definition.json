@@ -1,0 +1,61 @@
+{
+  "id": "system-fix-broken-links",
+  "name": "Fix broken links",
+  "description": "Lists dangling entity links and runs a Cursor agent on each missing target until the group clears.",
+  "labels": [
+    "system"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "fix-broken-links",
+    "name": "Fix broken links",
+    "spoke_root": "/tmp/see-embedded-fix-broken-links-template",
+    "tasks": [
+      {
+        "id": "list_dangling",
+        "name": "List dangling link targets",
+        "capture_output": true,
+        "function": {
+          "name": "link_action",
+          "input": {
+            "action": "list_dangling_references"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_dangling",
+            "name": "For each dangling target",
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "list_dangling",
+                "collection_task_path": [
+                  "target_keys"
+                ],
+                "item_runtime_key": "dangling_target"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "fix_one",
+                "name": "Fix one dangling target",
+                "function": {
+                  "name": "command",
+                  "input": {
+                    "command_id": "cursor-agent",
+                    "prompt": "{{prompt.system-fix-broken-links}}\n\nFix only dangling target {{runtime.dangling_target}}.",
+                    "config": {
+                      "cursor_model": "composer-2.5[fast=false]",
+                      "timeout_secs": 7200
+                    }
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

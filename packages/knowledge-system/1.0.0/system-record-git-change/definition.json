@@ -1,0 +1,96 @@
+{
+  "id": "system-record-git-change",
+  "name": "Record git range change",
+  "description": "Captures git diff for a spoke range, summarizes behavioral changes with an agent, and writes one immutable change record without rewriting docs.",
+  "labels": [
+    "system"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "record-git-change",
+    "name": "Record git range change",
+    "spoke_root": "/tmp/see-embedded-record-git-change-template",
+    "runtime_inputs": [
+      {
+        "key": "repository",
+        "label": "Repository spoke name",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "previous_sha",
+        "label": "Previous SHA",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "current_sha",
+        "label": "Current SHA",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "story_id",
+        "label": "Related story id",
+        "input_type": "string",
+        "required": false,
+        "default": ""
+      }
+    ],
+    "tasks": [
+      {
+        "id": "capture_diff",
+        "name": "Capture git diff",
+        "capture_output": true,
+        "function": {
+          "name": "cli_command",
+          "input": {
+            "command": "git",
+            "args": [
+              "diff",
+              "{{runtime.previous_sha}}..{{runtime.current_sha}}"
+            ]
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "analyze_change",
+            "name": "Analyze behavioral change",
+            "capture_output": true,
+            "function": {
+              "name": "command",
+              "input": {
+                "command_id": "cursor-agent",
+                "prompt": "{{prompt.system-record-git-change}}",
+                "config": {
+                  "cursor_model": "composer-2.5[fast=false]",
+                  "timeout_secs": 1800
+                }
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "persist_change_record",
+                "name": "Persist change record",
+                "function": {
+                  "name": "change_action",
+                  "input": {
+                    "action": "create_change_record",
+                    "repository": "{{runtime.repository}}",
+                    "previous_sha": "{{runtime.previous_sha}}",
+                    "current_sha": "{{runtime.current_sha}}",
+                    "components": "{{task.analyze_change.output.components}}",
+                    "behavior_changed": "{{task.analyze_change.output.behavior_changed}}",
+                    "contract_changed": "{{task.analyze_change.output.contract_changed}}",
+                    "related_story_id": "{{runtime.story_id}}"
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

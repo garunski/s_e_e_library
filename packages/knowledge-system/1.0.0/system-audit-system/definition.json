@@ -1,0 +1,153 @@
+{
+  "id": "system-audit-system",
+  "name": "Audit component documents",
+  "description": "Compares component notes with live spoke heads, follows cross-spoke flows, repairs missing relationships, and writes an audit report without publishing docs.",
+  "labels": [
+    "system"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "audit-system",
+    "name": "Audit component documents",
+    "spoke_root": "/tmp/see-embedded-audit-system-template",
+    "runtime_inputs": [
+      {
+        "key": "component",
+        "label": "Component scope",
+        "input_type": "string",
+        "required": false
+      },
+      {
+        "key": "max_targets",
+        "label": "Max components to audit",
+        "input_type": "number",
+        "required": false,
+        "default": 10
+      }
+    ],
+    "tasks": [
+      {
+        "id": "select_targets",
+        "name": "Select audit targets",
+        "capture_output": true,
+        "function": {
+          "name": "audit_action",
+          "input": {
+            "action": "select_audit_targets",
+            "component": "{{runtime.component}}",
+            "max_targets": "{{runtime.max_targets}}"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_component",
+            "name": "For each component",
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "select_targets",
+                "collection_task_path": [
+                  "component_ids"
+                ],
+                "item_runtime_key": "audit_component_id"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "read_head",
+                "name": "Read spoke head",
+                "capture_output": true,
+                "function": {
+                  "name": "cli_command",
+                  "input": {
+                    "command": "git",
+                    "args": [
+                      "rev-parse",
+                      "HEAD"
+                    ]
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "audit_heads",
+                    "name": "Audit verified heads",
+                    "capture_output": true,
+                    "function": {
+                      "name": "audit_action",
+                      "input": {
+                        "action": "audit_component_heads",
+                        "component_id": "{{runtime.audit_component_id}}"
+                      }
+                    },
+                    "next_tasks": [
+                      {
+                        "id": "inspect_flows",
+                        "name": "Inspect cross-spoke flows",
+                        "capture_output": true,
+                        "function": {
+                          "name": "command",
+                          "input": {
+                            "command_id": "audit-system-agent",
+                            "prompt": "{{prompt.system-audit-system}}",
+                            "config": {
+                              "cursor_model": "composer-2.5[fast=false]",
+                              "timeout_secs": 1800
+                            }
+                          }
+                        },
+                        "next_tasks": [
+                          {
+                            "id": "repair_consumer",
+                            "name": "Repair missing consumer",
+                            "function": {
+                              "name": "audit_action",
+                              "input": {
+                                "action": "repair_component_consumed_by",
+                                "component_id": "{{runtime.audit_component_id}}",
+                                "consumer": "{{task.inspect_flows.output.missing_consumer}}"
+                              }
+                            },
+                            "next_tasks": [
+                              {
+                                "id": "record_unverified",
+                                "name": "Record unverified items",
+                                "function": {
+                                  "name": "audit_action",
+                                  "input": {
+                                    "action": "record_audit_finding",
+                                    "kind": "unverified",
+                                    "component_id": "{{runtime.audit_component_id}}",
+                                    "detail": "{{task.inspect_flows.output.unverified}}"
+                                  }
+                                },
+                                "next_tasks": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "write_report",
+            "name": "Write audit report",
+            "wait_for": [
+              "for_each_component"
+            ],
+            "function": {
+              "name": "audit_action",
+              "input": {
+                "action": "create_audit_report"
+              }
+            },
+            "next_tasks": []
+          }
+        ]
+      }
+    ]
+  }
+}

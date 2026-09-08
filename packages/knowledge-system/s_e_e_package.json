@@ -1,0 +1,16 @@
+{
+  "id": "bundle-knowledge-system",
+  "slug": "knowledge-system",
+  "category": "bundle",
+  "name": "Knowledge system",
+  "description": "The seven-stage knowledge loop: definitions, prompts, commands, schedules, and component inventory.",
+  "labels": [
+    "knowledge",
+    "system"
+  ],
+  "requires": [
+    "git",
+    "cursor-agent"
+  ],
+  "dependencies": []
+}

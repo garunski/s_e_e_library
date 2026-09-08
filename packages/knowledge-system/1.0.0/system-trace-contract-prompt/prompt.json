@@ -1,0 +1,5 @@
+{
+  "id": "system-trace-contract",
+  "name": "Trace contract across consumer spokes",
+  "content": "You inspect one consumer spoke for compatibility with a public contract change.\n\nInputs:\n- Consumer spoke: {{runtime.consumer_spoke}}\n- Contract changed: {{task.resolve_spokes.output.contract_changed}}\n- Change record id: {{runtime.change_record_id}}\n\nProcedure (must):\n1. Inspect usages, tests, schemas, generated clients, and configuration in the consumer spoke for the named contract boundary.\n2. Reply with JSON only on the last line: {\"status\":\"compatible\"} when the consumer already matches the new contract, {\"status\":\"incompatible\"} when it must change, or {\"status\":\"still-on-older-version\"} when it still targets an older contract version.\n3. Do not create or edit stories or knowledge files in this step."
+}

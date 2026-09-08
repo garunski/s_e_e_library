@@ -1,0 +1,99 @@
+{
+  "id": "system-refresh-component",
+  "name": "Refresh component",
+  "description": "Combines pending change records for one component, inspects it at spoke heads, and writes one component document with verified SHAs.",
+  "labels": [
+    "system"
+  ],
+  "subject_kinds": [
+    "component"
+  ],
+  "subject_required": true,
+  "version": "1.0.0",
+  "content": {
+    "id": "refresh-component",
+    "name": "Refresh component",
+    "spoke_root": "/tmp/see-embedded-refresh-component-template",
+    "runtime_inputs": [
+      {
+        "key": "component",
+        "label": "Component name",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "spoke_sha_set",
+        "label": "Spoke SHA set at run start",
+        "input_type": "string_array",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "claim_queue",
+        "name": "Claim refresh queue",
+        "capture_output": true,
+        "function": {
+          "name": "component_action",
+          "input": {
+            "action": "claim_component_refresh",
+            "component": "{{runtime.component}}"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "inspect_component",
+            "name": "Inspect component",
+            "capture_output": true,
+            "function": {
+              "name": "command",
+              "input": {
+                "command_id": "cursor-agent",
+                "prompt": "{{prompt.system-refresh-component}}",
+                "config": {
+                  "cursor_model": "composer-2.5[fast=false]",
+                  "timeout_secs": 1800
+                }
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "resolve_live_heads",
+                "name": "Resolve live spoke heads",
+                "capture_output": true,
+                "function": {
+                  "name": "component_action",
+                  "input": {
+                    "action": "resolve_live_spoke_sha_set",
+                    "verified_against": "{{task.claim_queue.output.spoke_sha_set}}"
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "finalize_refresh",
+                    "name": "Finalize component refresh",
+                    "function": {
+                      "name": "component_action",
+                      "input": {
+                        "action": "finalize_component_refresh",
+                        "component": "{{runtime.component}}",
+                        "name": "{{runtime.component}}",
+                        "owned_by": "{{task.inspect_component.output.owned_by}}",
+                        "consumed_by": "{{task.inspect_component.output.consumed_by}}",
+                        "body": "{{task.inspect_component.output.body}}",
+                        "inputs": "{{task.claim_queue.output.change_record_ids}}",
+                        "verified_against": "{{task.claim_queue.output.spoke_sha_set}}",
+                        "live_spoke_sha_set": "{{task.resolve_live_heads.output.spoke_sha_set}}"
+                      }
+                    },
+                    "next_tasks": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

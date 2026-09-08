@@ -133,6 +133,10 @@ export default function Page() {
           <code>.s_e_e/commands/</code> is a command;
         </li>
         <li>
+          <code>.s_e_e/knowledge/</code> is a knowledge markdown payload (for example
+          the component inventory template);
+        </li>
+        <li>
           <code>.agents/skills/</code> is a skill;
         </li>
         <li>

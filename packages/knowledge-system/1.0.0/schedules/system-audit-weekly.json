@@ -1,0 +1,18 @@
+{
+  "id": "system-audit-weekly",
+  "name": "Weekly component audit",
+  "workflow_id": "system-audit-system",
+  "kind": {
+    "kind": "cron",
+    "expression": "0 3 * * 0",
+    "timezone": "UTC"
+  },
+  "enabled": false,
+  "concurrency": {},
+  "runtime_inputs": {},
+  "story_rules": { "kind": "inline" },
+  "catchup_policy": { "kind": "run_latest_once" },
+  "notifications": {},
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z"
+}

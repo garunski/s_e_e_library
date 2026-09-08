@@ -312,6 +312,10 @@ export default function Page() {
           <code>.s_e_e/commands/…</code> validates as a command;
         </li>
         <li>
+          <code>.s_e_e/knowledge/…</code> validates as a knowledge markdown
+          payload;
+        </li>
+        <li>
           <code>.s_e_e/workflows/schedules/…</code> validates as a schedule;
         </li>
         <li>

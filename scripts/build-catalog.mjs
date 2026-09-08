@@ -315,6 +315,15 @@ function validatePayload(category, toPath, content) {
       }
       return null;
     }
+    case "knowledge": {
+      if (!toPath.startsWith(".s_e_e/knowledge/")) {
+        return "knowledge install path must be under .s_e_e/knowledge/";
+      }
+      if (!content.trim()) {
+        return "knowledge doc cannot be empty";
+      }
+      return null;
+    }
     default:
       return `unknown category: ${category}`;
   }
@@ -344,6 +353,9 @@ function inferKindFromTo(toPath) {
   }
   if (toPath.startsWith("templates/")) {
     return "template";
+  }
+  if (toPath.startsWith(".s_e_e/knowledge/")) {
+    return "knowledge";
   }
   return null;
 }

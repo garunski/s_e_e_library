@@ -424,6 +424,10 @@ Example members for `implement-story` (from `scripts/bundles.json`):
 - `wf-system-implement-story`
 - `wf-system-implement-stories-bulk`
 
+The `knowledge-system` bundle is hand-authored in `catalog.json` and installs
+the seven knowledge loop definitions, their prompts, the commands they spawn,
+disabled schedules, and `.s_e_e/knowledge/INSTRUCTIONS.md`.
+
 ## Install map
 
 Each entry maps a repo path to an install target:
@@ -442,6 +446,7 @@ The build infers payload kind from the `to` prefix:
 - `.s_e_e/workflows/schedule_rule_sets/` is a schedule rule set;
 - `.s_e_e/prompts/` is a prompt;
 - `.s_e_e/commands/` is a command;
+- `.s_e_e/knowledge/` is a knowledge markdown payload (for example the component inventory template);
 - `.agents/skills/` is a skill;
 - `.cursor/` is a rule;
 - `templates/` is a template.
@@ -667,6 +672,7 @@ For a `bundle`, the `to` prefix determines the payload kind that is validated:
 - `.s_e_e/workflows/definitions/…` validates as a workflow;
 - `.s_e_e/prompts/…` validates as a prompt;
 - `.s_e_e/commands/…` validates as a command;
+- `.s_e_e/knowledge/…` validates as a knowledge markdown payload;
 - `.s_e_e/workflows/schedules/…` validates as a schedule;
 - `.s_e_e/workflows/schedule_rule_sets/…` validates as a schedule rule set;
 - `.agents/skills/…/SKILL.md` validates as a skill;
