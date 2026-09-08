@@ -137,7 +137,7 @@ Each task:
 `git_action` - git operation. Use only when story-driven workflows need it.
 - `input.action` plus paths per schema.
 
-`story_action` - stories / knowledge store read and mutation. Set workflow `stories_root` / `knowledge_root`; per-task `input.stories_root` / `input.knowledge_root` override for that step. `delete_*` requires `confirm: true`. Optional `client_mtime_ms` on `update_story` and `delete_*` (optimistic lock). Set `capture_output: true` on list tasks to feed `foreach` via `collection_task_id` (+ optional `collection_task_path`, e.g. `["story_ids"]`).
+`story_action` - stories store read and mutation. Related handlers: `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, `link_action`. Set workflow `stories_root` / `knowledge_root`; per-task `input.stories_root` / `input.knowledge_root` override for that step. `delete_*` requires `confirm: true`. Optional `client_mtime_ms` on `update_story` and `delete_*` (optimistic lock). Set `capture_output: true` on list tasks to feed `foreach` via `collection_task_id` (+ optional `collection_task_path`, e.g. `["story_ids"]`).
 
 | `action` | Required input | Optional input | Output |
 | --- | --- | --- | --- |

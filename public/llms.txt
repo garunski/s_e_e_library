@@ -111,7 +111,7 @@ Each task has exactly one handler under `function`:
 - `cli_command`: shell command and args
 - `command`: run a catalog command by `command_id` with optional `prompt`
 - `user_input`: collect operator input at run start
-- `git_action`, `story_action`, `foreach`, `custom`
+- `git_action`, `story_action`, `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, `link_action`, `foreach`, `custom`
 
 ### Template references
 
@@ -786,7 +786,7 @@ Each task:
 
 - `id` - unique within the workflow.
 - `name` - string.
-- `function` - exactly one handler key: `cli_command`, `command`, `user_input`, `git_action`, `story_action`, `foreach`, or `custom`.
+- `function` - exactly one handler key: `cli_command`, `command`, `user_input`, `git_action`, `story_action`, `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, `link_action`, `foreach`, or `custom`.
 - `next_tasks[]` - optional nested tasks (depth-first execution).
 - `capture_output` - when true, record handler output for `{{task.TASK_ID.output}}` placeholders.
 - `wait_for` - task ids that must complete before this task runs (use a foreach id to wait for all iterations).
@@ -926,6 +926,14 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
             "user_input",
             "git_action",
             "story_action",
+            "milestone_action",
+            "document_action",
+            "decision_action",
+            "component_action",
+            "change_action",
+            "impact_action",
+            "audit_action",
+            "link_action",
             "foreach",
             "custom"
           ]

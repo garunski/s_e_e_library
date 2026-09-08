@@ -250,6 +250,30 @@
           "$ref": "#/definitions/StoryActionFunction"
         },
         {
+          "$ref": "#/definitions/MilestoneActionFunction"
+        },
+        {
+          "$ref": "#/definitions/DocumentActionFunction"
+        },
+        {
+          "$ref": "#/definitions/DecisionActionFunction"
+        },
+        {
+          "$ref": "#/definitions/ComponentActionFunction"
+        },
+        {
+          "$ref": "#/definitions/ChangeActionFunction"
+        },
+        {
+          "$ref": "#/definitions/ImpactActionFunction"
+        },
+        {
+          "$ref": "#/definitions/AuditActionFunction"
+        },
+        {
+          "$ref": "#/definitions/LinkActionFunction"
+        },
+        {
           "$ref": "#/definitions/ForeachFunction"
         },
         {
@@ -1355,6 +1379,299 @@
               "description": "Deliberation step kind"
             }
           }
+        }
+      }
+    },
+    "MilestoneActionFunction": {
+      "type": "object",
+      "description": "Milestone store operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "milestone_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "create_milestone",
+                    "update_milestone",
+                    "list_milestones",
+                    "delete_milestone"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "DocumentActionFunction": {
+      "type": "object",
+      "description": "Knowledge document store operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "document_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "create_document",
+                    "delete_document"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "DecisionActionFunction": {
+      "type": "object",
+      "description": "Decision store operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "decision_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "create_decision",
+                    "delete_decision"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ComponentActionFunction": {
+      "type": "object",
+      "description": "Component document store operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "component_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "create_component_document",
+                    "update_component_document",
+                    "claim_component_refresh",
+                    "finalize_component_refresh",
+                    "resolve_live_spoke_sha_set",
+                    "list_component_documents",
+                    "list_documentation_inventory",
+                    "publish_documentation"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ChangeActionFunction": {
+      "type": "object",
+      "description": "Change record store operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "change_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "create_change_record",
+                    "get_change_record",
+                    "list_change_records"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ImpactActionFunction": {
+      "type": "object",
+      "description": "Contract trace and impact report operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "impact_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "resolve_contract_trace_spokes",
+                    "record_contract_trace_finding",
+                    "create_impact_report"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "AuditActionFunction": {
+      "type": "object",
+      "description": "Knowledge audit operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "audit_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "select_audit_targets",
+                    "audit_component_heads",
+                    "resolve_audit_consumer_spokes",
+                    "record_audit_finding",
+                    "repair_component_consumed_by",
+                    "create_audit_report"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "LinkActionFunction": {
+      "type": "object",
+      "description": "Dangling hub link operations",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "link_action"
+        },
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoryActionFunction/properties/input"
+            },
+            {
+              "type": "object",
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "list_dangling_references"
+                  ]
+                }
+              }
+            }
+          ]
         }
       }
     }

@@ -77,7 +77,11 @@ export default function Page() {
           <code>function</code> - exactly one handler key:{" "}
           <code>cli_command</code>, <code>command</code>,{" "}
           <code>user_input</code>, <code>git_action</code>,{" "}
-          <code>story_action</code>, <code>foreach</code>, or{" "}
+          <code>story_action</code>, <code>milestone_action</code>,{" "}
+          <code>document_action</code>, <code>decision_action</code>,{" "}
+          <code>component_action</code>, <code>change_action</code>,{" "}
+          <code>impact_action</code>, <code>audit_action</code>,{" "}
+          <code>link_action</code>, <code>foreach</code>, or{" "}
           <code>custom</code>.
         </li>
         <li>
