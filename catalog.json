@@ -35,6 +35,18 @@
           "from": "packages/author-stories-from-doc/1.0.0/system-stories-from-doc-authoring/prompt.json"
         },
         {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
+        },
+        {
           "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json",
           "from": "packages/author-stories-from-doc/1.0.0/system-author-stories-from-doc/definition.json"
         }
@@ -74,6 +86,18 @@
           "from": "packages/author-story/1.0.0/system-story-authoring/prompt.json"
         },
         {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
+        },
+        {
           "to": ".s_e_e/workflows/definitions/system-author-story.json",
           "from": "packages/author-story/1.0.0/system-author-story/definition.json"
         }
@@ -102,6 +126,18 @@
         {
           "to": ".s_e_e/prompts/system-workflow-authoring.json",
           "from": "packages/author-workflow/1.0.0/system-workflow-authoring/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
         },
         {
           "to": ".s_e_e/workflows/definitions/system-author-workflow.json",
@@ -134,6 +170,18 @@
         {
           "to": ".s_e_e/prompts/system-implement-story.json",
           "from": "packages/implement-story/1.0.0/system-implement-story/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
         },
         {
           "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json",
@@ -202,6 +250,18 @@
         {
           "to": ".s_e_e/prompts/system-work-story.json",
           "from": "packages/work-swimlane-stories/1.0.0/system-work-story/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
         },
         {
           "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
@@ -319,6 +379,83 @@
       ]
     },
     {
+      "id": "bundle-orchestrator",
+      "slug": "orchestrator",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json",
+          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-orchestrator-chat.json",
+          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-orchestrator-learning.json",
+          "from": "packages/system-orchestrator-learning/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-shape-and-prepare-work.json",
+          "from": "packages/system-shape-and-prepare-work/1.0.0/definition.json"
+        }
+      ],
+      "name": "Orchestrator",
+      "description": "Shape-and-prepare workflow plus orchestrator chat and learning prompts, including MCP fragments they expand.",
+      "labels": [
+        "system"
+      ]
+    },
+    {
+      "id": "bundle-generate-milestone-summary",
+      "slug": "generate-milestone-summary",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "cursor-agent"
+      ],
+      "dependencies": [
+        "cmd-cursor-agent"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-milestone-summary-doc.json",
+          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
+          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
+        }
+      ],
+      "name": "Generate milestone summary",
+      "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
+      "labels": [
+        "knowledge",
+        "milestone"
+      ]
+    },
+    {
       "id": "cmd-claude-code",
       "slug": "claude-code",
       "category": "command",
@@ -374,6 +511,174 @@
         }
       ],
       "name": "Implement story",
+      "labels": []
+    },
+    {
+      "id": "prompt-system-mcp-claude-delivery",
+      "slug": "system-mcp-claude-delivery",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json",
+          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json"
+        }
+      ],
+      "name": "MCP delivery (Claude Code)",
+      "description": "How Claude Code receives hub MCP config.",
+      "labels": []
+    },
+    {
+      "id": "prompt-system-mcp-contract",
+      "slug": "system-mcp-contract",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        }
+      ],
+      "name": "MCP contract (any client)",
+      "description": "Shared MCP store contract expanded by other prompts.",
+      "labels": []
+    },
+    {
+      "id": "prompt-system-mcp-cursor-caveats",
+      "slug": "system-mcp-cursor-caveats",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        }
+      ],
+      "name": "Cursor MCP caveats (measured)",
+      "description": "Measured Cursor MCP caveats expanded by other prompts.",
+      "labels": []
+    },
+    {
+      "id": "prompt-system-mcp-cursor-delivery",
+      "slug": "system-mcp-cursor-delivery",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
+        }
+      ],
+      "name": "MCP delivery (Cursor)",
+      "description": "How Cursor Agent receives hub MCP config.",
+      "labels": []
+    },
+    {
+      "id": "prompt-system-milestone-authoring",
+      "slug": "system-milestone-authoring",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-milestone-authoring.json",
+          "from": "packages/system-milestone-authoring/1.0.0/prompt.json"
+        }
+      ],
+      "name": "Author milestone",
+      "description": "Authors a milestone through MCP store tools.",
+      "labels": [
+        "milestone"
+      ]
+    },
+    {
+      "id": "prompt-system-milestone-summary-doc",
+      "slug": "system-milestone-summary-doc",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-milestone-summary-doc.json",
+          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json"
+        }
+      ],
+      "name": "Milestone summary doc",
+      "description": "Drafts a knowledge doc body from a milestone's stories.",
+      "labels": [
+        "milestone"
+      ]
+    },
+    {
+      "id": "prompt-system-orchestrator-chat",
+      "slug": "system-orchestrator-chat",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [
+        "prompt-system-mcp-contract",
+        "prompt-system-mcp-cursor-caveats",
+        "prompt-system-mcp-cursor-delivery"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-orchestrator-chat.json",
+          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json"
+        }
+      ],
+      "name": "Orchestrator chat",
+      "description": "Chat agent preamble loaded from the hub prompt store.",
+      "labels": []
+    },
+    {
+      "id": "prompt-system-orchestrator-learning",
+      "slug": "system-orchestrator-learning",
+      "category": "prompt",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-orchestrator-learning.json",
+          "from": "packages/system-orchestrator-learning/1.0.0/prompt.json"
+        }
+      ],
+      "name": "Orchestrator learning",
+      "description": "Durable notes preamble loaded from the hub prompt store.",
       "labels": []
     },
     {
@@ -713,6 +1018,76 @@
         "bulk",
         "story",
         "swimlane"
+      ]
+    },
+    {
+      "id": "wf-system-generate-milestone-summary-doc",
+      "slug": "system-generate-milestone-summary-doc",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [
+        "prompt-system-milestone-summary-doc"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
+          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
+        }
+      ],
+      "name": "Generate milestone summary doc",
+      "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
+      "labels": [
+        "knowledge",
+        "milestone"
+      ]
+    },
+    {
+      "id": "wf-system-set-milestone-stories-status",
+      "slug": "system-set-milestone-stories-status",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-set-milestone-stories-status.json",
+          "from": "packages/system-set-milestone-stories-status/1.0.0/definition.json"
+        }
+      ],
+      "name": "Set milestone stories status",
+      "description": "Resolves the story ids assigned to a milestone, then bulk-updates each story to a target status.",
+      "labels": [
+        "milestone",
+        "system"
+      ]
+    },
+    {
+      "id": "wf-system-shape-and-prepare-work",
+      "slug": "system-shape-and-prepare-work",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-shape-and-prepare-work.json",
+          "from": "packages/system-shape-and-prepare-work/1.0.0/definition.json"
+        }
+      ],
+      "name": "Shape and prepare work",
+      "description": "Orchestration workflow that deliberates direction, stories, workflows, prompt assemblies, execution plan, and readiness before implementation.",
+      "labels": [
+        "system"
       ]
     }
   ]

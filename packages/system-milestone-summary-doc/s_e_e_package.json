@@ -1,0 +1,11 @@
+{
+  "id": "prompt-system-milestone-summary-doc",
+  "slug": "system-milestone-summary-doc",
+  "category": "prompt",
+  "name": "Milestone summary doc",
+  "description": "Drafts a knowledge doc body from a milestone's stories.",
+  "labels": [
+    "milestone"
+  ],
+  "dependencies": []
+}

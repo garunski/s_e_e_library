@@ -1,0 +1,14 @@
+{
+  "id": "bundle-generate-milestone-summary",
+  "slug": "generate-milestone-summary",
+  "category": "bundle",
+  "name": "Generate milestone summary",
+  "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
+  "labels": [
+    "knowledge",
+    "milestone"
+  ],
+  "dependencies": [
+    "cmd-cursor-agent"
+  ]
+}

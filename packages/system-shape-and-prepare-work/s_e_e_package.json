@@ -1,0 +1,11 @@
+{
+  "id": "wf-system-shape-and-prepare-work",
+  "slug": "system-shape-and-prepare-work",
+  "category": "workflow",
+  "name": "Shape and prepare work",
+  "description": "Orchestration workflow that deliberates direction, stories, workflows, prompt assemblies, execution plan, and readiness before implementation.",
+  "labels": [
+    "system"
+  ],
+  "dependencies": []
+}

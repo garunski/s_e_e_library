@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-mcp-cursor-caveats",
+  "slug": "system-mcp-cursor-caveats",
+  "category": "prompt",
+  "name": "Cursor MCP caveats (measured)",
+  "description": "Measured Cursor MCP caveats expanded by other prompts.",
+  "labels": [],
+  "dependencies": []
+}

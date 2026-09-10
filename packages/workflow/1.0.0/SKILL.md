@@ -12,7 +12,7 @@ description: >-
 
 # S.E.E. workflow authoring
 
-Authors and edits workflow JSON for the S.E.E. engine. Output is a JSON file in `.s_e_e/workflows/definitions/` (or a bundled seed in `core/initial_data/workflows/`) that the engine can execute without further hand-editing.
+Authors and edits workflow JSON for the S.E.E. engine. Output is a JSON file in `.s_e_e/workflows/definitions/` (install packaged definitions from the Library) that the engine can execute without further hand-editing.
 
 ## When to use
 
@@ -40,8 +40,8 @@ Read only the file relevant to the task:
 - Workflow design patterns and prompt-embedding conventions: `.s_e_e/knowledge/docs/overview/workflow-engine/doc-18 - 18-Workflow-Authoring-Guide.md`
 - Template expansion semantics (`{{prompt.*}}`, `{{runtime.*}}`, `{{userinput.*}}`): `.s_e_e/knowledge/docs/overview/workflow-engine/doc-13 - 13-Prompts-and-Workflow-Template-Expansion.md`
 - Canonical JSON schema: `core/schema/workflow.schema.json`
-- Copy-paste baseline with runtime and prompt placeholders: `core/initial_data/workflows/implement-story.json`
-- Bundled **author from description** seed (`system-author-workflow`): `core/initial_data/workflows/author-workflow.json` - run-start `multiline_string` (`workflow_description`) only; `spoke_root` is on the definition and **Restore default workflows** assigns the hub spoke (`core/initial_data/prompts/workflow-authoring.json` for `{{prompt.system-workflow-authoring}}`).
+- Copy-paste baseline with runtime and prompt placeholders: `packages/system-implement-story/1.0.0/definition.json`
+- Bundled **author from description** seed (`system-author-workflow`): `packages/system-author-workflow/1.0.0/definition.json` - run-start `multiline_string` (`workflow_description`) only; `spoke_root` is on the definition and Library install assigns the hub spoke (`packages/system-workflow-authoring/1.0.0/prompt.json` for `{{prompt.system-workflow-authoring}}`).
 
 ## File location
 
@@ -50,7 +50,7 @@ Hub spoke (`.s_e_e/` under the hub spoke root):
 - Workflow definitions: `.s_e_e/workflows/definitions/*.json`. The on-disk file name does NOT identify the workflow; the JSON `id` and inner `content.id` do.
 - Workflow schedules: `.s_e_e/workflows/schedules/*.json`
 - Schedule rule sets: `.s_e_e/workflows/schedule_rule_sets/*.json`
-- Bundled product defaults (repo seeds, not hub paths): `core/initial_data/workflows/*.json`. Use these as starting templates.
+- Packaged product defaults: Library packages under `packages/*/1.0.0/definition.json`. Use these as starting templates.
 - There is no workflow CLI. Edit JSON directly and save; the hub watcher / API picks up the change.
 
 ## Minimal valid workflow (copy and modify)
@@ -217,7 +217,7 @@ Workflow author checklist:
 ## Authoring loop
 
 1. Read `doc-18` (design) and `doc-13` (template expansion) - only the sections relevant to the change.
-2. Copy `core/initial_data/workflows/implement-story.json`, `author-workflow.json`, or the closest existing seed as the baseline.
+2. Copy `packages/system-implement-story/1.0.0/definition.json`, `system-author-workflow`, or the closest existing Library package as the baseline.
 3. Edit ids, names, `runtime_inputs`, tasks, handlers, and placeholders.
 4. Validate against `core/schema/workflow.schema.json` (IDE schema association or `jsonschema` CLI if available).
 5. Save under `.s_e_e/workflows/definitions/` on the hub (or use the GUI Workflow editor; keep JSON in sync).
@@ -227,4 +227,4 @@ Workflow author checklist:
 
 - Implement a story end-to-end: `../work/SKILL.md`
 - Author or edit prompt bodies referenced by `{{prompt.*}}`: prompts under `.s_e_e/prompts/` (see `doc` and `stories` skills).
-- Seed workflows index: `core/initial_data/workflows/README.md`
+- Library catalog index: `catalog.json`

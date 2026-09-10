@@ -1,0 +1,14 @@
+{
+  "id": "wf-system-generate-milestone-summary-doc",
+  "slug": "system-generate-milestone-summary-doc",
+  "category": "workflow",
+  "name": "Generate milestone summary doc",
+  "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
+  "labels": [
+    "knowledge",
+    "milestone"
+  ],
+  "dependencies": [
+    "prompt-system-milestone-summary-doc"
+  ]
+}

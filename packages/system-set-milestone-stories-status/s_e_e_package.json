@@ -1,0 +1,12 @@
+{
+  "id": "wf-system-set-milestone-stories-status",
+  "slug": "system-set-milestone-stories-status",
+  "category": "workflow",
+  "name": "Set milestone stories status",
+  "description": "Resolves the story ids assigned to a milestone, then bulk-updates each story to a target status.",
+  "labels": [
+    "milestone",
+    "system"
+  ],
+  "dependencies": []
+}

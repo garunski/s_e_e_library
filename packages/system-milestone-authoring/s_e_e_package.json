@@ -1,0 +1,11 @@
+{
+  "id": "prompt-system-milestone-authoring",
+  "slug": "system-milestone-authoring",
+  "category": "prompt",
+  "name": "Author milestone",
+  "description": "Authors a milestone through MCP store tools.",
+  "labels": [
+    "milestone"
+  ],
+  "dependencies": []
+}

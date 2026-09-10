@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-mcp-claude-delivery",
+  "slug": "system-mcp-claude-delivery",
+  "category": "prompt",
+  "name": "MCP delivery (Claude Code)",
+  "description": "How Claude Code receives hub MCP config.",
+  "labels": [],
+  "dependencies": []
+}

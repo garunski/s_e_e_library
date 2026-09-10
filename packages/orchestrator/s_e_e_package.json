@@ -1,0 +1,11 @@
+{
+  "id": "bundle-orchestrator",
+  "slug": "orchestrator",
+  "category": "bundle",
+  "name": "Orchestrator",
+  "description": "Shape-and-prepare workflow plus orchestrator chat and learning prompts, including MCP fragments they expand.",
+  "labels": [
+    "system"
+  ],
+  "dependencies": []
+}

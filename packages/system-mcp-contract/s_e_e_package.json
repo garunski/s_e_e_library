@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-mcp-contract",
+  "slug": "system-mcp-contract",
+  "category": "prompt",
+  "name": "MCP contract (any client)",
+  "description": "Shared MCP store contract expanded by other prompts.",
+  "labels": [],
+  "dependencies": []
+}

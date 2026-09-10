@@ -1,0 +1,5 @@
+{
+  "id": "system-mcp-claude-delivery",
+  "name": "MCP delivery (Claude Code)",
+  "content": "## Agent CLI: MCP delivery (Claude Code)\n\nThis run uses the `claude-code` command definition. MCP is enabled and the hub passes server configuration through the `--mcp-config` argv flag (`mcp_servers` JSON). The handler writes a temporary config file and passes its path on the command line. Do not rely on a workspace MCP config file or on MCP settings injected only into the child environment."
+}

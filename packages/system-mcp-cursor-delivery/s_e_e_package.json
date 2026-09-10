@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-mcp-cursor-delivery",
+  "slug": "system-mcp-cursor-delivery",
+  "category": "prompt",
+  "name": "MCP delivery (Cursor)",
+  "description": "How Cursor Agent receives hub MCP config.",
+  "labels": [],
+  "dependencies": []
+}

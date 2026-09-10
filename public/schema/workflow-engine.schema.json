@@ -617,6 +617,8 @@
                 "list_component_documents",
                 "list_change_records",
                 "list_documentation_inventory",
+                "get_documentation_instructions",
+                "put_documentation_instructions",
                 "publish_documentation",
                 "list_dangling_references",
                 "delete_story",
@@ -1521,6 +1523,8 @@
                     "resolve_live_spoke_sha_set",
                     "list_component_documents",
                     "list_documentation_inventory",
+                    "get_documentation_instructions",
+                    "put_documentation_instructions",
                     "publish_documentation"
                   ]
                 }

@@ -1,0 +1,86 @@
+{
+  "id": "system-shape-and-prepare-work",
+  "name": "Shape and prepare work",
+  "description": "Orchestration workflow that deliberates direction, stories, workflows, prompt assemblies, execution plan, and readiness before implementation.",
+  "labels": [
+    "system"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "shape-and-prepare-work",
+    "name": "Shape and prepare work",
+    "tasks": [
+      {
+        "id": "deliberate_direction",
+        "name": "Deliberate direction",
+        "function": {
+          "name": "deliberate",
+          "input": {
+            "step": "direction"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "deliberate_stories",
+            "name": "Deliberate stories",
+            "function": {
+              "name": "deliberate",
+              "input": {
+                "step": "stories"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "deliberate_workflows",
+                "name": "Deliberate workflows",
+                "function": {
+                  "name": "deliberate",
+                  "input": {
+                    "step": "workflows"
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "deliberate_prompt_assemblies",
+                    "name": "Deliberate prompt assemblies",
+                    "function": {
+                      "name": "deliberate",
+                      "input": {
+                        "step": "prompt_assemblies"
+                      }
+                    },
+                    "next_tasks": [
+                      {
+                        "id": "deliberate_execution_plan",
+                        "name": "Deliberate execution plan",
+                        "function": {
+                          "name": "deliberate",
+                          "input": {
+                            "step": "execution_plan"
+                          }
+                        },
+                        "next_tasks": [
+                          {
+                            "id": "deliberate_readiness",
+                            "name": "Deliberate readiness",
+                            "function": {
+                              "name": "deliberate",
+                              "input": {
+                                "step": "readiness"
+                              }
+                            },
+                            "next_tasks": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

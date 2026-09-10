@@ -1,0 +1,9 @@
+{
+  "id": "prompt-system-orchestrator-learning",
+  "slug": "system-orchestrator-learning",
+  "category": "prompt",
+  "name": "Orchestrator learning",
+  "description": "Durable notes preamble loaded from the hub prompt store.",
+  "labels": [],
+  "dependencies": []
+}

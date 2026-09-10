@@ -1,0 +1,76 @@
+{
+  "id": "system-set-milestone-stories-status",
+  "name": "Set milestone stories status",
+  "description": "Resolves the story ids assigned to a milestone deterministically, then bulk-updates each story to a target status.",
+  "labels": [
+    "system"
+  ],
+  "subject_kinds": [
+    "milestone"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "set-milestone-stories-status",
+    "name": "Set milestone stories status",
+    "spoke_root": "/tmp/see-embedded-set-milestone-stories-status-template",
+    "runtime_inputs": [
+      {
+        "key": "milestone_id",
+        "label": "Milestone id",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "target_status",
+        "label": "Target status",
+        "input_type": "string",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "resolve_story_ids",
+        "name": "Resolve story ids for milestone",
+        "capture_output": true,
+        "function": {
+          "name": "story_action",
+          "input": {
+            "action": "list_stories_by_milestone",
+            "milestone_id": "{{runtime.milestone_id}}"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_story",
+            "name": "For each story",
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "resolve_story_ids",
+                "collection_task_path": [
+                  "story_ids"
+                ],
+                "item_runtime_key": "story_id"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "set_story_status",
+                "name": "Set story status",
+                "function": {
+                  "name": "story_action",
+                  "input": {
+                    "action": "set_status",
+                    "story_id": "{{runtime.story_id}}",
+                    "status": "{{runtime.target_status}}"
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "id": "system-mcp-cursor-delivery",
+  "name": "MCP delivery (Cursor)",
+  "content": "## Agent CLI: MCP delivery (Cursor)\n\nThis run uses the `cursor-agent` command definition. MCP is enabled through a `config_file` mechanism: the workflow handler writes a workspace-relative MCP server config file under the spoke before spawn and restores any prior bytes afterward. Cursor ignores MCP configuration supplied only through the child environment; the on-disk config file is required for this binary."
+}

@@ -20,7 +20,7 @@
           "input": {
             "command_id": "cursor-agent",
             "config": {},
-            "prompt": "{{prompt.system-workflow-authoring}}\n\n## Operator request\n{{runtime.workflow_description}}\n\nThe Cursor workspace is this workflow's `spoke_root` (set on the definition; restore-defaults assigns the project's hub spoke)."
+            "prompt": "{{prompt.system-workflow-authoring}}\n\n## Operator request\n{{runtime.workflow_description}}\n\nThe Cursor workspace is this workflow's `spoke_root` (set on the definition; Library install assigns the project's hub spoke)."
           },
           "name": "command"
         },

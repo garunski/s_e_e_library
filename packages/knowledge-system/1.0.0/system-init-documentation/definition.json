@@ -10,14 +10,7 @@
     "id": "init-documentation",
     "name": "Init documentation",
     "spoke_root": "/tmp/see-embedded-init-documentation-template",
-    "runtime_inputs": [
-      {
-        "key": "spoke_sha_set",
-        "label": "Spoke SHA set at run start",
-        "input_type": "string_array",
-        "required": true
-      }
-    ],
+    "runtime_inputs": [],
     "tasks": [
       {
         "id": "resolve_heads",

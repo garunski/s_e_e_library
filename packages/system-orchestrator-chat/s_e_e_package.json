@@ -1,0 +1,13 @@
+{
+  "id": "prompt-system-orchestrator-chat",
+  "slug": "system-orchestrator-chat",
+  "category": "prompt",
+  "name": "Orchestrator chat",
+  "description": "Chat agent preamble loaded from the hub prompt store.",
+  "labels": [],
+  "dependencies": [
+    "prompt-system-mcp-contract",
+    "prompt-system-mcp-cursor-delivery",
+    "prompt-system-mcp-cursor-caveats"
+  ]
+}

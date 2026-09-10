@@ -1,0 +1,5 @@
+{
+  "id": "system-mcp-cursor-caveats",
+  "name": "Cursor MCP caveats (measured)",
+  "content": "## Cursor MCP caveats (measured only)\n\nDo not assume Cursor behavior beyond these hub measurements:\n\n- story-58: `GET /api/mcp/status` lists `clients` and `recent_tool_calls` but has no `tools/list` request counter, so this hub cannot report how many `tools/list` pages Cursor fetched in a session.\n- story-59: Cursor workflow runs that send the `x-s-e-e-execution-id` header appear on `/api/mcp/status` as `cursor:{execution-id}` rather than as an undifferentiated `rmcp` client row.\n- story-59: `initialize` on this hub returns `serverInfo.name` `s-e-e-mcp` with the workspace package version, not `rmcp` `3.1.2`."
+}

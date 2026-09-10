@@ -1,0 +1,80 @@
+{
+  "id": "system-generate-milestone-summary-doc",
+  "name": "Generate milestone summary doc",
+  "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
+  "labels": [
+    "system"
+  ],
+  "subject_kinds": [
+    "milestone"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "generate-milestone-summary-doc",
+    "name": "Generate milestone summary doc",
+    "spoke_root": "/tmp/see-embedded-generate-milestone-summary-doc-template",
+    "runtime_inputs": [
+      {
+        "key": "milestone_id",
+        "label": "Milestone id",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "category",
+        "label": "Knowledge category",
+        "input_type": "string",
+        "required": false,
+        "default": "overview"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "resolve_story_ids",
+        "name": "Resolve story ids for milestone",
+        "capture_output": true,
+        "function": {
+          "name": "story_action",
+          "input": {
+            "action": "list_stories_by_milestone",
+            "milestone_id": "{{runtime.milestone_id}}"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "draft_summary",
+            "name": "Draft milestone summary",
+            "capture_output": true,
+            "function": {
+              "name": "command",
+              "input": {
+                "command_id": "cursor-agent",
+                "prompt": "{{prompt.system-milestone-summary-doc}}\n\nThe Cursor workspace is this workflow's `spoke_root` (set on the definition; Library install assigns the project's hub spoke).",
+                "config": {
+                  "cursor_model": "composer-2.5[fast=false]"
+                }
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "persist_doc",
+                "name": "Persist summary doc",
+                "function": {
+                  "name": "document_action",
+                  "input": {
+                    "action": "create_document",
+                    "title": "{{task.draft_summary.output.title}}",
+                    "category": "{{runtime.category}}",
+                    "body": "{{task.draft_summary.output.body}}",
+                    "type": "guide"
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
