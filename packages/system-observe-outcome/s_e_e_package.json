@@ -1,0 +1,11 @@
+{
+  "id": "wf-system-observe-outcome",
+  "slug": "system-observe-outcome",
+  "category": "workflow",
+  "name": "Judge outcome against intent",
+  "description": "Compares a finished execution against the intent the proposal claimed and writes a structured outcome judgment.",
+  "labels": [
+    "system"
+  ],
+  "dependencies": []
+}

@@ -416,10 +416,18 @@
         {
           "to": ".s_e_e/workflows/definitions/system-shape-and-prepare-work.json",
           "from": "packages/system-shape-and-prepare-work/1.0.0/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-rank-candidates.json",
+          "from": "packages/system-rank-candidates/1.0.0/definition.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-observe-outcome.json",
+          "from": "packages/system-observe-outcome/1.0.0/definition.json"
         }
       ],
       "name": "Orchestrator",
-      "description": "Shape-and-prepare workflow plus orchestrator chat and learning prompts, including MCP fragments they expand.",
+      "description": "Cycle workflows for shape, rank, and observe, plus orchestrator chat and learning prompts, including MCP fragments they expand.",
       "labels": [
         "system"
       ]
@@ -962,6 +970,50 @@
       "labels": [
         "bulk",
         "story"
+      ]
+    },
+    {
+      "id": "wf-system-observe-outcome",
+      "slug": "system-observe-outcome",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-observe-outcome.json",
+          "from": "packages/system-observe-outcome/1.0.0/definition.json"
+        }
+      ],
+      "name": "Judge outcome against intent",
+      "description": "Compares a finished execution against the intent the proposal claimed and writes a structured outcome judgment.",
+      "labels": [
+        "system"
+      ]
+    },
+    {
+      "id": "wf-system-rank-candidates",
+      "slug": "system-rank-candidates",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-rank-candidates.json",
+          "from": "packages/system-rank-candidates/1.0.0/definition.json"
+        }
+      ],
+      "name": "Rank candidate actions",
+      "description": "Scores every capability against its bound subjects. Weights, confidence floor, failure threshold, and deprioritize penalty are inputs.",
+      "labels": [
+        "system"
       ]
     },
     {

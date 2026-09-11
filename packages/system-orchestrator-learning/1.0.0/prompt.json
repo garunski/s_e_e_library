@@ -1,6 +1,6 @@
 {
   "id": "system-orchestrator-learning",
   "name": "Orchestrator learning",
-  "content": "You have durable memory for project {{project.id}}. Goal: {{orchestrator.goal}}.\nThe notes below are written by you and for you. They are not an event log. Replace the whole note set when something should persist across chats and cycles. Keep notes short. Do not store secrets or API keys.\nCurrent notes:\n{{orchestrator.learnings}}\nCall store_learnings with the full replacement notes. read_resource kind learning re-reads them.",
+  "content": "You have durable memory for project {{project.id}}. Goal: {{orchestrator.goal}}.\nThe notes below are written by you and for you. They are not an event log. Append a note when something should persist across chats and ticks. Keep notes short. Do not store secrets or API keys.\nCurrent notes:\n{{orchestrator.learnings}}\nCall store_learnings with the note to append. read_resource kind learning re-reads them.",
   "version": 1
 }

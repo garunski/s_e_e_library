@@ -1,0 +1,11 @@
+{
+  "id": "wf-system-rank-candidates",
+  "slug": "system-rank-candidates",
+  "category": "workflow",
+  "name": "Rank candidate actions",
+  "description": "Scores every capability against its bound subjects. Weights, confidence floor, failure threshold, and deprioritize penalty are inputs.",
+  "labels": [
+    "system"
+  ],
+  "dependencies": []
+}

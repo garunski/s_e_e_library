@@ -1,0 +1,48 @@
+{
+  "id": "system-observe-outcome",
+  "name": "Judge outcome against intent",
+  "description": "Orchestrator observe stage: reads a finished execution and proposal, produces a ProposalOutcomeEvaluation.",
+  "labels": [
+    "system"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "observe-outcome",
+    "name": "Judge outcome against intent",
+    "runtime_inputs": [
+      {
+        "key": "judged_execution_id",
+        "label": "Execution to judge",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "proposal_id",
+        "label": "Proposal whose intent to judge against",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "project_id",
+        "label": "Project id",
+        "input_type": "string",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "deliberate_outcome",
+        "name": "Judge outcome against intent",
+        "is_root": true,
+        "capture_output": true,
+        "function": {
+          "name": "deliberate",
+          "input": {
+            "step": "outcome"
+          }
+        },
+        "next_tasks": []
+      }
+    ]
+  }
+}

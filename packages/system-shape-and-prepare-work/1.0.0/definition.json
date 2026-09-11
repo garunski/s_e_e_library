@@ -9,6 +9,14 @@
   "content": {
     "id": "shape-and-prepare-work",
     "name": "Shape and prepare work",
+    "runtime_inputs": [
+      {
+        "key": "operator_rejection_hints",
+        "label": "Operator rejection hints for shaping deliberation",
+        "input_type": "string",
+        "required": false
+      }
+    ],
     "tasks": [
       {
         "id": "deliberate_direction",

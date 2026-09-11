@@ -1,0 +1,58 @@
+{
+  "id": "system-rank-candidates",
+  "name": "Rank candidate actions",
+  "description": "Orchestrator rank stage: scores capabilities against bound subjects and writes a ranked candidate list.",
+  "labels": [
+    "system"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "rank-candidates",
+    "name": "Rank candidate actions",
+    "runtime_inputs": [
+      {
+        "key": "project_id",
+        "label": "Project id",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "prediction_ranking_weights",
+        "label": "Ranking weights",
+        "input_type": "string",
+        "required": false
+      },
+      {
+        "key": "prediction_confidence_floor",
+        "label": "Confidence floor",
+        "input_type": "number",
+        "required": false
+      },
+      {
+        "key": "deprioritize_threshold",
+        "label": "Deprioritize threshold",
+        "input_type": "number",
+        "required": false
+      },
+      {
+        "key": "deprioritize_penalty",
+        "label": "Deprioritize penalty",
+        "input_type": "number",
+        "required": false
+      }
+    ],
+    "tasks": [
+      {
+        "id": "rank_candidates",
+        "name": "Rank candidate actions",
+        "is_root": true,
+        "capture_output": true,
+        "function": {
+          "name": "rank_candidates",
+          "input": {}
+        },
+        "next_tasks": []
+      }
+    ]
+  }
+}
