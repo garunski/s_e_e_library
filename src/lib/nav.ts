@@ -50,6 +50,7 @@ export const authoringSection: NavSection = {
     { href: "/authoring/skills/", label: "Skills" },
     { href: "/authoring/commands/", label: "Commands" },
     { href: "/authoring/bundles/", label: "Bundles" },
+    { href: "/authoring/cycles/", label: "Cycles" },
     { href: "/authoring/publish/", label: "Publish" },
   ],
 };
@@ -66,6 +67,7 @@ export const schemaSection: NavSection = {
     { href: "/schema/command/", label: "Command" },
     { href: "/schema/rule-template/", label: "Rule and template" },
     { href: "/schema/bundle/", label: "Bundle" },
+    { href: "/schema/cycle/", label: "Cycle" },
     { href: "/schema/hub-config/", label: "Hub config" },
     { href: "/schema/global-config/", label: "Global config" },
     { href: "/schema/app-settings/", label: "App settings" },

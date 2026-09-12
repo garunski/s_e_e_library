@@ -1,0 +1,88 @@
+{
+  "id": "cycle-knowledge-default",
+  "name": "Knowledge default",
+  "host": "knowledge",
+  "schema_version": 1,
+  "stores": [
+    "spokes",
+    "changes",
+    "components",
+    "impacts",
+    "audits",
+    "docs",
+    "decisions",
+    "links"
+  ],
+  "stages": [
+    {
+      "key": "seed",
+      "verb": "Seed",
+      "workflow_definition_id": "system-init-documentation",
+      "trigger": "manual",
+      "reads": [
+        "spokes"
+      ],
+      "writes": "components"
+    },
+    {
+      "key": "record",
+      "verb": "Record",
+      "workflow_definition_id": "system-record-git-change",
+      "trigger": "manual",
+      "reads": [
+        "spokes"
+      ],
+      "writes": "changes"
+    },
+    {
+      "key": "refresh",
+      "verb": "Refresh",
+      "workflow_definition_id": "system-refresh-component",
+      "trigger": "event",
+      "reads": [
+        "changes"
+      ],
+      "writes": "components"
+    },
+    {
+      "key": "trace",
+      "verb": "Trace",
+      "workflow_definition_id": "system-trace-contract",
+      "trigger": "manual",
+      "reads": [
+        "changes"
+      ],
+      "writes": "impacts"
+    },
+    {
+      "key": "audit",
+      "verb": "Audit",
+      "workflow_definition_id": "system-audit-system",
+      "trigger": "schedule",
+      "reads": [
+        "components"
+      ],
+      "writes": "audits"
+    },
+    {
+      "key": "publish",
+      "verb": "Publish",
+      "workflow_definition_id": "system-publish-documentation",
+      "trigger": "schedule",
+      "reads": [
+        "components"
+      ],
+      "writes": "docs"
+    },
+    {
+      "key": "repair",
+      "verb": "Repair",
+      "workflow_definition_id": "system-fix-broken-links",
+      "trigger": "manual",
+      "reads": [
+        "docs"
+      ],
+      "writes": "links"
+    }
+  ]
+}

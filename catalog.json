@@ -1,7 +1,7 @@
 {
   "schema": "see.library/v1",
   "name": "S.E.E. Official Library",
-  "updated": "2026-09-08T23:01:21.063Z",
+  "updated": "2026-09-12T01:40:14.659Z",
   "packages": [
     {
       "id": "bundle-author-stories-from-doc",
@@ -149,6 +149,37 @@
       "labels": []
     },
     {
+      "id": "bundle-generate-milestone-summary",
+      "slug": "generate-milestone-summary",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "cursor-agent"
+      ],
+      "dependencies": [
+        "cmd-cursor-agent"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/prompts/system-milestone-summary-doc.json",
+          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
+          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
+        }
+      ],
+      "name": "Generate milestone summary",
+      "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
+      "labels": [
+        "knowledge",
+        "milestone"
+      ]
+    },
+    {
       "id": "bundle-implement-story",
       "slug": "implement-story",
       "category": "bundle",
@@ -197,83 +228,6 @@
       "labels": [
         "bulk",
         "story"
-      ]
-    },
-    {
-      "id": "bundle-work-milestone-stories",
-      "slug": "work-milestone-stories",
-      "category": "bundle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "cmd-cursor-agent"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json",
-          "from": "packages/work-milestone-stories/1.0.0/system-work-milestone-stories/definition.json"
-        }
-      ],
-      "name": "Work milestone stories",
-      "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
-      "labels": [
-        "bulk",
-        "milestone",
-        "story"
-      ]
-    },
-    {
-      "id": "bundle-work-swimlane-stories",
-      "slug": "work-swimlane-stories",
-      "category": "bundle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/work-swimlane-stories/1.0.0/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/work-swimlane-stories/1.0.0/cursor-agent/command.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-work-story.json",
-          "from": "packages/work-swimlane-stories/1.0.0/system-work-story/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
-          "from": "packages/work-swimlane-stories/1.0.0/system-work-swimlane-stories/definition.json"
-        }
-      ],
-      "name": "Work swimlane stories",
-      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
-      "labels": [
-        "bulk",
-        "story",
-        "swimlane"
       ]
     },
     {
@@ -433,34 +387,80 @@
       ]
     },
     {
-      "id": "bundle-generate-milestone-summary",
-      "slug": "generate-milestone-summary",
+      "id": "bundle-work-milestone-stories",
+      "slug": "work-milestone-stories",
       "category": "bundle",
       "version": "1.0.0",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
       "requires": [
-        "cursor-agent"
+        "mise",
+        "git"
       ],
       "dependencies": [
         "cmd-cursor-agent"
       ],
       "files": [
         {
-          "to": ".s_e_e/prompts/system-milestone-summary-doc.json",
-          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
-          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
+          "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json",
+          "from": "packages/work-milestone-stories/1.0.0/system-work-milestone-stories/definition.json"
         }
       ],
-      "name": "Generate milestone summary",
-      "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
+      "name": "Work milestone stories",
+      "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
       "labels": [
-        "knowledge",
-        "milestone"
+        "bulk",
+        "milestone",
+        "story"
+      ]
+    },
+    {
+      "id": "bundle-work-swimlane-stories",
+      "slug": "work-swimlane-stories",
+      "category": "bundle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".agents/skills/work/SKILL.md",
+          "from": "packages/work-swimlane-stories/1.0.0/work/SKILL.md"
+        },
+        {
+          "to": ".s_e_e/commands/cursor-agent.json",
+          "from": "packages/work-swimlane-stories/1.0.0/cursor-agent/command.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-work-story.json",
+          "from": "packages/work-swimlane-stories/1.0.0/system-work-story/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-contract.json",
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
+        },
+        {
+          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
+          "from": "packages/work-swimlane-stories/1.0.0/system-work-swimlane-stories/definition.json"
+        }
+      ],
+      "name": "Work swimlane stories",
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "labels": [
+        "bulk",
+        "story",
+        "swimlane"
       ]
     },
     {
@@ -501,6 +501,29 @@
       ],
       "name": "Cursor Agent",
       "labels": []
+    },
+    {
+      "id": "cycle-knowledge-default",
+      "slug": "cycle-knowledge-default",
+      "category": "cycle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        {
+          "to": ".s_e_e/cycles/cycle-knowledge-default.json",
+          "from": "packages/cycle-knowledge-default/1.0.0/cycle.json"
+        }
+      ],
+      "labels": [
+        "cycle",
+        "knowledge"
+      ],
+      "name": "Knowledge default",
+      "description": "The seven-stage knowledge loop as a cycle document for the knowledge host."
     },
     {
       "id": "prompt-system-implement-story",
@@ -945,6 +968,31 @@
       "labels": []
     },
     {
+      "id": "wf-system-generate-milestone-summary-doc",
+      "slug": "system-generate-milestone-summary-doc",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [
+        "prompt-system-milestone-summary-doc"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
+          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
+        }
+      ],
+      "name": "Generate milestone summary doc",
+      "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
+      "labels": [
+        "knowledge",
+        "milestone"
+      ]
+    },
+    {
       "id": "wf-system-implement-stories-bulk",
       "slug": "system-implement-stories-bulk",
       "category": "workflow",
@@ -969,6 +1017,33 @@
       "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) on each story id from board column bulk selection.",
       "labels": [
         "bulk",
+        "story"
+      ]
+    },
+    {
+      "id": "wf-system-implement-story",
+      "slug": "system-implement-story",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-implement-story"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-implement-story.json",
+          "from": "packages/system-implement-story/1.0.0/definition.json"
+        }
+      ],
+      "name": "Implement story",
+      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
+      "labels": [
         "story"
       ]
     },
@@ -1017,87 +1092,6 @@
       ]
     },
     {
-      "id": "wf-system-implement-story",
-      "slug": "system-implement-story",
-      "category": "workflow",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-implement-story"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-implement-story.json",
-          "from": "packages/system-implement-story/1.0.0/definition.json"
-        }
-      ],
-      "name": "Implement story",
-      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
-      "labels": [
-        "story"
-      ]
-    },
-    {
-      "id": "wf-system-work-swimlane-stories",
-      "slug": "system-work-swimlane-stories",
-      "category": "workflow",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-work-story"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
-          "from": "packages/system-work-swimlane-stories/1.0.0/definition.json"
-        }
-      ],
-      "name": "Work swimlane stories",
-      "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) executing the /work skill on each story in a loop.",
-      "labels": [
-        "bulk",
-        "story",
-        "swimlane"
-      ]
-    },
-    {
-      "id": "wf-system-generate-milestone-summary-doc",
-      "slug": "system-generate-milestone-summary-doc",
-      "category": "workflow",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "prompt-system-milestone-summary-doc"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
-          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
-        }
-      ],
-      "name": "Generate milestone summary doc",
-      "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
-      "labels": [
-        "knowledge",
-        "milestone"
-      ]
-    },
-    {
       "id": "wf-system-set-milestone-stories-status",
       "slug": "system-set-milestone-stories-status",
       "category": "workflow",
@@ -1140,6 +1134,35 @@
       "description": "Orchestration workflow that deliberates direction, stories, workflows, prompt assemblies, execution plan, and readiness before implementation.",
       "labels": [
         "system"
+      ]
+    },
+    {
+      "id": "wf-system-work-swimlane-stories",
+      "slug": "system-work-swimlane-stories",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "dependencies": [
+        "prompt-system-work-story"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
+          "from": "packages/system-work-swimlane-stories/1.0.0/definition.json"
+        }
+      ],
+      "name": "Work swimlane stories",
+      "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) executing the /work skill on each story in a loop.",
+      "labels": [
+        "bulk",
+        "story",
+        "swimlane"
       ]
     }
   ]

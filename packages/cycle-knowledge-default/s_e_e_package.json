@@ -1,0 +1,12 @@
+{
+  "id": "cycle-knowledge-default",
+  "slug": "cycle-knowledge-default",
+  "category": "cycle",
+  "name": "Knowledge default",
+  "description": "The seven-stage knowledge loop as a cycle document for the knowledge host.",
+  "labels": [
+    "cycle",
+    "knowledge"
+  ],
+  "dependencies": []
+}

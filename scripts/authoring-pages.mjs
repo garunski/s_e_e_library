@@ -4,6 +4,7 @@ export const PACKAGE_TYPES = [
   { key: "skill", slug: "skills", title: "Skills" },
   { key: "command", slug: "commands", title: "Commands" },
   { key: "bundle", slug: "bundles", title: "Bundles" },
+  { key: "cycle", slug: "cycles", title: "Cycles" },
 ];
 
 export const AUTHORING_EXTRA_PAGES = [
@@ -22,6 +23,7 @@ export const SCHEMA_PAGES = [
   "command",
   "rule-template",
   "bundle",
+  "cycle",
   "hub-config",
   "global-config",
   "app-settings",

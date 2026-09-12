@@ -4,7 +4,7 @@ import { assetPath } from "@/lib/nav";
 
 export const metadata = innerMetadata(
   "Authoring",
-  "How to author each S.E.E. library package type: workflows, prompts, skills, commands, bundles, and publishing to the catalog.",
+  "How to author each S.E.E. library package type: workflows, prompts, skills, commands, bundles, cycles, and publishing to the catalog.",
 );
 
 export default function Page() {
@@ -17,13 +17,13 @@ export default function Page() {
         body: "One guide per package type, then Publish adds it to the catalog.",
       }}
       machine={{
-        kicker: "Five package types",
+        kicker: "Six package types",
         title: "Each type has a payload shape.",
         body: "The guide names the file, the fields, and the install destination.",
       }}
     >
       <p className="page-lede">
-        Every package in the Official Library is one of five types. Pick the
+        Every package in the Official Library is one of six types. Pick the
         type, write its payload, then publish it to the catalog.
       </p>
 
@@ -66,6 +66,14 @@ export default function Page() {
             <Link href="/authoring/bundles/">Bundles</Link>
           </strong>
           <span>Install maps that deliver several packages together.</span>
+        </li>
+        <li>
+          <strong>
+            <Link href="/authoring/cycles/">Cycles</Link>
+          </strong>
+          <span>
+            Host loops wiring workflows to stores (<code>cycle.json</code>).
+          </span>
         </li>
       </ul>
 

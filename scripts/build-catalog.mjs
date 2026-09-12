@@ -26,6 +26,7 @@ const CATEGORIES = new Set([
   "template",
   "command",
   "bundle",
+  "cycle",
 ]);
 const checkOnly = process.argv.includes("--check");
 
@@ -324,6 +325,64 @@ function validatePayload(category, toPath, content) {
       }
       return null;
     }
+    case "cycle": {
+      if (!toPath.startsWith(".s_e_e/cycles/")) {
+        return "cycle install path must be under .s_e_e/cycles/";
+      }
+      let value;
+      try {
+        value = JSON.parse(content);
+      } catch (e) {
+        return `invalid cycle JSON: ${e.message}`;
+      }
+      for (const key of [
+        "id",
+        "name",
+        "host",
+        "schema_version",
+        "stores",
+        "stages",
+      ]) {
+        if (value[key] === undefined) {
+          return `cycle requires ${key}`;
+        }
+      }
+      if (!["orchestrator", "knowledge"].includes(value.host)) {
+        return `cycle host ${value.host} is not available in this app`;
+      }
+      const expected = `.s_e_e/cycles/${value.id}.json`;
+      if (toPath !== expected) {
+        return `cycle install path must be ${expected}`;
+      }
+      if (!Array.isArray(value.stages) || value.stages.length === 0) {
+        return "cycle requires at least one stage";
+      }
+      const triggers = new Set(["tick", "schedule", "event", "manual"]);
+      for (const stage of value.stages) {
+        for (const key of [
+          "key",
+          "verb",
+          "workflow_definition_id",
+          "trigger",
+          "reads",
+          "writes",
+        ]) {
+          if (stage[key] === undefined) {
+            return `cycle stage requires ${key}`;
+          }
+        }
+        if (!triggers.has(stage.trigger)) {
+          return `invalid stage trigger: ${stage.trigger}`;
+        }
+        if (!Array.isArray(stage.reads)) {
+          return "stage reads must be an array";
+        }
+        if (!stage.writes?.trim()) {
+          return "stage writes must be a non-empty string";
+        }
+      }
+      return null;
+    }
     default:
       return `unknown category: ${category}`;
   }
@@ -356,6 +415,9 @@ function inferKindFromTo(toPath) {
   }
   if (toPath.startsWith(".s_e_e/knowledge/")) {
     return "knowledge";
+  }
+  if (toPath.startsWith(".s_e_e/cycles/") && toPath.endsWith(".json")) {
+    return "cycle";
   }
   return null;
 }

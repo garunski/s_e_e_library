@@ -1,6 +1,6 @@
 # S.E.E. Official Library
 
-> Every authoring guide and schema page for the S.E.E. Official Library, combined into one file. It covers how to write workflows, prompts, skills, commands, and bundles, how to publish them to the catalog, and the hub document schemas the runtime validates on save.
+> Every authoring guide and schema page for the S.E.E. Official Library, combined into one file. It covers how to write workflows, prompts, skills, commands, bundles, and cycles, how to publish them to the catalog, and the hub document schemas the runtime validates on save.
 
 The Official Library is the package catalog that S.E.E. installs from. A package
 is a versioned payload plus an install map, so machinery written in one project
@@ -28,6 +28,7 @@ Authoring:
 - Skills
 - Commands
 - Bundles
+- Cycles
 - Publish to the catalog
 
 Schema:
@@ -39,6 +40,7 @@ Schema:
 - Command schema
 - Rule and template schema
 - Bundle schema
+- Cycle schema
 - Hub config schema
 - Global config schema
 - App settings schema
@@ -54,7 +56,7 @@ Schema:
 
 Source: /authoring/
 
-Every package in the Official Library is one of five types. Pick the type, write
+Every package in the Official Library is one of six types. Pick the type, write
 its payload, then publish it to the catalog.
 
 ## Package types
@@ -64,6 +66,7 @@ its payload, then publish it to the catalog.
 - [Skills](/authoring/skills/): activatable capability guides (`SKILL.md`)
 - [Commands](/authoring/commands/): worker definitions for an agent CLI (`command.json`)
 - [Bundles](/authoring/bundles/): install maps that deliver several packages together
+- [Cycles](/authoring/cycles/): host loops wiring workflows to stores (`cycle.json`)
 
 ## Publishing
 
@@ -450,6 +453,7 @@ The build infers payload kind from the `to` prefix:
 - `.agents/skills/` is a skill;
 - `.cursor/` is a rule;
 - `templates/` is a template.
+- `.s_e_e/cycles/` is a cycle document.
 
 ## Install path rules
 
@@ -468,6 +472,69 @@ Paths use forward slashes and must be unique within the package.
 - Payload contract: [Bundle schema](/schema/bundle/)
 - [Schedule schema](/schema/schedule/)
 - [Schedule rule set schema](/schema/schedule-rule-set/)
+
+---
+
+# Cycles
+
+Source: /authoring/cycles/
+
+A **cycle** package describes how workflows connect stores on a host. Payload
+file: `cycle.json`. Installs to `.s_e_e/cycles/{id}.json` where `id` matches the
+document `id` field.
+
+## Stages and stores
+
+Each **stage** runs one workflow definition. It `reads` zero or more store keys
+and `writes` exactly one store key. The `stores` array lists every key the cycle
+touches.
+
+**One writer per store:** at most one stage may write a given store key on the
+orchestrator host.
+
+## Triggers
+
+Each stage has exactly one trigger: `tick`, `schedule`, `event`, or `manual`.
+
+## Store registry
+
+Store keys are not free-form. The app ships a fixed registry per host. A key
+outside the list is rejected on install and reported again at activation.
+
+**Orchestrator host:** `world`, `objectives`, `deliberations`, `ranking`,
+`proposals`, `executions`, `learning`.
+
+**Knowledge host:** `spokes`, `changes`, `components`, `impacts`, `audits`,
+`docs`, `decisions`, `links`.
+
+The JSON Schema allows `stories` and `events` as host values, but the app does
+not install or activate cycles for those hosts yet.
+
+## The orchestrator gate
+
+On the orchestrator host, the `propose` stage is the **gate**. It is compiled
+into the app: you cannot declare a different gate stage, remove it, or change
+its reads, writes, workflow, or trigger.
+
+## Activation checks
+
+Errors block activation: `unknown_store`, `store_has_two_writers`,
+`stage_has_no_reads`, `workflow_not_installed`, `gate_missing`, `gate_rewired`.
+Warnings do not block activation.
+
+## Install path
+
+```json
+{
+  "to": ".s_e_e/cycles/cycle-knowledge-default.json",
+  "from": "packages/cycle-knowledge-default/1.0.0/cycle.json"
+}
+```
+
+## Schema reference
+
+- Catalog manifest: [`see.library/v1`](/catalog.json)
+- Payload contract: [Cycle schema](/schema/cycle/)
 
 ---
 
@@ -595,6 +662,7 @@ Per-type payload schemas:
 - [Command](/schema/command/)
 - [Rule and template](/schema/rule-template/)
 - [Bundle](/schema/bundle/)
+- [Cycle](/schema/cycle/)
 
 Hub document schemas:
 
@@ -622,7 +690,7 @@ Each entry in `packages[]`:
 
 - `id` - string, globally unique within the catalog.
 - `slug` - string, url/file-safe.
-- `category` - one of `workflow`, `prompt`, `skill`, `rule`, `template`, `command`, `bundle`.
+- `category` - one of `workflow`, `prompt`, `skill`, `rule`, `template`, `command`, `bundle`, `cycle`.
 - `version` - semver string.
 - `author` - string.
 - `verified` - bool.
@@ -658,6 +726,7 @@ Each category has a fixed payload shape and install destination:
 - `template` - a scaffold file. Installs under `templates/`.
 - `command` - a command definition JSON (`id`, `binary`). Installs to `.s_e_e/commands/{id}.json` (the `to` path must equal this exactly).
 - `bundle` - no payload of its own; its `files[]` install several other packages together. The build infers each file's kind from its `to` path.
+- `cycle` - a cycle document JSON. Installs to `.s_e_e/cycles/{id}.json` (the `to` path must match the document `id`).
 
 ## Install paths
 
@@ -678,6 +747,7 @@ For a `bundle`, the `to` prefix determines the payload kind that is validated:
 - `.agents/skills/…/SKILL.md` validates as a skill;
 - `*.mdc` validates as a rule;
 - `templates/…` validates as a template.
+- `.s_e_e/cycles/…` validates as a cycle document.
 
 ## Validation
 
@@ -1234,6 +1304,98 @@ The bundle's `files[]` entries follow the `file` definition in the
 
 See the [bundle authoring guide](/authoring/bundles/) and the
 [catalog schema](/schema/).
+
+---
+
+# Cycle schema
+
+Source: /schema/cycle/
+
+Category `cycle`. Payload file `cycle.json`. Installs to
+`.s_e_e/cycles/{id}.json` (the `to` path must equal `.s_e_e/cycles/` plus the
+document `id` plus `.json`).
+
+- `id` - stable cycle id; must match the install file name.
+- `name` - display name.
+- `host` - `orchestrator` or `knowledge` (the hosts the app can activate today).
+- `schema_version` - integer, currently `1`.
+- `stores` - store keys this cycle uses; each must be declared for that host in
+  the app registry.
+- `stages[]` - each stage has `key`, `verb`, `workflow_definition_id`,
+  `trigger` (`tick`, `schedule`, `event`, or `manual`), `reads`, and `writes`.
+
+See the [cycle authoring guide](/authoring/cycles/) for store registry keys,
+the gate stage on the orchestrator host, and activation checks.
+
+## JSON Schema
+
+Download: [cycle-document.schema.json](https://garunski.github.io/s_e_e_library/schema/cycle-document.schema.json)
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://see.local/schema/cycle-document",
+  "title": "Cycle document",
+  "type": "object",
+  "required": ["id", "name", "host", "schema_version", "stores", "stages"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "host": {
+      "type": "string",
+      "enum": ["orchestrator", "knowledge", "stories", "events"]
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stores": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "verb",
+          "workflow_definition_id",
+          "trigger",
+          "reads",
+          "writes"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": { "type": "string", "minLength": 1 },
+          "verb": { "type": "string", "minLength": 1 },
+          "workflow_definition_id": { "type": "string", "minLength": 1 },
+          "trigger": {
+            "type": "string",
+            "enum": ["tick", "schedule", "event", "manual"]
+          },
+          "reads": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "writes": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}
+```
+
+See the [catalog schema](/schema/).
 
 ---
 

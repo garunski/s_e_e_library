@@ -48,6 +48,18 @@ export function extractPayloadMeta(category, content) {
         description: value?.description?.trim() ?? "",
       };
     }
+    case "cycle": {
+      let value;
+      try {
+        value = JSON.parse(content);
+      } catch {
+        return { name: "", description: "" };
+      }
+      return {
+        name: value?.name?.trim() ?? "",
+        description: "",
+      };
+    }
     case "skill": {
       const yaml = splitSkillFrontmatter(content);
       if (!yaml) {

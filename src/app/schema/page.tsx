@@ -69,6 +69,12 @@ export default function Page() {
           </strong>
           <span>Install map with no payload of its own.</span>
         </li>
+        <li>
+          <strong>
+            <Link href="/schema/cycle/">Cycle</Link>
+          </strong>
+          <span>Stages, stores, and triggers for a host loop.</span>
+        </li>
       </ul>
 
       <h2>Hub document schemas</h2>
@@ -177,7 +183,8 @@ export default function Page() {
         <li>
           <code>category</code> - one of <code>workflow</code>,{" "}
           <code>prompt</code>, <code>skill</code>, <code>rule</code>,{" "}
-          <code>template</code>, <code>command</code>, <code>bundle</code>.
+          <code>template</code>, <code>command</code>, <code>bundle</code>,{" "}
+          <code>cycle</code>.
         </li>
         <li>
           <code>version</code> - semver string.
@@ -283,6 +290,11 @@ export default function Page() {
           install several other packages together. The build infers each
           file&apos;s kind from its <code>to</code> path.
         </li>
+        <li>
+          <code>cycle</code> - a cycle document JSON. Installs to{" "}
+          <code>.s_e_e/cycles/{"{id}"}.json</code> (the <code>to</code> path must
+          match the document <code>id</code>).
+        </li>
       </ul>
 
       <h2 id="install-paths">Install paths</h2>
@@ -330,6 +342,9 @@ export default function Page() {
         </li>
         <li>
           <code>templates/…</code> validates as a template.
+        </li>
+        <li>
+          <code>.s_e_e/cycles/…</code> validates as a cycle document.
         </li>
       </ul>
 
