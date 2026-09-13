@@ -1,7 +1,7 @@
 {
   "schema": "see.library/v1",
   "name": "S.E.E. Official Library",
-  "updated": "2026-09-12T01:40:14.659Z",
+  "updated": "2026-09-13T12:23:07.847Z",
   "packages": [
     {
       "id": "bundle-author-stories-from-doc",
@@ -524,6 +524,34 @@
       ],
       "name": "Knowledge default",
       "description": "The seven-stage knowledge loop as a cycle document for the knowledge host."
+    },
+    {
+      "id": "cycle-orchestrator-default",
+      "slug": "cycle-orchestrator-default",
+      "category": "cycle",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [
+        "wf-system-implement-story",
+        "wf-system-observe-outcome",
+        "wf-system-rank-candidates",
+        "wf-system-shape-and-prepare-work"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/cycles/cycle-orchestrator-default.json",
+          "from": "packages/cycle-orchestrator-default/1.0.0/cycle.json"
+        }
+      ],
+      "labels": [
+        "cycle",
+        "orchestrator"
+      ],
+      "name": "Orchestrator default",
+      "description": "The five-stage orchestrator loop as a cycle document for the orchestrator host."
     },
     {
       "id": "prompt-system-implement-story",

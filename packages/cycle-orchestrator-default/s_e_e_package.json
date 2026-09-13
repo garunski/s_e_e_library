@@ -1,0 +1,17 @@
+{
+  "id": "cycle-orchestrator-default",
+  "slug": "cycle-orchestrator-default",
+  "category": "cycle",
+  "name": "Orchestrator default",
+  "description": "The five-stage orchestrator loop as a cycle document for the orchestrator host.",
+  "labels": [
+    "cycle",
+    "orchestrator"
+  ],
+  "dependencies": [
+    "wf-system-implement-story",
+    "wf-system-observe-outcome",
+    "wf-system-rank-candidates",
+    "wf-system-shape-and-prepare-work"
+  ]
+}

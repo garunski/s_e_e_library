@@ -522,7 +522,26 @@ Errors block activation: `unknown_store`, `store_has_two_writers`,
 `stage_has_no_reads`, `workflow_not_installed`, `gate_missing`, `gate_rewired`.
 Warnings do not block activation.
 
+## Reference example
+
+From `packages/cycle-orchestrator-default/1.0.0/cycle.json` (five orchestrator
+stages, all `tick`; the `propose` stage uses the compiled `create_proposal`
+gate). The package depends on the four catalog workflow packages those stages
+need. The compiled gate has no catalog package.
+
+From `packages/cycle-knowledge-default/1.0.0/cycle.json` (seven knowledge
+stages, mixed triggers).
+
+The full files in the catalog list every stage.
+
 ## Install path
+
+```json
+{
+  "to": ".s_e_e/cycles/cycle-orchestrator-default.json",
+  "from": "packages/cycle-orchestrator-default/1.0.0/cycle.json"
+}
+```
 
 ```json
 {

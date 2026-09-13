@@ -1,0 +1,70 @@
+{
+  "id": "cycle-orchestrator-default",
+  "name": "Orchestrator default",
+  "host": "orchestrator",
+  "schema_version": 1,
+  "stores": [
+    "world",
+    "objectives",
+    "deliberations",
+    "ranking",
+    "proposals",
+    "executions",
+    "learning"
+  ],
+  "stages": [
+    {
+      "key": "shape",
+      "verb": "Shape",
+      "workflow_definition_id": "system-shape-and-prepare-work",
+      "trigger": "tick",
+      "reads": [
+        "objectives",
+        "world"
+      ],
+      "writes": "deliberations"
+    },
+    {
+      "key": "rank",
+      "verb": "Rank",
+      "workflow_definition_id": "system-rank-candidates",
+      "trigger": "tick",
+      "reads": [
+        "learning",
+        "world"
+      ],
+      "writes": "ranking"
+    },
+    {
+      "key": "propose",
+      "verb": "Propose",
+      "workflow_definition_id": "create_proposal",
+      "trigger": "tick",
+      "reads": [
+        "ranking",
+        "deliberations"
+      ],
+      "writes": "proposals"
+    },
+    {
+      "key": "implement",
+      "verb": "Implement",
+      "workflow_definition_id": "system-implement-story",
+      "trigger": "tick",
+      "reads": [
+        "proposals"
+      ],
+      "writes": "executions"
+    },
+    {
+      "key": "observe",
+      "verb": "Observe",
+      "workflow_definition_id": "system-observe-outcome",
+      "trigger": "tick",
+      "reads": [
+        "executions"
+      ],
+      "writes": "learning"
+    }
+  ]
+}

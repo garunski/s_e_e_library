@@ -175,6 +175,28 @@ export default function Page() {
 
       <h2>Reference example</h2>
       <p>
+        From <code>packages/cycle-orchestrator-default/1.0.0/cycle.json</code> (five
+        orchestrator stages, all <code>tick</code>; the <code>propose</code> stage
+        uses the compiled <code>create_proposal</code> gate):
+      </p>
+      <pre>{`{
+  "id": "cycle-orchestrator-default",
+  "name": "Orchestrator default",
+  "host": "orchestrator",
+  "schema_version": 1,
+  "stores": ["world", "objectives", "deliberations", "ranking", "proposals", "executions", "learning"],
+  "stages": [
+    {
+      "key": "shape",
+      "verb": "Shape",
+      "workflow_definition_id": "system-shape-and-prepare-work",
+      "trigger": "tick",
+      "reads": ["objectives", "world"],
+      "writes": "deliberations"
+    }
+  ]
+}`}</pre>
+      <p>
         From <code>packages/cycle-knowledge-default/1.0.0/cycle.json</code> (seven
         knowledge stages, mixed triggers):
       </p>
@@ -196,12 +218,17 @@ export default function Page() {
   ]
 }`}</pre>
       <p>
-        The full file in the catalog lists every stage. Install workflows the
-        stages reference (or depend on a bundle that installs them) before you
-        expect activation to succeed.
+        The full files in the catalog list every stage. Declare the workflow
+        packages those stages need as <code>dependencies</code>. The compiled
+        gate has no catalog package. Install those workflows (or a bundle that
+        installs them) before you expect activation to succeed.
       </p>
 
       <h2>Install path</h2>
+      <pre>{`{
+  "to": ".s_e_e/cycles/cycle-orchestrator-default.json",
+  "from": "packages/cycle-orchestrator-default/1.0.0/cycle.json"
+}`}</pre>
       <pre>{`{
   "to": ".s_e_e/cycles/cycle-knowledge-default.json",
   "from": "packages/cycle-knowledge-default/1.0.0/cycle.json"
