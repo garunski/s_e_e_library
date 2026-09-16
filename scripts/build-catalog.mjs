@@ -525,6 +525,67 @@ function validateEntry(entry, ids, counts) {
   return applyPackageMeta(entry, label, counts);
 }
 
+function packageProvidesWorkflow(packages, packageId, definitionId, seen = new Set()) {
+  if (seen.has(packageId)) {
+    return false;
+  }
+  seen.add(packageId);
+  const entry = packages.find((p) => p.id === packageId);
+  if (!entry) {
+    return false;
+  }
+  const path = `.s_e_e/workflows/definitions/${definitionId}.json`;
+  if ((entry.files ?? []).some((file) => file.to === path)) {
+    return true;
+  }
+  return (entry.memberPackageIds ?? []).some((memberId) =>
+    packageProvidesWorkflow(packages, memberId, definitionId, seen)
+  );
+}
+
+function validateStandardCycleWorkflowDeps(catalog) {
+  const packages = catalog.packages;
+  for (const entry of packages) {
+    if (entry.category !== "cycle" || entry.verified !== true) {
+      continue;
+    }
+    const cycleFile = (entry.files ?? []).find((file) =>
+      file.to?.startsWith(".s_e_e/cycles/")
+    );
+    if (!cycleFile?.from) {
+      fail(`${entry.id}: verified cycle is missing a cycle document file`);
+    }
+    const fromPath = join(ROOT, cycleFile.from);
+    if (!existsSync(fromPath)) {
+      fail(`${entry.id}: missing cycle payload ${cycleFile.from}`);
+    }
+    let document;
+    try {
+      document = JSON.parse(readFileSync(fromPath, "utf8"));
+    } catch (e) {
+      fail(`${entry.id}: invalid cycle JSON: ${e.message}`);
+    }
+    const host = document.host;
+    if (host !== "knowledge" && host !== "orchestrator") {
+      continue;
+    }
+    for (const stage of document.stages ?? []) {
+      const definitionId = stage.workflow_definition_id;
+      if (!definitionId || definitionId === "create_proposal") {
+        continue;
+      }
+      const ok = (entry.dependencies ?? []).some((dep) =>
+        packageProvidesWorkflow(packages, dep, definitionId)
+      );
+      if (!ok) {
+        fail(
+          `${entry.id}: stage ${stage.key} refers to ${definitionId} without a package dependency`
+        );
+      }
+    }
+  }
+}
+
 function validateCatalog(catalog) {
   const ids = new Set();
   const counts = slugCounts(catalog.packages);
@@ -545,6 +606,7 @@ function validateCatalog(catalog) {
       }
     }
   }
+  validateStandardCycleWorkflowDeps(catalog);
 }
 
 function stableStringify(value) {

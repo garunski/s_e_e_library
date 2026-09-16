@@ -8,5 +8,7 @@
     "cycle",
     "knowledge"
   ],
-  "dependencies": []
+  "dependencies": [
+    "bundle-knowledge-system"
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "schema": "see.library/v1",
   "name": "S.E.E. Official Library",
-  "updated": "2026-09-13T12:23:07.847Z",
+  "updated": "2026-09-16T02:57:39.773Z",
   "packages": [
     {
       "id": "bundle-author-stories-from-doc",
@@ -511,7 +511,9 @@
       "verified": true,
       "license": "AGPL-3.0-only",
       "requires": [],
-      "dependencies": [],
+      "dependencies": [
+        "bundle-knowledge-system"
+      ],
       "files": [
         {
           "to": ".s_e_e/cycles/cycle-knowledge-default.json",
