@@ -30,6 +30,10 @@ A story must never ask for another language, must never ask for tests over infra
 
 **Direct markdown file editing is unsupported.** Use the MCP tools and HTTP endpoints below. Every MCP call requires an explicit `project` id. Read `see:/projects/{project}/stories/config` and `see:/projects/{project}/workspace-layout` for statuses, labels, and path rules; do not hardcode them.
 
+**No tool fallback to files.** If the story MCP tools are unavailable, use the documented project HTTP API. If neither interface is reachable, stop and report that story authoring is blocked. Never create or repair a story or milestone with direct Markdown editing, `apply_patch`, shell writes, a guessed id, or a guessed filename.
+
+**Keep filenames plain.** Use story and milestone titles containing only ASCII letters, numbers, and spaces. Do not use punctuation in titles. The store then writes `<id> - <title>.md`. After every create or title change, read the story with `story_get`, or read the milestone with `milestone_list`, and treat a successful store read as the required naming check.
+
 ## MCP tools
 
 Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
@@ -119,7 +123,8 @@ A story MUST NOT:
 4. Set description and implementation plan with `story_update` (pass `conflict_token` from `story_get`) or prompt follow-through.
 5. Add numbered AC with `story_add_criterion`.
 6. Set labels, priority, milestone, and dependencies via MCP tools.
-7. Hand off implementation with the `work` skill.
+7. Read the created or renamed entity back through the store and confirm its id and title.
+8. Hand off implementation with the `work` skill.
 
 For milestones: `milestone_create` and related MCP tools, or the `milestone-authoring` prompt. Link stories with `story_set_milestone`, not labels.
 

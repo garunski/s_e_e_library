@@ -1,7 +1,7 @@
 {
   "id": "system-author-stories-from-doc",
   "name": "Author stories from doc",
-  "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/stories/stories/`.",
+  "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/planning/stories/`.",
   "content": {
     "id": "author-stories-from-doc",
     "name": "Author stories from doc",

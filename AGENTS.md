@@ -34,3 +34,9 @@ Every checkout in this workspace commits directly to `main`. There is no branchi
 - To discard local work, use `git restore` or `git reset` while attached to `main`. Do not detach first.
 
 If review surfaces a branch or a detached commit you created, reattach to `main` and fast-forward it before continuing.
+
+## Story-authoring packages
+
+Every story-authoring skill published from this checkout must require writes through the story MCP tools or documented project HTTP API. It must never instruct an agent to create, rename, or update store Markdown directly. If neither store interface is reachable, the skill must stop rather than fall back to a guessed id, filename, frontmatter shape, `apply_patch`, or shell write.
+
+Story and milestone titles must use only ASCII letters, numbers, and spaces so filenames stay plain as `<id> - <title>.md`. Every create or title change must end with a store read of the entity. Keep each changed package skill identical in `packages/`, `public/packages/`, and `out/packages/`.

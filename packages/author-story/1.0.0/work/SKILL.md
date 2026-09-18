@@ -10,7 +10,7 @@ description: >-
 
 # Work
 
-Implement an S.E.E. story with tests until all acceptance criteria pass. The story is a markdown file under `.s_e_e/stories/stories/`; there is no CLI. All metadata and content updates are direct file edits.
+Implement an S.E.E. story with tests until all acceptance criteria pass. The story is a markdown file under `.s_e_e/planning/stories/`; there is no CLI. All metadata and content updates are direct file edits.
 
 For **build**, **test**, and **quality** commands: infer from the repo (`mise.toml`, `Cargo.toml`, `Makefile`, `package.json` scripts, CI config). The S.E.E. workspace conventionally uses:
 
@@ -21,7 +21,7 @@ Do not assume a specific runner without checking the repo.
 
 ## Step 1: Load the Story
 
-Read `.s_e_e/stories/stories/story-<id> - <title>.md`. Capture:
+Read `.s_e_e/planning/stories/story-<id> - <title>.md`. Capture:
 
 - Description.
 - Acceptance Criteria (each `- [ ] #N ...`).

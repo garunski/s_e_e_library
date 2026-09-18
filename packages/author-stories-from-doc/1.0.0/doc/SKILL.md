@@ -228,7 +228,7 @@ Work items and reference content have different lifetimes. A story is deleted on
 
 Two crates and two stores:
 
-- `s_e_e_stories` owns work items (stories, milestones) on disk under `.s_e_e/stories/`.
+- `s_e_e_stories` owns work items (stories, milestones) on disk under `.s_e_e/planning/`.
 - `s_e_e_knowledge` owns reference content (docs, decisions) on disk under `.s_e_e/knowledge/`.
 - HTTP routes are separate: `/api/stories/*`, `/api/knowledge/*`.
 - The engine handler for work items is `story_action`.

@@ -2,8 +2,8 @@
 name: stories
 description: >-
   Expert story author for the S.E.E. stories store. Atomic, testable,
-  AI-implementable stories written directly as markdown under
-  .s_e_e/stories/stories/. Use when the user says /stories, /story, "create a
+  AI-implementable stories written through the story MCP tools or project
+  HTTP API. Use when the user says /stories, /story, "create a
   story", "add a story", or works with stories, milestones, or labels in
   the S.E.E. project.
 ---
@@ -12,7 +12,7 @@ description: >-
 
 **Role**: Expert story author for the S.E.E. stories store. Create atomic, testable, AI-implementable stories.
 
-S.E.E. has no story CLI. Files are created and edited as markdown directly. The runtime watches `.s_e_e/stories/` and reflects changes in the GUI on save. Filenames are part of the contract.
+Story and milestone writes go through the story MCP tools or the documented project HTTP API. Direct Markdown editing is unsupported. If neither store interface is reachable, stop and report that authoring is blocked. Never fall back to `apply_patch`, shell writes, a guessed id, or a guessed filename.
 
 ## Store Layout
 
@@ -22,18 +22,18 @@ S.E.E. has no story CLI. Files are created and edited as markdown directly. The 
 │   ├── config.json              # statuses, labels, prefixes (read-only for agents)
 │   ├── next-id                 # next numeric suffix to allocate (decimal); reserved by the store
 │   ├── stories/
-│   │   └── story-<n> - <Kebab-Title>.md
+│   │   └── story-<n> - <Plain-Title>.md
 │   ├── milestones/
-│   │   └── m-<n> - <Kebab-Title>.md
+│   │   └── m-<n> - <Plain-Title>.md
 │   └── archive/stories/        # archived stories (do not write here)
 └── knowledge/
     ├── decisions/decision-<n> - <Kebab-Title>.md     # see doc skill
     └── docs/<category>/<area>/doc-<n> - <Title>.md   # see doc skill
 ```
 
-- `<n>` is allocated by the store - never guess from globs. Reserve via `POST /api/projects/{pid}/stories/reserve-id` (returns `{"id":"story-<n>","n":<n>}`) or read `.s_e_e/stories/next-id` only after a successful reserve/create. The on-disk counter lives at `.s_e_e/stories/next-id`.
-- `<Kebab-Title>` matches the frontmatter `title` with spaces replaced by `-`. Keep punctuation minimal.
-- Stories live in `.s_e_e/stories/stories/`; milestones in `.s_e_e/stories/milestones/`. Decisions and docs live under `.s_e_e/knowledge/` (use the `doc` skill).
+- `<n>` is allocated by `story_create`, `milestone_create`, or the equivalent project HTTP create endpoint. Never infer it from directory contents or the counter.
+- `<Plain-Title>` contains only ASCII letters, numbers, and spaces. Do not use punctuation in story or milestone titles. The store writes the filename; agents never construct it.
+- Stories live in `.s_e_e/planning/stories/`; milestones in `.s_e_e/planning/milestones/`. Decisions and docs live under `.s_e_e/knowledge/` (use the `doc` skill).
 
 ## Story File - Required Shape
 
@@ -86,11 +86,11 @@ Goal and scope. Why this story exists. No implementation details.
 ## Frontmatter Rules
 
 - `id` - `story-<n>`. Must match the filename's `<n>`.
-- `title` - sentence case; reuse in the filename as `story-<n> - <Kebab-Title>.md`.
+- `title` - sentence case. Send it to the store and let the store compute or rename the filename.
 - `status` - one of the `stories.statuses` values in `.s_e_e/config.json` (`New`, `Ready for Dev`, `In Progress`, `Done`). Start at `New`.
 - `assignee` - empty list on creation; populated when work starts.
 - `created_date` / `updated_date` - `'YYYY-MM-DD HH:mm'` quoted strings.
-- `labels` - list of strings; pick from existing labels first (look across `.s_e_e/stories/stories/`); only invent a new label when no existing one fits. Common labels reference architecture areas (e.g. `engine`, `gui`, `core`, `types`) or doc ids (e.g. `doc-13`, `doc-18`).
+- `labels` - list of strings; pick from existing labels first (look across `.s_e_e/planning/stories/`); only invent a new label when no existing one fits. Common labels reference architecture areas (e.g. `engine`, `gui`, `core`, `types`) or doc ids (e.g. `doc-13`, `doc-18`).
 - `dependencies` - list of `story-<m>` ids that must be Done before this story can start. Only reference lower ids.
 - `priority` - `low`, `medium`, or `high`.
 
@@ -120,19 +120,19 @@ A story MUST NOT:
 - Use the past/present-tense outcome form: *"`parse_workflow_from_value` rejects entries with empty `key`"*, not *"add validation for empty key"*.
 - Test coverage shows up as its own AC: *"#7 Unit tests cover absent field, empty array, duplicate key rejection"*.
 
-## Workflow (No CLI)
+## Workflow
 
-1. **Reserve the next id** - `POST /api/projects/{pid}/stories/reserve-id` (HTTP 201, body `{"id":"story-<n>","n":<n>}`). Use that id exactly; do not glob `story-*.md` to pick `<n>`. After reserve, `.s_e_e/stories/next-id` holds the next suffix (read-only confirmation).
-2. **Create the file** - `.s_e_e/stories/stories/story-<n> - <Kebab-Title>.md` with the frontmatter and section markers above.
-3. **Author content** - Description, AC, Plan. Leave Notes and Final Summary empty.
-4. **Save** - the file watcher reflects the new story in the GUI; verify the executions/stories list shows it.
-5. **Hand off** - when an agent works the story, they update `status`, check off AC, and fill Notes / Final Summary using the `work` skill.
+1. **Read project contracts** - resolve the project, then read its stories config and workspace layout.
+2. **Create through the store** - call `story_create` or `POST /api/projects/{pid}/stories` with the title and supported initial fields. Do not reserve an id and create a file manually.
+3. **Author through the store** - use story update, criterion, and metadata tools or their documented HTTP endpoints. Pass the latest conflict token or client mtime where required.
+4. **Verify canonical identity** - call `story_get` after creation and after every title change. A successful read confirms that id, title, serialization, and canonical filename agree.
+5. **Hand off** - use the `work` skill after the final store read succeeds.
 
-When *editing* an existing story to change metadata (status, labels, assignee), edit the frontmatter directly and bump `updated_date`. Do not rename the file unless `title` itself changes - and if it does, both filename and frontmatter `title` change together.
+When editing an existing story, use the dedicated mutation tool or HTTP endpoint. A title update must go through the store so it renames the file atomically. Never rename the Markdown file yourself.
 
-## Milestones (No CLI)
+## Milestones
 
-Milestones live at `.s_e_e/stories/milestones/m-<n> - <Kebab-Title>.md`. Minimal frontmatter:
+Create and update milestones through `milestone_create`, `milestone_set_title`, `milestone_set_description`, and membership tools or their documented HTTP equivalents. The store owns the id, serialization, and canonical filename.
 
 ```markdown
 ---
@@ -147,7 +147,7 @@ Outcome the milestone represents.
 <!-- SECTION:DESCRIPTION:END -->
 ```
 
-Stories may reference a milestone via a `milestone` label (e.g. `m-3`); this is convention, not required.
+Set membership with `story_set_milestone` or the equivalent HTTP endpoint. The `milestone` frontmatter field is authoritative; an `m-*` label is not membership.
 
 ## Decisions and Docs
 
@@ -162,7 +162,7 @@ These are knowledge artifacts and live under `.s_e_e/knowledge/`. Use the `doc` 
 
 ## Complete Example
 
-`.s_e_e/stories/stories/story-241 - Render-runtime-input-defaults-in-pre-run-modal.md`:
+`story_get` for `story-241`:
 
 ```markdown
 ---

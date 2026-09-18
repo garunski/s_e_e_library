@@ -1,7 +1,7 @@
 {
   "id": "system-author-story",
   "name": "Author story from description",
-  "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/stories/stories/`.",
+  "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/planning/stories/`.",
   "content": {
     "id": "author-story",
     "name": "Author story from description",

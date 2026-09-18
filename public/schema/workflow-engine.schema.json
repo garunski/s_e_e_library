@@ -29,7 +29,7 @@
     "stories_root": {
       "type": "string",
       "minLength": 1,
-      "description": "Story store root (`.s_e_e/stories/` with config.json, stories/, milestones/, …); optional if resolvable from registry"
+      "description": "Story store root (`.s_e_e/planning/` with config.json, stories/, milestones/, …); optional if resolvable from registry"
     },
     "knowledge_root": {
       "type": "string",
