@@ -108,6 +108,27 @@ A story MUST NOT:
 - Be marked Done without all AC checked and Final Summary filled.
 - Require launching a workflow execution, a probe workflow, or a live `execution_get` as the proof.
 
+## A story contains no choices (VERY IMPORTANT)
+
+A story is a fully planned piece of work. The implementing agent executes it; it does not design it. Every decision is the author's, made at authoring time, written into the story as the thing to do.
+
+Never leave a decision open. These phrasings are banned in the description, the plan, and the criteria:
+
+- "Decide whether ...", "Choose between ...", "Determine whether ..."
+- "Either X or Y", "X or Y, prefer X", "Options in rough order of invasiveness", "The candidates are ..."
+- "Consider whether ...", "Weigh X against Y"
+- "... and record the decision", "... is decided deliberately", "the reasoning is recorded in a decision record"
+
+When two approaches exist, pick one, name it, and give one sentence on why the other loses. That sentence is the entire value of having considered the alternative; the alternative does not belong in the plan as a live option.
+
+An acceptance criterion is never satisfied by making a decision. "The status vocabulary is decided and recorded" is not a criterion. "Status values come from the configured story status set" is. If a criterion contains "decided", "whether", "either", or "recorded", rewrite it as the behavior that results from the decision you already made.
+
+Research the story genuinely needs is a plan step with an expected answer and a stated fallback, not an open question. "Confirm the pinned crate version exposes a max file count; if it does not, sweep on startup instead" is a plan step. "Investigate how to bound the files" is not.
+
+Numbers are decisions too. Thresholds, intervals, retention windows, and limits are chosen by the author and written down. "Prune by count or age" is a choice; "prune records older than 90 days" is a story.
+
+If authoring surfaces a decision you cannot make, stop and ask the user before creating the story. Never create the story with the choice embedded.
+
 ## AC conventions
 
 - Number each AC: `- [ ] #1 ...`. Each AC is one outcome; split compound criteria.

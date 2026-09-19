@@ -117,6 +117,8 @@ Save. The runtime watcher updates the GUI.
 
 ## Rules
 
+- A story contains no choices. If the description, plan, or a criterion defers a decision to you, saying "decide whether", "choose between", "either X or Y", "consider whether", "prefer X", or "record the decision", stop and ask the user. Do not pick for yourself and do not implement around the gap; the story is not ready and authoring owes you the answer.
+
 - Do proper research before coding.
 - Create a plan (Step 3), then implement (Step 4) without waiting for user approval.
 - Every code change needs a test.
