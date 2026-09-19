@@ -125,6 +125,48 @@ export default function Page() {
         Optional presentation fields: <code>name</code>,{" "}
         <code>description</code>, <code>labels</code>.
       </p>
+      <p>
+        Marketplace fields live on the sidecar and are copied into the
+        catalog. Do not hand-edit them on <code>catalog.json</code>.
+      </p>
+      <dl className="decision-list compact-list">
+        <dt>
+          <code>toolIds</code>
+        </dt>
+        <dd>
+          Declared tool ids from the catalog <code>tools[]</code> registry.
+          Use <code>[]</code> when the package is uncategorized. Never guess
+          from the package name.
+        </dd>
+        <dt>
+          <code>releases</code>
+        </dt>
+        <dd>
+          <code>{"{ version, date, note }"}</code> history for the package.
+        </dd>
+      </dl>
+      <p>
+        Stacks, the tool registry, and featured selection live in{" "}
+        <code>scripts/stacks.json</code>:
+      </p>
+      <pre>{`{
+  "tools": [
+    { "id": "cursor", "name": "Cursor" },
+    { "id": "claude", "name": "Claude Code" }
+  ],
+  "featuredStackId": "stack-implement-story",
+  "stacks": [
+    {
+      "id": "stack-implement-story",
+      "name": "Implement story",
+      "sharedPackageIds": ["wf-system-implement-story", "skill-work"],
+      "variants": [
+        { "toolId": "cursor", "packageIds": ["cmd-cursor-agent"] },
+        { "toolId": "claude", "packageIds": ["cmd-claude-code"] }
+      ]
+    }
+  ]
+}`}</pre>
       <p>Example command entry:</p>
       <pre>{`{
   "id": "cmd-cursor-agent",
@@ -188,7 +230,7 @@ npm test`}</pre>
         <li>
           Catalog manifest:{" "}
           <a href={assetPath("/catalog.json")}>
-            <code>see.library/v1</code>
+            <code>see.library/v2</code>
           </a>
         </li>
         <li>

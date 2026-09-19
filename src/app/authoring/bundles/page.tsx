@@ -40,7 +40,11 @@ export default function Page() {
   "name": "Implement Story workflows",
   "description": "Packages linked by template references: workflows, prompts, skills, commands.",
   "labels": ["bulk", "story"],
-  "dependencies": []
+  "dependencies": [],
+  "toolIds": ["cursor"],
+  "releases": [
+    { "version": "1.0.0", "date": "2026-09-01", "note": "Initial catalog release." }
+  ]
 }`}</pre>
       <dl className="decision-list compact-list">
         <dt>
@@ -73,6 +77,18 @@ export default function Page() {
           <code>dependencies</code>
         </dt>
         <dd>Other package ids installed alongside this bundle.</dd>
+        <dt>
+          <code>toolIds</code>
+        </dt>
+        <dd>
+          Declared tool ids, or <code>[]</code> when uncategorized.
+        </dd>
+        <dt>
+          <code>releases</code>
+        </dt>
+        <dd>
+          <code>{"{ version, date, note }"}</code> history.
+        </dd>
       </dl>
 
       <h2>Members</h2>
@@ -83,6 +99,13 @@ export default function Page() {
         and builds the catalog <code>files[]</code> array. Hand-authored bundles
         list every <code>to</code>/<code>from</code> pair directly in{" "}
         <code>catalog.json</code>.
+      </p>
+      <p>
+        Marketplace stacks are a different source.{" "}
+        <code>scripts/stacks.json</code> declares <code>sharedPackageIds</code>,
+        per-tool <code>variants</code>, and <code>featuredStackId</code>. A
+        bundle is an install map; a stack is a source-owned grouping that can
+        install one tool path.
       </p>
       <p>
         Example members for <code>implement-story</code> (from{" "}
@@ -172,7 +195,7 @@ export default function Page() {
         <li>
           Catalog manifest:{" "}
           <a href={assetPath("/catalog.json")}>
-            <code>see.library/v1</code>
+            <code>see.library/v2</code>
           </a>
         </li>
         <li>

@@ -9,7 +9,7 @@ can be used in another.
 Two things are authoritative and machine readable:
 
 - `catalog.json` (https://garunski.github.io/s_e_e_library/catalog.json) lists
-  every package and where each file installs. Its schema tag is `see.library/v1`.
+  every package and where each file installs. Its schema tag is `see.library/v1` or `see.library/v2`.
 - The JSON Schema files under
   https://garunski.github.io/s_e_e_library/schema/ define each payload shape.
 
@@ -399,7 +399,11 @@ Each bundle carries a sidecar at `packages/{slug}/s_e_e_package.json`:
   "name": "Implement Story workflows",
   "description": "Packages linked by template references: workflows, prompts, skills, commands.",
   "labels": ["bulk", "story"],
-  "dependencies": []
+  "dependencies": [],
+  "toolIds": ["cursor"],
+  "releases": [
+    { "version": "1.0.0", "date": "2026-09-01", "note": "Initial catalog release." }
+  ]
 }
 ```
 
@@ -411,6 +415,8 @@ Each bundle carries a sidecar at `packages/{slug}/s_e_e_package.json`:
 | `name`, `description` | Catalog presentation |
 | `labels` | Discovery tags |
 | `dependencies` | Other package ids installed alongside this bundle |
+| `toolIds` | Declared tool ids, or `[]` when uncategorized |
+| `releases` | `{ version, date, note }` history |
 
 ## Members
 
@@ -418,6 +424,10 @@ When harvesting from a local hub, `scripts/bundles.json` lists member package
 ids per bundle slug. The harvest script copies each member payload into
 `packages/{bundle-slug}/{version}/` and builds the catalog `files[]` array.
 Hand-authored bundles list every `to`/`from` pair directly in `catalog.json`.
+
+Marketplace stacks are a different source. `scripts/stacks.json` declares
+`sharedPackageIds`, per-tool `variants`, and `featuredStackId`. A bundle is an
+install map; a stack is a source-owned grouping that can install one tool path.
 
 Example members for `implement-story` (from `scripts/bundles.json`):
 
@@ -468,7 +478,7 @@ Paths use forward slashes and must be unique within the package.
 
 ## Schema reference
 
-- Catalog manifest: [`see.library/v1`](/catalog.json)
+- Catalog manifest: [`see.library/v2`](/catalog.json)
 - Payload contract: [Bundle schema](/schema/bundle/)
 - [Schedule schema](/schema/schedule/)
 - [Schedule rule set schema](/schema/schedule-rule-set/)
@@ -603,6 +613,37 @@ Append a package object to `catalog.json` `packages[]`:
 
 Optional presentation fields: `name`, `description`, `labels`.
 
+Marketplace fields live on the sidecar and are copied into the catalog. Do not
+hand-edit them on `catalog.json`.
+
+| Field | Purpose |
+| --- | --- |
+| `toolIds` | Declared tool ids from `tools[]`. Use `[]` when uncategorized. Never guess from the package name. |
+| `releases` | `{ version, date, note }` history for the package. |
+
+Stacks, the tool registry, and featured selection live in `scripts/stacks.json`:
+
+```json
+{
+  "tools": [
+    { "id": "cursor", "name": "Cursor" },
+    { "id": "claude", "name": "Claude Code" }
+  ],
+  "featuredStackId": "stack-implement-story",
+  "stacks": [
+    {
+      "id": "stack-implement-story",
+      "name": "Implement story",
+      "sharedPackageIds": ["wf-system-implement-story", "skill-work"],
+      "variants": [
+        { "toolId": "cursor", "packageIds": ["cmd-cursor-agent"] },
+        { "toolId": "claude", "packageIds": ["cmd-claude-code"] }
+      ]
+    }
+  ]
+}
+```
+
 Example command entry:
 
 ```json
@@ -659,7 +700,7 @@ no matching `Source:` line, so both change together.
 
 ## Schema reference
 
-- Catalog manifest: [`see.library/v1`](/catalog.json)
+- Catalog manifest: [`see.library/v2`](/catalog.json)
 - Payload contract: [Catalog schema](/schema/)
 
 ---
@@ -669,9 +710,9 @@ no matching `Source:` line, so both change together.
 Source: /schema/
 
 The catalog is a single JSON manifest (`catalog.json`) plus versioned payload
-files under `packages/`. The manifest schema tag is `see.library/v1`. This
-section is the authoritative contract for this repository;
-`scripts/build-catalog.mjs` enforces it.
+files under `packages/`. The manifest schema tag is `see.library/v1` or
+`see.library/v2`. This section is the authoritative contract for this
+repository; `scripts/build-catalog.mjs` enforces it.
 
 Per-type payload schemas:
 
@@ -698,10 +739,13 @@ Hub document schemas:
 
 `catalog.json`:
 
-- `schema` - must be `see.library/v1`.
+- `schema` - `see.library/v1` or `see.library/v2`.
 - `name` - catalog display name.
 - `updated` - ISO-8601 timestamp (refreshed by `npm run build`).
 - `packages[]` - array of package entries.
+- `tools[]` - optional tool registry (`id`, `name`, optional `description`). v1 catalogs omit this and parse as empty.
+- `stacks[]` - optional source-owned stacks with `sharedPackageIds` and `variants`.
+- `featuredStackId` - optional id of one declared stack.
 
 ## Package entry
 
@@ -719,6 +763,41 @@ Each entry in `packages[]`:
 - `files[]` - install map; each entry is `{ to, from }`:
   - `from` - source path in this repo, `packages/{slug}/{version}/{file}`.
   - `to` - destination path written on the install target, relative to the target root.
+- `toolIds` - optional declared tool registry ids. Empty or omitted means uncategorized; never inferred from title or install path.
+- `releases` - optional `{ version, date, note }` history for the package.
+
+## Stacks
+
+A stack is source-owned, not a local collection. Author stacks in
+`scripts/stacks.json`. `sharedPackageIds` lists packages every variant
+installs. Each variant names a declared `toolId` and additional `packageIds`.
+`featuredStackId` must be one declared stack id.
+
+```json
+{
+  "tools": [
+    { "id": "cursor", "name": "Cursor" },
+    { "id": "claude", "name": "Claude Code" }
+  ],
+  "featuredStackId": "stack-implement-story",
+  "stacks": [
+    {
+      "id": "stack-implement-story",
+      "name": "Implement story",
+      "description": "Shared implement-story packages plus one agent CLI.",
+      "sharedPackageIds": [
+        "wf-system-implement-story",
+        "prompt-system-implement-story",
+        "skill-work"
+      ],
+      "variants": [
+        { "toolId": "cursor", "packageIds": ["cmd-cursor-agent"] },
+        { "toolId": "claude", "packageIds": ["cmd-claude-code"] }
+      ]
+    }
+  ]
+}
+```
 
 ## Package metadata sidecar
 
@@ -733,6 +812,8 @@ cross-checks it against the catalog entry:
 - `description` - one-line summary.
 - `labels` - string array (the build dedupes and sorts it).
 - `dependencies` - string array of other package `id`s.
+- `toolIds` - declared tool registry ids. Required. Use `[]` when the package is deliberately uncategorized. The build copies this array; it never infers a tool from name or path.
+- `releases` - required `{ version, date, note }` history. The catalog emits these rows; do not hand-edit them on `catalog.json`.
 
 ## Categories
 
@@ -771,7 +852,9 @@ For a `bundle`, the `to` prefix determines the payload kind that is validated:
 ## Validation
 
 `dependencies` must reference package `id`s present in the catalog, and a
-package cannot depend on itself. Run `npm run build` to validate payloads and
+package cannot depend on itself. v2 marketplace metadata rejects duplicate tool
+or stack ids, unknown package `toolIds`, unknown stack package ids, and variants
+that name an undeclared tool. Run `npm run build` to validate payloads and
 refresh the manifest, or `npm run validate` (`--check`, no writes) in CI.
 
 ## JSON Schema
@@ -786,45 +869,138 @@ Download: [catalog.schema.json](https://garunski.github.io/s_e_e_library/schema/
   "type": "object",
   "required": ["schema", "name", "packages"],
   "properties": {
-    "schema": { "const": "see.library/v1" },
+    "schema": { "enum": ["see.library/v1", "see.library/v2"] },
     "name": { "type": "string", "minLength": 1 },
     "updated": { "type": "string", "format": "date-time" },
     "packages": {
       "type": "array",
       "items": { "$ref": "#/$defs/package" }
-    }
+    },
+    "tools": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tool" }
+    },
+    "stacks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/stack" }
+    },
+    "featuredStackId": { "type": "string", "minLength": 1 }
   },
   "$defs": {
     "package": {
       "type": "object",
       "required": [
-        "id", "slug", "category", "version", "author",
-        "verified", "license", "requires", "dependencies", "files"
+        "id",
+        "slug",
+        "category",
+        "version",
+        "author",
+        "verified",
+        "license",
+        "requires",
+        "dependencies",
+        "files"
       ],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "slug": { "type": "string", "minLength": 1 },
         "category": {
-          "enum": ["workflow", "prompt", "skill", "rule", "template", "command", "bundle"]
+          "enum": [
+            "workflow",
+            "prompt",
+            "skill",
+            "rule",
+            "template",
+            "command",
+            "bundle",
+            "cycle"
+          ]
         },
         "version": { "type": "string", "minLength": 1 },
         "author": { "type": "string" },
         "verified": { "type": "boolean" },
         "license": { "type": "string" },
         "requires": { "type": "array", "items": { "type": "string" } },
-        "dependencies": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "dependencies": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
         "name": { "type": "string" },
         "description": { "type": "string" },
-        "labels": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-        "files": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/file" } }
+        "labels": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "toolIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "releases": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/release" }
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/file" }
+        }
       }
     },
     "file": {
       "type": "object",
       "required": ["to", "from"],
       "properties": {
-        "to": { "type": "string", "pattern": "^(\\.s_e_e/|\\.agents/|\\.cursor/|templates/)[^\\\\]*$" },
+        "to": {
+          "type": "string",
+          "pattern": "^(\\.s_e_e/|\\.agents/|\\.cursor/|templates/)[^\\\\]*$"
+        },
         "from": { "type": "string", "minLength": 1 }
+      }
+    },
+    "tool": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" }
+      }
+    },
+    "release": {
+      "type": "object",
+      "required": ["version", "date", "note"],
+      "properties": {
+        "version": { "type": "string", "minLength": 1 },
+        "date": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "stack": {
+      "type": "object",
+      "required": ["id", "name", "sharedPackageIds"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "sharedPackageIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "variants": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/variant" }
+        }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "required": ["toolId", "packageIds"],
+      "properties": {
+        "toolId": { "type": "string", "minLength": 1 },
+        "packageIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
       }
     }
   }

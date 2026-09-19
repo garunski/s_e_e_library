@@ -7,15 +7,23 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { presentationForEntry } from "./payload-meta.mjs";
 import {
+  catalogWithoutUpdated,
+  loadMarketplaceSource,
+  marketplaceRefErrors,
   metaPath as packageMetaPath,
   normalizeDeps,
   normalizeLabels,
+  normalizeReleases,
+  normalizeToolIds,
   slugCounts,
+  stableStringify,
 } from "./package-meta.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CATALOG_PATH = join(ROOT, "catalog.json");
-const SCHEMA = "see.library/v1";
+const PUBLIC_CATALOG_PATH = join(ROOT, "public", "catalog.json");
+const SCHEMA_V1 = "see.library/v1";
+const SCHEMA_V2 = "see.library/v2";
 const CATALOG_NAME = "S.E.E. Official Library";
 const ALLOWED_TO_PREFIXES = [".s_e_e/", ".agents/", ".cursor/", "templates/"];
 const CATEGORIES = new Set([
@@ -45,8 +53,10 @@ function readCatalog() {
   } catch (e) {
     fail(`invalid catalog.json: ${e.message}`);
   }
-  if (catalog.schema !== SCHEMA) {
-    fail(`unsupported schema: expected ${SCHEMA}, got ${catalog.schema ?? "(missing)"}`);
+  if (catalog.schema !== SCHEMA_V1 && catalog.schema !== SCHEMA_V2) {
+    fail(
+      `unsupported schema: expected ${SCHEMA_V1} or ${SCHEMA_V2}, got ${catalog.schema ?? "(missing)"}`,
+    );
   }
   if (!Array.isArray(catalog.packages)) {
     fail("catalog.packages must be an array");
@@ -133,12 +143,30 @@ function readPackageMeta(entry, label, counts) {
   if (dependencies === null) {
     return { error: `${label}: s_e_e_package.json dependencies must be an array of non-empty strings` };
   }
+  if (!Object.hasOwn(meta, "toolIds")) {
+    return { error: `${label}: s_e_e_package.json requires toolIds` };
+  }
+  const toolIds = normalizeToolIds(meta.toolIds);
+  if (toolIds === null) {
+    return { error: `${label}: s_e_e_package.json toolIds must be an array of non-empty strings` };
+  }
+  if (!Object.hasOwn(meta, "releases")) {
+    return { error: `${label}: s_e_e_package.json requires releases` };
+  }
+  const releases = normalizeReleases(meta.releases);
+  if (releases === null) {
+    return {
+      error: `${label}: s_e_e_package.json releases must be { version, date, note } objects`,
+    };
+  }
   return {
     meta: {
       name: meta.name.trim(),
       description: meta.description?.trim() ?? "",
       labels,
       dependencies,
+      toolIds,
+      releases,
     },
   };
 }
@@ -148,7 +176,7 @@ function applyPackageMeta(entry, label, counts) {
   if (result.error) {
     return result.error;
   }
-  const { name, description, labels, dependencies } = result.meta;
+  const { name, description, labels, dependencies, toolIds, releases } = result.meta;
   if (entry.name !== undefined && entry.name !== name) {
     return `${label}: catalog name does not match s_e_e_package.json`;
   }
@@ -170,10 +198,30 @@ function applyPackageMeta(entry, label, counts) {
   if (JSON.stringify(entryDeps) !== JSON.stringify(dependencies)) {
     return `${label}: catalog dependencies do not match s_e_e_package.json`;
   }
+  if (entry.toolIds !== undefined) {
+    const entryToolIds = normalizeToolIds(entry.toolIds);
+    if (entryToolIds === null) {
+      return `${label}: toolIds must be an array of non-empty strings`;
+    }
+    if (JSON.stringify(entryToolIds) !== JSON.stringify(toolIds)) {
+      return `${label}: catalog toolIds do not match s_e_e_package.json`;
+    }
+  }
+  if (entry.releases !== undefined) {
+    const entryReleases = normalizeReleases(entry.releases);
+    if (entryReleases === null) {
+      return `${label}: releases must be { version, date, note } objects`;
+    }
+    if (JSON.stringify(entryReleases) !== JSON.stringify(releases)) {
+      return `${label}: catalog releases do not match s_e_e_package.json`;
+    }
+  }
   entry.name = name;
   entry.description = description || undefined;
   entry.labels = labels;
   entry.dependencies = dependencies;
+  entry.toolIds = toolIds;
+  entry.releases = releases;
   return null;
 }
 
@@ -607,36 +655,69 @@ function validateCatalog(catalog) {
     }
   }
   validateStandardCycleWorkflowDeps(catalog);
+  const marketplace = loadMarketplaceSource(ROOT);
+  if (marketplace.error) {
+    fail(marketplace.error);
+  }
+  catalog.tools = marketplace.source.tools;
+  catalog.stacks = marketplace.source.stacks;
+  catalog.featuredStackId = marketplace.source.featuredStackId;
+  const refErrors = marketplaceRefErrors({
+    tools: catalog.tools,
+    stacks: catalog.stacks,
+    featuredStackId: catalog.featuredStackId,
+    packageIds: catalog.packages.map((entry) => entry.id),
+  });
+  if (refErrors.length > 0) {
+    fail(refErrors[0]);
+  }
 }
 
-function stableStringify(value) {
-  return `${JSON.stringify(value, null, 2)}\n`;
-}
-
-function catalogWithoutUpdated(catalog) {
-  const { updated: _updated, ...rest } = catalog;
-  return rest;
+function assertCatalogMatchesNext(raw, next, label) {
+  let current;
+  try {
+    current = JSON.parse(raw);
+  } catch (e) {
+    fail(`${label}: invalid JSON: ${e.message}`);
+  }
+  const currentBody = stableStringify(catalogWithoutUpdated(current));
+  const nextBody = stableStringify(catalogWithoutUpdated(next));
+  if (currentBody !== nextBody) {
+    fail(`${label} is out of date; run npm run catalog && npm run copy`);
+  }
 }
 
 const catalog = readCatalog();
 validateCatalog(catalog);
 
 const next = {
-  ...catalog,
-  schema: SCHEMA,
+  schema: SCHEMA_V2,
   name: catalog.name || CATALOG_NAME,
   updated: new Date().toISOString(),
+  tools: catalog.tools,
+  stacks: catalog.stacks,
+  featuredStackId: catalog.featuredStackId,
+  packages: catalog.packages,
 };
 
 if (checkOnly) {
-  const currentRaw = readFileSync(CATALOG_PATH, "utf8");
-  const current = JSON.parse(currentRaw);
-  validateCatalog(current);
-  const currentBody = stableStringify(catalogWithoutUpdated(current));
-  const nextBody = stableStringify(catalogWithoutUpdated(next));
-  if (currentBody !== nextBody) {
-    fail("catalog.json is out of date; run npm run catalog");
+  if (!existsSync(CATALOG_PATH)) {
+    fail("catalog.json not found");
   }
+  if (!existsSync(PUBLIC_CATALOG_PATH)) {
+    fail("public/catalog.json not found");
+  }
+  assertCatalogMatchesNext(
+    readFileSync(CATALOG_PATH, "utf8"),
+    next,
+    "catalog.json",
+  );
+  assertCatalogMatchesNext(
+    readFileSync(PUBLIC_CATALOG_PATH, "utf8"),
+    next,
+    "public/catalog.json",
+  );
+  const current = JSON.parse(readFileSync(CATALOG_PATH, "utf8"));
   console.log(
     `ok: ${current.packages.length} packages validated (${current.updated})`
   );

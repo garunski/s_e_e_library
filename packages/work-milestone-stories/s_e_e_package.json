@@ -11,5 +11,15 @@
   ],
   "dependencies": [
     "cmd-cursor-agent"
+  ],
+  "toolIds": [
+    "cursor"
+  ],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-01",
+      "note": "Initial catalog release."
+    }
   ]
 }

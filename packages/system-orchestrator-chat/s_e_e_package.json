@@ -9,5 +9,13 @@
     "prompt-system-mcp-contract",
     "prompt-system-mcp-cursor-delivery",
     "prompt-system-mcp-cursor-caveats"
+  ],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-01",
+      "note": "Initial catalog release."
+    }
   ]
 }

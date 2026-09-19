@@ -7,6 +7,8 @@ import {
   metaPath as packageMetaPath,
   normalizeDeps,
   normalizeLabels,
+  normalizeReleases,
+  normalizeToolIds,
   readExistingMeta,
   slugCounts,
 } from "./package-meta.mjs";
@@ -69,6 +71,14 @@ function writeMeta(entry, seedLabels, counts) {
       : [];
   const dependencies =
     normalizeDeps([...(entry.dependencies ?? []), ...authored]) ?? [];
+  const toolIds =
+    existing?.toolIds !== undefined
+      ? normalizeToolIds(existing.toolIds) ?? []
+      : [];
+  const releases =
+    existing?.releases !== undefined
+      ? normalizeReleases(existing.releases) ?? []
+      : [];
   const meta = {
     id: entry.id,
     slug: entry.slug,
@@ -77,7 +87,12 @@ function writeMeta(entry, seedLabels, counts) {
     description,
     labels,
     dependencies,
+    toolIds,
+    releases,
   };
+  if (Array.isArray(existing?.requires)) {
+    meta.requires = existing.requires;
+  }
   const path = packageMetaPath(ROOT, entry, counts);
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, `${JSON.stringify(meta, null, 2)}\n`);
@@ -95,6 +110,8 @@ function finalizeEntries(built) {
       description: meta.description || undefined,
       labels: meta.labels,
       dependencies: meta.dependencies,
+      toolIds: meta.toolIds,
+      releases: meta.releases,
     };
   });
 }

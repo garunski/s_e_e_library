@@ -5,5 +5,15 @@
   "name": "Cursor MCP caveats (measured)",
   "description": "Measured Cursor MCP caveats expanded by other prompts.",
   "labels": [],
-  "dependencies": []
+  "dependencies": [],
+  "toolIds": [
+    "cursor"
+  ],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-01",
+      "note": "Initial catalog release."
+    }
+  ]
 }

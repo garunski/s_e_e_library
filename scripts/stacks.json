@@ -1,0 +1,140 @@
+{
+  "tools": [
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "description": "Anthropic Claude Code agent CLI."
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "description": "Cursor agent CLI."
+    }
+  ],
+  "featuredStackId": "stack-implement-story",
+  "stacks": [
+    {
+      "id": "stack-author-stories-from-doc",
+      "name": "Author stories from doc",
+      "description": "Turn a knowledge doc into stories, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-author-stories-from-doc",
+        "prompt-system-stories-from-doc-authoring",
+        "skill-doc",
+        "skill-stories",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": ["cmd-claude-code"]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": ["cmd-cursor-agent"]
+        }
+      ]
+    },
+    {
+      "id": "stack-author-story",
+      "name": "Author story",
+      "description": "Author one story from a description, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-author-story",
+        "prompt-system-story-authoring",
+        "skill-stories",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": ["cmd-claude-code"]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": ["cmd-cursor-agent"]
+        }
+      ]
+    },
+    {
+      "id": "stack-author-workflow",
+      "name": "Author workflow",
+      "description": "Author a workflow definition, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-author-workflow",
+        "prompt-system-workflow-authoring",
+        "skill-workflow"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": ["cmd-claude-code"]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": ["cmd-cursor-agent"]
+        }
+      ]
+    },
+    {
+      "id": "stack-implement-story",
+      "name": "Implement story",
+      "description": "Implement one story or a bulk set, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-implement-story",
+        "wf-system-implement-stories-bulk",
+        "prompt-system-implement-story",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": ["cmd-claude-code"]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": ["cmd-cursor-agent"]
+        }
+      ]
+    },
+    {
+      "id": "stack-mcp",
+      "name": "MCP delivery",
+      "description": "Hub MCP contract plus the delivery notes for one agent CLI.",
+      "sharedPackageIds": ["prompt-system-mcp-contract"],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": ["prompt-system-mcp-claude-delivery"]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": [
+            "prompt-system-mcp-cursor-delivery",
+            "prompt-system-mcp-cursor-caveats"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stack-work-swimlane",
+      "name": "Work swimlane stories",
+      "description": "Work every story in a swimlane, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-work-swimlane-stories",
+        "prompt-system-work-story",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": ["cmd-claude-code"]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": ["cmd-cursor-agent"]
+        }
+      ]
+    }
+  ]
+}

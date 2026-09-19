@@ -5,5 +5,16 @@
   "name": "work",
   "description": "Implements an S.E.E. story with tests until acceptance criteria pass: load",
   "labels": [],
-  "dependencies": []
+  "dependencies": [],
+  "toolIds": [
+    "claude",
+    "cursor"
+  ],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-01",
+      "note": "Initial catalog release."
+    }
+  ]
 }

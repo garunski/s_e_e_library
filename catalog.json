@@ -1,7 +1,169 @@
 {
-  "schema": "see.library/v1",
+  "schema": "see.library/v2",
   "name": "S.E.E. Official Library",
-  "updated": "2026-09-16T02:57:39.773Z",
+  "updated": "2026-09-19T01:26:55.280Z",
+  "tools": [
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "description": "Anthropic Claude Code agent CLI."
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "description": "Cursor agent CLI."
+    }
+  ],
+  "stacks": [
+    {
+      "id": "stack-author-stories-from-doc",
+      "name": "Author stories from doc",
+      "description": "Turn a knowledge doc into stories, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-author-stories-from-doc",
+        "prompt-system-stories-from-doc-authoring",
+        "skill-doc",
+        "skill-stories",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": [
+            "cmd-claude-code"
+          ]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": [
+            "cmd-cursor-agent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stack-author-story",
+      "name": "Author story",
+      "description": "Author one story from a description, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-author-story",
+        "prompt-system-story-authoring",
+        "skill-stories",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": [
+            "cmd-claude-code"
+          ]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": [
+            "cmd-cursor-agent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stack-author-workflow",
+      "name": "Author workflow",
+      "description": "Author a workflow definition, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-author-workflow",
+        "prompt-system-workflow-authoring",
+        "skill-workflow"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": [
+            "cmd-claude-code"
+          ]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": [
+            "cmd-cursor-agent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stack-implement-story",
+      "name": "Implement story",
+      "description": "Implement one story or a bulk set, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-implement-story",
+        "wf-system-implement-stories-bulk",
+        "prompt-system-implement-story",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": [
+            "cmd-claude-code"
+          ]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": [
+            "cmd-cursor-agent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stack-mcp",
+      "name": "MCP delivery",
+      "description": "Hub MCP contract plus the delivery notes for one agent CLI.",
+      "sharedPackageIds": [
+        "prompt-system-mcp-contract"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": [
+            "prompt-system-mcp-claude-delivery"
+          ]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": [
+            "prompt-system-mcp-cursor-delivery",
+            "prompt-system-mcp-cursor-caveats"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stack-work-swimlane",
+      "name": "Work swimlane stories",
+      "description": "Work every story in a swimlane, with a Cursor or Claude Code command.",
+      "sharedPackageIds": [
+        "wf-system-work-swimlane-stories",
+        "prompt-system-work-story",
+        "skill-work"
+      ],
+      "variants": [
+        {
+          "toolId": "claude",
+          "packageIds": [
+            "cmd-claude-code"
+          ]
+        },
+        {
+          "toolId": "cursor",
+          "packageIds": [
+            "cmd-cursor-agent"
+          ]
+        }
+      ]
+    }
+  ],
+  "featuredStackId": "stack-implement-story",
   "packages": [
     {
       "id": "bundle-author-stories-from-doc",
@@ -56,6 +218,16 @@
       "labels": [
         "knowledge",
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -106,6 +278,16 @@
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "labels": [
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -146,7 +328,17 @@
       ],
       "name": "Author workflow",
       "description": "Packages linked by template references: workflows, prompts, commands.",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "bundle-generate-milestone-summary",
@@ -177,6 +369,16 @@
       "labels": [
         "knowledge",
         "milestone"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -228,6 +430,16 @@
       "labels": [
         "bulk",
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -330,6 +542,16 @@
       "labels": [
         "knowledge",
         "system"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -384,6 +606,14 @@
       "description": "Cycle workflows for shape, rank, and observe, plus orchestrator chat and learning prompts, including MCP fragments they expand.",
       "labels": [
         "system"
+      ],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -413,6 +643,16 @@
         "bulk",
         "milestone",
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -461,6 +701,16 @@
         "bulk",
         "story",
         "swimlane"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -481,7 +731,17 @@
       ],
       "name": "Claude Code",
       "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "claude"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "cmd-cursor-agent",
@@ -500,7 +760,17 @@
         }
       ],
       "name": "Cursor Agent",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "cycle-knowledge-default",
@@ -525,7 +795,15 @@
         "knowledge"
       ],
       "name": "Knowledge default",
-      "description": "The seven-stage knowledge loop as a cycle document for the knowledge host."
+      "description": "The seven-stage knowledge loop as a cycle document for the knowledge host.",
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "cycle-orchestrator-default",
@@ -553,7 +831,15 @@
         "orchestrator"
       ],
       "name": "Orchestrator default",
-      "description": "The five-stage orchestrator loop as a cycle document for the orchestrator host."
+      "description": "The five-stage orchestrator loop as a cycle document for the orchestrator host.",
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-implement-story",
@@ -572,7 +858,15 @@
         }
       ],
       "name": "Implement story",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-mcp-claude-delivery",
@@ -592,7 +886,17 @@
       ],
       "name": "MCP delivery (Claude Code)",
       "description": "How Claude Code receives hub MCP config.",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "claude"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-mcp-contract",
@@ -612,7 +916,15 @@
       ],
       "name": "MCP contract (any client)",
       "description": "Shared MCP store contract expanded by other prompts.",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-mcp-cursor-caveats",
@@ -632,7 +944,17 @@
       ],
       "name": "Cursor MCP caveats (measured)",
       "description": "Measured Cursor MCP caveats expanded by other prompts.",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-mcp-cursor-delivery",
@@ -652,7 +974,17 @@
       ],
       "name": "MCP delivery (Cursor)",
       "description": "How Cursor Agent receives hub MCP config.",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-milestone-authoring",
@@ -674,6 +1006,14 @@
       "description": "Authors a milestone through MCP store tools.",
       "labels": [
         "milestone"
+      ],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -696,6 +1036,14 @@
       "description": "Drafts a knowledge doc body from a milestone's stories.",
       "labels": [
         "milestone"
+      ],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -720,7 +1068,15 @@
       ],
       "name": "Orchestrator chat",
       "description": "Chat agent preamble loaded from the hub prompt store.",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-orchestrator-learning",
@@ -740,7 +1096,15 @@
       ],
       "name": "Orchestrator learning",
       "description": "Durable notes preamble loaded from the hub prompt store.",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-quality-full-fix",
@@ -759,7 +1123,15 @@
         }
       ],
       "name": "Quality full - fix to green",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-stories-from-doc-authoring",
@@ -778,7 +1150,15 @@
         }
       ],
       "name": "Author stories from doc",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-story-authoring",
@@ -797,7 +1177,15 @@
         }
       ],
       "name": "Author story",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-work-story",
@@ -816,7 +1204,15 @@
         }
       ],
       "name": "Work story (/work skill)",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "prompt-system-workflow-authoring",
@@ -835,7 +1231,15 @@
         }
       ],
       "name": "Author workflow",
-      "labels": []
+      "labels": [],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "skill-doc",
@@ -855,7 +1259,18 @@
       ],
       "name": "doc",
       "description": "Expert author for the S.E.E. knowledge store: docs (overview/reference) and",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "skill-stories",
@@ -875,7 +1290,18 @@
       ],
       "name": "stories",
       "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "skill-work",
@@ -895,7 +1321,18 @@
       ],
       "name": "work",
       "description": "Implements an S.E.E. story with tests until acceptance criteria pass: load",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "skill-workflow",
@@ -915,7 +1352,18 @@
       ],
       "name": "workflow",
       "description": "Authors and edits S.E.E. workflow JSON definitions stored under the hub",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "wf-system-author-stories-from-doc",
@@ -943,6 +1391,16 @@
       "labels": [
         "knowledge",
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -970,6 +1428,16 @@
       "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/planning/stories/`.",
       "labels": [
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -995,7 +1463,17 @@
       ],
       "name": "Author workflow",
       "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
-      "labels": []
+      "labels": [],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
     },
     {
       "id": "wf-system-generate-milestone-summary-doc",
@@ -1020,6 +1498,16 @@
       "labels": [
         "knowledge",
         "milestone"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -1048,6 +1536,16 @@
       "labels": [
         "bulk",
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -1075,6 +1573,16 @@
       "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
       "labels": [
         "story"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -1097,6 +1605,14 @@
       "description": "Compares a finished execution against the intent the proposal claimed and writes a structured outcome judgment.",
       "labels": [
         "system"
+      ],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -1119,6 +1635,14 @@
       "description": "Scores every capability against its bound subjects. Weights, confidence floor, failure threshold, and deprioritize penalty are inputs.",
       "labels": [
         "system"
+      ],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -1142,6 +1666,14 @@
       "labels": [
         "milestone",
         "system"
+      ],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -1164,6 +1696,14 @@
       "description": "Orchestration workflow that deliberates direction, stories, workflows, prompt assemblies, execution plan, and readiness before implementation.",
       "labels": [
         "system"
+      ],
+      "toolIds": [],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     },
     {
@@ -1193,6 +1733,16 @@
         "bulk",
         "story",
         "swimlane"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
       ]
     }
   ]

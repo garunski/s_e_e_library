@@ -5,5 +5,16 @@
   "name": "doc",
   "description": "Expert author for the S.E.E. knowledge store: docs (overview/reference) and",
   "labels": [],
-  "dependencies": []
+  "dependencies": [],
+  "toolIds": [
+    "claude",
+    "cursor"
+  ],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-01",
+      "note": "Initial catalog release."
+    }
+  ]
 }

@@ -19,6 +19,22 @@
     "dependencies": {
       "type": "array",
       "items": { "type": "string", "minLength": 1 }
+    },
+    "toolIds": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "releases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "note"],
+        "properties": {
+          "version": { "type": "string", "minLength": 1 },
+          "date": { "type": "string", "minLength": 1 },
+          "note": { "type": "string", "minLength": 1 }
+        }
+      }
     }
   }
 }

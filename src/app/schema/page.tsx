@@ -5,7 +5,7 @@ import { assetPath } from "@/lib/nav";
 
 export const metadata = innerMetadata(
   "Catalog schema",
-  "The catalog is a single JSON manifest plus versioned payload files under packages/. Schema tag see.library/v1.",
+  "The catalog is a single JSON manifest plus versioned payload files under packages/. Schema tags see.library/v1 and see.library/v2.",
 );
 
 export default function Page() {
@@ -18,7 +18,7 @@ export default function Page() {
         body: "catalog.json is the install map. packages/ holds the payloads.",
       }}
       machine={{
-        kicker: "see.library/v1",
+        kicker: "see.library/v1 and v2",
         title: "The build enforces the schema.",
         body: "scripts/build-catalog.mjs checks payloads against this contract.",
       }}
@@ -26,7 +26,7 @@ export default function Page() {
       <p className="page-lede">
         The catalog is a single JSON manifest (<code>catalog.json</code>) plus
         versioned payload files under <code>packages/</code>. The manifest
-        schema tag is <code>see.library/v1</code>. This section is the
+        schema tag is <code>see.library/v1</code> or <code>see.library/v2</code>. This section is the
         authoritative contract for this repository;{" "}
         <code>scripts/build-catalog.mjs</code> enforces it.
       </p>
@@ -155,7 +155,8 @@ export default function Page() {
       </p>
       <ul>
         <li>
-          <code>schema</code> - must be <code>see.library/v1</code>.
+          <code>schema</code> - <code>see.library/v1</code> or{" "}
+          <code>see.library/v2</code>.
         </li>
         <li>
           <code>name</code> - catalog display name.
@@ -166,6 +167,18 @@ export default function Page() {
         </li>
         <li>
           <code>packages[]</code> - array of package entries.
+        </li>
+        <li>
+          <code>tools[]</code> - optional tool registry. Each tool has{" "}
+          <code>id</code>, <code>name</code>, and optional{" "}
+          <code>description</code>. v1 catalogs omit this and parse as empty.
+        </li>
+        <li>
+          <code>stacks[]</code> - optional source-owned stacks with{" "}
+          <code>sharedPackageIds</code> and <code>variants</code>.
+        </li>
+        <li>
+          <code>featuredStackId</code> - optional id of one declared stack.
         </li>
       </ul>
 
@@ -221,6 +234,15 @@ export default function Page() {
             </li>
           </ul>
         </li>
+        <li>
+          <code>toolIds</code> - optional declared tool registry ids. Empty or
+          omitted means uncategorized; never inferred from title or install
+          path.
+        </li>
+        <li>
+          <code>releases</code> - optional{" "}
+          <code>{"{ version, date, note }"}</code> history for the package.
+        </li>
       </ul>
 
       <h2>Package metadata sidecar</h2>
@@ -251,6 +273,16 @@ export default function Page() {
         <li>
           <code>dependencies</code> - string array of other package{" "}
           <code>id</code>s.
+        </li>
+        <li>
+          <code>toolIds</code> - declared tool registry ids. Required. Use{" "}
+          <code>[]</code> when the package is deliberately uncategorized. The
+          build copies this array; it never infers a tool from name or path.
+        </li>
+        <li>
+          <code>releases</code> - required{" "}
+          <code>{"{ version, date, note }"}</code> history. The catalog emits
+          these rows; do not hand-edit them on <code>catalog.json</code>.
         </li>
       </ul>
 
@@ -348,10 +380,45 @@ export default function Page() {
         </li>
       </ul>
 
+      <h2>Stacks</h2>
+      <p>
+        A stack is source-owned, not a local collection. Author stacks in{" "}
+        <code>scripts/stacks.json</code>. <code>sharedPackageIds</code> lists
+        packages every variant installs. Each variant names a declared{" "}
+        <code>toolId</code> and additional <code>packageIds</code>.{" "}
+        <code>featuredStackId</code> must be one declared stack id.
+      </p>
+      <pre>{`{
+  "tools": [
+    { "id": "cursor", "name": "Cursor" },
+    { "id": "claude", "name": "Claude Code" }
+  ],
+  "featuredStackId": "stack-implement-story",
+  "stacks": [
+    {
+      "id": "stack-implement-story",
+      "name": "Implement story",
+      "description": "Shared implement-story packages plus one agent CLI.",
+      "sharedPackageIds": [
+        "wf-system-implement-story",
+        "prompt-system-implement-story",
+        "skill-work"
+      ],
+      "variants": [
+        { "toolId": "cursor", "packageIds": ["cmd-cursor-agent"] },
+        { "toolId": "claude", "packageIds": ["cmd-claude-code"] }
+      ]
+    }
+  ]
+}`}</pre>
+
       <h2>Validation</h2>
       <p>
         <code>dependencies</code> must reference package <code>id</code>s
-        present in the catalog, and a package cannot depend on itself. Run{" "}
+        present in the catalog, and a package cannot depend on itself. v2
+        marketplace metadata rejects duplicate tool or stack ids, unknown
+        package <code>toolIds</code>, unknown stack package ids, and variants
+        that name an undeclared tool. Run{" "}
         <code>npm run catalog</code> to validate payloads and refresh the
         manifest, or <code>npm run validate</code> (<code>--check</code>, no
         writes) in CI.

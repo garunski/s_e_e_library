@@ -5,13 +5,22 @@
   "type": "object",
   "required": ["schema", "name", "packages"],
   "properties": {
-    "schema": { "const": "see.library/v1" },
+    "schema": { "enum": ["see.library/v1", "see.library/v2"] },
     "name": { "type": "string", "minLength": 1 },
     "updated": { "type": "string", "format": "date-time" },
     "packages": {
       "type": "array",
       "items": { "$ref": "#/$defs/package" }
-    }
+    },
+    "tools": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tool" }
+    },
+    "stacks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/stack" }
+    },
+    "featuredStackId": { "type": "string", "minLength": 1 }
   },
   "$defs": {
     "package": {
@@ -58,6 +67,14 @@
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
         },
+        "toolIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "releases": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/release" }
+        },
         "files": {
           "type": "array",
           "minItems": 1,
@@ -74,6 +91,52 @@
           "pattern": "^(\\.s_e_e/|\\.agents/|\\.cursor/|templates/)[^\\\\]*$"
         },
         "from": { "type": "string", "minLength": 1 }
+      }
+    },
+    "tool": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" }
+      }
+    },
+    "release": {
+      "type": "object",
+      "required": ["version", "date", "note"],
+      "properties": {
+        "version": { "type": "string", "minLength": 1 },
+        "date": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "stack": {
+      "type": "object",
+      "required": ["id", "name", "sharedPackageIds"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "sharedPackageIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "variants": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/variant" }
+        }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "required": ["toolId", "packageIds"],
+      "properties": {
+        "toolId": { "type": "string", "minLength": 1 },
+        "packageIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
       }
     }
   }

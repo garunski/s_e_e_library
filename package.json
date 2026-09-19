@@ -6,7 +6,7 @@
     "copy": "node scripts/copy-public-assets.mjs",
     "catalog": "node scripts/build-catalog.mjs",
     "validate": "node scripts/build-catalog.mjs --check",
-    "test": "node --test scripts/verify-docs-site.test.mjs"
+    "test": "node --test scripts/package-meta.test.mjs scripts/verify-docs-site.test.mjs"
   },
   "dependencies": {
     "next": "15.1.11",
