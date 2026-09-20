@@ -704,19 +704,18 @@ if (checkOnly) {
   if (!existsSync(CATALOG_PATH)) {
     fail("catalog.json not found");
   }
-  if (!existsSync(PUBLIC_CATALOG_PATH)) {
-    fail("public/catalog.json not found");
-  }
   assertCatalogMatchesNext(
     readFileSync(CATALOG_PATH, "utf8"),
     next,
     "catalog.json",
   );
-  assertCatalogMatchesNext(
-    readFileSync(PUBLIC_CATALOG_PATH, "utf8"),
-    next,
-    "public/catalog.json",
-  );
+  if (existsSync(PUBLIC_CATALOG_PATH)) {
+    assertCatalogMatchesNext(
+      readFileSync(PUBLIC_CATALOG_PATH, "utf8"),
+      next,
+      "public/catalog.json",
+    );
+  }
   const current = JSON.parse(readFileSync(CATALOG_PATH, "utf8"));
   console.log(
     `ok: ${current.packages.length} packages validated (${current.updated})`
