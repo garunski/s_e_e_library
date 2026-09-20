@@ -37,7 +37,7 @@ If review surfaces a branch or a detached commit you created, reattach to `main`
 
 ## Story-authoring packages
 
-Every story-authoring skill published from this checkout must require writes through the story MCP tools or documented project HTTP API. It must never instruct an agent to create, rename, or update store Markdown directly. If neither store interface is reachable, the skill must stop rather than fall back to a guessed id, filename, frontmatter shape, `apply_patch`, or shell write.
+Every story-authoring skill published from this checkout must require writes through the story MCP tools or documented project HTTP API. It must never instruct an agent to create, rename, or update store Markdown directly. If neither store interface is reachable, the skill must stop rather than fall back to a guessed id, filename, frontmatter shape, `apply_patch`, or shell write. Store HTTP writes accept `conflict_token` in the query `?conflict_token=`, the JSON body field `conflict_token`, or the header `x-s-e-e-conflict-token`; PUT bodies may omit a redundant entity `id` and take it from the URL path.
 
 Story and milestone titles must use only ASCII letters, numbers, and spaces so filenames stay plain as `<id> - <title>.md`. Every create or title change must end with a store read of the entity. Keep each changed package skill identical in `packages/`, `public/packages/`, and `out/packages/`.
 

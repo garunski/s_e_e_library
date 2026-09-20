@@ -32,7 +32,7 @@ A story must never ask for another language, must never ask for tests over infra
 
 **No tool fallback to files.** If the story MCP tools are unavailable, use the documented project HTTP API. If neither interface is reachable, stop and report that story authoring is blocked. Never create or repair a story or milestone with direct Markdown editing, `apply_patch`, shell writes, a guessed id, or a guessed filename.
 
-**Keep filenames plain.** Use story and milestone titles containing only ASCII letters, numbers, and spaces. Do not use punctuation in titles. The store then writes `<id> - <title>.md`. After every create or title change, read the story with `story_get`, or read the milestone with `milestone_list`, and treat a successful store read as the required naming check.
+**Keep filenames plain.** Use story and milestone titles containing only ASCII letters, numbers, and spaces. Do not use punctuation in titles. The store then writes `<id> - <title>.md`. After every create or title change, read the story with `story_get`, or read the milestone with `milestone_get`, and treat a successful store read as the required naming check. Do not list every milestone to read one.
 
 ## MCP tools
 
@@ -46,9 +46,15 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 - `story_set_status`, `story_set_labels`, `story_set_assignee`, `story_set_priority`, `story_set_milestone`, `story_set_dependencies` - metadata (pass `conflict_token` from the prior read).
 - `story_add_criterion`, `story_edit_criterion`, `story_check_criterion`, `story_remove_criterion`, `story_reorder_criteria` - acceptance criteria.
 
-**Milestones**:
+**Milestones** (a milestone is a record, not a label: status, priority, labels, dates, ordinal, typed criteria, plan, notes, summary; no assignee):
 
-- `milestone_list`, `milestone_create`, `milestone_set_title`, `milestone_set_description`, `milestone_add_members`, `milestone_remove_members`.
+- `milestone_list` - browse ids and progress.
+- `milestone_get` - full record including criteria, body sections, and `conflict_token`.
+- `milestone_create` - allocate id from title and description.
+- `milestone_update` - write description, implementation_plan, implementation_notes, and final_summary.
+- `milestone_set_status`, `milestone_set_priority`, `milestone_set_labels`, `milestone_set_ordinal`, `milestone_set_title`, `milestone_set_description`.
+- `milestone_add_members`, `milestone_remove_members`.
+- `milestone_add_criterion`, `milestone_edit_criterion`, `milestone_remove_criterion`, `milestone_reorder_criteria`, `milestone_check_criterion` (Manual only).
 
 ## MCP prompts
 
@@ -58,6 +64,10 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 ## Store contract
 
 **Milestone membership** - `milestone` is a frontmatter field whose value is a milestone id (`m-<n>`). Set it with `story_set_milestone`. Board milestone filters and `list_stories_by_milestone` read this field only; do not add an `m-*` label to imply membership.
+
+**Milestone criteria** - Typed `ObjectiveCriterion` rows in frontmatter with stable `criterion_id` (`c-N`). Kinds: `entity_status`, `milestone_progress`, `subject_rules`, `quality_gate`, `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
+
+**Milestone completion** - Declared status is the completeness claim. Setting a done status is rejected while any criterion is unmet. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
 
 **Statuses** - Valid values live in `see:/projects/{project}/stories/config` (backed by the `stories` section of `<hub>/.s_e_e/config.json`). Read that resource before `story_set_status`; do not restate or invent status names in authored content.
 
@@ -147,7 +157,7 @@ If authoring surfaces a decision you cannot make, stop and ask the user before c
 7. Read the created or renamed entity back through the store and confirm its id and title.
 8. Hand off implementation with the `work` skill.
 
-For milestones: `milestone_create` and related MCP tools, or the `milestone-authoring` prompt. Link stories with `story_set_milestone`, not labels.
+For milestones: `milestone_create` and related MCP tools, or the `milestone-authoring` prompt. After create or a title change, read back with `milestone_get`. Do not list every milestone to read one. Link stories with `story_set_milestone`, not labels.
 
 For knowledge docs and decisions, use the `doc` skill.
 

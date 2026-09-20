@@ -153,20 +153,13 @@ When editing an existing story, use the dedicated mutation tool or HTTP endpoint
 
 ## Milestones
 
-Create and update milestones through `milestone_create`, `milestone_set_title`, `milestone_set_description`, and membership tools or their documented HTTP equivalents. The store owns the id, serialization, and canonical filename.
+A milestone is a planning record, not a two-field label. It carries status, priority, labels, dates, ordinal, typed criteria, description, implementation_plan, implementation_notes, and final_summary. There is no assignee field.
 
-```markdown
----
-id: m-<n>
-title: <title>
----
+Create and update through `milestone_create`, `milestone_get`, `milestone_update`, `milestone_set_status`, `milestone_set_priority`, `milestone_set_labels`, `milestone_set_ordinal`, `milestone_set_title`, `milestone_set_description`, criterion tools, and membership tools, or their documented HTTP equivalents. After create or a title change, read back with `milestone_get`. Do not list every milestone to read one. The store owns the id, serialization, and canonical filename.
 
-## Description
+Milestone criteria are typed `ObjectiveCriterion` rows with stable `criterion_id` (`c-N`). Kinds: `entity_status`, `milestone_progress`, `subject_rules`, `quality_gate`, `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
 
-<!-- SECTION:DESCRIPTION:BEGIN -->
-Outcome the milestone represents.
-<!-- SECTION:DESCRIPTION:END -->
-```
+Declared status is the completeness claim. Setting a done status is rejected while any criterion is unmet. Derived member-story counts are display.
 
 Set membership with `story_set_milestone` or the equivalent HTTP endpoint. The `milestone` frontmatter field is authoritative; an `m-*` label is not membership.
 
