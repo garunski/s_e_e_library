@@ -109,6 +109,11 @@ export default function Page() {
           <code>le</code>, <code>exists</code>).
         </li>
       </ul>
+      <p>
+        <code>component_action</code> <code>delete_component</code> requires{" "}
+        <code>id</code> and <code>confirm</code> true. It removes that component
+        record. The accepted action set is in the engine content schema.
+      </p>
       <p>A payload containing <code>tasks</code> is treated as a workflow (not a prompt).</p>
 
       <h2>Template expansion</h2>

@@ -624,7 +624,8 @@
                 "delete_story",
                 "delete_document",
                 "delete_decision",
-                "delete_milestone"
+                "delete_milestone",
+                "delete_component"
               ]
             },
             "milestone_id": {
@@ -1198,7 +1199,8 @@
                       "delete_story",
                       "delete_document",
                       "delete_decision",
-                      "delete_milestone"
+                      "delete_milestone",
+                      "delete_component"
                     ]
                   }
                 },
@@ -1525,7 +1527,8 @@
                     "list_documentation_inventory",
                     "get_documentation_instructions",
                     "put_documentation_instructions",
-                    "publish_documentation"
+                    "publish_documentation",
+                    "delete_component"
                   ]
                 }
               }

@@ -155,6 +155,7 @@ Each task:
 | `delete_document` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
 | `delete_decision` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
 | `delete_milestone` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
+| `delete_component` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
 
 `create_story` defaults omitted `status` to `To Do`. `update_story` applies only present fields. List outputs sort `story_ids` numerically by id suffix.
 

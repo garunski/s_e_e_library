@@ -98,6 +98,11 @@ export default function Page() {
           <code>foreach</code>, <code>custom</code>
         </li>
       </ul>
+      <p>
+        <code>component_action</code> <code>delete_component</code> requires{" "}
+        <code>id</code> and <code>confirm</code> true and returns{" "}
+        <code>{"{ id }"}</code>.
+      </p>
 
       <h3>Template references</h3>
       <ul>
