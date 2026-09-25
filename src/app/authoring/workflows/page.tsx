@@ -103,6 +103,13 @@ export default function Page() {
         <code>id</code> and <code>confirm</code> true and returns{" "}
         <code>{"{ id }"}</code>.
       </p>
+      <p>
+        <code>foreach</code> has exactly one <code>next_tasks</code> entry, and
+        that body must be one chain with a single leaf. A later branch is
+        rejected. Nested <code>foreach</code> is allowed when each body is
+        still one chain. <code>repair_loop</code> is the other handler with a
+        chain rule: one leaf body, then one verifier. Other tasks may branch.
+      </p>
 
       <h3>Template references</h3>
       <ul>

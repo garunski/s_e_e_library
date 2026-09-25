@@ -17,7 +17,7 @@
     {
       "key": "seed",
       "verb": "Seed",
-      "workflow_definition_id": "system-init-documentation",
+      "workflow_definition_id": "system-discover-components",
       "trigger": "manual",
       "reads": [
         "spokes"

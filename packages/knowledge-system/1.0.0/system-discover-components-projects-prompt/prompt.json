@@ -1,0 +1,5 @@
+{
+  "id": "system-discover-components-projects",
+  "name": "Select current project for component discovery",
+  "content": "This prompt is not used. system-discover-components already runs as the current project {{project.id}} and reads that project's spokes from the MCP resource see:/projects."
+}

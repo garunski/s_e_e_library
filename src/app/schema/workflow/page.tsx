@@ -86,7 +86,11 @@ export default function Page() {
         </li>
         <li>
           <code>next_tasks[]</code> - optional nested tasks (depth-first
-          execution).
+          execution). <code>foreach</code> must have exactly one, and that
+          body must be one chain with a single leaf. A later branch is
+          rejected. Nested <code>foreach</code> is allowed when each body is
+          still one chain. <code>repair_loop</code> is a one-leaf body, then
+          one verifier. Other tasks may branch.
         </li>
         <li>
           <code>capture_output</code> - when true, record handler output for{" "}

@@ -1221,7 +1221,7 @@
     },
     "ForeachFunction": {
       "type": "object",
-      "description": "Repeat next_tasks once per element of a string array. The array comes from a string_array runtime input (collection_runtime_key) or from the captured output of an earlier task (collection_task_id).",
+      "description": "Repeat next_tasks once per element of a string array. The array comes from a string_array runtime input (collection_runtime_key) or from the captured output of an earlier task (collection_task_id). next_tasks must be exactly one task, and that body must be one chain with a single leaf. A later branch is rejected. Nested foreach is allowed when each body is still one chain.",
       "required": [
         "name",
         "input"
@@ -1280,7 +1280,7 @@
     },
     "RepairLoopFunction": {
       "type": "object",
-      "description": "Run a body task, evaluate a verifier, and re-dispatch the body when the verifier fails until attempts or wall clock are exhausted. Verifier output is available to the body on retry via {{runtime.<verifier_feedback_runtime_key>}}.",
+      "description": "Run a body task, evaluate a verifier, and re-dispatch the body when the verifier fails until attempts or wall clock are exhausted. The body is one chain with a single leaf, then one verifier task. Verifier output is available to the body on retry via {{runtime.<verifier_feedback_runtime_key>}}.",
       "required": [
         "name",
         "input"

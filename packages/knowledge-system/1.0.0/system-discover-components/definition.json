@@ -1,0 +1,134 @@
+{
+  "id": "system-discover-components",
+  "name": "Discover project components",
+  "description": "For the current Knowledge Cycle project, inspect its registered spokes, write each component record, then delete obsolete records.",
+  "labels": [
+    "knowledge"
+  ],
+  "version": "1.0.0",
+  "content": {
+    "id": "discover-project-components",
+    "name": "Discover project components",
+    "spoke_root": "/tmp/see-embedded-discover-components-template",
+    "runtime_inputs": [],
+    "tasks": [
+      {
+        "id": "define_components",
+        "name": "Define project components",
+        "capture_output": true,
+        "function": {
+          "name": "command",
+          "input": {
+            "command_id": "cursor-agent",
+            "prompt": "{{prompt.system-discover-components-project}}",
+            "config": {
+              "cursor_model": "composer-2.5[fast=false]",
+              "timeout_secs": 7200
+            }
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_component",
+            "name": "For each component",
+            "run_when": {
+              "task": "define_components",
+              "path": [
+                "scan_complete"
+              ],
+              "op": "eq",
+              "value": true
+            },
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "define_components",
+                "collection_task_path": [
+                  "component_names"
+                ],
+                "item_runtime_key": "component_name"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "write_component",
+                "name": "Write component record",
+                "capture_output": true,
+                "function": {
+                  "name": "command",
+                  "input": {
+                    "command_id": "cursor-agent",
+                    "prompt": "{{prompt.system-discover-components-detail}}",
+                    "config": {
+                      "cursor_model": "composer-2.5[fast=false]",
+                      "timeout_secs": 3600
+                    }
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          },
+          {
+            "id": "select_deletions",
+            "name": "Select obsolete records",
+            "capture_output": true,
+            "wait_for": [
+              "for_each_component"
+            ],
+            "run_when": {
+              "task": "define_components",
+              "path": [
+                "scan_complete"
+              ],
+              "op": "eq",
+              "value": true
+            },
+            "function": {
+              "name": "command",
+              "input": {
+                "command_id": "cursor-agent",
+                "prompt": "{{prompt.system-discover-components-prune}}",
+                "config": {
+                  "cursor_model": "composer-2.5[fast=false]",
+                  "timeout_secs": 1800
+                }
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "for_each_deletion",
+                "name": "For each obsolete record",
+                "function": {
+                  "name": "foreach",
+                  "input": {
+                    "collection_task_id": "select_deletions",
+                    "collection_task_path": [
+                      "delete_ids"
+                    ],
+                    "item_runtime_key": "delete_component_id"
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "delete_component",
+                    "name": "Delete component record",
+                    "function": {
+                      "name": "component_action",
+                      "input": {
+                        "action": "delete_component",
+                        "id": "{{runtime.delete_component_id}}",
+                        "confirm": true
+                      }
+                    },
+                    "next_tasks": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

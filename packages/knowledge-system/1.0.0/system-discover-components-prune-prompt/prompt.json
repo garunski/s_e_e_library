@@ -1,0 +1,5 @@
+{
+  "id": "system-discover-components-prune",
+  "name": "Select obsolete component records",
+  "content": "Choose component records to delete for project {{project.id}} after the component writes for this run. This task is read only. Proposed names are {{task.define_components.output.component_names}}.\n\nUse MCP knowledge_component_list and knowledge_component_get for this project only. Put an id in delete_ids when its name is not in the proposed names, or when it is not the current record for a proposed name. Keep the current record for each proposed name. If the proposed names are missing, fail and do not return a list. Do not delete anything yourself. The final stdout line is one JSON object with delete_ids, an array of id strings, sorted by numeric suffix. Do not use a markdown fence.\n"
+}

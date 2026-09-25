@@ -3,7 +3,7 @@
   "slug": "knowledge-system",
   "category": "bundle",
   "name": "Knowledge system",
-  "description": "The seven-stage knowledge loop: definitions, prompts, commands, schedules, and component inventory.",
+  "description": "The seven-stage knowledge loop with component discovery, prompts, commands, and schedules.",
   "labels": [
     "knowledge",
     "system"

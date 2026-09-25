@@ -118,6 +118,8 @@ Each task has exactly one handler under `function`:
 
 `component_action` `delete_component` requires `id` and `confirm` true and returns `{ id }`.
 
+`foreach` has exactly one `next_tasks` entry, and that body must be one chain with a single leaf. A later branch is rejected. Nested `foreach` is allowed when each body is still one chain. `repair_loop` is the other handler with a chain rule: one leaf body, then one verifier. Other tasks may branch.
+
 ### Template references
 
 - `prompt.<id>` (`{{prompt.<id>}}`): inject stored prompt text
@@ -1063,7 +1065,7 @@ Each task:
 
 `component_action` `delete_component` requires `id` and `confirm` true. It removes that component record. The accepted action set is in the engine content schema.
 
-- `next_tasks[]` - optional nested tasks (depth-first execution).
+- `next_tasks[]` - optional nested tasks (depth-first execution). `foreach` must have exactly one, and that body must be one chain with a single leaf. A later branch is rejected. Nested `foreach` is allowed when each body is still one chain. `repair_loop` is a one-leaf body, then one verifier. Other tasks may branch.
 - `capture_output` - when true, record handler output for `{{task.TASK_ID.output}}` placeholders.
 - `wait_for` - task ids that must complete before this task runs (use a foreach id to wait for all iterations).
 - `continue_on_failure` - when true, a failed task completes without failing the workflow; output is still captured when `capture_output` is true.
