@@ -60,17 +60,36 @@
                 },
                 "next_tasks": [
                   {
-                    "id": "mark_story_done",
-                    "name": "Mark story Done",
+                    "id": "read_story_before_done",
+                    "name": "Read story before Done",
+                    "capture_output": true,
                     "function": {
-                      "name": "story_action",
+                      "name": "s_e_e_action",
                       "input": {
-                        "action": "set_status",
-                        "story_id": "{{runtime.story_id}}",
-                        "status": "Done"
+                        "tool": "story_get",
+                        "arguments": {
+                          "story_id": "{{runtime.story_id}}"
+                        }
                       }
                     },
-                    "next_tasks": []
+                    "next_tasks": [
+                      {
+                        "id": "mark_story_done",
+                        "name": "Mark story Done",
+                        "function": {
+                          "name": "s_e_e_action",
+                          "input": {
+                            "tool": "story_set_status",
+                            "arguments": {
+                              "story_id": "{{runtime.story_id}}",
+                              "status": "Done",
+                              "conflict_token": "{{task.read_story_before_done.output.conflict_token}}"
+                            }
+                          }
+                        },
+                        "next_tasks": []
+                      }
+                    ]
                   }
                 ]
               }

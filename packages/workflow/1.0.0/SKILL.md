@@ -4,7 +4,7 @@ description: >-
   Authors and edits S.E.E. workflow JSON definitions stored under the hub
   `.s_e_e/workflows/definitions/`. Validates against `workflow.schema.json`, the engine
   task handlers (cli_command, command, user_input, git_action,
-  story_action, foreach, custom), and template expansion (`{{prompt.*}}`,
+  s_e_e_action, foreach, custom), and template expansion (`{{prompt.*}}`,
   `{{runtime.*}}`, `{{userinput.*}}`). Activates on `/workflow`, requests to
   "create a workflow", "add a workflow task", "edit workflow JSON", or any
   edit to `runtime_inputs` or command task prompts in S.E.E. workflow files.
@@ -137,7 +137,7 @@ Each task:
 `git_action` - git operation. Use only when story-driven workflows need it.
 - `input.action` plus paths per schema.
 
-`story_action` - stories store read and mutation. Related handlers: `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, `link_action`. Set workflow `stories_root` / `knowledge_root`; per-task `input.stories_root` / `input.knowledge_root` override for that step. `delete_*` requires `confirm: true`. Optional `client_mtime_ms` on `update_story` and `delete_*` (optimistic lock). Set `capture_output: true` on list tasks to feed `foreach` via `collection_task_id` (+ optional `collection_task_path`, e.g. `["story_ids"]`).
+`s_e_e_action` - call one MCP tool. `function.name` is `s_e_e_action`. `input.tool` is the MCP tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. Do not add `story_action`, `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, or `link_action`. Those names still execute existing definitions. Set `capture_output: true` when a later task reads the tool result, including a `foreach` collection via `collection_task_id` (+ optional `collection_task_path`).
 
 | `action` | Required input | Optional input | Output |
 | --- | --- | --- | --- |

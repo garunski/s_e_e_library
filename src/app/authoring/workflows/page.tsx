@@ -90,18 +90,19 @@ export default function Page() {
           <code>user_input</code>: collect operator input at run start
         </li>
         <li>
-          <code>git_action</code>, <code>story_action</code>,{" "}
-          <code>milestone_action</code>, <code>document_action</code>,{" "}
-          <code>decision_action</code>, <code>component_action</code>,{" "}
-          <code>change_action</code>, <code>impact_action</code>,{" "}
-          <code>audit_action</code>, <code>link_action</code>,{" "}
+          <code>git_action</code>, <code>s_e_e_action</code>,{" "}
           <code>foreach</code>, <code>custom</code>
         </li>
       </ul>
       <p>
-        <code>component_action</code> <code>delete_component</code> requires{" "}
-        <code>id</code> and <code>confirm</code> true and returns{" "}
-        <code>{"{ id }"}</code>.
+        <code>s_e_e_action</code> calls one MCP tool. <code>input.tool</code> is
+        the tool name. <code>input.arguments</code> is that tool&apos;s argument
+        object. Omit <code>project</code>; the run injects the execution
+        project. <code>story_action</code>, <code>milestone_action</code>,{" "}
+        <code>document_action</code>, <code>decision_action</code>,{" "}
+        <code>component_action</code>, <code>change_action</code>,{" "}
+        <code>impact_action</code>, <code>audit_action</code>, and{" "}
+        <code>link_action</code> still execute existing definitions.
       </p>
       <p>
         <code>foreach</code> has exactly one <code>next_tasks</code> entry, and

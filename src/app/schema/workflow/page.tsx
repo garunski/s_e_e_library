@@ -77,7 +77,8 @@ export default function Page() {
           <code>function</code> - exactly one handler key:{" "}
           <code>cli_command</code>, <code>command</code>,{" "}
           <code>user_input</code>, <code>git_action</code>,{" "}
-          <code>story_action</code>, <code>milestone_action</code>,{" "}
+          <code>s_e_e_action</code>, <code>story_action</code>,{" "}
+          <code>milestone_action</code>,{" "}
           <code>document_action</code>, <code>decision_action</code>,{" "}
           <code>component_action</code>, <code>change_action</code>,{" "}
           <code>impact_action</code>, <code>audit_action</code>,{" "}
@@ -114,9 +115,11 @@ export default function Page() {
         </li>
       </ul>
       <p>
-        <code>component_action</code> <code>delete_component</code> requires{" "}
-        <code>id</code> and <code>confirm</code> true. It removes that component
-        record. The accepted action set is in the engine content schema.
+        <code>s_e_e_action</code> calls one MCP tool. <code>input.tool</code> is
+        the tool name. <code>input.arguments</code> is that tool&apos;s argument
+        object. Omit <code>project</code>; the run injects the execution
+        project. The older store handler names still validate existing
+        definitions.
       </p>
       <p>A payload containing <code>tasks</code> is treated as a workflow (not a prompt).</p>
 

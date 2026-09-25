@@ -111,17 +111,36 @@
                 },
                 "next_tasks": [
                   {
-                    "id": "delete_component",
-                    "name": "Delete component record",
+                    "id": "fetch_component",
+                    "name": "Read component record",
+                    "capture_output": true,
                     "function": {
-                      "name": "component_action",
+                      "name": "s_e_e_action",
                       "input": {
-                        "action": "delete_component",
-                        "id": "{{runtime.delete_component_id}}",
-                        "confirm": true
+                        "tool": "knowledge_component_get",
+                        "arguments": {
+                          "component_id": "{{runtime.delete_component_id}}"
+                        }
                       }
                     },
-                    "next_tasks": []
+                    "next_tasks": [
+                      {
+                        "id": "delete_component",
+                        "name": "Delete component record",
+                        "function": {
+                          "name": "s_e_e_action",
+                          "input": {
+                            "tool": "knowledge_component_delete",
+                            "arguments": {
+                              "component_id": "{{runtime.delete_component_id}}",
+                              "confirm": true,
+                              "conflict_token": "{{task.fetch_component.output.conflict_token}}"
+                            }
+                          }
+                        },
+                        "next_tasks": []
+                      }
+                    ]
                   }
                 ]
               }

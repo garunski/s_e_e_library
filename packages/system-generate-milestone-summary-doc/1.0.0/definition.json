@@ -60,13 +60,15 @@
                 "id": "persist_doc",
                 "name": "Persist summary doc",
                 "function": {
-                  "name": "document_action",
+                  "name": "s_e_e_action",
                   "input": {
-                    "action": "create_document",
-                    "title": "{{task.draft_summary.output.title}}",
-                    "category": "{{runtime.category}}",
-                    "body": "{{task.draft_summary.output.body}}",
-                    "type": "guide"
+                    "tool": "knowledge_doc_create",
+                    "arguments": {
+                      "title": "{{task.draft_summary.output.title}}",
+                      "category": "{{runtime.category}}",
+                      "body": "{{task.draft_summary.output.body}}",
+                      "type": "guide"
+                    }
                   }
                 },
                 "next_tasks": []

@@ -274,6 +274,9 @@
           "$ref": "#/definitions/LinkActionFunction"
         },
         {
+          "$ref": "#/definitions/SeeActionFunction"
+        },
+        {
           "$ref": "#/definitions/ForeachFunction"
         },
         {
@@ -1216,6 +1219,38 @@
               }
             }
           ]
+        }
+      }
+    },
+    "SeeActionFunction": {
+      "type": "object",
+      "description": "Call one MCP tool. input.tool is the tool name. input.arguments is that tool's argument object. The execution project is injected when arguments omit project.",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "s_e_e_action"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "tool"
+          ],
+          "properties": {
+            "tool": {
+              "type": "string",
+              "minLength": 1,
+              "description": "MCP tool name"
+            },
+            "arguments": {
+              "type": "object",
+              "default": {},
+              "description": "Arguments for that tool. project is injected from the execution when omitted."
+            }
+          }
         }
       }
     },

@@ -16,9 +16,10 @@
         "name": "List component documents",
         "capture_output": true,
         "function": {
-          "name": "component_action",
+          "name": "s_e_e_action",
           "input": {
-            "action": "list_component_documents"
+            "tool": "knowledge_component_list",
+            "arguments": {}
           }
         },
         "next_tasks": [
