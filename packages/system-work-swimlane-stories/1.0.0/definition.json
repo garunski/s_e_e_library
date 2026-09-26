@@ -19,10 +19,12 @@
         "capture_output": true,
         "function": {
           "input": {
-            "action": "list_stories",
-            "status": "{{runtime.swimlane}}"
+            "tool": "story_list",
+            "arguments": {
+              "status": "{{runtime.swimlane}}"
+            }
           },
-          "name": "story_action"
+          "name": "s_e_e_action"
         },
         "id": "resolve_story_ids",
         "name": "Resolve story ids for swimlane",

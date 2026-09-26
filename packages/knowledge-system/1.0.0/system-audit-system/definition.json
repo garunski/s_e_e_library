@@ -31,11 +31,13 @@
         "name": "Select audit targets",
         "capture_output": true,
         "function": {
-          "name": "audit_action",
+          "name": "s_e_e_action",
           "input": {
-            "action": "select_audit_targets",
-            "component": "{{runtime.component}}",
-            "max_targets": "{{runtime.max_targets}}"
+            "tool": "knowledge_audit_select_targets",
+            "arguments": {
+              "component": "{{runtime.component}}",
+              "max_targets": "{{runtime.max_targets}}"
+            }
           }
         },
         "next_tasks": [
@@ -73,10 +75,12 @@
                     "name": "Audit verified heads",
                     "capture_output": true,
                     "function": {
-                      "name": "audit_action",
+                      "name": "s_e_e_action",
                       "input": {
-                        "action": "audit_component_heads",
-                        "component_id": "{{runtime.audit_component_id}}"
+                        "tool": "knowledge_audit_component_heads",
+                        "arguments": {
+                          "component_id": "{{runtime.audit_component_id}}"
+                        }
                       }
                     },
                     "next_tasks": [
@@ -100,11 +104,13 @@
                             "id": "repair_consumer",
                             "name": "Repair missing consumer",
                             "function": {
-                              "name": "audit_action",
+                              "name": "s_e_e_action",
                               "input": {
-                                "action": "repair_component_consumed_by",
-                                "component_id": "{{runtime.audit_component_id}}",
-                                "consumer": "{{task.inspect_flows.output.missing_consumer}}"
+                                "tool": "knowledge_component_repair_consumed_by",
+                                "arguments": {
+                                  "component_id": "{{runtime.audit_component_id}}",
+                                  "consumer": "{{task.inspect_flows.output.missing_consumer}}"
+                                }
                               }
                             },
                             "next_tasks": [
@@ -112,12 +118,14 @@
                                 "id": "record_unverified",
                                 "name": "Record unverified items",
                                 "function": {
-                                  "name": "audit_action",
+                                  "name": "s_e_e_action",
                                   "input": {
-                                    "action": "record_audit_finding",
-                                    "kind": "unverified",
-                                    "component_id": "{{runtime.audit_component_id}}",
-                                    "detail": "{{task.inspect_flows.output.unverified}}"
+                                    "tool": "knowledge_audit_record_finding",
+                                    "arguments": {
+                                      "kind": "unverified",
+                                      "component_id": "{{runtime.audit_component_id}}",
+                                      "detail": "{{task.inspect_flows.output.unverified}}"
+                                    }
                                   }
                                 },
                                 "next_tasks": []
@@ -139,9 +147,10 @@
               "for_each_component"
             ],
             "function": {
-              "name": "audit_action",
+              "name": "s_e_e_action",
               "input": {
-                "action": "create_audit_report"
+                "tool": "knowledge_audit_create",
+                "arguments": {}
               }
             },
             "next_tasks": []

@@ -28,9 +28,10 @@
             "name": "List change records",
             "capture_output": true,
             "function": {
-              "name": "change_action",
+              "name": "s_e_e_action",
               "input": {
-                "action": "list_change_records"
+                "tool": "knowledge_change_list",
+                "arguments": {}
               }
             },
             "next_tasks": [
@@ -38,9 +39,10 @@
                 "id": "publish_views",
                 "name": "Publish documentation views",
                 "function": {
-                  "name": "component_action",
+                  "name": "s_e_e_action",
                   "input": {
-                    "action": "publish_documentation"
+                    "tool": "knowledge_documentation_publish",
+                    "arguments": {}
                   }
                 },
                 "next_tasks": []

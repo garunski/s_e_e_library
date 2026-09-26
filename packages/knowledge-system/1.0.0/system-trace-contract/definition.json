@@ -34,10 +34,12 @@
         "name": "Load change record",
         "capture_output": true,
         "function": {
-          "name": "change_action",
+          "name": "s_e_e_action",
           "input": {
-            "action": "get_change_record",
-            "change_record_id": "{{runtime.change_record_id}}"
+            "tool": "knowledge_change_get",
+            "arguments": {
+              "change_id": "{{runtime.change_record_id}}"
+            }
           }
         },
         "next_tasks": [
@@ -54,10 +56,12 @@
               "value": ""
             },
             "function": {
-              "name": "impact_action",
+              "name": "s_e_e_action",
               "input": {
-                "action": "resolve_contract_trace_spokes",
-                "change_record_id": "{{runtime.change_record_id}}"
+                "tool": "knowledge_contract_trace_resolve",
+                "arguments": {
+                  "change_record_id": "{{runtime.change_record_id}}"
+                }
               }
             },
             "next_tasks": [
@@ -95,13 +99,15 @@
                         "id": "record_finding",
                         "name": "Record trace finding",
                         "function": {
-                          "name": "impact_action",
+                          "name": "s_e_e_action",
                           "input": {
-                            "action": "record_contract_trace_finding",
-                            "change_record_id": "{{runtime.change_record_id}}",
-                            "spoke": "{{runtime.consumer_spoke}}",
-                            "contract_changed": "{{task.resolve_spokes.output.contract_changed}}",
-                            "status": "{{task.inspect_spoke.output.status}}"
+                            "tool": "knowledge_contract_trace_record",
+                            "arguments": {
+                              "change_record_id": "{{runtime.change_record_id}}",
+                              "spoke": "{{runtime.consumer_spoke}}",
+                              "contract_changed": "{{task.resolve_spokes.output.contract_changed}}",
+                              "status": "{{task.inspect_spoke.output.status}}"
+                            }
                           }
                         },
                         "next_tasks": []
@@ -125,10 +131,12 @@
                   "value": ""
                 },
                 "function": {
-                  "name": "impact_action",
+                  "name": "s_e_e_action",
                   "input": {
-                    "action": "create_impact_report",
-                    "change_record_id": "{{runtime.change_record_id}}"
+                    "tool": "knowledge_impact_create",
+                    "arguments": {
+                      "change_record_id": "{{runtime.change_record_id}}"
+                    }
                   }
                 },
                 "next_tasks": []

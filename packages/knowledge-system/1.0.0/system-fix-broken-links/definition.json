@@ -16,9 +16,10 @@
         "name": "List dangling link targets",
         "capture_output": true,
         "function": {
-          "name": "link_action",
+          "name": "s_e_e_action",
           "input": {
-            "action": "list_dangling_references"
+            "tool": "links_list_dangling",
+            "arguments": {}
           }
         },
         "next_tasks": [

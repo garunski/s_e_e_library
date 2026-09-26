@@ -34,10 +34,12 @@
         "name": "Claim refresh queue",
         "capture_output": true,
         "function": {
-          "name": "component_action",
+          "name": "s_e_e_action",
           "input": {
-            "action": "claim_component_refresh",
-            "component": "{{runtime.component}}"
+            "tool": "knowledge_component_refresh_claim",
+            "arguments": {
+              "component": "{{runtime.component}}"
+            }
           }
         },
         "next_tasks": [
@@ -62,10 +64,12 @@
                 "name": "Resolve live spoke heads",
                 "capture_output": true,
                 "function": {
-                  "name": "component_action",
+                  "name": "s_e_e_action",
                   "input": {
-                    "action": "resolve_live_spoke_sha_set",
-                    "verified_against": "{{task.claim_queue.output.spoke_sha_set}}"
+                    "tool": "knowledge_component_refresh_resolve_sha",
+                    "arguments": {
+                      "verified_against": "{{task.claim_queue.output.spoke_sha_set}}"
+                    }
                   }
                 },
                 "next_tasks": [
@@ -73,17 +77,19 @@
                     "id": "finalize_refresh",
                     "name": "Finalize component refresh",
                     "function": {
-                      "name": "component_action",
+                      "name": "s_e_e_action",
                       "input": {
-                        "action": "finalize_component_refresh",
-                        "component": "{{runtime.component}}",
-                        "name": "{{runtime.component}}",
-                        "owned_by": "{{task.inspect_component.output.owned_by}}",
-                        "consumed_by": "{{task.inspect_component.output.consumed_by}}",
-                        "body": "{{task.inspect_component.output.body}}",
-                        "inputs": "{{task.claim_queue.output.change_record_ids}}",
-                        "verified_against": "{{task.claim_queue.output.spoke_sha_set}}",
-                        "live_spoke_sha_set": "{{task.resolve_live_heads.output.spoke_sha_set}}"
+                        "tool": "knowledge_component_refresh_finalize",
+                        "arguments": {
+                          "component": "{{runtime.component}}",
+                          "name": "{{runtime.component}}",
+                          "owned_by": "{{task.inspect_component.output.owned_by}}",
+                          "consumed_by": "{{task.inspect_component.output.consumed_by}}",
+                          "body": "{{task.inspect_component.output.body}}",
+                          "inputs": "{{task.claim_queue.output.change_record_ids}}",
+                          "verified_against": "{{task.claim_queue.output.spoke_sha_set}}",
+                          "live_spoke_sha_set": "{{task.resolve_live_heads.output.spoke_sha_set}}"
+                        }
                       }
                     },
                     "next_tasks": []

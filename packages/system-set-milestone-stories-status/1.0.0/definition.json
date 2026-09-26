@@ -33,10 +33,12 @@
         "name": "Resolve story ids for milestone",
         "capture_output": true,
         "function": {
-          "name": "story_action",
+          "name": "s_e_e_action",
           "input": {
-            "action": "list_stories_by_milestone",
-            "milestone_id": "{{runtime.milestone_id}}"
+            "tool": "story_list",
+            "arguments": {
+              "milestone_id": "{{runtime.milestone_id}}"
+            }
           }
         },
         "next_tasks": [

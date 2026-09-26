@@ -73,16 +73,18 @@
                 "id": "persist_change_record",
                 "name": "Persist change record",
                 "function": {
-                  "name": "change_action",
+                  "name": "s_e_e_action",
                   "input": {
-                    "action": "create_change_record",
-                    "repository": "{{runtime.repository}}",
-                    "previous_sha": "{{runtime.previous_sha}}",
-                    "current_sha": "{{runtime.current_sha}}",
-                    "components": "{{task.analyze_change.output.components}}",
-                    "behavior_changed": "{{task.analyze_change.output.behavior_changed}}",
-                    "contract_changed": "{{task.analyze_change.output.contract_changed}}",
-                    "related_story_id": "{{runtime.story_id}}"
+                    "tool": "knowledge_change_create",
+                    "arguments": {
+                      "repository": "{{runtime.repository}}",
+                      "previous_sha": "{{runtime.previous_sha}}",
+                      "current_sha": "{{runtime.current_sha}}",
+                      "components": "{{task.analyze_change.output.components}}",
+                      "behavior_changed": "{{task.analyze_change.output.behavior_changed}}",
+                      "contract_changed": "{{task.analyze_change.output.contract_changed}}",
+                      "related_story_id": "{{runtime.story_id}}"
+                    }
                   }
                 },
                 "next_tasks": []
