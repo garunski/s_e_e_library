@@ -137,29 +137,9 @@ Each task:
 `git_action` - git operation. Use only when story-driven workflows need it.
 - `input.action` plus paths per schema.
 
-`s_e_e_action` - call one MCP tool. `function.name` is `s_e_e_action`. `input.tool` is the MCP tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. Do not add `story_action`, `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, or `link_action`. Those names still execute existing definitions. Set `capture_output: true` when a later task reads the tool result, including a `foreach` collection via `collection_task_id` (+ optional `collection_task_path`).
+`s_e_e_action` - call one MCP tool. `function.name` is `s_e_e_action`. `input.tool` is the MCP tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. Tool names are in the Tools reference. Set `capture_output: true` when a later task reads the tool result, including a `foreach` collection via `collection_task_id` (+ optional `collection_task_path`).
 
-| `action` | Required input | Optional input | Output |
-| --- | --- | --- | --- |
-| `create_story` | `title` | `status`, `labels`, `description`, `priority` (`high`\|`medium`\|`low`), `milestone`, `dependencies`, `assignee`, `implementation_plan`, `implementation_notes`, `final_summary`, root overrides | full `Story` JSON |
-| `create_milestone` | `title` | `description`, root overrides | `{ id, title }` |
-| `create_document` | `title`, `category` | `body`, `tags`, `type` (`readme`\|`guide`\|`specification`\|`other`), root overrides | `{ id, title, category }` |
-| `create_decision` | `title` | `context`, `decision`, `consequences`, `status` (`proposed`\|`accepted`\|`rejected`\|`superseded`), `author`, `alternatives`, `related_story_ids`, root overrides | `{ id, title }` |
-| `set_status` | `story_id`, `status` | root overrides | `{ story_id }` |
-| `set_labels` | `story_id`, `labels` | root overrides | `{ story_id }` |
-| `update_story` | `story_id` | `title`, `description`, `implementation_plan`, `implementation_notes`, `final_summary`, `status`, `labels`, `priority`, `dependencies`, `assignee`, `milestone`, `client_mtime_ms`, root overrides | `{ story_id }` |
-| `archive_story` | `story_id` | root overrides | `{ story_id }` |
-| `list_stories` | - | `status`, `labels`, root overrides | `{ story_ids, count }` |
-| `list_stories_by_milestone` | `milestone_id` | root overrides | `{ milestone_id, story_ids, count }` |
-| `delete_story` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
-| `delete_document` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
-| `delete_decision` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
-| `delete_milestone` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
-| `delete_component` | `id`, `confirm: true` | `client_mtime_ms`, root overrides | `{ id }` |
-
-`create_story` defaults omitted `status` to `To Do`. `update_story` applies only present fields. List outputs sort `story_ids` numerically by id suffix.
-
-`foreach` - structural loop over a string array. Exactly one `next_tasks` entry, and that body must be one chain with a single leaf. A later branch is rejected. Nested `foreach` is allowed when each body is still one chain. `repair_loop` is the other handler with a chain rule: one leaf body, then one verifier. Other tasks may branch. `input.item_runtime_key` is the per-iteration `{{runtime.<key>}}`. Source the array **one** of two ways: `input.collection_runtime_key` (a `runtime_inputs` key of type `string_array`, expanded at run start), or `input.collection_task_id` (+ optional `input.collection_task_path`, e.g. `["story_ids"]`) referencing the captured output of an earlier task (`capture_output: true`). The task-output form expands lazily once that task completes, so `foreach` can consume ids computed during the run (e.g. a `story_action` `list_stories_by_milestone` resolver).
+`foreach` - structural loop over a string array. Exactly one `next_tasks` entry, and that body must be one chain with a single leaf. A later branch is rejected. Nested `foreach` is allowed when each body is still one chain. `repair_loop` is the other handler with a chain rule: one leaf body, then one verifier. Other tasks may branch. `input.item_runtime_key` is the per-iteration `{{runtime.<key>}}`. Source the array **one** of two ways: `input.collection_runtime_key` (a `runtime_inputs` key of type `string_array`, expanded at run start), or `input.collection_task_id` (+ optional `input.collection_task_path`, e.g. `["story_ids"]`) referencing the captured output of an earlier task (`capture_output: true`). The task-output form expands lazily once that task completes, so `foreach` can consume ids computed during the run (e.g. an `s_e_e_action` `story_list` task).
 
 `custom` - escape hatch when no handler fits. Avoid unless the product defines a runtime for it.
 

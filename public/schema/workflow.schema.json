@@ -113,15 +113,7 @@
             "command",
             "user_input",
             "git_action",
-            "story_action",
-            "milestone_action",
-            "document_action",
-            "decision_action",
-            "component_action",
-            "change_action",
-            "impact_action",
-            "audit_action",
-            "link_action",
+            "s_e_e_action",
             "foreach",
             "custom"
           ]

@@ -116,7 +116,7 @@ Each task has exactly one handler under `function`:
 - `user_input`: collect operator input at run start
 - `git_action`, `s_e_e_action`, `foreach`, `custom`
 
-`s_e_e_action` calls one MCP tool. `input.tool` is the tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. `story_action`, `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, and `link_action` still execute existing definitions.
+`s_e_e_action` calls one MCP tool. `input.tool` is the tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. Tool names are in the Tools reference.
 
 `foreach` has exactly one `next_tasks` entry, and that body must be one chain with a single leaf. A later branch is rejected. Nested `foreach` is allowed when each body is still one chain. `repair_loop` is the other handler with a chain rule: one leaf body, then one verifier. Other tasks may branch.
 
@@ -1061,9 +1061,9 @@ Each task:
 
 - `id` - unique within the workflow.
 - `name` - string.
-- `function` - exactly one handler key: `cli_command`, `command`, `user_input`, `git_action`, `s_e_e_action`, `story_action`, `milestone_action`, `document_action`, `decision_action`, `component_action`, `change_action`, `impact_action`, `audit_action`, `link_action`, `foreach`, or `custom`.
+- `function` - exactly one handler key: `cli_command`, `command`, `user_input`, `git_action`, `s_e_e_action`, `foreach`, or `custom`.
 
-`s_e_e_action` calls one MCP tool. `input.tool` is the tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. The older store handler names still validate existing definitions.
+`s_e_e_action` calls one MCP tool. `input.tool` is the tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. Tool names are in the Tools reference.
 
 - `next_tasks[]` - optional nested tasks (depth-first execution). `foreach` must have exactly one, and that body must be one chain with a single leaf. A later branch is rejected. Nested `foreach` is allowed when each body is still one chain. `repair_loop` is a one-leaf body, then one verifier. Other tasks may branch.
 - `capture_output` - when true, record handler output for `{{task.TASK_ID.output}}` placeholders.
@@ -1203,15 +1203,7 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
             "command",
             "user_input",
             "git_action",
-            "story_action",
-            "milestone_action",
-            "document_action",
-            "decision_action",
-            "component_action",
-            "change_action",
-            "impact_action",
-            "audit_action",
-            "link_action",
+            "s_e_e_action",
             "foreach",
             "custom"
           ]

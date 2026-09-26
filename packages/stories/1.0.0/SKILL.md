@@ -63,7 +63,7 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 
 ## Store contract
 
-**Milestone membership** - `milestone` is a frontmatter field whose value is a milestone id (`m-<n>`). Set it with `story_set_milestone`. Board milestone filters and `list_stories_by_milestone` read this field only; do not add an `m-*` label to imply membership.
+**Milestone membership** - `milestone` is a frontmatter field whose value is a milestone id (`m-<n>`). Set it with `story_set_milestone`. Board milestone filters and `story_list` with `arguments.milestone_id` read this field only; do not add an `m-*` label to imply membership.
 
 **Milestone criteria** - Typed `ObjectiveCriterion` rows in frontmatter with stable `criterion_id` (`c-N`). Kinds: `entity_status`, `milestone_progress`, `subject_rules`, `quality_gate`, `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
 

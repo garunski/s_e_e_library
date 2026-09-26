@@ -98,11 +98,7 @@ export default function Page() {
         <code>s_e_e_action</code> calls one MCP tool. <code>input.tool</code> is
         the tool name. <code>input.arguments</code> is that tool&apos;s argument
         object. Omit <code>project</code>; the run injects the execution
-        project. <code>story_action</code>, <code>milestone_action</code>,{" "}
-        <code>document_action</code>, <code>decision_action</code>,{" "}
-        <code>component_action</code>, <code>change_action</code>,{" "}
-        <code>impact_action</code>, <code>audit_action</code>, and{" "}
-        <code>link_action</code> still execute existing definitions.
+        project. Tool names are in the Tools reference.
       </p>
       <p>
         <code>foreach</code> has exactly one <code>next_tasks</code> entry, and
