@@ -457,10 +457,6 @@
       "dependencies": [],
       "files": [
         {
-          "to": ".s_e_e/commands/audit-system-agent.json",
-          "from": "packages/knowledge-system/1.0.0/audit-system-agent/command.json"
-        },
-        {
           "to": ".s_e_e/commands/cursor-agent.json",
           "from": "packages/knowledge-system/1.0.0/cursor-agent/command.json"
         },
