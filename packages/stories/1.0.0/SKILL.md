@@ -69,6 +69,16 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 
 **Milestone completion** - Declared status is the completeness claim. Setting a done status is rejected while any criterion is unmet. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
 
+## Milestone cut and completion contract
+
+Accepted `decision-25` applies whenever a milestone is created, revised, or declared Done. Write the observable outcome and its boundary first. Inventory every necessary screen, stored object, API, runtime path, Library definition, and existing-installation behavior. Map each necessary behavior to an implementation-ready story under `decision-24`. Include a story only when it is necessary for that outcome or an explicit milestone criterion. Keep optional enhancements, speculative work, and unrelated cleanup outside. Do not defer a necessary prerequisite while retaining the same outcome claim. State what is outside the cut and why it does not block the outcome.
+
+Assign members through `milestone_add_members` or `story_set_milestone`; then read the milestone back and compare actual members with the scope inventory. Labels do not assign membership. Set story dependencies and implementation order where sequence matters. Every authored milestone has at least one member story.
+
+Add a `milestone_progress` criterion targeting the new milestone id with `min_completion_percent: 100`. Member counts alone do not gate a declared Done status. Add separate typed criteria for observable cross-story outcomes, including compatibility and existing-installation behavior when relevant. Use `entity_status` for a specifically required story state. Use `manual` only for evidence the evaluator cannot derive; name the evidence and check it after review. Do not replace the progress criterion with a broad manual checkbox. Do not use a derived kind unless its evaluator sees the data being asserted. Address criteria by stable `criterion_id`, not their position.
+
+Before setting Done, reconcile expected scope against actual membership; verify each member story's own acceptance criteria and Done status; inspect all milestone criterion results and manual evidence; and fill the final summary. The store rejects Done when a criterion is unmet, but it cannot detect an omitted member or vague outcome. When a member is added or removed, a new surface is discovered, or the target changes, revise the cut, criteria, and membership together before making the completion claim.
+
 **Statuses** - Valid values live in `see:/projects/{project}/stories/config` (backed by the `stories` section of `<hub>/.s_e_e/config.json`). Read that resource before `story_set_status`; do not restate or invent status names in authored content.
 
 **Declared cross-references** - `related_docs` and `related_decisions` are optional frontmatter list fields. Each entry is a `doc-<n>` or `decision-<n>` id the story declares in the link graph (distinct from `labels` such as `doc-<n>` used for board filtering). The serializer writes them; `story_get` returns them on the wire. No dedicated MCP setter ships yet.
@@ -103,11 +113,21 @@ related_decisions:
 
 A good story is:
 
-- **Atomic** - one PR-sized scope; one or two source files plus tests.
+- **Atomic** - one independently deliverable behavior. A cross-layer change may touch many files when those layers must ship together.
 - **Independent** - does not assume future stories.
 - **Testable** - every AC is verifiable by running tests, checking files, or invoking an HTTP endpoint.
 - **AI-implementable** - another agent reading just this story can do the work.
 - **Dependency-safe** - only references lower-numbered stories.
+
+## Required specificity review
+
+The accepted decision `decision-24` makes a story an implementation contract. Apply this review to every new story and every material scope revision, including stories written as part of a milestone. A `story_create` shell is temporary: complete its description, plan, metadata, and criteria in the same authoring session and read the result back before handoff. Do not schedule, hand off, or move an incomplete shell into active work.
+
+Before writing, verify the gap still exists. Inventory the affected screens, stored objects and fields, API or MCP operations, runtime components, Library and published definitions, and existing-installation paths. For each affected category, name the actual path or interface and required behavior in the implementation plan. State "not applicable" when an omitted category could look overlooked. Include exact defaults, numeric thresholds, error behavior, migration behavior, and dependencies where relevant.
+
+Split independently deliverable effects into separate stories with explicit dependencies. If multiple layers must ship together, keep them in one story but enumerate each layer. No umbrella criterion such as "all views are updated" can stand in for individually verifiable outcomes. Map each affected surface to a plan step and an acceptance criterion with evidence outside the author's own diff. For a changed external integration, name the external result; for a published or seeded definition, include existing installations. Count screens, objects, and application code paths before declaring the story ready.
+
+If the required approach cannot be chosen from the available evidence, ask for the missing decision before creating the story. Repeat the review when implementation reveals a new affected surface or dependency.
 
 A story MUST NOT:
 
@@ -155,7 +175,8 @@ If authoring surfaces a decision you cannot make, stop and ask the user before c
 5. Add numbered AC with `story_add_criterion`.
 6. Set labels, priority, milestone, and dependencies via MCP tools.
 7. Read the created or renamed entity back through the store and confirm its id and title.
-8. Hand off implementation with the `work` skill.
+8. Apply the required specificity review and read back the completed body, criteria, and metadata.
+9. Hand off implementation with the `work` skill.
 
 For milestones: `milestone_create` and related MCP tools, or the `milestone-authoring` prompt. After create or a title change, read back with `milestone_get`. Do not list every milestone to read one. Link stories with `story_set_milestone`, not labels.
 

@@ -71,6 +71,54 @@ Implement an S.E.E. story with tests until all acceptance criteria pass...`}</pr
   "from": "packages/work/1.0.0/SKILL.md"
 }`}</pre>
 
+      <h2>Story authoring packages</h2>
+      <p>
+        The bundled <code>stories</code> skill and <code>system-story-authoring</code>
+        prompt carry the S.E.E. hub's accepted decision <code>decision-24</code>.
+        Broad stories hide affected surfaces and can make partial work look
+        complete. Apply the specificity review whenever a story is created or
+        materially revised, before it is handed off, scheduled, or moved into
+        active work.
+      </p>
+      <p>
+        Verify the current gap and count affected screens, stored objects,
+        application code paths, APIs, runtime components, Library definitions,
+        and existing installations. Name each affected path and exact behavior
+        in the implementation plan. Split independently deliverable work into
+        separate stories. Give each affected surface an observable acceptance
+        criterion with evidence beyond the authored change. Complete and read
+        back any store-created shell in the same authoring session.
+      </p>
+      <p>
+        When publishing either authoring package, keep this rule in its payload
+        so installed agents receive the same guidance. S.E.E. Help, under
+        <strong> Writing implementation ready stories</strong>, explains the
+        review for people writing or reviewing stories.
+      </p>
+
+      <h2>Milestone authoring packages</h2>
+      <p>
+        The <code>stories</code> skill and <code>system-milestone-authoring</code>
+        prompt carry the S.E.E. hub's accepted decision <code>decision-25</code>.
+        Apply it when creating or revising a milestone and before declaring it
+        Done. A milestone cut names one observable outcome, includes the stories
+        necessary to deliver it, and states why other work is deferred.
+      </p>
+      <p>
+        Assign stories through their milestone field and read membership back.
+        Add a <code>milestone_progress</code> criterion targeting the milestone
+        at 100 percent, then add separate criteria for the combined outcome and
+        compatibility behavior. Story acceptance criteria verify individual
+        changes; milestone criteria prove the release outcome. Check manual
+        criteria only after reviewing their named evidence. If scope changes,
+        revise the cut, membership, and criteria before claiming completion.
+      </p>
+      <p>
+        Keep this guidance in the published skill and prompt payloads. S.E.E.
+        Help, under <strong>Authoring milestones and making the cut</strong>,
+        explains the membership and completion review.
+      </p>
+
       <h2>Schema reference</h2>
       <ul className="example-list">
         <li>

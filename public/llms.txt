@@ -18,6 +18,12 @@ https://garunski.github.io/s_e_e_library/ and names it on a `Source:` line, in
 site order: how to author each package type first, then the payload contracts.
 Where a section and a schema file disagree, the schema file wins.
 
+Story authors: see **Story authoring packages** in the Skills section for the
+mandatory `decision-24` specificity review. It applies before a story is handed
+off, scheduled, or moved into active work and whenever its scope changes.
+Milestone authors: see **Milestone authoring packages** in the Skills section
+for the `decision-25` cut, membership, and completion review.
+
 ## Contents
 
 Authoring:
@@ -295,6 +301,47 @@ user intent. Keep procedures in the markdown body, not in frontmatter.
   "from": "packages/work/1.0.0/SKILL.md"
 }
 ```
+
+## Story authoring packages
+
+The bundled `stories` skill and `system-story-authoring` prompt carry the S.E.E.
+hub's accepted decision `decision-24`. Broad stories hide affected surfaces and
+can make partial work look complete. Apply the specificity review whenever a
+story is created or materially revised, before it is handed off, scheduled, or
+moved into active work.
+
+Verify the current gap and count affected screens, stored objects, application
+code paths, APIs, runtime components, Library definitions, and existing
+installations. Name each affected path and exact behavior in the implementation
+plan. Split independently deliverable work into separate stories. Give each
+affected surface an observable acceptance criterion with evidence beyond the
+authored change. Complete and read back any store-created shell in the same
+authoring session.
+
+When publishing either authoring package, keep this rule in its payload so
+installed agents receive the same guidance. S.E.E. Help, under **Writing
+implementation ready stories**, explains the review for people writing or
+reviewing stories.
+
+## Milestone authoring packages
+
+The `stories` skill and `system-milestone-authoring` prompt carry the S.E.E.
+hub's accepted decision `decision-25`. Apply it when creating or revising a
+milestone and before declaring it Done. A milestone cut names one observable
+outcome, includes the stories necessary to deliver it, and states why other
+work is deferred.
+
+Assign stories through their milestone field and read membership back. Add a
+`milestone_progress` criterion targeting the milestone at 100 percent, then add
+separate criteria for the combined outcome and compatibility behavior. Story
+acceptance criteria verify individual changes; milestone criteria prove the
+release outcome. Check manual criteria only after reviewing their named
+evidence. If scope changes, revise the cut, membership, and criteria before
+claiming completion.
+
+Keep this guidance in the published skill and prompt payloads. S.E.E. Help,
+under **Authoring milestones and making the cut**, explains the membership and
+completion review.
 
 ## Schema reference
 
@@ -1909,4 +1956,3 @@ Download: [schedule-rule-set.schema.json](https://garunski.github.io/s_e_e_libra
   }
 }
 ```
-
