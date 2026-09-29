@@ -58,7 +58,10 @@ export default function Page() {
             <li>
               <code>spoke_root</code>, <code>hub_root</code>,{" "}
               <code>stories_root</code>, <code>knowledge_root</code> - optional
-              root paths.
+              root paths. An exact <code>{"{{runtime.KEY}}"}</code> value
+              resolves from a string run input before execution and resume.
+              The resulting path must exist and be absolute. Hub-scoped runs
+              may inject hub and store roots from the project.
             </li>
           </ul>
         </li>

@@ -18,7 +18,7 @@
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string", "minLength": 1 },
-        "spoke_root": { "type": "string" },
+        "spoke_root": { "type": "string", "description": "Existing absolute directory or exact {{runtime.KEY}} reference to a string runtime input" },
         "hub_root": { "type": "string" },
         "stories_root": { "type": "string" },
         "knowledge_root": { "type": "string" },

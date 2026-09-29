@@ -1,0 +1,23 @@
+{
+  "id": "wf-system-update-repository-agents",
+  "slug": "system-update-repository-agents",
+  "category": "workflow",
+  "name": "Update repository AGENTS.md",
+  "description": "Inspects a repository, asks focused questions about missing or conflicting guidance, then updates its root AGENTS.md.",
+  "labels": [
+    "repository"
+  ],
+  "dependencies": [
+    "cmd-cursor-agent"
+  ],
+  "toolIds": [
+    "cursor"
+  ],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-29",
+      "note": "Initial catalog release."
+    }
+  ]
+}

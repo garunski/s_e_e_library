@@ -1,0 +1,86 @@
+{
+  "id": "system-update-repository-agents",
+  "name": "Update repository AGENTS.md",
+  "description": "Inspects a repository, asks focused questions about missing or conflicting guidance, then updates its root AGENTS.md.",
+  "content": {
+    "id": "update-repository-agents",
+    "name": "Update repository AGENTS.md",
+    "spoke_root": "{{runtime.repository_root}}",
+    "runtime_inputs": [
+      {
+        "key": "repository_root",
+        "label": "Absolute path to the repository to update",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "command_id",
+        "label": "Installed agent command",
+        "input_type": "string",
+        "required": false,
+        "default": "cursor-agent"
+      },
+      {
+        "key": "requested_change",
+        "label": "What should the repository guidance address?",
+        "input_type": "multiline_string",
+        "required": false,
+        "default": "Audit and update the root AGENTS.md for this repository."
+      }
+    ],
+    "tasks": [
+      {
+        "id": "inspect_repository",
+        "name": "Inspect repository guidance and sources",
+        "is_root": true,
+        "capture_output": true,
+        "function": {
+          "name": "command",
+          "input": {
+            "command_id": "{{runtime.command_id}}",
+            "config": {},
+            "prompt": "Inspect the repository at {{runtime.repository_root}} to prepare an update to its root AGENTS.md. Do not edit files in this task. Request: {{runtime.requested_change}}\n\nFirst verify the supplied path is the Git repository root. If it is not, report that in findings and state in questions that the run must be restarted with the correct absolute root; do not inspect or edit a different repository. Read the root AGENTS.md if present, applicable parent and nested AGENTS.md files, README, manifest and build files, repository automation, and existing skills or rules that bear on the request. Inspect only enough files to establish the repository's actual layout, commands, constraints, and areas of uncertainty. Distinguish observed facts from proposed policy. Identify duplicated, stale, conflicting, or task-specific guidance that should not be repeated in root AGENTS.md. Preserve local conventions. Ask the operator only questions whose answers cannot be verified from the repository and materially change the guidance. Include the proposed scope of the edit and ask whether any critical policy is missing. If there are no open decisions, ask for confirmation of the observed policy and invite corrections.\n\nReturn one JSON object as your final response with exactly two string fields: findings and questions. findings must summarize the evidence with repository-relative source paths and the proposed root AGENTS.md changes. questions must be a concise, numbered operator prompt with at most five questions, each showing the current evidence, the choice that needs a user decision, and the impact of the answer. Do not assume an unverified rule is policy. Do not wrap the JSON in a code fence."
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "answer_repository_questions",
+            "name": "Answer repository guidance questions",
+            "capture_output": true,
+            "function": {
+              "name": "user_input",
+              "input": {
+                "prompt": "{{task.inspect_repository.output.questions}}",
+                "input_type": "string",
+                "required": true
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "update_agents_md",
+                "name": "Update and review root AGENTS.md",
+                "capture_output": true,
+                "function": {
+                  "name": "command",
+                  "input": {
+                    "command_id": "{{runtime.command_id}}",
+                    "config": {},
+                    "prompt": "Update only the root AGENTS.md in the repository at {{runtime.repository_root}}. Original request: {{runtime.requested_change}}\n\nRepository inspection:\n{{task.inspect_repository.output.findings}}\n\nOperator answers:\n{{userinput.answer_repository_questions.value}}\n\nVerify the supplied path is still the Git repository root and recheck the relevant source files before editing, because the repository may have changed while the workflow waited. If the path is not the repository root, a material policy choice remains unanswered, or an answer conflicts with current evidence, leave AGENTS.md unchanged and report the exact blocking fact or decision. Otherwise create or revise root AGENTS.md. Keep durable, repository-wide instructions that an implementation agent needs on most tasks: the repository map, real commands and validation gates, non-obvious constraints, and links to authoritative detail. Put paths in a form unambiguous from the repository root. Preserve valid existing rules. Remove only guidance shown to be stale, contradictory, duplicated, or superseded by the operator's answers. Do not paste large README, skill, prompt, or story procedures into AGENTS.md. Refer to those sources when relevant. Do not modify nested AGENTS.md, skills, prompts, or other files. Do not invent commands or claim a command works without evidence. Review the final diff and report what changed, the supporting sources, and any remaining uncertainty."
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "is_edited": false,
+  "labels": [
+    "system",
+    "repository"
+  ],
+  "created_at": "2026-09-29T00:00:00Z",
+  "updated_at": "2026-09-29T00:00:00Z"
+}

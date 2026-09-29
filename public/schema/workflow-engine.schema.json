@@ -39,7 +39,7 @@
     "spoke_root": {
       "type": "string",
       "minLength": 1,
-      "description": "Default spoke workspace root for command tasks with cwd spoke"
+      "description": "Default spoke workspace root for command tasks with cwd spoke. An exact {{runtime.KEY}} reference to a string input resolves before execution and resume; the resolved path must be an existing absolute directory"
     },
     "spoke_lock_policy": {
       "type": "string",

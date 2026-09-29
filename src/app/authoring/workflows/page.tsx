@@ -70,7 +70,10 @@ export default function Page() {
         </dt>
         <dd>
           Required when command tasks use spoke cwd or git actions omit per-task
-          spoke.
+          spoke. Set it to an existing absolute path or an exact{" "}
+          <code>{"{{runtime.KEY}}"}</code> reference to a string runtime input.
+          The run resolves and validates the path before executing tasks and
+          again when resuming after user input.
         </dd>
       </dl>
 
@@ -87,7 +90,8 @@ export default function Page() {
           <code>command_id</code> with optional <code>prompt</code>
         </li>
         <li>
-          <code>user_input</code>: collect operator input at run start
+          <code>user_input</code>: pause the run to collect an operator answer
+          when this task is reached
         </li>
         <li>
           <code>git_action</code>, <code>s_e_e_action</code>,{" "}
@@ -126,6 +130,17 @@ export default function Page() {
           earlier task
         </li>
       </ul>
+
+      <h2>Repository guidance workflow</h2>
+      <p>
+        The packaged <code>system-update-repository-agents</code> workflow
+        accepts an absolute <code>repository_root</code>, inspects the
+        repository without editing it, and pauses for answers to questions
+        based on that inspection. After the answer, it rechecks the source
+        files and updates only the root <code>AGENTS.md</code>. Its optional
+        <code>command_id</code> input defaults to <code>cursor-agent</code>;
+        that command must be installed before the run.
+      </p>
 
       <h2>Reference example</h2>
       <p>

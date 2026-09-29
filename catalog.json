@@ -1,7 +1,7 @@
 {
   "schema": "see.library/v2",
   "name": "S.E.E. Official Library",
-  "updated": "2026-09-25T15:19:02.390Z",
+  "updated": "2026-09-29T00:00:00.000Z",
   "tools": [
     {
       "id": "claude",
@@ -1706,6 +1706,40 @@
         {
           "version": "1.0.0",
           "date": "2026-09-01",
+          "note": "Initial catalog release."
+        }
+      ]
+    },
+    {
+      "id": "wf-system-update-repository-agents",
+      "slug": "system-update-repository-agents",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "garunski",
+      "verified": true,
+      "license": "AGPL-3.0-only",
+      "requires": [],
+      "dependencies": [
+        "cmd-cursor-agent"
+      ],
+      "files": [
+        {
+          "to": ".s_e_e/workflows/definitions/system-update-repository-agents.json",
+          "from": "packages/system-update-repository-agents/1.0.0/definition.json"
+        }
+      ],
+      "name": "Update repository AGENTS.md",
+      "description": "Inspects a repository, asks focused questions about missing or conflicting guidance, then updates its root AGENTS.md.",
+      "labels": [
+        "repository"
+      ],
+      "toolIds": [
+        "cursor"
+      ],
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-29",
           "note": "Initial catalog release."
         }
       ]

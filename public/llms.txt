@@ -111,7 +111,7 @@ shape only.
 | --- | --- |
 | `runtime_inputs` | Run-start values; each object with `key`, `input_type`, `required`, `label`; keys must not contain dots |
 | `tasks` | Ordered graph of engine tasks |
-| `spoke_root` | Required when command tasks use spoke cwd or git actions omit per-task spoke |
+| `spoke_root` | Required when command tasks use spoke cwd or git actions omit per-task spoke. Use an existing absolute path or an exact `{{runtime.KEY}}` reference to a string runtime input. The run resolves and validates it before execution and again on resume. |
 
 ### Task types
 
@@ -119,7 +119,7 @@ Each task has exactly one handler under `function`:
 
 - `cli_command`: shell command and args
 - `command`: run a catalog command by `command_id` with optional `prompt`
-- `user_input`: collect operator input at run start
+- `user_input`: pause the run to collect an operator answer when this task is reached
 - `git_action`, `s_e_e_action`, `foreach`, `custom`
 
 `s_e_e_action` calls one MCP tool. `input.tool` is the tool name. `input.arguments` is that tool's argument object. Omit `project`; the run injects the execution project. Tool names are in the Tools reference.
@@ -132,6 +132,15 @@ Each task has exactly one handler under `function`:
 - `runtime.<key>` (`{{runtime.<key>}}`): value from `runtime_inputs`
 - `userinput.<task_id>.value` (`{{userinput.<task_id>.value}}`): earlier `user_input` task
 - `task.<task_id>.output...` (`{{task.<task_id>.output...}}`): captured output from an earlier task
+
+## Repository guidance workflow
+
+The packaged `system-update-repository-agents` workflow accepts an absolute
+`repository_root`, inspects the repository without editing it, and pauses for
+answers to questions based on that inspection. After the answer, it rechecks
+the source files and updates only the root `AGENTS.md`. Its optional
+`command_id` input defaults to `cursor-agent`; that command must be installed
+before the run.
 
 ## Reference example
 
@@ -1106,7 +1115,7 @@ An outer envelope wraps the engine `content`:
   - `name` - required.
   - `tasks[]` - required, non-empty.
   - `runtime_inputs[]` - optional; each `{ key, input_type, required, label }`; `key` must not contain dots.
-  - `spoke_root`, `hub_root`, `stories_root`, `knowledge_root` - optional root paths.
+  - `spoke_root`, `hub_root`, `stories_root`, `knowledge_root` - optional root paths. An exact `{{runtime.KEY}}` value resolves from a string run input before execution and resume. The resulting path must exist and be absolute. Hub-scoped runs may inject hub and store roots from the project.
 
 ## Tasks
 
@@ -1161,7 +1170,7 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string", "minLength": 1 },
-        "spoke_root": { "type": "string" },
+        "spoke_root": { "type": "string", "description": "Existing absolute directory or exact {{runtime.KEY}} reference to a string runtime input" },
         "hub_root": { "type": "string" },
         "stories_root": { "type": "string" },
         "knowledge_root": { "type": "string" },
