@@ -114,6 +114,14 @@ Implement an S.E.E. story with tests until all acceptance criteria pass...`}</pr
         revise the cut, membership, and criteria before claiming completion.
       </p>
       <p>
+        The Done transition requires at least one member story, self progress
+        at 100 percent, a separate outcome criterion, and every criterion met.
+        The detailed <code>milestone_get</code> result shows each criterion&apos;s
+        evaluation. The milestone store cannot observe project execution,
+        issue, or spoke quality facts, so a <code>quality_gate</code> criterion
+        is unevaluable for milestone Done.
+      </p>
+      <p>
         Keep this guidance in the published skill and prompt payloads. S.E.E.
         Help, under <strong>Authoring milestones and making the cut</strong>,
         explains the membership and completion review.

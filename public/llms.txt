@@ -339,6 +339,12 @@ release outcome. Check manual criteria only after reviewing their named
 evidence. If scope changes, revise the cut, membership, and criteria before
 claiming completion.
 
+The Done transition requires at least one member story, self progress at 100
+percent, a separate outcome criterion, and every criterion met. Detailed
+`milestone_get` shows each criterion's evaluation. The milestone store cannot
+observe project execution, issue, or spoke quality facts, so `quality_gate` is
+unevaluable for milestone Done.
+
 Keep this guidance in the published skill and prompt payloads. S.E.E. Help,
 under **Authoring milestones and making the cut**, explains the membership and
 completion review.

@@ -67,7 +67,7 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 
 **Milestone criteria** - Typed `ObjectiveCriterion` rows in frontmatter with stable `criterion_id` (`c-N`). Kinds: `entity_status`, `milestone_progress`, `subject_rules`, `quality_gate`, `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
 
-**Milestone completion** - Declared status is the completeness claim. Setting a done status is rejected while any criterion is unmet. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
+**Milestone completion** - Declared status is the completeness claim. A transition to Done requires at least one member, a self-targeting `milestone_progress` criterion at 100 percent, a separate outcome criterion, and all criteria met. Detailed `milestone_get` includes the evaluated result for each criterion. The milestone store cannot observe project execution, issue, and spoke facts, so `quality_gate` is unevaluable for milestone Done. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
 
 ## Milestone cut and completion contract
 
