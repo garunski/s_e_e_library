@@ -5,13 +5,20 @@
   "name": "Work story (/work skill)",
   "description": "",
   "labels": [],
-  "dependencies": [],
+  "dependencies": [
+    "skill-work"
+  ],
   "toolIds": [],
   "releases": [
     {
       "version": "1.0.0",
       "date": "2026-09-01",
       "note": "Initial catalog release."
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-09-29",
+      "note": "Use the work skill and project store without direct story file edits."
     }
   ]
 }

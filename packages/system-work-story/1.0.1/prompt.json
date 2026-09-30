@@ -1,0 +1,6 @@
+{
+  "id": "system-work-story",
+  "name": "Work story (/work skill)",
+  "content": "Implement story {{runtime.story_id}} in project {{project.id}} using `.agents/skills/work/SKILL.md`. Read the story through `story_get`, follow the applicable repository `AGENTS.md`, and use the project store for status, criteria, notes, and summary. Do not edit story Markdown directly. Verify each acceptance criterion with appropriate evidence and honor the operator's verification instructions. Continue without a separate plan approval, but stop for an unresolved product decision, unavailable store access, or an unmet completion criterion. Report the result and any blocker.",
+  "created_at": "2026-09-29T00:00:00Z"
+}

@@ -3,7 +3,7 @@
   "slug": "work",
   "category": "skill",
   "name": "work",
-  "description": "Implements an S.E.E. story with tests until acceptance criteria pass: load",
+  "description": "Implement an existing S.E.E. story against its plan and acceptance criteria through the project store.",
   "labels": [],
   "dependencies": [],
   "toolIds": [
@@ -15,6 +15,11 @@
       "version": "1.0.0",
       "date": "2026-09-01",
       "note": "Initial catalog release."
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-09-29",
+      "note": "Use store tools and repository-specific verification."
     }
   ]
 }

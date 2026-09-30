@@ -40,25 +40,46 @@ export default function Page() {
         </li>
       </ul>
       <p>
-        The body documents the procedure, constraints, and links to
-        authoritative docs.
+        The body carries task-specific procedure and constraints that change
+        what the agent does. Keep activation text short and use authoritative
+        references for details needed only in particular situations.
+      </p>
+
+      <h2>Where guidance belongs</h2>
+      <p>
+        Repository <code>AGENTS.md</code> holds durable local operating rules.
+        A skill holds reusable procedure for one capability. A workflow selects
+        the tasks and inputs for a run; its prompt supplies instructions needed
+        for that task. A story names one implementation outcome and its
+        acceptance criteria. Agents read the applicable repository rules and
+        load only the skills and references relevant to the work. Copying every
+        layer into the first prompt makes repeated and conflicting guidance
+        harder to maintain.
+      </p>
+      <p>
+        The current <code>doc</code>, <code>workflow</code>, and <code>work</code>
+        skills use the project store interfaces for installed records. They do
+        not direct agents to edit store Markdown or workflow JSON on disk.
+        Library package source files remain editable in this repository before
+        publication. Publish a changed skill as a new version and refresh any
+        bundle that embeds its payload. Existing installations need an upgrade
+        to receive that version.
       </p>
 
       <h2>Reference example</h2>
       <p>
-        From <code>packages/work/1.0.0/SKILL.md</code>:
+        From <code>packages/work/1.0.1/SKILL.md</code>:
       </p>
       <pre>{`---
 name: work
 description: >-
-  Implements an S.E.E. story with tests until acceptance criteria pass...
-  Use when the user says work, "start work", "implement story-N", or works
-  through story IDs with acceptance criteria.
+  Implement an existing S.E.E. story against its plan and acceptance criteria.
+  Use when asked to work on a story id or complete assigned story work.
 ---
 
 # Work
 
-Implement an S.E.E. story with tests until all acceptance criteria pass...`}</pre>
+Read the story through the project store and verify each acceptance criterion.`}</pre>
       <p>
         Write the <code>description</code> as a single activation sentence
         agents can match against user intent. Keep procedures in the markdown
@@ -68,7 +89,7 @@ Implement an S.E.E. story with tests until all acceptance criteria pass...`}</pr
       <h2>Install path</h2>
       <pre>{`{
   "to": ".agents/skills/work/SKILL.md",
-  "from": "packages/work/1.0.0/SKILL.md"
+  "from": "packages/work/1.0.1/SKILL.md"
 }`}</pre>
 
       <h2>Story authoring packages</h2>

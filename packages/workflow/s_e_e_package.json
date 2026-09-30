@@ -3,7 +3,7 @@
   "slug": "workflow",
   "category": "skill",
   "name": "workflow",
-  "description": "Authors and edits S.E.E. workflow JSON definitions stored under the hub",
+  "description": "Create or revise S.E.E. workflow definitions and Library workflow packages.",
   "labels": [],
   "dependencies": [],
   "toolIds": [
@@ -15,6 +15,11 @@
       "version": "1.0.0",
       "date": "2026-09-01",
       "note": "Initial catalog release."
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-09-29",
+      "note": "Use workflow store tools and explicit command selection."
     }
   ]
 }

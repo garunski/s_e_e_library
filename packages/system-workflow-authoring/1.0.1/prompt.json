@@ -1,0 +1,6 @@
+{
+  "id": "system-workflow-authoring",
+  "name": "Author workflow",
+  "content": "Author a workflow for project {{project.id}} from the operator request. Load `.agents/skills/workflow/SKILL.md`. Inspect related definitions with `workflow_list` and `workflow_get`, choose installed commands that fit the tasks, and validate runtime inputs and template references against the engine schema. Save the installed definition through `workflow_save` and read it back. Do not write the hub's stored workflow JSON directly. If the request is to publish a Library package, edit its versioned source and catalog instead. Report the workflow id, required inputs and commands, and what remains unverified.",
+  "created_at": "2026-09-29T00:00:00Z"
+}

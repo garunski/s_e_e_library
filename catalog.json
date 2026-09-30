@@ -169,7 +169,7 @@
       "id": "bundle-author-stories-from-doc",
       "slug": "author-stories-from-doc",
       "category": "bundle",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -178,23 +178,23 @@
       "files": [
         {
           "to": ".agents/skills/doc/SKILL.md",
-          "from": "packages/author-stories-from-doc/1.0.0/doc/SKILL.md"
+          "from": "packages/author-stories-from-doc/1.0.1/doc/SKILL.md"
         },
         {
           "to": ".agents/skills/stories/SKILL.md",
-          "from": "packages/author-stories-from-doc/1.0.0/stories/SKILL.md"
+          "from": "packages/author-stories-from-doc/1.0.1/stories/SKILL.md"
         },
         {
           "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/author-stories-from-doc/1.0.0/work/SKILL.md"
+          "from": "packages/author-stories-from-doc/1.0.1/work/SKILL.md"
         },
         {
           "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/author-stories-from-doc/1.0.0/cursor-agent/command.json"
+          "from": "packages/author-stories-from-doc/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json",
-          "from": "packages/author-stories-from-doc/1.0.0/system-stories-from-doc-authoring/prompt.json"
+          "from": "packages/author-stories-from-doc/1.0.1/system-stories-from-doc-authoring/prompt.json"
         },
         {
           "to": ".s_e_e/prompts/system-mcp-contract.json",
@@ -210,7 +210,7 @@
         },
         {
           "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json",
-          "from": "packages/author-stories-from-doc/1.0.0/system-author-stories-from-doc/definition.json"
+          "from": "packages/author-stories-from-doc/1.0.1/system-author-stories-from-doc/definition.json"
         }
       ],
       "name": "Author stories from doc",
@@ -227,6 +227,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Refresh embedded doc and work skills."
         }
       ]
     },
@@ -234,7 +239,7 @@
       "id": "bundle-author-story",
       "slug": "author-story",
       "category": "bundle",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -243,19 +248,19 @@
       "files": [
         {
           "to": ".agents/skills/stories/SKILL.md",
-          "from": "packages/author-story/1.0.0/stories/SKILL.md"
+          "from": "packages/author-story/1.0.1/stories/SKILL.md"
         },
         {
           "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/author-story/1.0.0/work/SKILL.md"
+          "from": "packages/author-story/1.0.1/work/SKILL.md"
         },
         {
           "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/author-story/1.0.0/cursor-agent/command.json"
+          "from": "packages/author-story/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-story-authoring.json",
-          "from": "packages/author-story/1.0.0/system-story-authoring/prompt.json"
+          "from": "packages/author-story/1.0.1/system-story-authoring/prompt.json"
         },
         {
           "to": ".s_e_e/prompts/system-mcp-contract.json",
@@ -271,7 +276,7 @@
         },
         {
           "to": ".s_e_e/workflows/definitions/system-author-story.json",
-          "from": "packages/author-story/1.0.0/system-author-story/definition.json"
+          "from": "packages/author-story/1.0.1/system-author-story/definition.json"
         }
       ],
       "name": "Author story from description",
@@ -287,6 +292,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Refresh embedded work skill."
         }
       ]
     },
@@ -294,7 +304,7 @@
       "id": "bundle-author-workflow",
       "slug": "author-workflow",
       "category": "bundle",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -302,12 +312,16 @@
       "dependencies": [],
       "files": [
         {
+          "to": ".agents/skills/workflow/SKILL.md",
+          "from": "packages/author-workflow/1.0.1/workflow/SKILL.md"
+        },
+        {
           "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/author-workflow/1.0.0/cursor-agent/command.json"
+          "from": "packages/author-workflow/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-workflow-authoring.json",
-          "from": "packages/author-workflow/1.0.0/system-workflow-authoring/prompt.json"
+          "from": "packages/author-workflow/1.0.1/system-workflow-authoring/prompt.json"
         },
         {
           "to": ".s_e_e/prompts/system-mcp-contract.json",
@@ -323,7 +337,7 @@
         },
         {
           "to": ".s_e_e/workflows/definitions/system-author-workflow.json",
-          "from": "packages/author-workflow/1.0.0/system-author-workflow/definition.json"
+          "from": "packages/author-workflow/1.0.1/system-author-workflow/definition.json"
         }
       ],
       "name": "Author workflow",
@@ -337,6 +351,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Refresh workflow authoring prompt and include the workflow skill."
         }
       ]
     },
@@ -385,7 +404,7 @@
       "id": "bundle-implement-story",
       "slug": "implement-story",
       "category": "bundle",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -394,15 +413,15 @@
       "files": [
         {
           "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/implement-story/1.0.0/work/SKILL.md"
+          "from": "packages/implement-story/1.0.1/work/SKILL.md"
         },
         {
           "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/implement-story/1.0.0/cursor-agent/command.json"
+          "from": "packages/implement-story/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-implement-story.json",
-          "from": "packages/implement-story/1.0.0/system-implement-story/prompt.json"
+          "from": "packages/implement-story/1.0.1/system-implement-story/prompt.json"
         },
         {
           "to": ".s_e_e/prompts/system-mcp-contract.json",
@@ -418,11 +437,11 @@
         },
         {
           "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json",
-          "from": "packages/implement-story/1.0.0/system-implement-stories-bulk/definition.json"
+          "from": "packages/implement-story/1.0.1/system-implement-stories-bulk/definition.json"
         },
         {
           "to": ".s_e_e/workflows/definitions/system-implement-story.json",
-          "from": "packages/implement-story/1.0.0/system-implement-story/definition.json"
+          "from": "packages/implement-story/1.0.1/system-implement-story/definition.json"
         }
       ],
       "name": "Implement Story workflows",
@@ -439,6 +458,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Refresh embedded work skill and implementation prompt."
         }
       ]
     },
@@ -663,7 +687,7 @@
       "id": "bundle-work-swimlane-stories",
       "slug": "work-swimlane-stories",
       "category": "bundle",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -672,15 +696,15 @@
       "files": [
         {
           "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/work-swimlane-stories/1.0.0/work/SKILL.md"
+          "from": "packages/work-swimlane-stories/1.0.1/work/SKILL.md"
         },
         {
           "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/work-swimlane-stories/1.0.0/cursor-agent/command.json"
+          "from": "packages/work-swimlane-stories/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-work-story.json",
-          "from": "packages/work-swimlane-stories/1.0.0/system-work-story/prompt.json"
+          "from": "packages/work-swimlane-stories/1.0.1/system-work-story/prompt.json"
         },
         {
           "to": ".s_e_e/prompts/system-mcp-contract.json",
@@ -696,7 +720,7 @@
         },
         {
           "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
-          "from": "packages/work-swimlane-stories/1.0.0/system-work-swimlane-stories/definition.json"
+          "from": "packages/work-swimlane-stories/1.0.1/system-work-swimlane-stories/definition.json"
         }
       ],
       "name": "Work swimlane stories",
@@ -714,6 +738,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Refresh embedded work skill and implementation prompt."
         }
       ]
     },
@@ -849,16 +878,18 @@
       "id": "prompt-system-implement-story",
       "slug": "system-implement-story",
       "category": "prompt",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
       "requires": [],
-      "dependencies": [],
+      "dependencies": [
+        "skill-work"
+      ],
       "files": [
         {
           "to": ".s_e_e/prompts/system-implement-story.json",
-          "from": "packages/system-implement-story/1.0.0/prompt.json"
+          "from": "packages/system-implement-story/1.0.1/prompt.json"
         }
       ],
       "name": "Implement story",
@@ -869,6 +900,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Use the work skill and project store without direct story file edits."
         }
       ]
     },
@@ -1195,16 +1231,18 @@
       "id": "prompt-system-work-story",
       "slug": "system-work-story",
       "category": "prompt",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
       "requires": [],
-      "dependencies": [],
+      "dependencies": [
+        "skill-work"
+      ],
       "files": [
         {
           "to": ".s_e_e/prompts/system-work-story.json",
-          "from": "packages/system-work-story/1.0.0/prompt.json"
+          "from": "packages/system-work-story/1.0.1/prompt.json"
         }
       ],
       "name": "Work story (/work skill)",
@@ -1215,6 +1253,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Use the work skill and project store without direct story file edits."
         }
       ]
     },
@@ -1222,16 +1265,18 @@
       "id": "prompt-system-workflow-authoring",
       "slug": "system-workflow-authoring",
       "category": "prompt",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
       "requires": [],
-      "dependencies": [],
+      "dependencies": [
+        "skill-workflow"
+      ],
       "files": [
         {
           "to": ".s_e_e/prompts/system-workflow-authoring.json",
-          "from": "packages/system-workflow-authoring/1.0.0/prompt.json"
+          "from": "packages/system-workflow-authoring/1.0.1/prompt.json"
         }
       ],
       "name": "Author workflow",
@@ -1242,6 +1287,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Use the workflow skill and workflow store."
         }
       ]
     },
@@ -1249,7 +1299,7 @@
       "id": "skill-doc",
       "slug": "doc",
       "category": "skill",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1258,11 +1308,11 @@
       "files": [
         {
           "to": ".agents/skills/doc/SKILL.md",
-          "from": "packages/doc/1.0.0/SKILL.md"
+          "from": "packages/doc/1.0.1/SKILL.md"
         }
       ],
       "name": "doc",
-      "description": "Expert author for the S.E.E. knowledge store: docs (overview/reference) and",
+      "description": "Create or revise S.E.E. knowledge docs and architecture decisions through the project store.",
       "labels": [],
       "toolIds": [
         "claude",
@@ -1273,6 +1323,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Use store tools and focused current-state guidance."
         }
       ]
     },
@@ -1311,7 +1366,7 @@
       "id": "skill-work",
       "slug": "work",
       "category": "skill",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1320,11 +1375,11 @@
       "files": [
         {
           "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/work/1.0.0/SKILL.md"
+          "from": "packages/work/1.0.1/SKILL.md"
         }
       ],
       "name": "work",
-      "description": "Implements an S.E.E. story with tests until acceptance criteria pass: load",
+      "description": "Implement an existing S.E.E. story against its plan and acceptance criteria through the project store.",
       "labels": [],
       "toolIds": [
         "claude",
@@ -1335,6 +1390,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Use store tools and repository-specific verification."
         }
       ]
     },
@@ -1342,7 +1402,7 @@
       "id": "skill-workflow",
       "slug": "workflow",
       "category": "skill",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1351,11 +1411,11 @@
       "files": [
         {
           "to": ".agents/skills/workflow/SKILL.md",
-          "from": "packages/workflow/1.0.0/SKILL.md"
+          "from": "packages/workflow/1.0.1/SKILL.md"
         }
       ],
       "name": "workflow",
-      "description": "Authors and edits S.E.E. workflow JSON definitions stored under the hub",
+      "description": "Create or revise S.E.E. workflow definitions and Library workflow packages.",
       "labels": [],
       "toolIds": [
         "claude",
@@ -1366,6 +1426,11 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-09-29",
+          "note": "Use workflow store tools and explicit command selection."
         }
       ]
     },
