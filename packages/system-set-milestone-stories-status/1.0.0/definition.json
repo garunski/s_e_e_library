@@ -8,7 +8,6 @@
   "subject_kinds": [
     "milestone"
   ],
-  "version": "1.0.0",
   "content": {
     "id": "set-milestone-stories-status",
     "name": "Set milestone stories status",

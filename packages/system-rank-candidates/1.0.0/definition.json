@@ -5,7 +5,6 @@
   "labels": [
     "system"
   ],
-  "version": "1.0.0",
   "content": {
     "id": "rank-candidates",
     "name": "Rank candidate actions",
