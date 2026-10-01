@@ -36,9 +36,11 @@
         "function": {
           "name": "s_e_e_action",
           "input": {
-            "tool": "knowledge_change_get",
+            "tool": "item_fetch",
             "arguments": {
-              "change_id": "{{runtime.change_record_id}}"
+              "project": "{{project.id}}",
+              "kind": "knowledge_change",
+              "id": "{{runtime.change_record_id}}"
             }
           }
         },
@@ -50,6 +52,7 @@
             "run_when": {
               "task": "load_change_record",
               "path": [
+                "item",
                 "contract_changed"
               ],
               "op": "ne",
@@ -58,9 +61,14 @@
             "function": {
               "name": "s_e_e_action",
               "input": {
-                "tool": "knowledge_contract_trace_resolve",
+                "tool": "item_call",
                 "arguments": {
-                  "change_record_id": "{{runtime.change_record_id}}"
+                  "project": "{{project.id}}",
+                  "kind": "knowledge_change",
+                  "action": "knowledge_contract_trace_resolve",
+                  "arguments": {
+                    "change_record_id": "{{runtime.change_record_id}}"
+                  }
                 }
               }
             },
@@ -101,12 +109,17 @@
                         "function": {
                           "name": "s_e_e_action",
                           "input": {
-                            "tool": "knowledge_contract_trace_record",
+                            "tool": "item_call",
                             "arguments": {
-                              "change_record_id": "{{runtime.change_record_id}}",
-                              "spoke": "{{runtime.consumer_spoke}}",
-                              "contract_changed": "{{task.resolve_spokes.output.contract_changed}}",
-                              "status": "{{task.inspect_spoke.output.status}}"
+                              "project": "{{project.id}}",
+                              "kind": "knowledge_change",
+                              "action": "knowledge_contract_trace_record",
+                              "arguments": {
+                                "change_record_id": "{{runtime.change_record_id}}",
+                                "spoke": "{{runtime.consumer_spoke}}",
+                                "contract_changed": "{{task.resolve_spokes.output.contract_changed}}",
+                                "status": "{{task.inspect_spoke.output.status}}"
+                              }
                             }
                           }
                         },
@@ -125,6 +138,7 @@
                 "run_when": {
                   "task": "load_change_record",
                   "path": [
+                    "item",
                     "contract_changed"
                   ],
                   "op": "ne",
@@ -133,9 +147,14 @@
                 "function": {
                   "name": "s_e_e_action",
                   "input": {
-                    "tool": "knowledge_impact_create",
+                    "tool": "item_call",
                     "arguments": {
-                      "change_record_id": "{{runtime.change_record_id}}"
+                      "project": "{{project.id}}",
+                      "kind": "knowledge_change",
+                      "action": "knowledge_impact_create",
+                      "arguments": {
+                        "change_record_id": "{{runtime.change_record_id}}"
+                      }
                     }
                   }
                 },

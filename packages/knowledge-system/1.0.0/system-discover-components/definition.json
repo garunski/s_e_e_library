@@ -117,9 +117,11 @@
                     "function": {
                       "name": "s_e_e_action",
                       "input": {
-                        "tool": "knowledge_component_get",
+                        "tool": "item_fetch",
                         "arguments": {
-                          "component_id": "{{runtime.delete_component_id}}"
+                          "project": "{{project.id}}",
+                          "kind": "knowledge_component",
+                          "id": "{{runtime.delete_component_id}}"
                         }
                       }
                     },
@@ -130,11 +132,16 @@
                         "function": {
                           "name": "s_e_e_action",
                           "input": {
-                            "tool": "knowledge_component_delete",
+                            "tool": "item_call",
                             "arguments": {
-                              "component_id": "{{runtime.delete_component_id}}",
-                              "confirm": true,
-                              "conflict_token": "{{task.fetch_component.output.conflict_token}}"
+                              "project": "{{project.id}}",
+                              "kind": "knowledge_component",
+                              "id": "{{runtime.delete_component_id}}",
+                              "action": "knowledge_component_delete",
+                              "arguments": {
+                                "confirm": true,
+                                "conflict_token": "{{task.fetch_component.output.item.conflict_token}}"
+                              }
                             }
                           }
                         },

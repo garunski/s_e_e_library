@@ -75,15 +75,20 @@
                 "function": {
                   "name": "s_e_e_action",
                   "input": {
-                    "tool": "knowledge_change_create",
+                    "tool": "item_call",
                     "arguments": {
-                      "repository": "{{runtime.repository}}",
-                      "previous_sha": "{{runtime.previous_sha}}",
-                      "current_sha": "{{runtime.current_sha}}",
-                      "components": "{{task.analyze_change.output.components}}",
-                      "behavior_changed": "{{task.analyze_change.output.behavior_changed}}",
-                      "contract_changed": "{{task.analyze_change.output.contract_changed}}",
-                      "related_story_id": "{{runtime.story_id}}"
+                      "project": "{{project.id}}",
+                      "kind": "knowledge_change",
+                      "action": "knowledge_change_create",
+                      "arguments": {
+                        "repository": "{{runtime.repository}}",
+                        "previous_sha": "{{runtime.previous_sha}}",
+                        "current_sha": "{{runtime.current_sha}}",
+                        "components": "{{task.analyze_change.output.components}}",
+                        "behavior_changed": "{{task.analyze_change.output.behavior_changed}}",
+                        "contract_changed": "{{task.analyze_change.output.contract_changed}}",
+                        "related_story_id": "{{runtime.story_id}}"
+                      }
                     }
                   }
                 },

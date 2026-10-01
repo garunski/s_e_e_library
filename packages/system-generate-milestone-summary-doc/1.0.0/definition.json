@@ -36,9 +36,14 @@
         "function": {
           "name": "s_e_e_action",
           "input": {
-            "tool": "story_list",
+            "tool": "item_call",
             "arguments": {
-              "milestone_id": "{{runtime.milestone_id}}"
+              "project": "{{project.id}}",
+              "kind": "story",
+              "action": "story_list",
+              "arguments": {
+                "milestone_id": "{{runtime.milestone_id}}"
+              }
             }
           }
         },
@@ -64,12 +69,17 @@
                 "function": {
                   "name": "s_e_e_action",
                   "input": {
-                    "tool": "knowledge_doc_create",
+                    "tool": "item_call",
                     "arguments": {
-                      "title": "{{task.draft_summary.output.title}}",
-                      "category": "{{runtime.category}}",
-                      "body": "{{task.draft_summary.output.body}}",
-                      "type": "guide"
+                      "project": "{{project.id}}",
+                      "kind": "knowledge_doc",
+                      "action": "knowledge_doc_create",
+                      "arguments": {
+                        "title": "{{task.draft_summary.output.title}}",
+                        "category": "{{runtime.category}}",
+                        "body": "{{task.draft_summary.output.body}}",
+                        "type": "guide"
+                      }
                     }
                   }
                 },

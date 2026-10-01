@@ -19,9 +19,14 @@
         "capture_output": true,
         "function": {
           "input": {
-            "tool": "story_list",
+            "tool": "item_call",
             "arguments": {
-              "status": "{{runtime.swimlane}}"
+              "project": "{{project.id}}",
+              "kind": "story",
+              "action": "story_list",
+              "arguments": {
+                "status": "{{runtime.swimlane}}"
+              }
             }
           },
           "name": "s_e_e_action"

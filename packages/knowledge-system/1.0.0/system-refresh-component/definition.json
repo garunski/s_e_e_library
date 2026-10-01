@@ -36,9 +36,14 @@
         "function": {
           "name": "s_e_e_action",
           "input": {
-            "tool": "knowledge_component_refresh_claim",
+            "tool": "item_call",
             "arguments": {
-              "component": "{{runtime.component}}"
+              "project": "{{project.id}}",
+              "kind": "knowledge_component",
+              "action": "knowledge_component_refresh_claim",
+              "arguments": {
+                "component": "{{runtime.component}}"
+              }
             }
           }
         },
@@ -66,9 +71,14 @@
                 "function": {
                   "name": "s_e_e_action",
                   "input": {
-                    "tool": "knowledge_component_refresh_resolve_sha",
+                    "tool": "item_call",
                     "arguments": {
-                      "verified_against": "{{task.claim_queue.output.spoke_sha_set}}"
+                      "project": "{{project.id}}",
+                      "kind": "knowledge_component",
+                      "action": "knowledge_component_refresh_resolve_sha",
+                      "arguments": {
+                        "verified_against": "{{task.claim_queue.output.spoke_sha_set}}"
+                      }
                     }
                   }
                 },
@@ -79,16 +89,21 @@
                     "function": {
                       "name": "s_e_e_action",
                       "input": {
-                        "tool": "knowledge_component_refresh_finalize",
+                        "tool": "item_call",
                         "arguments": {
-                          "component": "{{runtime.component}}",
-                          "name": "{{runtime.component}}",
-                          "owned_by": "{{task.inspect_component.output.owned_by}}",
-                          "consumed_by": "{{task.inspect_component.output.consumed_by}}",
-                          "body": "{{task.inspect_component.output.body}}",
-                          "inputs": "{{task.claim_queue.output.change_record_ids}}",
-                          "verified_against": "{{task.claim_queue.output.spoke_sha_set}}",
-                          "live_spoke_sha_set": "{{task.resolve_live_heads.output.spoke_sha_set}}"
+                          "project": "{{project.id}}",
+                          "kind": "knowledge_component",
+                          "action": "knowledge_component_refresh_finalize",
+                          "arguments": {
+                            "component": "{{runtime.component}}",
+                            "name": "{{runtime.component}}",
+                            "owned_by": "{{task.inspect_component.output.owned_by}}",
+                            "consumed_by": "{{task.inspect_component.output.consumed_by}}",
+                            "body": "{{task.inspect_component.output.body}}",
+                            "inputs": "{{task.claim_queue.output.change_record_ids}}",
+                            "verified_against": "{{task.claim_queue.output.spoke_sha_set}}",
+                            "live_spoke_sha_set": "{{task.resolve_live_heads.output.spoke_sha_set}}"
+                          }
                         }
                       }
                     },

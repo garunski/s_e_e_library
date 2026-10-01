@@ -18,8 +18,13 @@
         "function": {
           "name": "s_e_e_action",
           "input": {
-            "tool": "knowledge_component_list",
-            "arguments": {}
+            "tool": "item_call",
+            "arguments": {
+              "project": "{{project.id}}",
+              "kind": "knowledge_component",
+              "action": "knowledge_component_list",
+              "arguments": {}
+            }
           }
         },
         "next_tasks": [
@@ -30,8 +35,13 @@
             "function": {
               "name": "s_e_e_action",
               "input": {
-                "tool": "knowledge_change_list",
-                "arguments": {}
+                "tool": "item_call",
+                "arguments": {
+                  "project": "{{project.id}}",
+                  "kind": "knowledge_change",
+                  "action": "knowledge_change_list",
+                  "arguments": {}
+                }
               }
             },
             "next_tasks": [

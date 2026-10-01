@@ -33,10 +33,15 @@
         "function": {
           "name": "s_e_e_action",
           "input": {
-            "tool": "knowledge_audit_select_targets",
+            "tool": "item_call",
             "arguments": {
-              "component": "{{runtime.component}}",
-              "max_targets": "{{runtime.max_targets}}"
+              "project": "{{project.id}}",
+              "kind": "knowledge_component",
+              "action": "knowledge_audit_select_targets",
+              "arguments": {
+                "component": "{{runtime.component}}",
+                "max_targets": "{{runtime.max_targets}}"
+              }
             }
           }
         },
@@ -77,9 +82,14 @@
                     "function": {
                       "name": "s_e_e_action",
                       "input": {
-                        "tool": "knowledge_audit_component_heads",
+                        "tool": "item_call",
                         "arguments": {
-                          "component_id": "{{runtime.audit_component_id}}"
+                          "project": "{{project.id}}",
+                          "kind": "knowledge_component",
+                          "action": "knowledge_audit_component_heads",
+                          "arguments": {
+                            "component_id": "{{runtime.audit_component_id}}"
+                          }
                         }
                       }
                     },
@@ -106,10 +116,15 @@
                             "function": {
                               "name": "s_e_e_action",
                               "input": {
-                                "tool": "knowledge_component_repair_consumed_by",
+                                "tool": "item_call",
                                 "arguments": {
-                                  "component_id": "{{runtime.audit_component_id}}",
-                                  "consumer": "{{task.inspect_flows.output.missing_consumer}}"
+                                  "project": "{{project.id}}",
+                                  "kind": "knowledge_component",
+                                  "id": "{{runtime.audit_component_id}}",
+                                  "action": "knowledge_component_repair_consumed_by",
+                                  "arguments": {
+                                    "consumer": "{{task.inspect_flows.output.missing_consumer}}"
+                                  }
                                 }
                               }
                             },
@@ -120,11 +135,16 @@
                                 "function": {
                                   "name": "s_e_e_action",
                                   "input": {
-                                    "tool": "knowledge_audit_record_finding",
+                                    "tool": "item_call",
                                     "arguments": {
-                                      "kind": "unverified",
-                                      "component_id": "{{runtime.audit_component_id}}",
-                                      "detail": "{{task.inspect_flows.output.unverified}}"
+                                      "project": "{{project.id}}",
+                                      "kind": "knowledge_component",
+                                      "action": "knowledge_audit_record_finding",
+                                      "arguments": {
+                                        "kind": "unverified",
+                                        "component_id": "{{runtime.audit_component_id}}",
+                                        "detail": "{{task.inspect_flows.output.unverified}}"
+                                      }
                                     }
                                   }
                                 },
@@ -149,8 +169,13 @@
             "function": {
               "name": "s_e_e_action",
               "input": {
-                "tool": "knowledge_audit_create",
-                "arguments": {}
+                "tool": "item_call",
+                "arguments": {
+                  "project": "{{project.id}}",
+                  "kind": "knowledge_component",
+                  "action": "knowledge_audit_create",
+                  "arguments": {}
+                }
               }
             },
             "next_tasks": []
