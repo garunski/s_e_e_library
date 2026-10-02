@@ -560,7 +560,7 @@ Example members for `implement-story` (from `scripts/bundles.json`):
 
 The `knowledge-system` bundle is hand-authored in `catalog.json` and installs
 the seven knowledge loop definitions, their prompts, the commands they spawn,
-disabled schedules, and `.s_e_e/knowledge/INSTRUCTIONS.md`.
+and disabled schedules.
 
 ## Install map
 
