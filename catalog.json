@@ -189,10 +189,6 @@
           "from": "packages/author-stories-from-doc/1.0.1/work/SKILL.md"
         },
         {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/author-stories-from-doc/1.0.1/cursor-agent/command.json"
-        },
-        {
           "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json",
           "from": "packages/author-stories-from-doc/1.0.1/system-stories-from-doc-authoring/prompt.json"
         },
@@ -219,9 +215,7 @@
         "knowledge",
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
@@ -233,7 +227,16 @@
           "date": "2026-09-29",
           "note": "Refresh embedded doc and work skills."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-author-story",
@@ -253,10 +256,6 @@
         {
           "to": ".agents/skills/work/SKILL.md",
           "from": "packages/author-story/1.0.1/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/author-story/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-story-authoring.json",
@@ -284,9 +283,7 @@
       "labels": [
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
@@ -298,7 +295,16 @@
           "date": "2026-09-29",
           "note": "Refresh embedded work skill."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-author-workflow",
@@ -314,10 +320,6 @@
         {
           "to": ".agents/skills/workflow/SKILL.md",
           "from": "packages/author-workflow/1.0.1/workflow/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/author-workflow/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-workflow-authoring.json",
@@ -342,10 +344,10 @@
       ],
       "name": "Author workflow",
       "description": "Packages linked by template references: workflows, prompts, commands.",
-      "labels": [],
-      "toolIds": [
-        "cursor"
+      "labels": [
+        "bundle"
       ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
@@ -357,7 +359,16 @@
           "date": "2026-09-29",
           "note": "Refresh workflow authoring prompt and include the workflow skill."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-generate-milestone-summary",
@@ -370,9 +381,7 @@
       "requires": [
         "cursor-agent"
       ],
-      "dependencies": [
-        "cmd-cursor-agent"
-      ],
+      "dependencies": [],
       "files": [
         {
           "to": ".s_e_e/prompts/system-milestone-summary-doc.json",
@@ -389,16 +398,23 @@
         "knowledge",
         "milestone"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-implement-story",
@@ -414,10 +430,6 @@
         {
           "to": ".agents/skills/work/SKILL.md",
           "from": "packages/implement-story/1.0.1/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/implement-story/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-implement-story.json",
@@ -450,9 +462,7 @@
         "bulk",
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
@@ -464,7 +474,16 @@
           "date": "2026-09-29",
           "note": "Refresh embedded work skill and implementation prompt."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-knowledge-system",
@@ -480,10 +499,6 @@
       ],
       "dependencies": [],
       "files": [
-        {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/knowledge-system/1.0.0/cursor-agent/command.json"
-        },
         {
           "to": ".s_e_e/prompts/system-audit-system.json",
           "from": "packages/knowledge-system/1.0.0/system-audit-system-prompt/prompt.json"
@@ -571,16 +586,23 @@
         "knowledge",
         "system"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-orchestrator",
@@ -642,7 +664,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-work-milestone-stories",
@@ -656,9 +687,7 @@
         "mise",
         "git"
       ],
-      "dependencies": [
-        "cmd-cursor-agent"
-      ],
+      "dependencies": [],
       "files": [
         {
           "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json",
@@ -672,16 +701,23 @@
         "milestone",
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "bundle-work-swimlane-stories",
@@ -697,10 +733,6 @@
         {
           "to": ".agents/skills/work/SKILL.md",
           "from": "packages/work-swimlane-stories/1.0.1/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/work-swimlane-stories/1.0.1/cursor-agent/command.json"
         },
         {
           "to": ".s_e_e/prompts/system-work-story.json",
@@ -730,9 +762,7 @@
         "story",
         "swimlane"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
@@ -744,7 +774,16 @@
           "date": "2026-09-29",
           "note": "Refresh embedded work skill and implementation prompt."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "cmd-claude-code",
@@ -764,10 +803,24 @@
       ],
       "name": "Claude Code",
       "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
-      "labels": [],
+      "labels": [
+        "command"
+      ],
       "toolIds": [
         "claude"
       ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "claude"
+        ]
+      },
+      "technologyScope": {
+        "scope": "general"
+      },
       "releases": [
         {
           "version": "1.0.0",
@@ -793,10 +846,24 @@
         }
       ],
       "name": "Cursor Agent",
-      "labels": [],
+      "labels": [
+        "command"
+      ],
       "toolIds": [
         "cursor"
       ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "cursor"
+        ]
+      },
+      "technologyScope": {
+        "scope": "general"
+      },
       "releases": [
         {
           "version": "1.0.0",
@@ -836,7 +903,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "cycle"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "cycle-orchestrator-default",
@@ -872,7 +948,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "cycle"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "prompt-system-implement-story",
@@ -893,7 +978,9 @@
         }
       ],
       "name": "Implement story",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -906,7 +993,16 @@
           "date": "2026-09-29",
           "note": "Use the work skill and project store without direct story file edits."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-mcp-claude-delivery",
@@ -926,7 +1022,9 @@
       ],
       "name": "MCP delivery (Claude Code)",
       "description": "How Claude Code receives hub MCP config.",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [
         "claude"
       ],
@@ -936,7 +1034,19 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "claude"
+        ]
+      }
     },
     {
       "id": "prompt-system-mcp-contract",
@@ -956,7 +1066,9 @@
       ],
       "name": "MCP contract (any client)",
       "description": "Shared MCP store contract expanded by other prompts.",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -964,7 +1076,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-mcp-cursor-caveats",
@@ -984,7 +1105,9 @@
       ],
       "name": "Cursor MCP caveats (measured)",
       "description": "Measured Cursor MCP caveats expanded by other prompts.",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [
         "cursor"
       ],
@@ -994,7 +1117,19 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "cursor"
+        ]
+      }
     },
     {
       "id": "prompt-system-mcp-cursor-delivery",
@@ -1014,7 +1149,9 @@
       ],
       "name": "MCP delivery (Cursor)",
       "description": "How Cursor Agent receives hub MCP config.",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [
         "cursor"
       ],
@@ -1024,7 +1161,19 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "cursor"
+        ]
+      }
     },
     {
       "id": "prompt-system-milestone-authoring",
@@ -1054,7 +1203,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-milestone-summary-doc",
@@ -1084,7 +1242,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-orchestrator-chat",
@@ -1108,7 +1275,9 @@
       ],
       "name": "Orchestrator chat",
       "description": "Chat agent preamble loaded from the hub prompt store.",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -1116,7 +1285,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-orchestrator-learning",
@@ -1136,7 +1314,9 @@
       ],
       "name": "Orchestrator learning",
       "description": "Durable notes preamble loaded from the hub prompt store.",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -1144,7 +1324,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-quality-full-fix",
@@ -1163,7 +1352,9 @@
         }
       ],
       "name": "Quality full - fix to green",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -1171,7 +1362,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-stories-from-doc-authoring",
@@ -1190,7 +1390,9 @@
         }
       ],
       "name": "Author stories from doc",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -1198,7 +1400,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-story-authoring",
@@ -1217,7 +1428,9 @@
         }
       ],
       "name": "Author story",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -1225,7 +1438,16 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-work-story",
@@ -1246,7 +1468,9 @@
         }
       ],
       "name": "Work story (/work skill)",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -1259,7 +1483,16 @@
           "date": "2026-09-29",
           "note": "Use the work skill and project store without direct story file edits."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "prompt-system-workflow-authoring",
@@ -1280,7 +1513,9 @@
         }
       ],
       "name": "Author workflow",
-      "labels": [],
+      "labels": [
+        "prompt"
+      ],
       "toolIds": [],
       "releases": [
         {
@@ -1293,7 +1528,16 @@
           "date": "2026-09-29",
           "note": "Use the workflow skill and workflow store."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "technologyScope": {
+        "scope": "general"
+      },
+      "cliScope": {
+        "scope": "any"
+      }
     },
     {
       "id": "skill-doc",
@@ -1313,7 +1557,9 @@
       ],
       "name": "doc",
       "description": "Create or revise S.E.E. knowledge docs and architecture decisions through the project store.",
-      "labels": [],
+      "labels": [
+        "skill"
+      ],
       "toolIds": [
         "claude",
         "cursor"
@@ -1329,7 +1575,20 @@
           "date": "2026-09-29",
           "note": "Use store tools and focused current-state guidance."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "claude",
+          "cursor"
+        ]
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "skill-stories",
@@ -1349,7 +1608,9 @@
       ],
       "name": "stories",
       "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
-      "labels": [],
+      "labels": [
+        "skill"
+      ],
       "toolIds": [
         "claude",
         "cursor"
@@ -1360,7 +1621,20 @@
           "date": "2026-09-01",
           "note": "Initial catalog release."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "claude",
+          "cursor"
+        ]
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "skill-work",
@@ -1380,7 +1654,9 @@
       ],
       "name": "work",
       "description": "Implement an existing S.E.E. story against its plan and acceptance criteria through the project store.",
-      "labels": [],
+      "labels": [
+        "skill"
+      ],
       "toolIds": [
         "claude",
         "cursor"
@@ -1396,7 +1672,20 @@
           "date": "2026-09-29",
           "note": "Use store tools and repository-specific verification."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "claude",
+          "cursor"
+        ]
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "skill-workflow",
@@ -1416,7 +1705,9 @@
       ],
       "name": "workflow",
       "description": "Create or revise S.E.E. workflow definitions and Library workflow packages.",
-      "labels": [],
+      "labels": [
+        "skill"
+      ],
       "toolIds": [
         "claude",
         "cursor"
@@ -1432,13 +1723,26 @@
           "date": "2026-09-29",
           "note": "Use workflow store tools and explicit command selection."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "claude",
+          "cursor"
+        ]
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-author-stories-from-doc",
       "slug": "system-author-stories-from-doc",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1461,22 +1765,34 @@
         "knowledge",
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-author-story",
       "slug": "system-author-story",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1498,22 +1814,34 @@
       "labels": [
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-author-workflow",
       "slug": "system-author-workflow",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1532,23 +1860,37 @@
       ],
       "name": "Author workflow",
       "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
-      "labels": [],
-      "toolIds": [
-        "cursor"
+      "labels": [
+        "workflow"
       ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-generate-milestone-summary-doc",
       "slug": "system-generate-milestone-summary-doc",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1568,22 +1910,34 @@
         "knowledge",
         "milestone"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-implement-stories-bulk",
       "slug": "system-implement-stories-bulk",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1606,22 +1960,34 @@
         "bulk",
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-implement-story",
       "slug": "system-implement-story",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1643,22 +2009,34 @@
       "labels": [
         "story"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "cycle"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-observe-outcome",
       "slug": "system-observe-outcome",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1681,14 +2059,28 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "cycle"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-rank-candidates",
       "slug": "system-rank-candidates",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1711,14 +2103,28 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "cycle"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-set-milestone-stories-status",
       "slug": "system-set-milestone-stories-status",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1742,14 +2148,28 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-shape-and-prepare-work",
       "slug": "system-shape-and-prepare-work",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1772,14 +2192,28 @@
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "cycle"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-update-repository-agents",
       "slug": "system-update-repository-agents",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1806,14 +2240,31 @@
           "version": "1.0.0",
           "date": "2026-09-29",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "cursor"
+        ]
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     },
     {
       "id": "wf-system-work-swimlane-stories",
       "slug": "system-work-swimlane-stories",
       "category": "workflow",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "garunski",
       "verified": true,
       "license": "AGPL-3.0-only",
@@ -1837,16 +2288,28 @@
         "story",
         "swimlane"
       ],
-      "toolIds": [
-        "cursor"
-      ],
+      "toolIds": [],
       "releases": [
         {
           "version": "1.0.0",
           "date": "2026-09-01",
           "note": "Initial catalog release."
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-10-01",
+          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
         }
-      ]
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "any"
+      },
+      "technologyScope": {
+        "scope": "general"
+      }
     }
   ]
 }

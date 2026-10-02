@@ -8,9 +8,7 @@
     "story"
   ],
   "dependencies": [],
-  "toolIds": [
-    "cursor"
-  ],
+  "toolIds": [],
   "releases": [
     {
       "version": "1.0.0",
@@ -22,5 +20,14 @@
       "date": "2026-09-29",
       "note": "Refresh embedded work skill."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
 }

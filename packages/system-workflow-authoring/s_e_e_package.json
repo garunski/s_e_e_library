@@ -4,7 +4,9 @@
   "category": "prompt",
   "name": "Author workflow",
   "description": "",
-  "labels": [],
+  "labels": [
+    "prompt"
+  ],
   "dependencies": [
     "skill-workflow"
   ],
@@ -20,5 +22,14 @@
       "date": "2026-09-29",
       "note": "Use the workflow skill and workflow store."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "technologyScope": {
+    "scope": "general"
+  },
+  "cliScope": {
+    "scope": "any"
+  }
 }

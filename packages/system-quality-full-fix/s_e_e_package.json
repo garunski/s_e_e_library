@@ -4,7 +4,9 @@
   "category": "prompt",
   "name": "Quality full - fix to green",
   "description": "",
-  "labels": [],
+  "labels": [
+    "prompt"
+  ],
   "dependencies": [],
   "toolIds": [],
   "releases": [
@@ -13,5 +15,14 @@
       "date": "2026-09-01",
       "note": "Initial catalog release."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "technologyScope": {
+    "scope": "general"
+  },
+  "cliScope": {
+    "scope": "any"
+  }
 }

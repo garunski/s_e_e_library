@@ -9,7 +9,6 @@
     "component"
   ],
   "subject_required": true,
-  "version": "1.0.0",
   "content": {
     "id": "trace-contract",
     "name": "Trace contract across consumer spokes",
@@ -94,7 +93,6 @@
                     "function": {
                       "name": "command",
                       "input": {
-                        "command_id": "cursor-agent",
                         "prompt": "{{prompt.system-trace-contract}}",
                         "config": {
                           "cursor_model": "composer-2.5[fast=false]",

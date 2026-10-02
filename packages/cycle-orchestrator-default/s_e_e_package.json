@@ -15,6 +15,15 @@
     "wf-system-shape-and-prepare-work"
   ],
   "toolIds": [],
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  },
   "releases": [
     {
       "version": "1.0.0",

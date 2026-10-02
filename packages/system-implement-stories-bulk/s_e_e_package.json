@@ -11,14 +11,21 @@
   "dependencies": [
     "prompt-system-implement-story"
   ],
-  "toolIds": [
-    "cursor"
-  ],
+  "toolIds": [],
   "releases": [
     {
       "version": "1.0.0",
       "date": "2026-09-01",
       "note": "Initial catalog release."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
 }

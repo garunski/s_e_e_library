@@ -4,18 +4,27 @@
   "category": "workflow",
   "name": "Author workflow",
   "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
-  "labels": [],
+  "labels": [
+    "workflow"
+  ],
   "dependencies": [
     "prompt-system-workflow-authoring"
   ],
-  "toolIds": [
-    "cursor"
-  ],
+  "toolIds": [],
   "releases": [
     {
       "version": "1.0.0",
       "date": "2026-09-01",
       "note": "Initial catalog release."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
 }

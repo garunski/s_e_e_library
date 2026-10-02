@@ -9,7 +9,6 @@
     "component"
   ],
   "subject_required": true,
-  "version": "1.0.0",
   "content": {
     "id": "refresh-component",
     "name": "Refresh component",
@@ -55,7 +54,6 @@
             "function": {
               "name": "command",
               "input": {
-                "command_id": "cursor-agent",
                 "prompt": "{{prompt.system-refresh-component}}",
                 "config": {
                   "cursor_model": "composer-2.5[fast=false]",

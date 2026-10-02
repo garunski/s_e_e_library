@@ -62,6 +62,13 @@ export default function Page() {
           keys must not contain dots.
         </dd>
         <dt>
+          <code>default_command_id</code>
+        </dt>
+        <dd>
+          Optional installed command id for <code>command</code> tasks that omit{" "}
+          <code>command_id</code>. Empty strings are invalid.
+        </dd>
+        <dt>
           <code>tasks</code>
         </dt>
         <dd>Ordered graph of engine tasks.</dd>
@@ -86,8 +93,11 @@ export default function Page() {
           <code>cli_command</code>: shell command and args
         </li>
         <li>
-          <code>command</code>: run a catalog command by{" "}
-          <code>command_id</code> with optional <code>prompt</code>
+          <code>command</code>: run an installed command definition. Omit{" "}
+          <code>command_id</code> to leave the task unbound, set{" "}
+          <code>default_command_id</code> on the workflow, or pin a non-empty{" "}
+          <code>command_id</code> to fix the task to one CLI. Optional{" "}
+          <code>prompt</code> when the definition uses prompt delivery.
         </li>
         <li>
           <code>user_input</code>: pause the run to collect an operator answer
@@ -111,6 +121,51 @@ export default function Page() {
         still one chain. <code>repair_loop</code> is the other handler with a
         chain rule: one leaf body, then one verifier. Other tasks may branch.
       </p>
+
+      <h3>Command selection</h3>
+      <p>
+        Generic library workflows should not hardcode <code>cursor-agent</code> on
+        every agent task. Use an <strong>unbound</strong>{" "}
+        <code>command</code> task (no <code>command_id</code> in{" "}
+        <code>function.input</code>) and let the hub resolve a command at launch.
+        A <strong>fixed</strong> task sets a non-empty <code>command_id</code>{" "}
+        and always runs that command, even when the operator picks another
+        command for the run.
+      </p>
+      <p>
+        For an unbound task, resolution order is: launch selection, then workflow{" "}
+        <code>default_command_id</code>, then the project{" "}
+        <code>default_command_id</code> in hub <code>config.json</code>. Launch
+        selection comes from the execute request <code>command_id</code>, an
+        optional <code>command_id</code> on a workflow schedule, or an optional{" "}
+        <code>command_id</code> on a cycle stage entry. Explicit task{" "}
+        <code>command_id</code> values are not overridden by launch selection.
+      </p>
+      <h4>Unbound task (inherits at launch)</h4>
+      <pre>{`{
+  "id": "agent_step",
+  "name": "Agent work",
+  "function": {
+    "name": "command",
+    "input": {
+      "prompt": "{{prompt.system-implement-story}}"
+    }
+  },
+  "next_tasks": []
+}`}</pre>
+      <h4>Fixed task (always this command)</h4>
+      <pre>{`{
+  "id": "audit_agent",
+  "name": "Audit with dedicated command",
+  "function": {
+    "name": "command",
+    "input": {
+      "command_id": "audit-system-agent",
+      "prompt": "{{prompt.system-audit}}"
+    }
+  },
+  "next_tasks": []
+}`}</pre>
 
       <h3>Template references</h3>
       <ul>
@@ -137,23 +192,23 @@ export default function Page() {
         accepts an absolute <code>repository_root</code>, inspects the
         repository without editing it, and pauses for answers to questions
         based on that inspection. After the answer, it rechecks the source
-        files and updates only the root <code>AGENTS.md</code>. Its optional
-        <code>command_id</code> input defaults to <code>cursor-agent</code>;
-        that command must be installed before the run.
+        files and updates only the root <code>AGENTS.md</code>. It declares a{" "}
+        <code>command_id</code> runtime input so the operator or project
+        default selects the inspecting agent at launch.
       </p>
 
       <h2>Reference example</h2>
       <p>
         From{" "}
         <code>
-          packages/implement-story/1.0.0/system-implement-story/definition.json
+          packages/system-implement-story/1.0.0/definition.json
         </code>{" "}
-        (inner <code>content</code> pretty-printed):
+        (inner <code>content</code> pretty-printed; agent task is unbound):
       </p>
       <pre>{`{
   "id": "system-implement-story",
   "name": "Implement story",
-  "description": "Runs a Cursor CLI agent to implement a single story.",
+  "description": "Runs an installed agent command to implement a single story.",
   "content": {
     "id": "implement-story",
     "name": "Implement story",
@@ -168,11 +223,10 @@ export default function Page() {
     "tasks": [
       {
         "id": "implement_story",
-        "name": "Implement story (Cursor CLI)",
+        "name": "Implement story",
         "function": {
           "name": "command",
           "input": {
-            "command_id": "cursor-agent",
             "config": { "cursor_model": "composer-2.5[fast=false]" },
             "prompt": "{{prompt.system-implement-story}}"
           }

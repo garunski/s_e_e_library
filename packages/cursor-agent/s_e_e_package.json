@@ -4,11 +4,25 @@
   "category": "command",
   "name": "Cursor Agent",
   "description": "",
-  "labels": [],
+  "labels": [
+    "command"
+  ],
   "dependencies": [],
   "toolIds": [
     "cursor"
   ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "specific",
+    "cliIds": [
+      "cursor"
+    ]
+  },
+  "technologyScope": {
+    "scope": "general"
+  },
   "releases": [
     {
       "version": "1.0.0",

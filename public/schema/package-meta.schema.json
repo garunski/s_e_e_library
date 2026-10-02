@@ -8,7 +8,16 @@
     "id": { "type": "string", "minLength": 1 },
     "slug": { "type": "string", "minLength": 1 },
     "category": {
-      "enum": ["workflow", "prompt", "skill", "rule", "template", "command", "bundle"]
+      "enum": [
+        "workflow",
+        "prompt",
+        "skill",
+        "rule",
+        "template",
+        "command",
+        "bundle",
+        "cycle"
+      ]
     },
     "name": { "type": "string", "minLength": 1 },
     "description": { "type": "string" },
@@ -24,6 +33,19 @@
       "type": "array",
       "items": { "type": "string", "minLength": 1 }
     },
+    "usageContexts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["cycle", "standalone"]
+      }
+    },
+    "cliScope": { "$ref": "#/$defs/cliScope" },
+    "technologyScope": { "$ref": "#/$defs/technologyScope" },
+    "technologyIds": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
     "releases": {
       "type": "array",
       "items": {
@@ -35,6 +57,53 @@
           "note": { "type": "string", "minLength": 1 }
         }
       }
+    }
+  },
+  "$defs": {
+    "cliScope": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["scope"],
+          "properties": { "scope": { "const": "any" } },
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "required": ["scope", "cliIds"],
+          "properties": {
+            "scope": { "const": "specific" },
+            "cliIds": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "technologyScope": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["scope"],
+          "properties": { "scope": { "const": "general" } },
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "required": ["scope"],
+          "properties": {
+            "scope": { "const": "specific" },
+            "technologyIds": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
     }
   }
 }

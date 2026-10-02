@@ -4,12 +4,27 @@
   "category": "skill",
   "name": "work",
   "description": "Implement an existing S.E.E. story against its plan and acceptance criteria through the project store.",
-  "labels": [],
+  "labels": [
+    "skill"
+  ],
   "dependencies": [],
   "toolIds": [
     "claude",
     "cursor"
   ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "specific",
+    "cliIds": [
+      "claude",
+      "cursor"
+    ]
+  },
+  "technologyScope": {
+    "scope": "general"
+  },
   "releases": [
     {
       "version": "1.0.0",

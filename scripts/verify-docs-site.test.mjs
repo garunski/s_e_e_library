@@ -117,6 +117,14 @@ test("llms.txt states the catalog contract without stale markup", () => {
   assert.ok(!llms.includes("/humans/"));
 });
 
+test("llms.txt documents package classification and legacy inference", () => {
+  const llms = readFileSync(join(ROOT, "public", "llms.txt"), "utf8");
+  assert.match(llms, /usageContexts/);
+  assert.match(llms, /technologies\[\]/);
+  assert.match(llms, /Legacy classification inference/);
+  assert.match(llms, /Classification \(required for new packages\)/);
+});
+
 test("public branding includes raster favicons", () => {
   for (const name of ["logo-32.png", "logo-64.png", "logo-128.png", "logo-256.png"]) {
     assert.ok(existsSync(join(ROOT, "public", name)), `missing public/${name}`);

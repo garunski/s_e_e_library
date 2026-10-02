@@ -4,12 +4,27 @@
   "category": "skill",
   "name": "stories",
   "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
-  "labels": [],
+  "labels": [
+    "skill"
+  ],
   "dependencies": [],
   "toolIds": [
     "claude",
     "cursor"
   ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "specific",
+    "cliIds": [
+      "claude",
+      "cursor"
+    ]
+  },
+  "technologyScope": {
+    "scope": "general"
+  },
   "releases": [
     {
       "version": "1.0.0",

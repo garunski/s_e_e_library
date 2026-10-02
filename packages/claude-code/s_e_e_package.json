@@ -4,11 +4,25 @@
   "category": "command",
   "name": "Claude Code",
   "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
-  "labels": [],
+  "labels": [
+    "command"
+  ],
   "dependencies": [],
   "toolIds": [
     "claude"
   ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "specific",
+    "cliIds": [
+      "claude"
+    ]
+  },
+  "technologyScope": {
+    "scope": "general"
+  },
   "releases": [
     {
       "version": "1.0.0",

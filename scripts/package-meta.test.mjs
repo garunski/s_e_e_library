@@ -1,4 +1,7 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 import {
   catalogWithoutUpdated,
@@ -7,6 +10,33 @@ import {
   normalizeToolIds,
   stableStringify,
 } from "./package-meta.mjs";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+test("public catalog schema declares v2 classification fields", () => {
+  const schema = JSON.parse(
+    readFileSync(join(ROOT, "public/schema/catalog.schema.json"), "utf8"),
+  );
+  assert.ok(schema.properties.technologies);
+  const pkg = schema.$defs.package.properties;
+  assert.ok(pkg.usageContexts);
+  assert.ok(pkg.cliScope);
+  assert.ok(pkg.technologyScope);
+  assert.ok(pkg.technologyIds);
+  assert.ok(schema.$defs.technology);
+});
+
+test("package meta schema declares classification fields", () => {
+  const schema = JSON.parse(
+    readFileSync(join(ROOT, "public/schema/package-meta.schema.json"), "utf8"),
+  );
+  const props = schema.properties;
+  assert.ok(props.usageContexts);
+  assert.ok(props.cliScope);
+  assert.ok(props.technologyScope);
+  assert.ok(props.technologyIds);
+  assert.ok(schema.properties.category.enum.includes("cycle"));
+});
 
 test("normalizeToolIds sorts unique ids and rejects blanks", () => {
   assert.deepEqual(normalizeToolIds(["claude", "cursor", "claude"]), [

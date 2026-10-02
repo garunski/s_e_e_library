@@ -1,0 +1,26 @@
+{
+  "schema": "see.library/v2",
+  "name": "Classification authoring example",
+  "updated": "2026-10-01T00:00:00Z",
+  "tools": [{ "id": "cursor", "name": "Cursor" }],
+  "technologies": [{ "id": "rust", "name": "Rust" }],
+  "packages": [
+    {
+      "id": "wf-example-classified",
+      "slug": "example-classified",
+      "category": "workflow",
+      "version": "1.0.0",
+      "author": "example",
+      "verified": false,
+      "license": "MIT",
+      "requires": [],
+      "dependencies": [],
+      "files": [],
+      "usageContexts": ["standalone"],
+      "cliScope": { "scope": "specific", "cliIds": ["cursor"] },
+      "technologyScope": { "scope": "specific" },
+      "technologyIds": ["rust"],
+      "toolIds": ["cursor"]
+    }
+  ]
+}

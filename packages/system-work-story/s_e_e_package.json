@@ -4,7 +4,9 @@
   "category": "prompt",
   "name": "Work story (/work skill)",
   "description": "",
-  "labels": [],
+  "labels": [
+    "prompt"
+  ],
   "dependencies": [
     "skill-work"
   ],
@@ -20,5 +22,14 @@
       "date": "2026-09-29",
       "note": "Use the work skill and project store without direct story file edits."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "technologyScope": {
+    "scope": "general"
+  },
+  "cliScope": {
+    "scope": "any"
+  }
 }

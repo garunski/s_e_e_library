@@ -5,7 +5,6 @@
   "labels": [
     "system"
   ],
-  "version": "1.0.0",
   "content": {
     "id": "audit-system",
     "name": "Audit component documents",
@@ -101,7 +100,7 @@
                         "function": {
                           "name": "command",
                           "input": {
-                            "command_id": "cursor-agent",
+                            "command_id": "audit-system-agent",
                             "prompt": "{{prompt.system-audit-system}}",
                             "config": {
                               "cursor_model": "composer-2.5[fast=false]",

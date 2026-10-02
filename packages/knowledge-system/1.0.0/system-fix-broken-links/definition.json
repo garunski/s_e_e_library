@@ -5,7 +5,6 @@
   "labels": [
     "system"
   ],
-  "version": "1.0.0",
   "content": {
     "id": "fix-broken-links",
     "name": "Fix broken links",
@@ -43,7 +42,6 @@
                 "function": {
                   "name": "command",
                   "input": {
-                    "command_id": "cursor-agent",
                     "prompt": "{{prompt.system-fix-broken-links}}\n\nFix only dangling target {{runtime.dangling_target}}.",
                     "config": {
                       "cursor_model": "composer-2.5[fast=false]",

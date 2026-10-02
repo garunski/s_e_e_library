@@ -56,6 +56,11 @@ export default function Page() {
               <code>key</code> must not contain dots.
             </li>
             <li>
+              <code>default_command_id</code> - optional installed command id
+              for <code>command</code> tasks that omit{" "}
+              <code>function.input.command_id</code>.
+            </li>
+            <li>
               <code>spoke_root</code>, <code>hub_root</code>,{" "}
               <code>stories_root</code>, <code>knowledge_root</code> - optional
               root paths. An exact <code>{"{{runtime.KEY}}"}</code> value
@@ -120,6 +125,30 @@ export default function Page() {
         definitions.
       </p>
       <p>A payload containing <code>tasks</code> is treated as a workflow (not a prompt).</p>
+
+      <h2>Command tasks</h2>
+      <p>
+        Handler <code>command</code> runs an installed definition from{" "}
+        <code>.s_e_e/commands/</code>. Omit <code>command_id</code> for an
+        unbound task; set a non-empty <code>command_id</code> to fix the task to
+        one command. An empty <code>command_id</code> string is invalid.
+      </p>
+      <p>
+        Unbound tasks resolve at launch in order: launch{" "}
+        <code>command_id</code> (execute request, schedule{" "}
+        <code>command_id</code>, or cycle stage <code>command_id</code>), then
+        workflow <code>default_command_id</code>, then project{" "}
+        <code>default_command_id</code> in hub <code>config.json</code>. A fixed
+        task <code>command_id</code> is never replaced by launch selection.
+      </p>
+      <pre>{`// Unbound (inherits)
+"function": { "name": "command", "input": { "prompt": "{{prompt.system-implement-story}}" } }
+
+// Fixed (always audit-system-agent)
+"function": {
+  "name": "command",
+  "input": { "command_id": "audit-system-agent", "prompt": "{{prompt.system-audit}}" }
+}`}</pre>
 
       <h2>Template expansion</h2>
       <pre>{`{{prompt.ID}}              injects a stored prompt; the id must exist in the hub

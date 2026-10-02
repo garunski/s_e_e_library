@@ -126,16 +126,49 @@ export default function Page() {
         <code>description</code>, <code>labels</code>.
       </p>
       <p>
-        Marketplace fields live on the sidecar and are copied into the
-        catalog. Do not hand-edit them on <code>catalog.json</code>.
+        Marketplace and classification fields live on the sidecar and are copied
+        into the catalog. Do not hand-edit them on <code>catalog.json</code>.
+      </p>
+      <h2>Classification (required for new packages)</h2>
+      <p>
+        Every new package must declare how it is used and what it is compatible
+        with. Add these fields to <code>s_e_e_package.json</code> (and declare
+        matching registry rows in <code>scripts/stacks.json</code> or catalog{" "}
+        <code>technologies[]</code> when using specific scopes):
       </p>
       <dl className="decision-list compact-list">
+        <dt>
+          <code>usageContexts</code>
+        </dt>
+        <dd>
+          Non-empty array of <code>cycle</code> or <code>standalone</code>. Use{" "}
+          <code>cycle</code> for cycle host documents; otherwise include{" "}
+          <code>standalone</code>.
+        </dd>
+        <dt>
+          <code>cliScope</code>
+        </dt>
+        <dd>
+          <code>{"{ scope: \"any\" }"}</code> or{" "}
+          <code>{"{ scope: \"specific\", cliIds: [\"cursor\"] }"}</code>. Each{" "}
+          <code>cliIds</code> entry must exist in <code>tools[]</code>.
+        </dd>
+        <dt>
+          <code>technologyScope</code>
+        </dt>
+        <dd>
+          <code>{"{ scope: \"general\" }"}</code> or{" "}
+          <code>{"{ scope: \"specific\" }"}</code>. When specific, list{" "}
+          <code>technologyIds</code> on the sidecar (or nested on the scope)
+          and declare each id under catalog <code>technologies[]</code>.
+        </dd>
         <dt>
           <code>toolIds</code>
         </dt>
         <dd>
-          Declared tool ids from the catalog <code>tools[]</code> registry.
-          Use <code>[]</code> when the package is uncategorized. Never guess
+          Declared CLI tool ids. Use <code>[]</code> with{" "}
+          <code>cliScope.scope: any</code>. When scope is specific,{" "}
+          <code>toolIds</code> should match <code>cliIds</code>. Never guess
           from the package name.
         </dd>
         <dt>
@@ -145,6 +178,11 @@ export default function Page() {
           <code>{"{ version, date, note }"}</code> history for the package.
         </dd>
       </dl>
+      <p>
+        Older catalog entries without these fields still install. The hub infers
+        usage and scopes from <code>category</code> and legacy{" "}
+        <code>toolIds</code> until you republish with explicit classification.
+      </p>
       <p>
         Stacks, the tool registry, and featured selection live in{" "}
         <code>scripts/stacks.json</code>:
@@ -167,7 +205,14 @@ export default function Page() {
     }
   ]
 }`}</pre>
-      <p>Example command entry:</p>
+      <p>Example classified workflow sidecar fields (see also catalog schema):</p>
+      <pre>{`{
+  "usageContexts": ["standalone"],
+  "cliScope": { "scope": "specific", "cliIds": ["cursor"] },
+  "technologyScope": { "scope": "general" },
+  "toolIds": ["cursor"]
+}`}</pre>
+      <p>Example command catalog entry (presentation fields only):</p>
       <pre>{`{
   "id": "cmd-cursor-agent",
   "slug": "cursor-agent",

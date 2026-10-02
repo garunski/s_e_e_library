@@ -4,7 +4,9 @@
   "category": "prompt",
   "name": "Orchestrator chat",
   "description": "Chat agent preamble loaded from the hub prompt store.",
-  "labels": [],
+  "labels": [
+    "prompt"
+  ],
   "dependencies": [
     "prompt-system-mcp-contract",
     "prompt-system-mcp-cursor-delivery",
@@ -17,5 +19,14 @@
       "date": "2026-09-01",
       "note": "Initial catalog release."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "technologyScope": {
+    "scope": "general"
+  },
+  "cliScope": {
+    "scope": "any"
+  }
 }

@@ -4,11 +4,11 @@
   "category": "bundle",
   "name": "Author workflow",
   "description": "Packages linked by template references: workflows, prompts, commands.",
-  "labels": [],
-  "dependencies": [],
-  "toolIds": [
-    "cursor"
+  "labels": [
+    "bundle"
   ],
+  "dependencies": [],
+  "toolIds": [],
   "releases": [
     {
       "version": "1.0.0",
@@ -20,5 +20,14 @@
       "date": "2026-09-29",
       "note": "Refresh workflow authoring prompt and include the workflow skill."
     }
-  ]
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
 }

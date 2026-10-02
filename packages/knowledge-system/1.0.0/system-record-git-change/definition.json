@@ -5,7 +5,6 @@
   "labels": [
     "system"
   ],
-  "version": "1.0.0",
   "content": {
     "id": "record-git-change",
     "name": "Record git range change",
@@ -60,7 +59,6 @@
             "function": {
               "name": "command",
               "input": {
-                "command_id": "cursor-agent",
                 "prompt": "{{prompt.system-record-git-change}}",
                 "config": {
                   "cursor_model": "composer-2.5[fast=false]",

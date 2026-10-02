@@ -169,9 +169,16 @@ export default function Page() {
           <code>packages[]</code> - array of package entries.
         </li>
         <li>
-          <code>tools[]</code> - optional tool registry. Each tool has{" "}
+          <code>tools[]</code> - optional CLI tool registry. Each tool has{" "}
           <code>id</code>, <code>name</code>, and optional{" "}
           <code>description</code>. v1 catalogs omit this and parse as empty.
+        </li>
+        <li>
+          <code>technologies[]</code> - optional technology registry for package
+          compatibility. Each entry has <code>id</code>, <code>name</code>, and
+          optional <code>description</code>. Package{" "}
+          <code>technologyIds</code> and specific <code>technologyScope</code>{" "}
+          must reference ids declared here.
         </li>
         <li>
           <code>stacks[]</code> - optional source-owned stacks with{" "}
@@ -235,15 +242,70 @@ export default function Page() {
           </ul>
         </li>
         <li>
-          <code>toolIds</code> - optional declared tool registry ids. Empty or
-          omitted means uncategorized; never inferred from title or install
-          path.
+          <code>toolIds</code> - optional declared CLI tool ids (legacy field).
+          Prefer <code>cliScope</code> for new packages. Empty or omitted with no{" "}
+          <code>cliScope</code> means any CLI. Never inferred from title or
+          install path.
+        </li>
+        <li>
+          <code>usageContexts</code> - optional array of <code>cycle</code> or{" "}
+          <code>standalone</code>. Required on new packages. Describes where the
+          package is meant to run in product flows.
+        </li>
+        <li>
+          <code>cliScope</code> - optional CLI compatibility:{" "}
+          <code>{"{ scope: \"any\" }"}</code> or{" "}
+          <code>{"{ scope: \"specific\", cliIds: [\"cursor\"] }"}</code>.{" "}
+          <code>cliIds</code> must match ids in <code>tools[]</code>.
+        </li>
+        <li>
+          <code>technologyScope</code> - optional technology compatibility:{" "}
+          <code>{"{ scope: \"general\" }"}</code> or{" "}
+          <code>{"{ scope: \"specific\" }"}</code> with{" "}
+          <code>technologyIds</code> on the package or nested in the scope
+          object.
+        </li>
+        <li>
+          <code>technologyIds</code> - optional technology registry ids when
+          scope is specific. Must match ids in <code>technologies[]</code>.
         </li>
         <li>
           <code>releases</code> - optional{" "}
           <code>{"{ version, date, note }"}</code> history for the package.
         </li>
       </ul>
+
+      <h2>Package classification</h2>
+      <p>
+        <code>category</code> is the package kind. <code>labels</code> are topic
+        tags. Classification fields describe use context and compatibility.
+        New packages must author <code>usageContexts</code>,{" "}
+        <code>cliScope</code>, and <code>technologyScope</code> on the sidecar
+        (copied into <code>catalog.json</code> by <code>npm run catalog</code>).
+      </p>
+      <p>
+        Legacy v2 entries without classification still load. The hub infers
+        effective values without rewriting catalog files:
+      </p>
+      <ul>
+        <li>
+          <code>usageContexts</code>: <code>cycle</code> when{" "}
+          <code>category</code> is <code>cycle</code>, otherwise{" "}
+          <code>standalone</code>.
+        </li>
+        <li>
+          <code>cliScope</code>: <code>any</code> when <code>toolIds</code> is
+          empty or omitted; <code>specific</code> with those ids when{" "}
+          <code>toolIds</code> is non-empty.
+        </li>
+        <li>
+          <code>technologyScope</code>: <code>general</code> when omitted.
+        </li>
+      </ul>
+      <p>
+        Browse and install APIs expose whether each dimension was authored or
+        inferred so maintainers can repair entries before republishing.
+      </p>
 
       <h2>Package metadata sidecar</h2>
       <p>
@@ -275,9 +337,14 @@ export default function Page() {
           <code>id</code>s.
         </li>
         <li>
-          <code>toolIds</code> - declared tool registry ids. Required. Use{" "}
-          <code>[]</code> when the package is deliberately uncategorized. The
-          build copies this array; it never infers a tool from name or path.
+          <code>toolIds</code> - declared CLI tool ids. Required. Use{" "}
+          <code>[]</code> when the package targets any CLI. The build copies
+          this array; it never infers a tool from name or path.
+        </li>
+        <li>
+          <code>usageContexts</code>, <code>cliScope</code>,{" "}
+          <code>technologyScope</code>, and optional <code>technologyIds</code>{" "}
+          - required for new packages. See Package classification above.
         </li>
         <li>
           <code>releases</code> - required{" "}
@@ -416,9 +483,11 @@ export default function Page() {
       <p>
         <code>dependencies</code> must reference package <code>id</code>s
         present in the catalog, and a package cannot depend on itself. v2
-        marketplace metadata rejects duplicate tool or stack ids, unknown
-        package <code>toolIds</code>, unknown stack package ids, and variants
-        that name an undeclared tool. Run{" "}
+        marketplace metadata rejects duplicate tool or technology ids, unknown
+        package <code>toolIds</code> or <code>technologyIds</code>, invalid
+        scope shapes, unknown stack package ids, and variants that name an
+        undeclared tool. The Rust catalog validator enforces cross-references
+        between scopes and registries. Run{" "}
         <code>npm run catalog</code> to validate payloads and refresh the
         manifest, or <code>npm run validate</code> (<code>--check</code>, no
         writes) in CI.

@@ -3,7 +3,7 @@
   "$id": "https://garunski.github.io/s_e_e_library/schema/workflow-engine.schema.json",
   "title": "Workflow Schema",
   "description": "Schema for workflow definitions with tasks and dependencies",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "type": "object",
   "required": [
     "id",
@@ -57,6 +57,11 @@
         "$ref": "#/definitions/RuntimeInputDeclaration"
       },
       "default": []
+    },
+    "default_command_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional command id stored on the workflow for command tasks that omit command_id"
     },
     "evidence_contract": {
       "type": "array",
@@ -260,6 +265,9 @@
         },
         {
           "$ref": "#/definitions/DeliberateFunction"
+        },
+        {
+          "$ref": "#/definitions/RankCandidatesFunction"
         }
       ]
     },
@@ -312,14 +320,11 @@
         },
         "input": {
           "type": "object",
-          "required": [
-            "command_id"
-          ],
           "properties": {
             "command_id": {
               "type": "string",
               "minLength": 1,
-              "description": "Id of the installed command definition under .s_e_e/commands/"
+              "description": "Id of the installed command definition under .s_e_e/commands/. Omit to leave the task unbound. An empty string is invalid."
             },
             "prompt": {
               "type": "string",
@@ -731,11 +736,30 @@
                 "workflows",
                 "prompt_assemblies",
                 "execution_plan",
-                "readiness"
+                "readiness",
+                "outcome"
               ],
               "description": "Deliberation step kind"
             }
           }
+        }
+      }
+    },
+    "RankCandidatesFunction": {
+      "type": "object",
+      "description": "Orchestrator rank stage: scores capabilities and writes ranked candidates",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "rank_candidates"
+        },
+        "input": {
+          "type": "object",
+          "default": {}
         }
       }
     }
