@@ -51,3 +51,8 @@ run = "bash scripts/site-dev.sh"
 [tasks.quality]
 description = "Baseline quality gate (read by the spoke baseline service)"
 run = "cargo test -p see_library_catalog_tool && cargo test -p see_library_site --lib && mise run build && mise run site-smoke-pages"
+
+[tasks.clean]
+description = "Clean library cargo, dx, and Pages artifact output"
+quiet = true
+run = "bash scripts/clean.sh"
