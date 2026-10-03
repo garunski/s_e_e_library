@@ -6,6 +6,7 @@ tailwind_output = "assets/tailwind.css"
 
 [web.app]
 title = "S.E.E. Official Library"
+base_path = "s_e_e_library"
 
 [web.dev]
 proxy = ""

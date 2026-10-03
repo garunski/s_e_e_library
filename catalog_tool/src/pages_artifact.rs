@@ -1,9 +1,9 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use see_library_site::documentation_route_paths;
 use s_e_e_library_ops::library_catalog::{parse_manifest, resolve_manifest_url};
 use s_e_e_shapes::{CatalogSource, CatalogSourceKind};
+use see_library_site::documentation_route_paths;
 
 pub const DEFAULT_PAGES_BASE: &str = "s_e_e_library";
 
@@ -137,11 +137,12 @@ pub fn run_package_pages(root: &Path, dx_public: &Path, staging: &Path) -> Resul
         copy_file_same_bytes(schema, &staging.join("schema").join(name))?;
     }
     for logo in logo_sources(root) {
-        let name = logo.file_name().ok_or_else(|| format!("logo path: {logo:?}"))?;
+        let name = logo
+            .file_name()
+            .ok_or_else(|| format!("logo path: {logo:?}"))?;
         copy_file_same_bytes(&logo, &staging.join(name))?;
     }
-    fs::write(staging.join(".nojekyll"), "")
-        .map_err(|e| format!("write .nojekyll: {e}"))?;
+    fs::write(staging.join(".nojekyll"), "").map_err(|e| format!("write .nojekyll: {e}"))?;
 
     verify_staged_bytes(root, staging)?;
     crate::verify_docs::verify_staged_docs(root, staging)?;
@@ -151,7 +152,10 @@ pub fn run_package_pages(root: &Path, dx_public: &Path, staging: &Path) -> Resul
 pub fn verify_documentation_routes(staging: &Path) -> Result<(), String> {
     let routes = documentation_route_paths();
     if routes.len() != 25 {
-        return Err(format!("expected 25 documentation routes, got {}", routes.len()));
+        return Err(format!(
+            "expected 25 documentation routes, got {}",
+            routes.len()
+        ));
     }
     for route in routes {
         let rel = route.trim_start_matches('/');
@@ -266,7 +270,49 @@ pub fn smoke_pages_artifact(
     }
 
     smoke_catalog_parser_and_package(library_root, base, &catalog_bytes)?;
+    verify_client_bundle(staging)?;
     Ok(())
+}
+
+pub fn verify_client_bundle(staging: &Path) -> Result<(), String> {
+    let html = fs::read_to_string(staging.join("index.html"))
+        .map_err(|e| format!("read index.html: {e}"))?;
+    let js_href = quoted_after(&html, "type=\"module\" async src=\"")?;
+    let js_rel = pages_asset_rel(js_href)?;
+    let js_path = staging.join(&js_rel);
+    if !js_path.is_file() {
+        return Err(format!("client module missing: {js_path:?}"));
+    }
+    let js = fs::read_to_string(&js_path).map_err(|e| format!("read client module: {e}"))?;
+    let wasm_href = quoted_after(&js, "module_or_path:\"")?;
+    let wasm_rel = pages_asset_rel(wasm_href)?;
+    let wasm_path = staging.join(&wasm_rel);
+    if !wasm_path.is_file() {
+        return Err(format!("client wasm missing: {wasm_path:?}"));
+    }
+    Ok(())
+}
+
+fn pages_asset_rel(href: &str) -> Result<String, String> {
+    let prefix = format!("/{DEFAULT_PAGES_BASE}/assets/");
+    let name = href
+        .strip_prefix(&prefix)
+        .ok_or_else(|| format!("client asset must be under {prefix}, got {href}"))?;
+    if name.is_empty() || name.contains('/') || name.contains('\\') || name.contains("..") {
+        return Err(format!("client asset path is not a single file: {href}"));
+    }
+    Ok(format!("assets/{name}"))
+}
+
+fn quoted_after<'a>(haystack: &'a str, marker: &str) -> Result<&'a str, String> {
+    let start = haystack
+        .find(marker)
+        .ok_or_else(|| format!("missing {marker}"))?;
+    let rest = &haystack[start + marker.len()..];
+    let end = rest
+        .find('"')
+        .ok_or_else(|| format!("unterminated {marker}"))?;
+    Ok(&rest[..end])
 }
 
 fn smoke_catalog_parser_and_package(

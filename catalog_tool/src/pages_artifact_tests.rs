@@ -8,7 +8,8 @@ use see_library_site::documentation_route_paths;
 use tempfile::TempDir;
 
 use crate::pages_artifact::{
-    run_package_pages, smoke_pages_artifact, verify_staged_bytes, DEFAULT_PAGES_BASE,
+    run_package_pages, smoke_pages_artifact, verify_client_bundle, verify_staged_bytes,
+    DEFAULT_PAGES_BASE,
 };
 use crate::verify_docs::{fixture_authoring_index_html, fixture_schema_index_html};
 
@@ -32,11 +33,7 @@ fn write_minimal_prerender(dx_public: &Path) {
         };
         fs::write(dir.join("index.html"), body).expect("write html");
     }
-    fs::write(
-        site.join("404.html"),
-        "<html><body>not found</body></html>",
-    )
-    .expect("404");
+    fs::write(site.join("404.html"), "<html><body>not found</body></html>").expect("404");
 }
 
 fn copy_schemas_and_logos(root: &Path, dest_public: &Path) {
@@ -78,9 +75,7 @@ impl LocalHttpd {
             .spawn()
             .expect("start httpd");
         for _ in 0..50 {
-            if reqwest::blocking::get(format!("http://127.0.0.1:{port}/"))
-                .is_ok()
-            {
+            if reqwest::blocking::get(format!("http://127.0.0.1:{port}/")).is_ok() {
                 break;
             }
             std::thread::sleep(Duration::from_millis(20));
@@ -97,6 +92,33 @@ impl Drop for LocalHttpd {
         let _ = self.child.kill();
         let _ = self.child.wait();
     }
+}
+
+#[test]
+fn client_bundle_requires_pages_base_prefix() {
+    let tmp = TempDir::new().expect("tempdir");
+    let staging = tmp.path();
+    fs::create_dir_all(staging.join("assets")).expect("assets");
+    fs::write(
+        staging.join("assets/app.js"),
+        "gt({module_or_path:\"/s_e_e_library/assets/app_bg.wasm\"})",
+    )
+    .expect("js");
+    fs::write(staging.join("assets/app_bg.wasm"), b"wasm").expect("wasm");
+    fs::write(
+        staging.join("index.html"),
+        "<script type=\"module\" async src=\"/s_e_e_library/assets/app.js\"></script>",
+    )
+    .expect("html");
+    verify_client_bundle(staging).expect("prefixed bundle");
+
+    fs::write(
+        staging.join("index.html"),
+        "<script type=\"module\" async src=\"/./assets/app.js\"></script>",
+    )
+    .expect("html");
+    let err = verify_client_bundle(staging).expect_err("root-relative bundle");
+    assert!(err.contains("/s_e_e_library/assets/"), "err was {err}");
 }
 
 #[test]
@@ -130,9 +152,7 @@ fn second_package_run_drops_removed_package_file() {
     write_minimal_prerender(&dx);
     let staging = root.join("artifact");
     run_package_pages(root, &dx, &staging).expect("first package");
-    assert!(staging
-        .join("packages/stale-pkg/1.0.0/file.txt")
-        .is_file());
+    assert!(staging.join("packages/stale-pkg/1.0.0/file.txt").is_file());
     fs::remove_dir_all(root.join("packages/stale-pkg")).expect("remove source pkg");
     run_package_pages(root, &dx, &staging).expect("second package");
     assert!(
