@@ -1,0 +1,19 @@
+{
+  "id": "cmd-cursor-agent",
+  "slug": "cursor-agent",
+  "category": "command",
+  "version": "1.0.0",
+  "author": "garunski",
+  "verified": true,
+  "license": "AGPL-3.0-only",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "to": ".s_e_e/commands/cursor-agent.json",
+      "from": "packages/cursor-agent/1.0.0/command.json"
+    }
+  ],
+  "name": "Cursor Agent",
+  "description": "Cursor CLI agent run against a spoke workspace."
+}

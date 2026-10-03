@@ -1,0 +1,23 @@
+{
+  "tools": [
+    { "id": "cursor", "name": "Cursor" },
+    { "id": "claude", "name": "Claude Code" }
+  ],
+  "featuredStackId": "stack-implement-story",
+  "stacks": [
+    {
+      "id": "stack-implement-story",
+      "name": "Implement story",
+      "description": "Shared implement-story packages plus one agent CLI.",
+      "sharedPackageIds": [
+        "wf-system-implement-story",
+        "prompt-system-implement-story",
+        "skill-work"
+      ],
+      "variants": [
+        { "toolId": "cursor", "packageIds": ["cmd-cursor-agent"] },
+        { "toolId": "claude", "packageIds": ["cmd-claude-code"] }
+      ]
+    }
+  ]
+}

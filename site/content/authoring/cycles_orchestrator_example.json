@@ -1,0 +1,17 @@
+{
+  "id": "cycle-orchestrator-default",
+  "name": "Orchestrator default",
+  "host": "orchestrator",
+  "schema_version": 1,
+  "stores": ["world", "objectives", "deliberations", "ranking", "proposals", "executions", "learning"],
+  "stages": [
+    {
+      "key": "shape",
+      "verb": "Shape",
+      "workflow_definition_id": "system-shape-and-prepare-work",
+      "trigger": "tick",
+      "reads": ["objectives", "world"],
+      "writes": "deliberations"
+    }
+  ]
+}

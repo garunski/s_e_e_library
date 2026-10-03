@@ -8,13 +8,39 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: s_e_e_library
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - name: Checkout library
+        uses: actions/checkout@v7
         with:
-          node-version: "22"
-          cache: npm
-      - run: npm ci
-      - run: npm run copy
-      - run: npm run validate
-      - run: npm test
+          path: s_e_e_library
+
+      - name: Read pinned s_e_e revision
+        id: see_rev
+        run: echo "sha=$(tr -d '[:space:]' < .github/see-code-revision)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout s_e_e (path dependencies)
+        uses: actions/checkout@v7
+        with:
+          repository: garunski/s_e_e
+          ref: ${{ steps.see_rev.outputs.sha }}
+          path: s_e_e
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.96.0"
+          targets: wasm32-unknown-unknown
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: s_e_e_library -> target
+
+      - name: Validate catalog
+        run: cargo run -p see_library_catalog_tool -- validate
+
+      - name: Test catalog tool and site
+        run: cargo test -p see_library_catalog_tool && cargo test -p see_library_site --lib

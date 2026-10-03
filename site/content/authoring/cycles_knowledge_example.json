@@ -1,0 +1,17 @@
+{
+  "id": "cycle-knowledge-default",
+  "name": "Knowledge default",
+  "host": "knowledge",
+  "schema_version": 1,
+  "stores": ["spokes", "changes", "components", "impacts", "audits", "docs", "decisions", "links"],
+  "stages": [
+    {
+      "key": "record",
+      "verb": "Record",
+      "workflow_definition_id": "system-record-git-change",
+      "trigger": "manual",
+      "reads": ["spokes"],
+      "writes": "changes"
+    }
+  ]
+}

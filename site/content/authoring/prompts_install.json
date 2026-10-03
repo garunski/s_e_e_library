@@ -1,0 +1,4 @@
+{
+  "to": ".s_e_e/prompts/system-implement-story.json",
+  "from": "packages/system-implement-story/1.0.0/prompt.json"
+}

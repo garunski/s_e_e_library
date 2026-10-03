@@ -1,0 +1,4 @@
+{
+  "to": ".s_e_e/workflows/definitions/system-implement-story.json",
+  "from": "packages/implement-story/1.0.0/system-implement-story/definition.json"
+}

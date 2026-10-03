@@ -16,6 +16,11 @@
       "version": "1.0.0",
       "date": "2026-09-01",
       "note": "Initial catalog release."
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-09-29",
+      "note": "Command-neutral agent steps use the project default command."
     }
   ],
   "usageContexts": [

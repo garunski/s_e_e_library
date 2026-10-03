@@ -1,0 +1,13 @@
+{
+  "id": "bundle-implement-story",
+  "slug": "implement-story",
+  "category": "bundle",
+  "name": "Implement Story workflows",
+  "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+  "labels": ["bulk", "story"],
+  "dependencies": [],
+  "toolIds": ["cursor"],
+  "releases": [
+    { "version": "1.0.0", "date": "2026-09-01", "note": "Initial catalog release." }
+  ]
+}

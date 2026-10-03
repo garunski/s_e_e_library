@@ -799,32 +799,38 @@ Example command entry:
 ## Validate and build
 
 ```bash
-npm run validate
-npm run catalog
+mise run validate
+mise run catalog
 ```
 
-- `npm run validate` runs `node scripts/build-catalog.mjs --check` (read-only;
+- `mise run validate` runs `see_library_catalog_tool validate` (read-only;
   fails when payloads or metadata are invalid or out of sync).
-- `npm run catalog` validates payloads, refreshes `catalog.json` `updated`, and
+- `mise run catalog` validates payloads, refreshes `catalog.json` `updated`, and
   writes any derived fields.
+- `mise run harvest` copies hub payloads into `packages/` and regenerates
+  `catalog.json` when publishing from a local hub checkout.
+
+After merge, installers resolve the package by catalog `id` and `version`. The
+`files[]` install map is authoritative: each `from` path under `packages/` maps
+to a hub `to` destination. Keep `id`, `version`, and `files[]` stable across
+releases unless you intend a breaking catalog change.
 
 Commit both the payload under `packages/` and the updated `catalog.json`.
 
 ## Docs site
 
 ```bash
-npm run copy
-npm run build
-npm test
+mise run quality
 ```
 
-`npm run copy` copies root `catalog.json` and `packages/` into `public/` so
-Next.js serves them at the published URLs. `npm run build` runs that copy, then
-exports the static site.
+`mise run quality` runs catalog validation (`see_library_catalog_tool validate`)
+and site library tests. `mise run site-build` exports the Dioxus static site and
+copies root `catalog.json` and `packages/` into the publish output so GitHub
+Pages serves them at the same public URLs.
 
 A new package type also needs a section in `public/llms.txt`, which carries the
-same guidance as one plain-text file for agents. `npm test` fails when a page has
-no matching `Source:` line, so both change together.
+same guidance as one plain-text file for agents. Keep the page and
+`Source: /authoring/publish/` section in sync.
 
 ## Schema reference
 

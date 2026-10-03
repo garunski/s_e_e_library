@@ -1,0 +1,22 @@
+[package]
+name = "see_library_catalog_tool"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "see-library-catalog"
+path = "src/main.rs"
+
+[dependencies]
+s_e_e_core = { path = "../../s_e_e/core" }
+s_e_e_shapes = { path = "../../s_e_e/shapes" }
+s_e_e_library_ops = { path = "../../s_e_e/library_ops" }
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+clap.workspace = true
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
+see_library_site = { path = "../site", default-features = false }
+
+[dev-dependencies]
+tempfile.workspace = true

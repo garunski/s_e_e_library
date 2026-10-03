@@ -1,0 +1,11 @@
+{
+  "id": "agent_step",
+  "name": "Agent work",
+  "function": {
+    "name": "command",
+    "input": {
+      "prompt": "{{prompt.system-implement-story}}"
+    }
+  },
+  "next_tasks": []
+}

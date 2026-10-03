@@ -1,0 +1,4 @@
+{
+  "to": ".s_e_e/commands/cursor-agent.json",
+  "from": "packages/cursor-agent/1.0.0/command.json"
+}

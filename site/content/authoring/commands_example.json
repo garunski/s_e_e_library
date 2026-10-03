@@ -1,0 +1,31 @@
+{
+  "id": "cursor-agent",
+  "name": "Cursor Agent",
+  "binary": "cursor",
+  "base_args": ["agent", "-p", "--trust", "--force"],
+  "forced_args": ["--output-format", "stream-json", "--stream-partial-output"],
+  "params": [
+    {
+      "key": "cursor_model",
+      "type": "string",
+      "default": "composer-2.5[fast=false]",
+      "map": { "target": "env", "name": "CURSOR_MODEL" }
+    },
+    {
+      "key": "timeout_secs",
+      "type": "number",
+      "default": 1800,
+      "map": { "target": "timeout" }
+    }
+  ],
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": ["run_id", "exit_code", "duration_ms", "stdout_tail", "stderr_tail", "truncated"]
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": { "scope": "spoke", "default_policy": "force" },
+    "stream": { "format": "stream-json" },
+    "non_interactive": true
+  }
+}

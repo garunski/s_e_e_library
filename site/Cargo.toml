@@ -1,0 +1,52 @@
+[package]
+name = "see_library_site"
+version.workspace = true
+edition.workspace = true
+build = "build.rs"
+
+[lib]
+name = "see_library_site"
+path = "src/lib.rs"
+
+[[bin]]
+name = "see_library_site"
+path = "src/main.rs"
+
+[[bin]]
+name = "see_library_site_routes"
+path = "src/bin/routes_json.rs"
+
+[dependencies]
+dioxus = { version = "=0.7.10", features = ["router", "fullstack"] }
+dioxus-router = { version = "=0.7.10", default-features = false }
+console_error_panic_hook = "0.1"
+serde_json = "1.0"
+s_e_e_gui_kit = { path = "../../s_e_e/gui_kit", default-features = false }
+s_e_e_shapes = { path = "../../s_e_e/shapes" }
+dioxus-primitives = { git = "https://github.com/DioxusLabs/components", rev = "bf007c1", default-features = false, features = ["web"] }
+
+[build-dependencies]
+s_e_e_icons = { path = "../../s_e_e/icons" }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tokio = { version = "1.48", features = ["rt-multi-thread", "macros"] }
+axum = "0.8"
+dioxus-cli-config = "=0.7.10"
+
+[features]
+default = []
+web = ["dioxus/web", "s_e_e_gui_kit/web"]
+server = ["dioxus/server", "s_e_e_gui_kit/server"]
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+web-sys = { version = "0.3", features = [
+    "CssStyleDeclaration",
+    "Document",
+    "DomTokenList",
+    "Element",
+    "HtmlElement",
+    "MediaQueryList",
+    "Storage",
+    "Window",
+] }

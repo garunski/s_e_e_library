@@ -17,30 +17,74 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: s_e_e_library
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - name: Checkout library
+        uses: actions/checkout@v7
         with:
-          node-version: "22"
-          cache: npm
-      - run: npm ci
-      - run: npm run copy
-      - run: npm run validate
+          path: s_e_e_library
+
+      - name: Read pinned s_e_e revision
+        id: see_rev
+        run: echo "sha=$(tr -d '[:space:]' < .github/see-code-revision)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout s_e_e (path dependencies)
+        uses: actions/checkout@v7
+        with:
+          repository: garunski/s_e_e
+          ref: ${{ steps.see_rev.outputs.sha }}
+          path: s_e_e
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.96.0"
+          targets: wasm32-unknown-unknown
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: s_e_e_library -> target
+
+      - name: Install dioxus-cli
+        uses: taiki-e/install-action@v2
+        with:
+          tool: dioxus-cli@0.7.10
+
+      - name: Install static server for smoke checks
+        run: sudo apt-get update && sudo apt-get install -y busybox-static
+
       - id: setup_pages
         uses: actions/configure-pages@v6
-      - uses: actions/cache@v6
-        with:
-          path: |
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-      - run: npm run build
+
+      - name: Validate catalog
+        run: cargo run -p see_library_catalog_tool -- validate
+
+      - name: Build and prerender documentation site
         env:
-          PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
-      - uses: actions/upload-pages-artifact@v5
+          DIOXUS_ASSET_ROOT: /s_e_e_library
+          SEE_LIBRARY_PAGES_BASE: /s_e_e_library
+        run: |
+          set -euo pipefail
+          cd site
+          dx bundle --release --web --fullstack --package see_library_site \
+            --client-target wasm32-unknown-unknown \
+            @client --no-default-features --features web \
+            @server --no-default-features --features server --target x86_64-unknown-linux-gnu
+          SEE_LIBRARY_PAGES_BASE=/s_e_e_library bash ../scripts/site-prerender.sh
+
+      - name: Stage GitHub Pages artifact
+        run: bash scripts/site-package-pages.sh
+
+      - name: Smoke test staged artifact
+        run: bash scripts/site-smoke-pages.sh
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: ./out
+          path: s_e_e_library/target/pages-artifact
           include-hidden-files: true
 
   deploy:

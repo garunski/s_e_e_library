@@ -9,9 +9,7 @@
     "milestone",
     "story"
   ],
-  "dependencies": [
-    "cmd-cursor-agent"
-  ],
+  "dependencies": [],
   "toolIds": [],
   "releases": [
     {

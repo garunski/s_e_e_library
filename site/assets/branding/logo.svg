@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="see-logo-coreGlow" cx="32" cy="32" r="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#fbbf24" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="see-logo-blurGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g stroke="#38bdf8" fill="none">
+    <circle cx="32" cy="32" r="14" stroke-width="2"/>
+    <path d="M12,32 A20,20 0 0,1 52,32" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 4" stroke-dashoffset="2"/>
+    <path d="M32,52 A20,20 0 0,1 52,32" stroke-width="2" stroke-linecap="round"/>
+    <path d="M32,52 A20,20 0 0,0 12,32" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <circle cx="32" cy="32" r="4" fill="#fbbf24" filter="url(#see-logo-blurGlow)"/>
+  <circle cx="32" cy="32" r="8" fill="url(#see-logo-coreGlow)"/>
+</svg>

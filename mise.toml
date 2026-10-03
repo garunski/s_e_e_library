@@ -1,12 +1,53 @@
 min_version = "2026.4.4"
 
 [tools]
-node = "20"
+rust = "1.96.0"
+"cargo:dioxus-cli" = "0.7.10"
 
 [tasks.validate]
 description = "Validate the package catalog"
-run = "node scripts/build-catalog.mjs --check"
+run = "cargo run -p see_library_catalog_tool -- validate"
+
+[tasks.catalog]
+description = "Regenerate catalog.json from packages"
+run = "cargo run -p see_library_catalog_tool -- catalog"
+
+[tasks.harvest]
+description = "Copy hub payloads into packages and regenerate catalog"
+run = "cargo run -p see_library_catalog_tool -- harvest"
+
+[tasks.discover-bundles]
+description = "Report bundle ids and member edges from packages"
+run = "cargo run -p see_library_catalog_tool -- discover-bundles"
+
+[tasks.site-build]
+description = "Build the Dioxus documentation site (SSG, GitHub Pages base path)"
+run = "bash scripts/site-build.sh"
+
+[tasks.site-routes]
+description = "Print documentation route paths as JSON"
+run = "cargo run -q -p see_library_site --bin see_library_site_routes"
+
+[tasks.site-package-pages]
+description = "Stage Dioxus output and library payloads for GitHub Pages"
+run = "bash scripts/site-package-pages.sh"
+
+[tasks.site-verify-docs]
+description = "Verify staged documentation routes, llms.txt, and internal links"
+run = "cargo run -p see_library_catalog_tool -- verify-docs"
+
+[tasks.site-smoke-pages]
+description = "HTTP smoke test for the staged Pages artifact"
+run = "bash scripts/site-smoke-pages.sh"
+
+[tasks.build]
+description = "Validate catalog, build the site, and stage the Pages artifact"
+depends = ["validate", "site-build", "site-package-pages", "site-verify-docs"]
+
+[tasks.dev]
+description = "Dioxus fullstack dev server for the documentation site"
+run = "bash scripts/site-dev.sh"
 
 [tasks.quality]
 description = "Baseline quality gate (read by the spoke baseline service)"
-run = "node scripts/build-catalog.mjs --check"
+run = "cargo test -p see_library_catalog_tool && cargo test -p see_library_site --lib && mise run build && mise run site-smoke-pages"

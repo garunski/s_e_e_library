@@ -1,0 +1,5 @@
+{
+  "id": "system-implement-story",
+  "name": "Implement story",
+  "content": "You are implementing story {{runtime.story_id}}. Operate fully autonomously..."
+}

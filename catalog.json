@@ -1,24 +1,2160 @@
 {
-  "schema": "see.library/v2",
+  "featuredStackId": "stack-implement-story",
   "name": "S.E.E. Official Library",
-  "updated": "2026-09-29T00:00:00.000Z",
-  "tools": [
+  "packages": [
     {
-      "id": "claude",
-      "name": "Claude Code",
-      "description": "Anthropic Claude Code agent CLI."
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "files": [
+        {
+          "from": "packages/author-stories-from-doc/1.0.1/doc/SKILL.md",
+          "to": ".agents/skills/doc/SKILL.md"
+        },
+        {
+          "from": "packages/author-stories-from-doc/1.0.1/stories/SKILL.md",
+          "to": ".agents/skills/stories/SKILL.md"
+        },
+        {
+          "from": "packages/author-stories-from-doc/1.0.1/work/SKILL.md",
+          "to": ".agents/skills/work/SKILL.md"
+        },
+        {
+          "from": "packages/author-stories-from-doc/1.0.1/system-stories-from-doc-authoring/prompt.json",
+          "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json"
+        },
+        {
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        },
+        {
+          "from": "packages/author-stories-from-doc/1.0.1/system-author-stories-from-doc/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json"
+        }
+      ],
+      "id": "bundle-author-stories-from-doc",
+      "labels": [
+        "knowledge",
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author stories from doc",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Refresh embedded doc and work skills.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "author-stories-from-doc",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
     },
     {
-      "id": "cursor",
-      "name": "Cursor",
-      "description": "Cursor agent CLI."
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "files": [
+        {
+          "from": "packages/author-story/1.0.1/stories/SKILL.md",
+          "to": ".agents/skills/stories/SKILL.md"
+        },
+        {
+          "from": "packages/author-story/1.0.1/work/SKILL.md",
+          "to": ".agents/skills/work/SKILL.md"
+        },
+        {
+          "from": "packages/author-story/1.0.1/system-story-authoring/prompt.json",
+          "to": ".s_e_e/prompts/system-story-authoring.json"
+        },
+        {
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        },
+        {
+          "from": "packages/author-story/1.0.1/system-author-story/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-author-story.json"
+        }
+      ],
+      "id": "bundle-author-story",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author story from description",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Refresh embedded work skill.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "author-story",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Packages linked by template references: workflows, prompts, commands.",
+      "files": [
+        {
+          "from": "packages/author-workflow/1.0.1/workflow/SKILL.md",
+          "to": ".agents/skills/workflow/SKILL.md"
+        },
+        {
+          "from": "packages/author-workflow/1.0.1/system-workflow-authoring/prompt.json",
+          "to": ".s_e_e/prompts/system-workflow-authoring.json"
+        },
+        {
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        },
+        {
+          "from": "packages/author-workflow/1.0.1/system-author-workflow/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-author-workflow.json"
+        }
+      ],
+      "id": "bundle-author-workflow",
+      "labels": [
+        "bundle"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author workflow",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Refresh workflow authoring prompt and include the workflow skill.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "author-workflow",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
+      "files": [
+        {
+          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-milestone-summary-doc.json"
+        },
+        {
+          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json"
+        }
+      ],
+      "id": "bundle-generate-milestone-summary",
+      "labels": [
+        "knowledge",
+        "milestone"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Generate milestone summary",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "cursor-agent"
+      ],
+      "slug": "generate-milestone-summary",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "files": [
+        {
+          "from": "packages/implement-story/1.0.1/work/SKILL.md",
+          "to": ".agents/skills/work/SKILL.md"
+        },
+        {
+          "from": "packages/implement-story/1.0.1/system-implement-story/prompt.json",
+          "to": ".s_e_e/prompts/system-implement-story.json"
+        },
+        {
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        },
+        {
+          "from": "packages/implement-story/1.0.1/system-implement-stories-bulk/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json"
+        },
+        {
+          "from": "packages/implement-story/1.0.1/system-implement-story/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-implement-story.json"
+        }
+      ],
+      "id": "bundle-implement-story",
+      "labels": [
+        "bulk",
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Implement Story workflows",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Refresh embedded work skill and implementation prompt.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "implement-story",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "The seven-stage knowledge loop with component discovery, prompts, commands, and schedules.",
+      "files": [
+        {
+          "from": "packages/knowledge-system/1.0.0/system-audit-system-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-audit-system.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-discover-components-detail-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-discover-components-detail.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-discover-components-project-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-discover-components-project.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-discover-components-projects-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-discover-components-projects.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-discover-components-prune-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-discover-components-prune.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-fix-broken-links-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-fix-broken-links.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-record-git-change-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-record-git-change.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-refresh-component-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-refresh-component.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-trace-contract-prompt/prompt.json",
+          "to": ".s_e_e/prompts/system-trace-contract.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-audit-system/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-audit-system.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-discover-components/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-discover-components.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-fix-broken-links/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-fix-broken-links.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-publish-documentation/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-publish-documentation.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-record-git-change/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-record-git-change.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-refresh-component/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-refresh-component.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/system-trace-contract/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-trace-contract.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/schedules/system-audit-weekly.json",
+          "to": ".s_e_e/workflows/schedules/system-audit-weekly.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-milestone-completion.json",
+          "to": ".s_e_e/workflows/schedules/system-publish-milestone-completion.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-quiet-period.json",
+          "to": ".s_e_e/workflows/schedules/system-publish-quiet-period.json"
+        },
+        {
+          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-release.json",
+          "to": ".s_e_e/workflows/schedules/system-publish-release.json"
+        }
+      ],
+      "id": "bundle-knowledge-system",
+      "labels": [
+        "knowledge",
+        "system"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Knowledge system",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "cursor-agent",
+        "git"
+      ],
+      "slug": "knowledge-system",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Cycle workflows for shape, rank, and observe, plus orchestrator chat and learning prompts, including MCP fragments they expand.",
+      "files": [
+        {
+          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json"
+        },
+        {
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        },
+        {
+          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-orchestrator-chat.json"
+        },
+        {
+          "from": "packages/system-orchestrator-learning/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-orchestrator-learning.json"
+        },
+        {
+          "from": "packages/system-shape-and-prepare-work/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-shape-and-prepare-work.json"
+        },
+        {
+          "from": "packages/system-rank-candidates/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-rank-candidates.json"
+        },
+        {
+          "from": "packages/system-observe-outcome/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-observe-outcome.json"
+        }
+      ],
+      "id": "bundle-orchestrator",
+      "labels": [
+        "system"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Orchestrator",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "orchestrator",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
+      "files": [
+        {
+          "from": "packages/work-milestone-stories/1.0.0/system-work-milestone-stories/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json"
+        }
+      ],
+      "id": "bundle-work-milestone-stories",
+      "labels": [
+        "bulk",
+        "milestone",
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Work milestone stories",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "work-milestone-stories",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
+      "files": [
+        {
+          "from": "packages/work-swimlane-stories/1.0.1/work/SKILL.md",
+          "to": ".agents/skills/work/SKILL.md"
+        },
+        {
+          "from": "packages/work-swimlane-stories/1.0.1/system-work-story/prompt.json",
+          "to": ".s_e_e/prompts/system-work-story.json"
+        },
+        {
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        },
+        {
+          "from": "packages/work-swimlane-stories/1.0.1/system-work-swimlane-stories/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json"
+        }
+      ],
+      "id": "bundle-work-swimlane-stories",
+      "labels": [
+        "bulk",
+        "story",
+        "swimlane"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Work swimlane stories",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Refresh embedded work skill and implementation prompt.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "work-swimlane-stories",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "command",
+      "cliScope": {
+        "cliIds": [
+          "claude"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
+      "files": [
+        {
+          "from": "packages/claude-code/1.0.0/command.json",
+          "to": ".s_e_e/commands/claude-code.json"
+        }
+      ],
+      "id": "cmd-claude-code",
+      "labels": [
+        "command"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Claude Code",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "claude-code",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "command",
+      "cliScope": {
+        "cliIds": [
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "files": [
+        {
+          "from": "packages/cursor-agent/1.0.0/command.json",
+          "to": ".s_e_e/commands/cursor-agent.json"
+        }
+      ],
+      "id": "cmd-cursor-agent",
+      "labels": [
+        "command"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Cursor Agent",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "cursor-agent",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "cycle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "bundle-knowledge-system"
+      ],
+      "description": "The seven-stage knowledge loop as a cycle document for the knowledge host.",
+      "files": [
+        {
+          "from": "packages/cycle-knowledge-default/1.0.0/cycle.json",
+          "to": ".s_e_e/cycles/cycle-knowledge-default.json"
+        }
+      ],
+      "id": "cycle-knowledge-default",
+      "labels": [
+        "cycle",
+        "knowledge"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Knowledge default",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "cycle-knowledge-default",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "cycle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "wf-system-implement-story",
+        "wf-system-observe-outcome",
+        "wf-system-rank-candidates",
+        "wf-system-shape-and-prepare-work"
+      ],
+      "description": "The five-stage orchestrator loop as a cycle document for the orchestrator host.",
+      "files": [
+        {
+          "from": "packages/cycle-orchestrator-default/1.0.0/cycle.json",
+          "to": ".s_e_e/cycles/cycle-orchestrator-default.json"
+        }
+      ],
+      "id": "cycle-orchestrator-default",
+      "labels": [
+        "cycle",
+        "orchestrator"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Orchestrator default",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "cycle-orchestrator-default",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "skill-work"
+      ],
+      "files": [
+        {
+          "from": "packages/system-implement-story/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-implement-story.json"
+        }
+      ],
+      "id": "prompt-system-implement-story",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Implement story",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Use the work skill and project store without direct story file edits.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-implement-story",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "cliIds": [
+          "claude"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "How Claude Code receives hub MCP config.",
+      "files": [
+        {
+          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json"
+        }
+      ],
+      "id": "prompt-system-mcp-claude-delivery",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "MCP delivery (Claude Code)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-mcp-claude-delivery",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Shared MCP store contract expanded by other prompts.",
+      "files": [
+        {
+          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        }
+      ],
+      "id": "prompt-system-mcp-contract",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "MCP contract (any client)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-mcp-contract",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "cliIds": [
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "Measured Cursor MCP caveats expanded by other prompts.",
+      "files": [
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        }
+      ],
+      "id": "prompt-system-mcp-cursor-caveats",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Cursor MCP caveats (measured)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-mcp-cursor-caveats",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "cliIds": [
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "How Cursor Agent receives hub MCP config.",
+      "files": [
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        }
+      ],
+      "id": "prompt-system-mcp-cursor-delivery",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "MCP delivery (Cursor)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-mcp-cursor-delivery",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Authors a milestone through MCP store tools.",
+      "files": [
+        {
+          "from": "packages/system-milestone-authoring/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-milestone-authoring.json"
+        }
+      ],
+      "id": "prompt-system-milestone-authoring",
+      "labels": [
+        "milestone"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author milestone",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-milestone-authoring",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Drafts a knowledge doc body from a milestone's stories.",
+      "files": [
+        {
+          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-milestone-summary-doc.json"
+        }
+      ],
+      "id": "prompt-system-milestone-summary-doc",
+      "labels": [
+        "milestone"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Milestone summary doc",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-milestone-summary-doc",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-mcp-contract",
+        "prompt-system-mcp-cursor-caveats",
+        "prompt-system-mcp-cursor-delivery"
+      ],
+      "description": "Chat agent preamble loaded from the hub prompt store.",
+      "files": [
+        {
+          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-orchestrator-chat.json"
+        }
+      ],
+      "id": "prompt-system-orchestrator-chat",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Orchestrator chat",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-orchestrator-chat",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Durable notes preamble loaded from the hub prompt store.",
+      "files": [
+        {
+          "from": "packages/system-orchestrator-learning/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-orchestrator-learning.json"
+        }
+      ],
+      "id": "prompt-system-orchestrator-learning",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Orchestrator learning",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-orchestrator-learning",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "files": [
+        {
+          "from": "packages/system-quality-full-fix/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-quality-full-fix.json"
+        }
+      ],
+      "id": "prompt-system-quality-full-fix",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Quality full - fix to green",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-quality-full-fix",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "files": [
+        {
+          "from": "packages/system-stories-from-doc-authoring/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json"
+        }
+      ],
+      "id": "prompt-system-stories-from-doc-authoring",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author stories from doc",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-stories-from-doc-authoring",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "files": [
+        {
+          "from": "packages/system-story-authoring/1.0.0/prompt.json",
+          "to": ".s_e_e/prompts/system-story-authoring.json"
+        }
+      ],
+      "id": "prompt-system-story-authoring",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author story",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-story-authoring",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "skill-work"
+      ],
+      "files": [
+        {
+          "from": "packages/system-work-story/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-work-story.json"
+        }
+      ],
+      "id": "prompt-system-work-story",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Work story (/work skill)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Use the work skill and project store without direct story file edits.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-work-story",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "skill-workflow"
+      ],
+      "files": [
+        {
+          "from": "packages/system-workflow-authoring/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-workflow-authoring.json"
+        }
+      ],
+      "id": "prompt-system-workflow-authoring",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author workflow",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Use the workflow skill and workflow store.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-workflow-authoring",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "skill",
+      "cliScope": {
+        "cliIds": [
+          "claude",
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "Create or revise S.E.E. knowledge docs and architecture decisions through the project store.",
+      "files": [
+        {
+          "from": "packages/doc/1.0.1/SKILL.md",
+          "to": ".agents/skills/doc/SKILL.md"
+        }
+      ],
+      "id": "skill-doc",
+      "labels": [
+        "skill"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "doc",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Use store tools and focused current-state guidance.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "doc",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "skill",
+      "cliScope": {
+        "cliIds": [
+          "claude",
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
+      "files": [
+        {
+          "from": "packages/stories/1.0.0/SKILL.md",
+          "to": ".agents/skills/stories/SKILL.md"
+        }
+      ],
+      "id": "skill-stories",
+      "labels": [
+        "skill"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "stories",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "stories",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "skill",
+      "cliScope": {
+        "cliIds": [
+          "claude",
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "Implement an existing S.E.E. story against its plan and acceptance criteria through the project store.",
+      "files": [
+        {
+          "from": "packages/work/1.0.1/SKILL.md",
+          "to": ".agents/skills/work/SKILL.md"
+        }
+      ],
+      "id": "skill-work",
+      "labels": [
+        "skill"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "work",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Use store tools and repository-specific verification.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "work",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "skill",
+      "cliScope": {
+        "cliIds": [
+          "claude",
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "Create or revise S.E.E. workflow definitions and Library workflow packages.",
+      "files": [
+        {
+          "from": "packages/workflow/1.0.1/SKILL.md",
+          "to": ".agents/skills/workflow/SKILL.md"
+        }
+      ],
+      "id": "skill-workflow",
+      "labels": [
+        "skill"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "workflow",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Use workflow store tools and explicit command selection.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "workflow",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-stories-from-doc-authoring"
+      ],
+      "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/planning/stories/`.",
+      "files": [
+        {
+          "from": "packages/system-author-stories-from-doc/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json"
+        }
+      ],
+      "id": "wf-system-author-stories-from-doc",
+      "labels": [
+        "knowledge",
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author stories from doc",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-author-stories-from-doc",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-story-authoring"
+      ],
+      "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/planning/stories/`.",
+      "files": [
+        {
+          "from": "packages/system-author-story/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-author-story.json"
+        }
+      ],
+      "id": "wf-system-author-story",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author story from description",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-author-story",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-workflow-authoring"
+      ],
+      "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
+      "files": [
+        {
+          "from": "packages/system-author-workflow/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-author-workflow.json"
+        }
+      ],
+      "id": "wf-system-author-workflow",
+      "labels": [
+        "workflow"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Author workflow",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-author-workflow",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-milestone-summary-doc"
+      ],
+      "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
+      "files": [
+        {
+          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json"
+        }
+      ],
+      "id": "wf-system-generate-milestone-summary-doc",
+      "labels": [
+        "knowledge",
+        "milestone"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Generate milestone summary doc",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-generate-milestone-summary-doc",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-implement-story"
+      ],
+      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) on each story id from board column bulk selection.",
+      "files": [
+        {
+          "from": "packages/system-implement-stories-bulk/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json"
+        }
+      ],
+      "id": "wf-system-implement-stories-bulk",
+      "labels": [
+        "bulk",
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Implement stories (bulk)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-implement-stories-bulk",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-implement-story"
+      ],
+      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
+      "files": [
+        {
+          "from": "packages/system-implement-story/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-implement-story.json"
+        }
+      ],
+      "id": "wf-system-implement-story",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Implement story",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-implement-story",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Compares a finished execution against the intent the proposal claimed and writes a structured outcome judgment.",
+      "files": [
+        {
+          "from": "packages/system-observe-outcome/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-observe-outcome.json"
+        }
+      ],
+      "id": "wf-system-observe-outcome",
+      "labels": [
+        "system"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Judge outcome against intent",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-observe-outcome",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Scores every capability against its bound subjects. Weights, confidence floor, failure threshold, and deprioritize penalty are inputs.",
+      "files": [
+        {
+          "from": "packages/system-rank-candidates/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-rank-candidates.json"
+        }
+      ],
+      "id": "wf-system-rank-candidates",
+      "labels": [
+        "system"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Rank candidate actions",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-rank-candidates",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Resolves the story ids assigned to a milestone, then bulk-updates each story to a target status.",
+      "files": [
+        {
+          "from": "packages/system-set-milestone-stories-status/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-set-milestone-stories-status.json"
+        }
+      ],
+      "id": "wf-system-set-milestone-stories-status",
+      "labels": [
+        "milestone",
+        "system"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Set milestone stories status",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-set-milestone-stories-status",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Orchestration workflow that deliberates direction, stories, workflows, prompt assemblies, execution plan, and readiness before implementation.",
+      "files": [
+        {
+          "from": "packages/system-shape-and-prepare-work/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-shape-and-prepare-work.json"
+        }
+      ],
+      "id": "wf-system-shape-and-prepare-work",
+      "labels": [
+        "system"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Shape and prepare work",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-shape-and-prepare-work",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "cliIds": [
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [
+        "cmd-cursor-agent"
+      ],
+      "description": "Inspects a repository, asks focused questions about missing or conflicting guidance, then updates its root AGENTS.md.",
+      "files": [
+        {
+          "from": "packages/system-update-repository-agents/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-update-repository-agents.json"
+        }
+      ],
+      "id": "wf-system-update-repository-agents",
+      "labels": [
+        "repository"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Update repository AGENTS.md",
+      "releases": [
+        {
+          "date": "2026-09-29",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-update-repository-agents",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "prompt-system-work-story"
+      ],
+      "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) executing the /work skill on each story in a loop.",
+      "files": [
+        {
+          "from": "packages/system-work-swimlane-stories/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json"
+        }
+      ],
+      "id": "wf-system-work-swimlane-stories",
+      "labels": [
+        "bulk",
+        "story",
+        "swimlane"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Work swimlane stories",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-09-29",
+          "note": "Command-neutral agent steps use the project default command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-work-swimlane-stories",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
     }
   ],
+  "schema": "see.library/v2",
   "stacks": [
     {
+      "description": "Turn a knowledge doc into stories, with a Cursor or Claude Code command.",
       "id": "stack-author-stories-from-doc",
       "name": "Author stories from doc",
-      "description": "Turn a knowledge doc into stories, with a Cursor or Claude Code command.",
       "sharedPackageIds": [
         "wf-system-author-stories-from-doc",
         "prompt-system-stories-from-doc-authoring",
@@ -28,23 +2164,23 @@
       ],
       "variants": [
         {
-          "toolId": "claude",
           "packageIds": [
             "cmd-claude-code"
-          ]
+          ],
+          "toolId": "claude"
         },
         {
-          "toolId": "cursor",
           "packageIds": [
             "cmd-cursor-agent"
-          ]
+          ],
+          "toolId": "cursor"
         }
       ]
     },
     {
+      "description": "Author one story from a description, with a Cursor or Claude Code command.",
       "id": "stack-author-story",
       "name": "Author story",
-      "description": "Author one story from a description, with a Cursor or Claude Code command.",
       "sharedPackageIds": [
         "wf-system-author-story",
         "prompt-system-story-authoring",
@@ -53,23 +2189,23 @@
       ],
       "variants": [
         {
-          "toolId": "claude",
           "packageIds": [
             "cmd-claude-code"
-          ]
+          ],
+          "toolId": "claude"
         },
         {
-          "toolId": "cursor",
           "packageIds": [
             "cmd-cursor-agent"
-          ]
+          ],
+          "toolId": "cursor"
         }
       ]
     },
     {
+      "description": "Author a workflow definition, with a Cursor or Claude Code command.",
       "id": "stack-author-workflow",
       "name": "Author workflow",
-      "description": "Author a workflow definition, with a Cursor or Claude Code command.",
       "sharedPackageIds": [
         "wf-system-author-workflow",
         "prompt-system-workflow-authoring",
@@ -77,23 +2213,23 @@
       ],
       "variants": [
         {
-          "toolId": "claude",
           "packageIds": [
             "cmd-claude-code"
-          ]
+          ],
+          "toolId": "claude"
         },
         {
-          "toolId": "cursor",
           "packageIds": [
             "cmd-cursor-agent"
-          ]
+          ],
+          "toolId": "cursor"
         }
       ]
     },
     {
+      "description": "Implement one story or a bulk set, with a Cursor or Claude Code command.",
       "id": "stack-implement-story",
       "name": "Implement story",
-      "description": "Implement one story or a bulk set, with a Cursor or Claude Code command.",
       "sharedPackageIds": [
         "wf-system-implement-story",
         "wf-system-implement-stories-bulk",
@@ -102,46 +2238,46 @@
       ],
       "variants": [
         {
-          "toolId": "claude",
           "packageIds": [
             "cmd-claude-code"
-          ]
+          ],
+          "toolId": "claude"
         },
         {
-          "toolId": "cursor",
           "packageIds": [
             "cmd-cursor-agent"
-          ]
+          ],
+          "toolId": "cursor"
         }
       ]
     },
     {
+      "description": "Hub MCP contract plus the delivery notes for one agent CLI.",
       "id": "stack-mcp",
       "name": "MCP delivery",
-      "description": "Hub MCP contract plus the delivery notes for one agent CLI.",
       "sharedPackageIds": [
         "prompt-system-mcp-contract"
       ],
       "variants": [
         {
-          "toolId": "claude",
           "packageIds": [
             "prompt-system-mcp-claude-delivery"
-          ]
+          ],
+          "toolId": "claude"
         },
         {
-          "toolId": "cursor",
           "packageIds": [
             "prompt-system-mcp-cursor-delivery",
             "prompt-system-mcp-cursor-caveats"
-          ]
+          ],
+          "toolId": "cursor"
         }
       ]
     },
     {
+      "description": "Work every story in a swimlane, with a Cursor or Claude Code command.",
       "id": "stack-work-swimlane",
       "name": "Work swimlane stories",
-      "description": "Work every story in a swimlane, with a Cursor or Claude Code command.",
       "sharedPackageIds": [
         "wf-system-work-swimlane-stories",
         "prompt-system-work-story",
@@ -149,2167 +2285,31 @@
       ],
       "variants": [
         {
-          "toolId": "claude",
           "packageIds": [
             "cmd-claude-code"
-          ]
+          ],
+          "toolId": "claude"
         },
         {
-          "toolId": "cursor",
           "packageIds": [
             "cmd-cursor-agent"
-          ]
+          ],
+          "toolId": "cursor"
         }
       ]
     }
   ],
-  "featuredStackId": "stack-implement-story",
-  "packages": [
+  "tools": [
     {
-      "id": "bundle-author-stories-from-doc",
-      "slug": "author-stories-from-doc",
-      "category": "bundle",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/doc/SKILL.md",
-          "from": "packages/author-stories-from-doc/1.0.1/doc/SKILL.md"
-        },
-        {
-          "to": ".agents/skills/stories/SKILL.md",
-          "from": "packages/author-stories-from-doc/1.0.1/stories/SKILL.md"
-        },
-        {
-          "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/author-stories-from-doc/1.0.1/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json",
-          "from": "packages/author-stories-from-doc/1.0.1/system-stories-from-doc-authoring/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json",
-          "from": "packages/author-stories-from-doc/1.0.1/system-author-stories-from-doc/definition.json"
-        }
-      ],
-      "name": "Author stories from doc",
-      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
-      "labels": [
-        "knowledge",
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Refresh embedded doc and work skills."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
+      "description": "Anthropic Claude Code agent CLI.",
+      "id": "claude",
+      "name": "Claude Code"
     },
     {
-      "id": "bundle-author-story",
-      "slug": "author-story",
-      "category": "bundle",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/stories/SKILL.md",
-          "from": "packages/author-story/1.0.1/stories/SKILL.md"
-        },
-        {
-          "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/author-story/1.0.1/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/prompts/system-story-authoring.json",
-          "from": "packages/author-story/1.0.1/system-story-authoring/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-author-story.json",
-          "from": "packages/author-story/1.0.1/system-author-story/definition.json"
-        }
-      ],
-      "name": "Author story from description",
-      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
-      "labels": [
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Refresh embedded work skill."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "bundle-author-workflow",
-      "slug": "author-workflow",
-      "category": "bundle",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/workflow/SKILL.md",
-          "from": "packages/author-workflow/1.0.1/workflow/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/prompts/system-workflow-authoring.json",
-          "from": "packages/author-workflow/1.0.1/system-workflow-authoring/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-author-workflow.json",
-          "from": "packages/author-workflow/1.0.1/system-author-workflow/definition.json"
-        }
-      ],
-      "name": "Author workflow",
-      "description": "Packages linked by template references: workflows, prompts, commands.",
-      "labels": [
-        "bundle"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Refresh workflow authoring prompt and include the workflow skill."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "bundle-generate-milestone-summary",
-      "slug": "generate-milestone-summary",
-      "category": "bundle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "cursor-agent"
-      ],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-milestone-summary-doc.json",
-          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
-          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
-        }
-      ],
-      "name": "Generate milestone summary",
-      "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
-      "labels": [
-        "knowledge",
-        "milestone"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "bundle-implement-story",
-      "slug": "implement-story",
-      "category": "bundle",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/implement-story/1.0.1/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/prompts/system-implement-story.json",
-          "from": "packages/implement-story/1.0.1/system-implement-story/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json",
-          "from": "packages/implement-story/1.0.1/system-implement-stories-bulk/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-implement-story.json",
-          "from": "packages/implement-story/1.0.1/system-implement-story/definition.json"
-        }
-      ],
-      "name": "Implement Story workflows",
-      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
-      "labels": [
-        "bulk",
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Refresh embedded work skill and implementation prompt."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "bundle-knowledge-system",
-      "slug": "knowledge-system",
-      "category": "bundle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "cursor-agent",
-        "git"
-      ],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-audit-system.json",
-          "from": "packages/knowledge-system/1.0.0/system-audit-system-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-discover-components-detail.json",
-          "from": "packages/knowledge-system/1.0.0/system-discover-components-detail-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-discover-components-project.json",
-          "from": "packages/knowledge-system/1.0.0/system-discover-components-project-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-discover-components-projects.json",
-          "from": "packages/knowledge-system/1.0.0/system-discover-components-projects-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-discover-components-prune.json",
-          "from": "packages/knowledge-system/1.0.0/system-discover-components-prune-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-fix-broken-links.json",
-          "from": "packages/knowledge-system/1.0.0/system-fix-broken-links-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-record-git-change.json",
-          "from": "packages/knowledge-system/1.0.0/system-record-git-change-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-refresh-component.json",
-          "from": "packages/knowledge-system/1.0.0/system-refresh-component-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-trace-contract.json",
-          "from": "packages/knowledge-system/1.0.0/system-trace-contract-prompt/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-audit-system.json",
-          "from": "packages/knowledge-system/1.0.0/system-audit-system/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-discover-components.json",
-          "from": "packages/knowledge-system/1.0.0/system-discover-components/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-fix-broken-links.json",
-          "from": "packages/knowledge-system/1.0.0/system-fix-broken-links/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-publish-documentation.json",
-          "from": "packages/knowledge-system/1.0.0/system-publish-documentation/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-record-git-change.json",
-          "from": "packages/knowledge-system/1.0.0/system-record-git-change/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-refresh-component.json",
-          "from": "packages/knowledge-system/1.0.0/system-refresh-component/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-trace-contract.json",
-          "from": "packages/knowledge-system/1.0.0/system-trace-contract/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/schedules/system-audit-weekly.json",
-          "from": "packages/knowledge-system/1.0.0/schedules/system-audit-weekly.json"
-        },
-        {
-          "to": ".s_e_e/workflows/schedules/system-publish-milestone-completion.json",
-          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-milestone-completion.json"
-        },
-        {
-          "to": ".s_e_e/workflows/schedules/system-publish-quiet-period.json",
-          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-quiet-period.json"
-        },
-        {
-          "to": ".s_e_e/workflows/schedules/system-publish-release.json",
-          "from": "packages/knowledge-system/1.0.0/schedules/system-publish-release.json"
-        }
-      ],
-      "name": "Knowledge system",
-      "description": "The seven-stage knowledge loop with component discovery, prompts, commands, and schedules.",
-      "labels": [
-        "knowledge",
-        "system"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "bundle-orchestrator",
-      "slug": "orchestrator",
-      "category": "bundle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json",
-          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-orchestrator-chat.json",
-          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-orchestrator-learning.json",
-          "from": "packages/system-orchestrator-learning/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-shape-and-prepare-work.json",
-          "from": "packages/system-shape-and-prepare-work/1.0.0/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-rank-candidates.json",
-          "from": "packages/system-rank-candidates/1.0.0/definition.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-observe-outcome.json",
-          "from": "packages/system-observe-outcome/1.0.0/definition.json"
-        }
-      ],
-      "name": "Orchestrator",
-      "description": "Cycle workflows for shape, rank, and observe, plus orchestrator chat and learning prompts, including MCP fragments they expand.",
-      "labels": [
-        "system"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "bundle-work-milestone-stories",
-      "slug": "work-milestone-stories",
-      "category": "bundle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json",
-          "from": "packages/work-milestone-stories/1.0.0/system-work-milestone-stories/definition.json"
-        }
-      ],
-      "name": "Work milestone stories",
-      "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
-      "labels": [
-        "bulk",
-        "milestone",
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "bundle-work-swimlane-stories",
-      "slug": "work-swimlane-stories",
-      "category": "bundle",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/work-swimlane-stories/1.0.1/work/SKILL.md"
-        },
-        {
-          "to": ".s_e_e/prompts/system-work-story.json",
-          "from": "packages/work-swimlane-stories/1.0.1/system-work-story/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        },
-        {
-          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
-          "from": "packages/work-swimlane-stories/1.0.1/system-work-swimlane-stories/definition.json"
-        }
-      ],
-      "name": "Work swimlane stories",
-      "description": "Packages linked by template references: workflows, prompts, skills, commands.",
-      "labels": [
-        "bulk",
-        "story",
-        "swimlane"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Refresh embedded work skill and implementation prompt."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "cmd-claude-code",
-      "slug": "claude-code",
-      "category": "command",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/commands/claude-code.json",
-          "from": "packages/claude-code/1.0.0/command.json"
-        }
-      ],
-      "name": "Claude Code",
-      "description": "Anthropic Claude Code agent CLI run against a spoke workspace.",
-      "labels": [
-        "command"
-      ],
-      "toolIds": [
-        "claude"
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "claude"
-        ]
-      },
-      "technologyScope": {
-        "scope": "general"
-      },
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ]
-    },
-    {
-      "id": "cmd-cursor-agent",
-      "slug": "cursor-agent",
-      "category": "command",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/commands/cursor-agent.json",
-          "from": "packages/cursor-agent/1.0.0/command.json"
-        }
-      ],
-      "name": "Cursor Agent",
-      "labels": [
-        "command"
-      ],
-      "toolIds": [
-        "cursor"
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "cursor"
-        ]
-      },
-      "technologyScope": {
-        "scope": "general"
-      },
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ]
-    },
-    {
-      "id": "cycle-knowledge-default",
-      "slug": "cycle-knowledge-default",
-      "category": "cycle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "bundle-knowledge-system"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/cycles/cycle-knowledge-default.json",
-          "from": "packages/cycle-knowledge-default/1.0.0/cycle.json"
-        }
-      ],
-      "labels": [
-        "cycle",
-        "knowledge"
-      ],
-      "name": "Knowledge default",
-      "description": "The seven-stage knowledge loop as a cycle document for the knowledge host.",
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "cycle"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "cycle-orchestrator-default",
-      "slug": "cycle-orchestrator-default",
-      "category": "cycle",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "wf-system-implement-story",
-        "wf-system-observe-outcome",
-        "wf-system-rank-candidates",
-        "wf-system-shape-and-prepare-work"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/cycles/cycle-orchestrator-default.json",
-          "from": "packages/cycle-orchestrator-default/1.0.0/cycle.json"
-        }
-      ],
-      "labels": [
-        "cycle",
-        "orchestrator"
-      ],
-      "name": "Orchestrator default",
-      "description": "The five-stage orchestrator loop as a cycle document for the orchestrator host.",
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "cycle"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "prompt-system-implement-story",
-      "slug": "system-implement-story",
-      "category": "prompt",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "skill-work"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-implement-story.json",
-          "from": "packages/system-implement-story/1.0.1/prompt.json"
-        }
-      ],
-      "name": "Implement story",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Use the work skill and project store without direct story file edits."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-mcp-claude-delivery",
-      "slug": "system-mcp-claude-delivery",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json",
-          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json"
-        }
-      ],
-      "name": "MCP delivery (Claude Code)",
-      "description": "How Claude Code receives hub MCP config.",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [
-        "claude"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "claude"
-        ]
-      }
-    },
-    {
-      "id": "prompt-system-mcp-contract",
-      "slug": "system-mcp-contract",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-mcp-contract.json",
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json"
-        }
-      ],
-      "name": "MCP contract (any client)",
-      "description": "Shared MCP store contract expanded by other prompts.",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-mcp-cursor-caveats",
-      "slug": "system-mcp-cursor-caveats",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json",
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Cursor MCP caveats (measured)",
-      "description": "Measured Cursor MCP caveats expanded by other prompts.",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [
-        "cursor"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "cursor"
-        ]
-      }
-    },
-    {
-      "id": "prompt-system-mcp-cursor-delivery",
-      "slug": "system-mcp-cursor-delivery",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json",
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json"
-        }
-      ],
-      "name": "MCP delivery (Cursor)",
-      "description": "How Cursor Agent receives hub MCP config.",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [
-        "cursor"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "cursor"
-        ]
-      }
-    },
-    {
-      "id": "prompt-system-milestone-authoring",
-      "slug": "system-milestone-authoring",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-milestone-authoring.json",
-          "from": "packages/system-milestone-authoring/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Author milestone",
-      "description": "Authors a milestone through MCP store tools.",
-      "labels": [
-        "milestone"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-milestone-summary-doc",
-      "slug": "system-milestone-summary-doc",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-milestone-summary-doc.json",
-          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Milestone summary doc",
-      "description": "Drafts a knowledge doc body from a milestone's stories.",
-      "labels": [
-        "milestone"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-orchestrator-chat",
-      "slug": "system-orchestrator-chat",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "prompt-system-mcp-contract",
-        "prompt-system-mcp-cursor-caveats",
-        "prompt-system-mcp-cursor-delivery"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-orchestrator-chat.json",
-          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Orchestrator chat",
-      "description": "Chat agent preamble loaded from the hub prompt store.",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-orchestrator-learning",
-      "slug": "system-orchestrator-learning",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-orchestrator-learning.json",
-          "from": "packages/system-orchestrator-learning/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Orchestrator learning",
-      "description": "Durable notes preamble loaded from the hub prompt store.",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-quality-full-fix",
-      "slug": "system-quality-full-fix",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-quality-full-fix.json",
-          "from": "packages/system-quality-full-fix/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Quality full - fix to green",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-stories-from-doc-authoring",
-      "slug": "system-stories-from-doc-authoring",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json",
-          "from": "packages/system-stories-from-doc-authoring/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Author stories from doc",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-story-authoring",
-      "slug": "system-story-authoring",
-      "category": "prompt",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-story-authoring.json",
-          "from": "packages/system-story-authoring/1.0.0/prompt.json"
-        }
-      ],
-      "name": "Author story",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-work-story",
-      "slug": "system-work-story",
-      "category": "prompt",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "skill-work"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-work-story.json",
-          "from": "packages/system-work-story/1.0.1/prompt.json"
-        }
-      ],
-      "name": "Work story (/work skill)",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Use the work skill and project store without direct story file edits."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "prompt-system-workflow-authoring",
-      "slug": "system-workflow-authoring",
-      "category": "prompt",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "skill-workflow"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/prompts/system-workflow-authoring.json",
-          "from": "packages/system-workflow-authoring/1.0.1/prompt.json"
-        }
-      ],
-      "name": "Author workflow",
-      "labels": [
-        "prompt"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Use the workflow skill and workflow store."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "technologyScope": {
-        "scope": "general"
-      },
-      "cliScope": {
-        "scope": "any"
-      }
-    },
-    {
-      "id": "skill-doc",
-      "slug": "doc",
-      "category": "skill",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/doc/SKILL.md",
-          "from": "packages/doc/1.0.1/SKILL.md"
-        }
-      ],
-      "name": "doc",
-      "description": "Create or revise S.E.E. knowledge docs and architecture decisions through the project store.",
-      "labels": [
-        "skill"
-      ],
-      "toolIds": [
-        "claude",
-        "cursor"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Use store tools and focused current-state guidance."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "claude",
-          "cursor"
-        ]
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "skill-stories",
-      "slug": "stories",
-      "category": "skill",
-      "version": "1.0.0",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/stories/SKILL.md",
-          "from": "packages/stories/1.0.0/SKILL.md"
-        }
-      ],
-      "name": "stories",
-      "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
-      "labels": [
-        "skill"
-      ],
-      "toolIds": [
-        "claude",
-        "cursor"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "claude",
-          "cursor"
-        ]
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "skill-work",
-      "slug": "work",
-      "category": "skill",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/work/SKILL.md",
-          "from": "packages/work/1.0.1/SKILL.md"
-        }
-      ],
-      "name": "work",
-      "description": "Implement an existing S.E.E. story against its plan and acceptance criteria through the project store.",
-      "labels": [
-        "skill"
-      ],
-      "toolIds": [
-        "claude",
-        "cursor"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Use store tools and repository-specific verification."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "claude",
-          "cursor"
-        ]
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "skill-workflow",
-      "slug": "workflow",
-      "category": "skill",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".agents/skills/workflow/SKILL.md",
-          "from": "packages/workflow/1.0.1/SKILL.md"
-        }
-      ],
-      "name": "workflow",
-      "description": "Create or revise S.E.E. workflow definitions and Library workflow packages.",
-      "labels": [
-        "skill"
-      ],
-      "toolIds": [
-        "claude",
-        "cursor"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-09-29",
-          "note": "Use workflow store tools and explicit command selection."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "claude",
-          "cursor"
-        ]
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-author-stories-from-doc",
-      "slug": "system-author-stories-from-doc",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-stories-from-doc-authoring"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json",
-          "from": "packages/system-author-stories-from-doc/1.0.0/definition.json"
-        }
-      ],
-      "name": "Author stories from doc",
-      "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/planning/stories/`.",
-      "labels": [
-        "knowledge",
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-author-story",
-      "slug": "system-author-story",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-story-authoring"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-author-story.json",
-          "from": "packages/system-author-story/1.0.0/definition.json"
-        }
-      ],
-      "name": "Author story from description",
-      "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/planning/stories/`.",
-      "labels": [
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-author-workflow",
-      "slug": "system-author-workflow",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-workflow-authoring"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-author-workflow.json",
-          "from": "packages/system-author-workflow/1.0.0/definition.json"
-        }
-      ],
-      "name": "Author workflow",
-      "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
-      "labels": [
-        "workflow"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-generate-milestone-summary-doc",
-      "slug": "system-generate-milestone-summary-doc",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "prompt-system-milestone-summary-doc"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json",
-          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json"
-        }
-      ],
-      "name": "Generate milestone summary doc",
-      "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
-      "labels": [
-        "knowledge",
-        "milestone"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-implement-stories-bulk",
-      "slug": "system-implement-stories-bulk",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-implement-story"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json",
-          "from": "packages/system-implement-stories-bulk/1.0.0/definition.json"
-        }
-      ],
-      "name": "Implement stories (bulk)",
-      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) on each story id from board column bulk selection.",
-      "labels": [
-        "bulk",
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-implement-story",
-      "slug": "system-implement-story",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-implement-story"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-implement-story.json",
-          "from": "packages/system-implement-story/1.0.0/definition.json"
-        }
-      ],
-      "name": "Implement story",
-      "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
-      "labels": [
-        "story"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "cycle"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-observe-outcome",
-      "slug": "system-observe-outcome",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-observe-outcome.json",
-          "from": "packages/system-observe-outcome/1.0.0/definition.json"
-        }
-      ],
-      "name": "Judge outcome against intent",
-      "description": "Compares a finished execution against the intent the proposal claimed and writes a structured outcome judgment.",
-      "labels": [
-        "system"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "cycle"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-rank-candidates",
-      "slug": "system-rank-candidates",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-rank-candidates.json",
-          "from": "packages/system-rank-candidates/1.0.0/definition.json"
-        }
-      ],
-      "name": "Rank candidate actions",
-      "description": "Scores every capability against its bound subjects. Weights, confidence floor, failure threshold, and deprioritize penalty are inputs.",
-      "labels": [
-        "system"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "cycle"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-set-milestone-stories-status",
-      "slug": "system-set-milestone-stories-status",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-set-milestone-stories-status.json",
-          "from": "packages/system-set-milestone-stories-status/1.0.0/definition.json"
-        }
-      ],
-      "name": "Set milestone stories status",
-      "description": "Resolves the story ids assigned to a milestone, then bulk-updates each story to a target status.",
-      "labels": [
-        "milestone",
-        "system"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-shape-and-prepare-work",
-      "slug": "system-shape-and-prepare-work",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-shape-and-prepare-work.json",
-          "from": "packages/system-shape-and-prepare-work/1.0.0/definition.json"
-        }
-      ],
-      "name": "Shape and prepare work",
-      "description": "Orchestration workflow that deliberates direction, stories, workflows, prompt assemblies, execution plan, and readiness before implementation.",
-      "labels": [
-        "system"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "cycle"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-update-repository-agents",
-      "slug": "system-update-repository-agents",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [],
-      "dependencies": [
-        "cmd-cursor-agent"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-update-repository-agents.json",
-          "from": "packages/system-update-repository-agents/1.0.0/definition.json"
-        }
-      ],
-      "name": "Update repository AGENTS.md",
-      "description": "Inspects a repository, asks focused questions about missing or conflicting guidance, then updates its root AGENTS.md.",
-      "labels": [
-        "repository"
-      ],
-      "toolIds": [
-        "cursor"
-      ],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-29",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "specific",
-        "cliIds": [
-          "cursor"
-        ]
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
-    },
-    {
-      "id": "wf-system-work-swimlane-stories",
-      "slug": "system-work-swimlane-stories",
-      "category": "workflow",
-      "version": "1.0.1",
-      "author": "garunski",
-      "verified": true,
-      "license": "AGPL-3.0-only",
-      "requires": [
-        "mise",
-        "git"
-      ],
-      "dependencies": [
-        "prompt-system-work-story"
-      ],
-      "files": [
-        {
-          "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json",
-          "from": "packages/system-work-swimlane-stories/1.0.0/definition.json"
-        }
-      ],
-      "name": "Work swimlane stories",
-      "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) executing the /work skill on each story in a loop.",
-      "labels": [
-        "bulk",
-        "story",
-        "swimlane"
-      ],
-      "toolIds": [],
-      "releases": [
-        {
-          "version": "1.0.0",
-          "date": "2026-09-01",
-          "note": "Initial catalog release."
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-10-01",
-          "note": "Agent tasks defer command selection to launch instead of hardcoding cursor-agent."
-        }
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "cliScope": {
-        "scope": "any"
-      },
-      "technologyScope": {
-        "scope": "general"
-      }
+      "description": "Cursor agent CLI.",
+      "id": "cursor",
+      "name": "Cursor"
     }
-  ]
+  ],
+  "updated": "2026-10-03T00:49:31.212Z"
 }

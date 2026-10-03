@@ -1,0 +1,11 @@
+[application]
+name = "see_library_site"
+default_platform = "web"
+tailwind_input = "tailwind.css"
+tailwind_output = "assets/tailwind.css"
+
+[web.app]
+title = "S.E.E. Official Library"
+
+[web.dev]
+proxy = ""

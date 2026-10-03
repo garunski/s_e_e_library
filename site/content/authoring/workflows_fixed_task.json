@@ -1,0 +1,12 @@
+{
+  "id": "audit_agent",
+  "name": "Audit with dedicated command",
+  "function": {
+    "name": "command",
+    "input": {
+      "command_id": "audit-system-agent",
+      "prompt": "{{prompt.system-audit}}"
+    }
+  },
+  "next_tasks": []
+}

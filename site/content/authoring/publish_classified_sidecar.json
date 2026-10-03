@@ -1,0 +1,6 @@
+{
+  "usageContexts": ["standalone"],
+  "cliScope": { "scope": "specific", "cliIds": ["cursor"] },
+  "technologyScope": { "scope": "general" },
+  "toolIds": ["cursor"]
+}

@@ -8,9 +8,7 @@
     "knowledge",
     "milestone"
   ],
-  "dependencies": [
-    "cmd-cursor-agent"
-  ],
+  "dependencies": [],
   "toolIds": [],
   "releases": [
     {
