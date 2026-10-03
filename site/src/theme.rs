@@ -116,6 +116,22 @@ pub const THEME_BOOT_SCRIPT: &str = r#"
     if (dark) { cl.add("dark"); cl.remove("light"); document.documentElement.setAttribute("data-theme", "dark"); document.documentElement.style.colorScheme = "dark"; }
     else      { cl.add("light"); cl.remove("dark"); document.documentElement.setAttribute("data-theme", "light"); document.documentElement.style.colorScheme = "light"; }
   } catch (e) {}
+  function duplicateScript(parent, node) {
+    if (!node || node.nodeType !== 1 || node.tagName !== "SCRIPT" || typeof parent.querySelector !== "function") return false;
+    var src = node.getAttribute("src");
+    if (!src) return false;
+    return parent.querySelector("script[src=\"" + src.replace(/"/g, "") + "\"]") !== null;
+  }
+  var append = Element.prototype.appendChild;
+  Element.prototype.appendChild = function(node) {
+    if (duplicateScript(this, node)) return node;
+    return append.call(this, node);
+  };
+  var insert = Element.prototype.insertBefore;
+  Element.prototype.insertBefore = function(node, ref) {
+    if (duplicateScript(this, node)) return node;
+    return insert.call(this, node, ref);
+  };
 })();
 "#;
 
