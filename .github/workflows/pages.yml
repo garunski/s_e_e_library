@@ -36,6 +36,7 @@ jobs:
           repository: garunski/s_e_e
           ref: ${{ steps.see_rev.outputs.sha }}
           path: s_e_e
+          ssh-key: ${{ secrets.SEE_CHECKOUT_KEY }}
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
