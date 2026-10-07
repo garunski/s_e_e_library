@@ -1,6 +1,4 @@
-use super::{
-    config_schema_paths, config_schema_slugs_match_route_table, CONFIG_SCHEMA_PAGES,
-};
+use super::{config_schema_paths, config_schema_slugs_match_route_table, CONFIG_SCHEMA_PAGES};
 use crate::pages::schema_assets::schema_download;
 use crate::route_table::schema_path;
 

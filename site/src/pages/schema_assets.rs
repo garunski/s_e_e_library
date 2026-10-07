@@ -1,11 +1,9 @@
 //! Build-time JSON Schema bytes embedded from `public/schema/`.
 
-pub const CATALOG_SCHEMA_JSON: &str =
-    include_str!("../../../public/schema/catalog.schema.json");
+pub const CATALOG_SCHEMA_JSON: &str = include_str!("../../../public/schema/catalog.schema.json");
 pub const PACKAGE_META_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/package-meta.schema.json");
-pub const WORKFLOW_SCHEMA_JSON: &str =
-    include_str!("../../../public/schema/workflow.schema.json");
+pub const WORKFLOW_SCHEMA_JSON: &str = include_str!("../../../public/schema/workflow.schema.json");
 pub const WORKFLOW_DEFINITION_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/workflow-definition.schema.json");
 pub const WORKFLOW_ENGINE_SCHEMA_JSON: &str =
@@ -30,8 +28,7 @@ pub const STORIES_CONFIG_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/stories-config.schema.json");
 pub const ORCHESTRATOR_POLICY_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/orchestrator-policy.schema.json");
-pub const SCHEDULE_SCHEMA_JSON: &str =
-    include_str!("../../../public/schema/schedule.schema.json");
+pub const SCHEDULE_SCHEMA_JSON: &str = include_str!("../../../public/schema/schedule.schema.json");
 pub const SCHEDULE_RULE_SET_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/schedule-rule-set.schema.json");
 

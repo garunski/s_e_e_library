@@ -17,6 +17,7 @@ name = "see_library_site_routes"
 path = "src/bin/routes_json.rs"
 
 [dependencies]
+chrono = { workspace = true, features = ["clock"] }
 dioxus = { version = "=0.7.10", features = ["router", "fullstack"] }
 dioxus-router = { version = "=0.7.10", default-features = false }
 console_error_panic_hook = "0.1"

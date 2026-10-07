@@ -34,8 +34,8 @@ fn main() {
     copy_tree(&product.join("gui/assets/fonts"), &assets.join("fonts"))
         .expect("copy fonts into site assets");
 
-    let dx_theme = manifest_dir
-        .join("../../s_e_e_project/design-system/assets/dx-components-theme.css");
+    let dx_theme =
+        manifest_dir.join("../../s_e_e_project/design-system/assets/dx-components-theme.css");
     if dx_theme.is_file() {
         println!("cargo:rerun-if-changed={}", dx_theme.display());
         fs::copy(&dx_theme, assets.join("dx-components-theme.css"))

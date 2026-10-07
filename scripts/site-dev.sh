@@ -9,4 +9,4 @@ DIOXUS_ASSET_ROOT=/s_e_e_library SEE_LIBRARY_PAGES_BASE=/s_e_e_library \
   --addr 127.0.0.1 --port 5173 \
   --base-path s_e_e_library \
   @client --no-default-features --features web \
-  @server --no-default-features --features server
+  @server --no-default-features --features server --target x86_64-unknown-linux-gnu

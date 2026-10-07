@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
 
 use crate::pages::authoring_common::{
-    AuthoringGuideFrame, BODY_TEXT, CodeExample, INLINE_CODE, PAGE_LEDE, SchemaReferenceFooter,
-    SECTION_TITLE, DL, DD, DT,
+    AuthoringGuideFrame, CodeExample, SchemaReferenceFooter, BODY_TEXT, DD, DL, DT, INLINE_CODE,
+    PAGE_LEDE, SECTION_TITLE,
 };
 use crate::routes::Route;
 

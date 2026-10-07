@@ -1,11 +1,11 @@
 mod app_settings;
 mod bundle;
+mod command;
 mod cycle;
 mod global_config;
 mod hub_config;
 mod index;
 mod index_markers;
-mod command;
 mod orchestrator_policy;
 mod prompt;
 mod routing_rules;

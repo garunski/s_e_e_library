@@ -1,10 +1,12 @@
+use chrono::Datelike;
 use dioxus::prelude::*;
 use dioxus_primitives::{ContentAlign, ContentSide};
-use dioxus_router::{Link, use_route};
+use dioxus_router::{use_route, Link};
 use s_e_e_gui_kit::{
     brand::APP_DISPLAY_NAME,
     components::{
         button::{button_classes, ButtonSize, ButtonVariant},
+        garunski_credit::GarunskiCredit,
         popover::{PopoverContent, PopoverRoot, PopoverTrigger},
     },
     icons::Icon,
@@ -12,9 +14,7 @@ use s_e_e_gui_kit::{
 use s_e_e_shapes::Theme;
 
 use crate::library_href;
-use crate::nav::{
-    is_primary_current, shell_layout_classes, FOOTER_LINKS, HEADER_CATALOG, PRIMARY_NAV,
-};
+use crate::nav::{is_primary_current, shell_layout_classes, HEADER_CATALOG, PRIMARY_NAV};
 use crate::routes::Route;
 use crate::theme::{
     apply_theme_to_html, detect_system_dark_mode, read_cached_theme, theme_appears_dark,
@@ -44,9 +44,7 @@ const THEME_OPTION: &str =
     "rounded-md px-3 py-2 text-left text-xs font-medium text-zinc-700 transition hover:bg-zinc-50 focus-visible:ring-2 focus-visible:ring-sky-100 focus-visible:outline-none dark:text-zinc-200 dark:hover:bg-zinc-800 dark:focus-visible:ring-sky-400/20";
 const THEME_OPTION_ON: &str =
     "rounded-md bg-sky-50 px-3 py-2 text-left text-xs font-semibold text-sky-700 ring-1 ring-inset ring-sky-200/60 dark:bg-sky-950/40 dark:text-sky-300 dark:ring-sky-400/25";
-const FOOTER: &str =
-    "border-t border-zinc-200/80 bg-zinc-50 dark:border-white/10 dark:bg-zinc-900/50";
-const FOOTER_COPY: &str = "text-xs text-zinc-500 dark:text-zinc-400";
+const LIBRARY_COPYRIGHT_NAME: &str = "Garunski LLC";
 
 #[must_use]
 pub fn route_current_path(route: &Route) -> &'static str {
@@ -235,33 +233,20 @@ fn LibraryNavRouterLink(path: &'static str, label: &'static str, current: String
     }
 }
 
+#[must_use]
+pub fn library_copyright_line(year: i32) -> String {
+    format!("© {year} {LIBRARY_COPYRIGHT_NAME}")
+}
+
 #[component]
 pub fn LibraryFooter() -> Element {
+    let copyright = library_copyright_line(chrono::Local::now().year());
     rsx! {
         footer {
             "data-testid": "library-shell-footer",
-            class: FOOTER,
-            div {
-                class: "{shell_layout_classes().content_inner} flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between",
-                div { class: "min-w-0",
-                    p { class: "{FOOTER_COPY} font-medium text-zinc-700 dark:text-zinc-300",
-                        "The package catalog S.E.E. installs from."
-                    }
-                    nav {
-                        class: "mt-3 flex flex-wrap gap-3",
-                        aria_label: "S.E.E. links",
-                        for link in FOOTER_LINKS {
-                            a {
-                                class: "text-xs font-medium text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200",
-                                href: link.path,
-                                rel: "noreferrer",
-                                "{link.label}"
-                            }
-                        }
-                    }
-                }
-                p { class: FOOTER_COPY, "The catalog and its authoring contract." }
-            }
+            class: "mt-auto flex w-full flex-col items-center gap-1 border-t border-zinc-200/80 py-8 text-center text-xs tracking-wide text-[#17395f] dark:border-white/10 dark:text-zinc-300",
+            p { "{copyright}" }
+            GarunskiCredit {}
         }
     }
 }

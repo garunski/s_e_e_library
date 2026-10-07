@@ -1,5 +1,5 @@
 use s_e_e_gui_kit::components::{
-    button::{ButtonVariant, button_classes, ButtonSize},
+    button::{button_classes, ButtonSize, ButtonVariant},
     layout::page_header::{PAGE_HEADER_DESCRIPTION_CLASS, PAGE_TITLE_CLASSES},
     page_structure::EDITORIAL_FRAME_CLASS,
 };

@@ -2,18 +2,19 @@ use dioxus::prelude::*;
 use s_e_e_gui_kit::components::{
     button::{button_classes, ButtonSize, ButtonVariant},
     layout::page_header::PageHeader,
-    page_structure::{
-        EditorialFrame, SystemOverview, SystemOverviewGroup, SystemOverviewKind,
-    },
+    page_structure::{EditorialFrame, SystemOverview, SystemOverviewGroup, SystemOverviewKind},
 };
 
 use crate::library_href;
 use crate::pages::page_links::{self, HOME_PACKAGE_TYPES, HOME_UTILITY_LINKS};
 const PACKAGE_CARD: &str = "block rounded-lg border border-zinc-200/80 bg-white p-4 transition hover:border-sky-300 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-sky-400/40 dark:hover:bg-zinc-800/60 dark:focus-visible:ring-sky-400/20";
 const SECTION_LEDE: &str = "text-sm leading-relaxed text-zinc-600 dark:text-zinc-400";
-const SECTION_KICKER: &str = "text-[11px] font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500";
-const SECTION_TITLE: &str = "text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-50";
-const NOTE_LINK: &str = "text-sm font-medium text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200";
+const SECTION_KICKER: &str =
+    "text-[11px] font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500";
+const SECTION_TITLE: &str =
+    "text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-50";
+const NOTE_LINK: &str =
+    "text-sm font-medium text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200";
 
 #[component]
 pub fn LibraryHome() -> Element {

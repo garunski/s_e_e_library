@@ -15,7 +15,14 @@ pub const CONFIG_SCHEMA_PAGES: [ConfigSchemaPageContract; 8] = [
         slug: "hub-config",
         document_title: "Hub config schema",
         schema_filename: "hub-config.schema.json",
-        field_markers: &["project", "overrides", "library", "stories", "llm.routing", "orchestrator"],
+        field_markers: &[
+            "project",
+            "overrides",
+            "library",
+            "stories",
+            "llm.routing",
+            "orchestrator",
+        ],
     },
     ConfigSchemaPageContract {
         slug: "global-config",

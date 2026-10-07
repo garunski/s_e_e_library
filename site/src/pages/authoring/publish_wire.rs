@@ -1,7 +1,6 @@
 //! Plain-text snippets shared by the publish page and machine checks.
 
-pub const VALIDATE_AND_CATALOG_COMMANDS: &str =
-    "mise run validate\nmise run catalog";
+pub const VALIDATE_AND_CATALOG_COMMANDS: &str = "mise run validate\nmise run catalog";
 
 pub const DOCS_CHECK_COMMANDS: &str = "mise run quality";
 

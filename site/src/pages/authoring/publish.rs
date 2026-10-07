@@ -8,8 +8,8 @@ use crate::pages::authoring::publish_wire::{
     VALIDATE_AND_CATALOG_COMMANDS,
 };
 use crate::pages::authoring_common::{
-    AuthoringGuideFrame, BODY_TEXT, CodeExample, INLINE_CODE, LINK, LIST, PAGE_LEDE,
-    SECTION_TITLE, DL, DD, DT,
+    AuthoringGuideFrame, CodeExample, BODY_TEXT, DD, DL, DT, INLINE_CODE, LINK, LIST, PAGE_LEDE,
+    SECTION_TITLE,
 };
 use crate::routes::Route;
 

@@ -21,15 +21,15 @@ fn documentation_paths_use_trailing_slashes_except_home() {
         if path == "/" {
             continue;
         }
-        assert!(
-            path.ends_with('/'),
-            "expected trailing slash on {path}"
-        );
+        assert!(path.ends_with('/'), "expected trailing slash on {path}");
         assert!(path.starts_with('/'));
     }
 }
 
 #[test]
 fn static_routes_match_documentation_route_table() {
-    assert_eq!(Route::static_routes().len(), documentation_route_paths().len());
+    assert_eq!(
+        Route::static_routes().len(),
+        documentation_route_paths().len()
+    );
 }

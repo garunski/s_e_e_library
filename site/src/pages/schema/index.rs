@@ -2,10 +2,10 @@ use dioxus::prelude::*;
 
 use crate::library_href;
 use crate::pages::authoring_common::{CodeExample, INLINE_CODE, LIST, PAGE_LEDE, SECTION_TITLE};
-use crate::pages::schema_common::{NamedSchemaLink, SchemaBlockByName, SchemaGuideFrame};
 use crate::pages::schema::index_markers::{
     CATEGORIES_HEADING, CLASSIFICATION_HEADING, DOCUMENT_TITLE, INSTALL_PATHS_HEADING,
 };
+use crate::pages::schema_common::{NamedSchemaLink, SchemaBlockByName, SchemaGuideFrame};
 use crate::routes::Route;
 
 const STACKS_EXAMPLE: &str = include_str!("../../../content/schema/stacks_example.json");

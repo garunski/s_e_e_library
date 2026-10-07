@@ -191,7 +191,14 @@ pub fn authoring_index_link_hrefs(base: &str) -> Vec<String> {
 #[must_use]
 #[cfg_attr(not(test), allow(dead_code))]
 pub fn authoring_guide_paths_match_route_table() -> bool {
-    let slugs = ["workflows", "prompts", "skills", "commands", "bundles", "cycles"];
+    let slugs = [
+        "workflows",
+        "prompts",
+        "skills",
+        "commands",
+        "bundles",
+        "cycles",
+    ];
     slugs.len() == AUTHORING_GUIDE_LINKS.len()
         && slugs
             .iter()

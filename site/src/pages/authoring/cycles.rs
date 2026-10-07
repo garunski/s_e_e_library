@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
 
 use crate::pages::authoring_common::{
-    AuthoringGuideFrame, BODY_TEXT, CodeExample, INLINE_CODE, LIST, PAGE_LEDE,
-    SchemaReferenceFooter, SECTION_TITLE, SUBSECTION_TITLE, DL, DD, DT,
+    AuthoringGuideFrame, CodeExample, SchemaReferenceFooter, BODY_TEXT, DD, DL, DT, INLINE_CODE,
+    LIST, PAGE_LEDE, SECTION_TITLE, SUBSECTION_TITLE,
 };
 use crate::routes::Route;
 
@@ -16,8 +16,14 @@ const INSTALL_KNOWLEDGE: &str =
     include_str!("../../../content/authoring/cycles_install_knowledge.json");
 
 const ORCHESTRATOR_STORES: [(&str, &str); 7] = [
-    ("world", "Live stories, workflows, and spoke heads (source)."),
-    ("objectives", "Authored objectives with measurable criteria."),
+    (
+        "world",
+        "Live stories, workflows, and spoke heads (source).",
+    ),
+    (
+        "objectives",
+        "Authored objectives with measurable criteria.",
+    ),
     ("deliberations", "Shaping steps per objective."),
     ("ranking", "Candidate order and weights for the next tick."),
     ("proposals", "Gated proposals; at most one per tick."),

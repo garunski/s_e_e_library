@@ -14,8 +14,7 @@ fn embedded_schema_bytes_match_public_files() {
         let disk = std::fs::read_to_string(public_schema_path(entry.filename))
             .unwrap_or_else(|e| panic!("read {}: {e}", entry.filename));
         assert_eq!(
-            entry.json,
-            disk,
+            entry.json, disk,
             "embedded bytes must match public/schema/{}",
             entry.filename
         );

@@ -34,21 +34,6 @@ pub const HEADER_CATALOG: NavLink = NavLink {
     external: false,
 };
 
-pub const FOOTER_LINKS: &[NavLink] = &[
-    NavLink {
-        path: "https://garunski.github.io/s_e_e_site/",
-        label: "S.E.E. product site",
-        file: false,
-        external: true,
-    },
-    NavLink {
-        path: "https://github.com/garunski/s_e_e_library",
-        label: "Catalog repository",
-        file: false,
-        external: true,
-    },
-];
-
 fn section_root(href: &str) -> &'static str {
     match href.split('/').nth(1) {
         Some("authoring") => "/authoring/",
@@ -69,7 +54,8 @@ pub fn is_primary_current(href: &str, current: &str) -> bool {
 #[must_use]
 pub fn shell_layout_classes() -> ShellLayoutClasses {
     ShellLayoutClasses {
-        root: "flex min-h-screen w-full min-w-0 flex-col overflow-x-hidden bg-white dark:bg-zinc-950",
+        root:
+            "flex min-h-screen w-full min-w-0 flex-col overflow-x-hidden bg-white dark:bg-zinc-950",
         content_inner: "app-content-width mx-auto w-full min-w-0 px-4 sm:px-6",
         main: "flex-1 min-w-0 py-6 sm:py-8",
     }

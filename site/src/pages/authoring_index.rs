@@ -6,8 +6,10 @@ use crate::shell::LibraryDocFrame;
 
 const PAGE_LEDE: &str = "text-sm leading-relaxed text-zinc-600 dark:text-zinc-400";
 const SECTION_TITLE: &str = "text-sm font-semibold text-zinc-900 dark:text-zinc-50";
-const LIST_LINK: &str = "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200";
-const LIST_ITEM: &str = "space-y-1 border-t border-zinc-200/80 py-3 first:border-t-0 dark:border-zinc-700";
+const LIST_LINK: &str =
+    "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200";
+const LIST_ITEM: &str =
+    "space-y-1 border-t border-zinc-200/80 py-3 first:border-t-0 dark:border-zinc-700";
 const INLINE_CODE: &str = "rounded bg-zinc-100 px-1 py-0.5 font-mono text-[11px] text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200";
 
 #[component]
