@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-learn-planning",
+  "slug": "system-learn-planning",
+  "category": "workflow",
+  "name": "Learn planning lesson",
+  "description": "Writes one observed planning lesson from a finished run and leaves accepted decisions and installed prompts unchanged.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-07",
+      "note": "Learn stage records an observed miss as a planning lesson."
+    }
+  ],
+  "usageContexts": ["standalone"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}

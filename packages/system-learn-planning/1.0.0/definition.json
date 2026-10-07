@@ -1,0 +1,46 @@
+{
+  "id": "system-learn-planning",
+  "name": "Learn planning lesson",
+  "description": "Read the finished run with item_fetch. The suite task writes only the observed lesson. Do not change accepted decisions or installed prompts. Do not mark work Done.",
+  "content": {
+    "id": "system-learn-planning",
+    "name": "Learn planning lesson",
+    "description": "Record one observed planning miss from a finished or stopped run.",
+    "runtime_inputs": [
+      {
+        "key": "lesson",
+        "input_type": "string",
+        "required": true,
+        "label": "Planning lesson JSON"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "read",
+        "name": "Read the finished run",
+        "function": {
+          "name": "command",
+          "input": {
+            "prompt": "You are the Learn stage. The observed lesson is {{runtime.lesson}}. Use item_fetch to read the finished or stopped run and the planning records it names. Do not call item_call. Do not change accepted decisions or installed prompts. Do not mark work Done. Reply with the observed miss only."
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "learn",
+            "name": "Store the observed lesson",
+            "capture_output": true,
+            "function": {
+              "name": "planning_suite",
+              "input": {
+                "operation": "learn",
+                "manifest_runtime_key": "lesson",
+                "run_runtime_key": "lesson",
+                "lesson_runtime_key": "lesson"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

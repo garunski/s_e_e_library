@@ -1,0 +1,51 @@
+{
+  "id": "system-decompose-planning",
+  "name": "Decompose planning stories",
+  "description": "Read current stories with item_fetch. The suite task writes records and the operation journal. Do not mark work Done. Do not start implementation.",
+  "content": {
+    "id": "system-decompose-planning",
+    "name": "Decompose planning stories",
+    "description": "Materialize every necessary story from the validated manifest.",
+    "runtime_inputs": [
+      {
+        "key": "manifest",
+        "input_type": "string",
+        "required": true,
+        "label": "Planning manifest JSON"
+      },
+      {
+        "key": "run_id",
+        "input_type": "string",
+        "required": true,
+        "label": "Planning run id"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "read",
+        "name": "Read current stories",
+        "function": {
+          "name": "command",
+          "input": {
+            "prompt": "You are the Decompose stage. The validated manifest is {{runtime.manifest}} for run {{runtime.run_id}}. Use item_fetch to read milestones and stories. Do not call item_call. Do not mark work Done. Do not start implementation. Reply with the story keys that are still missing."
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "decompose",
+            "name": "Persist stories from the journal",
+            "capture_output": true,
+            "function": {
+              "name": "planning_suite",
+              "input": {
+                "operation": "decompose",
+                "manifest_runtime_key": "manifest",
+                "run_runtime_key": "run_id"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-review-planning",
+  "slug": "system-review-planning",
+  "category": "workflow",
+  "name": "Review planning suite",
+  "description": "Compares stored milestones and stories with the validated manifest, repairs omissions, and returns links to the records.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-07",
+      "note": "Review stage reports gaps and repairs them through the journal."
+    }
+  ],
+  "usageContexts": ["standalone"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}

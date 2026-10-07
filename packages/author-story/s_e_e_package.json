@@ -19,6 +19,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Refresh embedded work skill."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-07",
+      "note": "Evidence-first prompt and milestone context on the author-story workflow."
     }
   ],
   "usageContexts": [

@@ -1,0 +1,28 @@
+{
+  "id": "wf-system-plan-stories",
+  "slug": "system-plan-stories",
+  "category": "workflow",
+  "name": "Plan stories coverage",
+  "description": "Drafts a planning manifest from a rough request and validates coverage before any milestone or story write.",
+  "labels": [
+    "story"
+  ],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-07",
+      "note": "Plan stage validates a coverage manifest before store writes."
+    }
+  ],
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
+}

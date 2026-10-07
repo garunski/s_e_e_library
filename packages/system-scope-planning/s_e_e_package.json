@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-scope-planning",
+  "slug": "system-scope-planning",
+  "category": "workflow",
+  "name": "Scope planning milestone",
+  "description": "Creates or updates the milestone cut from a validated planning manifest and records it in the operation journal.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-07",
+      "note": "Scope stage writes the milestone cut before stories."
+    }
+  ],
+  "usageContexts": ["standalone"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}

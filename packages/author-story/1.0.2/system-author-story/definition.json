@@ -1,0 +1,73 @@
+{
+  "id": "system-author-story",
+  "name": "Author story from description",
+  "description": "Runs the project default command with the story-authoring prompt. The agent writes the story through store tools.",
+  "content": {
+    "id": "system-author-story",
+    "name": "Author story from description",
+    "description": "Author one story from a request, with optional milestone context.",
+    "runtime_inputs": [
+      {
+        "key": "story_request",
+        "input_type": "multiline_string",
+        "required": true,
+        "label": "Describe the story to create"
+      },
+      {
+        "key": "milestone_id",
+        "input_type": "string",
+        "required": false,
+        "default": "",
+        "label": "Milestone id"
+      },
+      {
+        "key": "milestone_title",
+        "input_type": "string",
+        "required": false,
+        "default": "",
+        "label": "Milestone title"
+      },
+      {
+        "key": "milestone_outcome",
+        "input_type": "string",
+        "required": false,
+        "default": "",
+        "label": "Milestone outcome"
+      },
+      {
+        "key": "milestone_cut",
+        "input_type": "string",
+        "required": false,
+        "default": "",
+        "label": "Milestone cut"
+      },
+      {
+        "key": "existing_members",
+        "input_type": "string",
+        "required": false,
+        "default": "",
+        "label": "Existing members"
+      },
+      {
+        "key": "dependency_context",
+        "input_type": "string",
+        "required": false,
+        "default": "",
+        "label": "Dependency context"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "author_story",
+        "name": "Author the story",
+        "function": {
+          "name": "command",
+          "input": {
+            "prompt": "{{prompt.system-story-authoring}}\n\n## Milestone context\nid: {{runtime.milestone_id}}\ntitle: {{runtime.milestone_title}}\noutcome: {{runtime.milestone_outcome}}\ncut: {{runtime.milestone_cut}}\nexisting members: {{runtime.existing_members}}\ndependency context: {{runtime.dependency_context}}\n\n## Operator request\n{{runtime.story_request}}\n"
+          }
+        },
+        "next_tasks": []
+      }
+    ]
+  }
+}

@@ -85,15 +85,15 @@
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "files": [
         {
-          "from": "packages/author-story/1.0.1/stories/SKILL.md",
+          "from": "packages/author-story/1.0.2/stories/SKILL.md",
           "to": ".agents/skills/stories/SKILL.md"
         },
         {
-          "from": "packages/author-story/1.0.1/work/SKILL.md",
+          "from": "packages/author-story/1.0.2/work/SKILL.md",
           "to": ".agents/skills/work/SKILL.md"
         },
         {
-          "from": "packages/author-story/1.0.1/system-story-authoring/prompt.json",
+          "from": "packages/author-story/1.0.2/system-story-authoring/prompt.json",
           "to": ".s_e_e/prompts/system-story-authoring.json"
         },
         {
@@ -109,7 +109,7 @@
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/author-story/1.0.1/system-author-story/definition.json",
+          "from": "packages/author-story/1.0.2/system-author-story/definition.json",
           "to": ".s_e_e/workflows/definitions/system-author-story.json"
         }
       ],
@@ -129,6 +129,11 @@
           "date": "2026-09-29",
           "note": "Refresh embedded work skill.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-07",
+          "note": "Evidence-first prompt and milestone context on the author-story workflow.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -141,7 +146,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -798,6 +803,51 @@
     },
     {
       "author": "garunski",
+      "category": "cycle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [
+        "wf-system-decompose-planning",
+        "wf-system-learn-planning",
+        "wf-system-review-planning",
+        "wf-system-scope-planning"
+      ],
+      "description": "The four-stage stories loop as a cycle document for the stories host.",
+      "files": [
+        {
+          "from": "packages/cycle-stories-default/1.0.0/cycle.json",
+          "to": ".s_e_e/cycles/cycle-stories-default.json"
+        }
+      ],
+      "id": "cycle-stories-default",
+      "labels": [
+        "cycle",
+        "stories"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Stories default",
+      "releases": [
+        {
+          "date": "2026-10-07",
+          "note": "Stories cycle installs Scope, Decompose, Review, and Learn.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "cycle-stories-default",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
       "category": "prompt",
       "cliScope": {
         "scope": "any"
@@ -1022,7 +1072,7 @@
       "description": "Authors a milestone through MCP store tools.",
       "files": [
         {
-          "from": "packages/system-milestone-authoring/1.0.0/prompt.json",
+          "from": "packages/system-milestone-authoring/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-milestone-authoring.json"
         }
       ],
@@ -1037,6 +1087,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-07",
+          "note": "Evidence-first contract and the shared MCP fragment.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1049,7 +1104,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1257,7 +1312,7 @@
       "dependencies": [],
       "files": [
         {
-          "from": "packages/system-story-authoring/1.0.0/prompt.json",
+          "from": "packages/system-story-authoring/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-story-authoring.json"
         }
       ],
@@ -1272,6 +1327,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-07",
+          "note": "Evidence-first contract and the shared MCP fragment.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1284,7 +1344,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1441,7 +1501,7 @@
       "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
       "files": [
         {
-          "from": "packages/stories/1.0.0/SKILL.md",
+          "from": "packages/stories/1.0.1/SKILL.md",
           "to": ".agents/skills/stories/SKILL.md"
         }
       ],
@@ -1456,6 +1516,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-07",
+          "note": "Evidence-first authoring contract.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1471,7 +1536,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1634,10 +1699,10 @@
       "dependencies": [
         "prompt-system-story-authoring"
       ],
-      "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/planning/stories/`.",
+      "description": "Runs the project default command with the story-authoring prompt. The agent writes the story through store tools.",
       "files": [
         {
-          "from": "packages/system-author-story/1.0.0/definition.json",
+          "from": "packages/system-author-story/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-author-story.json"
         }
       ],
@@ -1657,6 +1722,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-07",
+          "note": "Passes milestone context and keeps standalone requests valid.",
+          "version": "1.0.2"
         }
       ],
       "requires": [
@@ -1672,7 +1742,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1722,6 +1792,48 @@
       ],
       "verified": true,
       "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Creates or updates milestone members, dependencies, and numbered criteria from a validated planning manifest. Resume uses the operation journal.",
+      "files": [
+        {
+          "from": "packages/system-decompose-planning/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-decompose-planning.json"
+        }
+      ],
+      "id": "wf-system-decompose-planning",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Decompose planning stories",
+      "releases": [
+        {
+          "date": "2026-10-07",
+          "note": "Decompose stage writes stories from the journal.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-decompose-planning",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
     },
     {
       "author": "garunski",
@@ -1876,6 +1988,48 @@
         "scope": "any"
       },
       "dependencies": [],
+      "description": "Writes one observed planning lesson from a finished run and leaves accepted decisions and installed prompts unchanged.",
+      "files": [
+        {
+          "from": "packages/system-learn-planning/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-learn-planning.json"
+        }
+      ],
+      "id": "wf-system-learn-planning",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Learn planning lesson",
+      "releases": [
+        {
+          "date": "2026-10-07",
+          "note": "Learn stage records an observed miss as a planning lesson.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-learn-planning",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
       "description": "Compares a finished execution against the intent the proposal claimed and writes a structured outcome judgment.",
       "files": [
         {
@@ -1920,6 +2074,48 @@
         "scope": "any"
       },
       "dependencies": [],
+      "description": "Drafts a planning manifest from a rough request and validates coverage before any milestone or story write.",
+      "files": [
+        {
+          "from": "packages/system-plan-stories/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-plan-stories.json"
+        }
+      ],
+      "id": "wf-system-plan-stories",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Plan stories coverage",
+      "releases": [
+        {
+          "date": "2026-10-07",
+          "note": "Plan stage validates a coverage manifest before store writes.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-plan-stories",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
       "description": "Scores every capability against its bound subjects. Weights, confidence floor, failure threshold, and deprioritize penalty are inputs.",
       "files": [
         {
@@ -1956,6 +2152,90 @@
       ],
       "verified": true,
       "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Compares stored milestones and stories with the validated manifest, repairs omissions, and returns links to the records.",
+      "files": [
+        {
+          "from": "packages/system-review-planning/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-review-planning.json"
+        }
+      ],
+      "id": "wf-system-review-planning",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Review planning suite",
+      "releases": [
+        {
+          "date": "2026-10-07",
+          "note": "Review stage reports gaps and repairs them through the journal.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-review-planning",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Creates or updates the milestone cut from a validated planning manifest and records it in the operation journal.",
+      "files": [
+        {
+          "from": "packages/system-scope-planning/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-scope-planning.json"
+        }
+      ],
+      "id": "wf-system-scope-planning",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Scope planning milestone",
+      "releases": [
+        {
+          "date": "2026-10-07",
+          "note": "Scope stage writes the milestone cut before stories.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-scope-planning",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.0"
     },
     {
       "author": "garunski",

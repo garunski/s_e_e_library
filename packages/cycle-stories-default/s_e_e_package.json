@@ -1,0 +1,34 @@
+{
+  "id": "cycle-stories-default",
+  "slug": "cycle-stories-default",
+  "category": "cycle",
+  "name": "Stories default",
+  "description": "The four-stage stories loop as a cycle document for the stories host.",
+  "labels": [
+    "cycle",
+    "stories"
+  ],
+  "dependencies": [
+    "wf-system-decompose-planning",
+    "wf-system-learn-planning",
+    "wf-system-review-planning",
+    "wf-system-scope-planning"
+  ],
+  "toolIds": [],
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  },
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-07",
+      "note": "Stories cycle installs Scope, Decompose, Review, and Learn."
+    }
+  ]
+}

@@ -1524,7 +1524,9 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
             "git_action",
             "s_e_e_action",
             "foreach",
-            "custom"
+            "custom",
+            "planning_manifest",
+            "planning_suite"
           ]
         },
         "input": { "type": "object" }

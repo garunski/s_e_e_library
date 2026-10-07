@@ -268,6 +268,12 @@
         },
         {
           "$ref": "#/definitions/RankCandidatesFunction"
+        },
+        {
+          "$ref": "#/definitions/PlanningManifestFunction"
+        },
+        {
+          "$ref": "#/definitions/PlanningSuiteFunction"
         }
       ]
     },
@@ -760,6 +766,73 @@
         "input": {
           "type": "object",
           "default": {}
+        }
+      }
+    },
+    "PlanningManifestFunction": {
+      "type": "object",
+      "description": "Validate a planning manifest before any milestone or story write",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "planning_manifest"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "manifest_runtime_key"
+          ],
+          "properties": {
+            "manifest_runtime_key": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Runtime input key whose value is the planning manifest JSON"
+            }
+          }
+        }
+      }
+    },
+    "PlanningSuiteFunction": {
+      "type": "object",
+      "description": "Write or review a validated planning suite without starting implementation",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "planning_suite"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "operation",
+            "manifest_runtime_key",
+            "run_runtime_key"
+          ],
+          "properties": {
+            "operation": {
+              "type": "string",
+              "enum": ["scope", "decompose", "review", "learn"]
+            },
+            "manifest_runtime_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "run_runtime_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lesson_runtime_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
         }
       }
     }

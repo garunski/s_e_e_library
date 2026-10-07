@@ -1,0 +1,43 @@
+{
+  "id": "system-plan-stories",
+  "name": "Plan stories coverage",
+  "description": "Draft a planning manifest from a rough request, then validate it. Do not create milestones or stories. Do not start implementation.",
+  "content": {
+    "id": "system-plan-stories",
+    "name": "Plan stories coverage",
+    "description": "Read the request, project layout, relevant Knowledge, current milestones and stories, and affected surfaces. Record observed facts, unresolved questions, necessary and excluded work, one milestone outcome, story outcomes, dependencies, and completion evidence. Do not treat an unverified technical claim as a requirement. If a decision changes public behavior, leave that decision open in the manifest so validation stops the run. Do not create milestones or stories. Do not start implementation.",
+    "runtime_inputs": [
+      {
+        "key": "manifest",
+        "input_type": "string",
+        "required": true,
+        "label": "Planning manifest JSON"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "draft",
+        "name": "Draft the planning manifest",
+        "function": {
+          "name": "command",
+          "input": {
+            "prompt": "You are the Plan stage. The draft manifest is {{runtime.manifest}}. Check its sources against the project layout, relevant Knowledge, current milestones and stories, and the affected surfaces. Keep one bounded milestone outcome. Map every necessary surface to a story. Give every story a milestone id or provisional milestone reference, an outcome, an acceptance outcome, and dependencies. Give excluded work a reason. Mark facts verified only when you observed them. Leave a decision that changes public behavior in open_decisions with blocks_product_behavior true instead of inventing an answer. Do not create a milestone or story. Do not start implementation. Reply with the corrected manifest JSON only."
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "validate",
+            "name": "Validate coverage before writing",
+            "capture_output": true,
+            "function": {
+              "name": "planning_manifest",
+              "input": {
+                "manifest_runtime_key": "manifest"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

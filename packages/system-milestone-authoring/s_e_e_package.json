@@ -14,6 +14,11 @@
       "version": "1.0.0",
       "date": "2026-09-01",
       "note": "Initial catalog release."
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-10-07",
+      "note": "Evidence-first contract and the shared MCP fragment."
     }
   ],
   "usageContexts": [

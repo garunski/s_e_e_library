@@ -3,7 +3,7 @@
   "slug": "system-author-story",
   "category": "workflow",
   "name": "Author story from description",
-  "description": "Runs a Cursor agent (auto mode) with the story-authoring prompt and your description. Produce a valid story markdown file under `.s_e_e/planning/stories/`.",
+  "description": "Runs the project default command with the story-authoring prompt. The agent writes the story through store tools.",
   "labels": [
     "story"
   ],
@@ -21,6 +21,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Command-neutral agent steps use the project default command."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-07",
+      "note": "Passes milestone context and keeps standalone requests valid."
     }
   ],
   "usageContexts": [

@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-decompose-planning",
+  "slug": "system-decompose-planning",
+  "category": "workflow",
+  "name": "Decompose planning stories",
+  "description": "Creates or updates milestone members, dependencies, and numbered criteria from a validated planning manifest. Resume uses the operation journal.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-07",
+      "note": "Decompose stage writes stories from the journal."
+    }
+  ],
+  "usageContexts": ["standalone"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}
