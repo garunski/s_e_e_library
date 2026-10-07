@@ -45,6 +45,91 @@ const THEME_OPTION: &str =
 const THEME_OPTION_ON: &str =
     "rounded-md bg-sky-50 px-3 py-2 text-left text-xs font-semibold text-sky-700 ring-1 ring-inset ring-sky-200/60 dark:bg-sky-950/40 dark:text-sky-300 dark:ring-sky-400/25";
 const LIBRARY_COPYRIGHT_NAME: &str = "Garunski LLC";
+const MARKETING_SITE: &str = "https://garunski.github.io/s_e_e_site";
+const LIBRARY_CATALOG: &str = "https://garunski.github.io/s_e_e_library/";
+const BETA_URL: &str = "https://see.fang.garunski.com/";
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+struct FooterShellLink {
+    label: &'static str,
+    href: &'static str,
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+struct FooterShellGroup {
+    aria_label: &'static str,
+    label: &'static str,
+    links: &'static [FooterShellLink],
+}
+
+const FOOTER_SHELL_GROUPS: &[FooterShellGroup] = &[
+    FooterShellGroup {
+        aria_label: "Product links",
+        label: "Product",
+        links: &[
+            FooterShellLink {
+                label: "Overview",
+                href: "https://garunski.github.io/s_e_e_site/product/overview/",
+            },
+            FooterShellLink {
+                label: "Workflows",
+                href: "https://garunski.github.io/s_e_e_site/product/workflows/",
+            },
+            FooterShellLink {
+                label: "Runs",
+                href: "https://garunski.github.io/s_e_e_site/product/runs/",
+            },
+            FooterShellLink {
+                label: "Library",
+                href: "https://garunski.github.io/s_e_e_site/library/",
+            },
+            FooterShellLink {
+                label: "Browse the library",
+                href: LIBRARY_CATALOG,
+            },
+        ],
+    },
+    FooterShellGroup {
+        aria_label: "Learn links",
+        label: "Learn",
+        links: &[
+            FooterShellLink {
+                label: "Core idea",
+                href: "https://garunski.github.io/s_e_e_site/learn/core-idea/",
+            },
+            FooterShellLink {
+                label: "Human control",
+                href: "https://garunski.github.io/s_e_e_site/learn/human-control/",
+            },
+            FooterShellLink {
+                label: "Adaptive layer",
+                href: "https://garunski.github.io/s_e_e_site/learn/adaptive-layer/",
+            },
+            FooterShellLink {
+                label: "Real work",
+                href: "https://garunski.github.io/s_e_e_site/learn/real-work/",
+            },
+            FooterShellLink {
+                label: "Boundaries",
+                href: "https://garunski.github.io/s_e_e_site/learn/boundaries/",
+            },
+        ],
+    },
+    FooterShellGroup {
+        aria_label: "Access links",
+        label: "Access",
+        links: &[
+            FooterShellLink {
+                label: "Pricing",
+                href: "https://garunski.github.io/s_e_e_site/pricing/",
+            },
+            FooterShellLink {
+                label: "Join the beta",
+                href: BETA_URL,
+            },
+        ],
+    },
+];
 
 #[must_use]
 pub fn route_current_path(route: &Route) -> &'static str {
@@ -239,14 +324,71 @@ pub fn library_copyright_line(year: i32) -> String {
 }
 
 #[component]
+fn FooterShellGroupNav(group: FooterShellGroup) -> Element {
+    rsx! {
+        nav {
+            "aria-label": group.aria_label,
+            class: "flex flex-col items-start gap-2.5",
+            p {
+                class: "mb-1 text-[0.76rem] font-semibold tracking-[0.14em] text-amber-400 uppercase",
+                "{group.label}"
+            }
+            for link in group.links {
+                a {
+                    key: "{link.href}",
+                    class: "text-[0.95rem] text-zinc-300 no-underline hover:text-sky-400",
+                    href: link.href,
+                    rel: "noreferrer",
+                    "{link.label}"
+                }
+            }
+        }
+    }
+}
+
+#[component]
 pub fn LibraryFooter() -> Element {
     let copyright = library_copyright_line(chrono::Local::now().year());
+    let inner = shell_layout_classes().content_inner;
     rsx! {
         footer {
             "data-testid": "library-shell-footer",
-            class: "mt-auto flex w-full flex-col items-center gap-1 border-t border-zinc-200/80 py-8 text-center text-xs tracking-wide text-[#17395f] dark:border-white/10 dark:text-zinc-300",
-            p { "{copyright}" }
-            GarunskiCredit {}
+            class: "dark mt-auto w-full border-t border-zinc-700 bg-zinc-900 text-zinc-400",
+            div {
+                class: "{inner} pt-12 pb-6 md:pt-20",
+                div {
+                    class: "grid gap-[clamp(3rem,7vw,7rem)] min-[801px]:grid-cols-[minmax(15rem,1.2fr)_minmax(30rem,2fr)]",
+                    div {
+                        a {
+                            class: "inline-flex items-center gap-2.5 text-[1.15rem] font-semibold tracking-[0.12em] text-white no-underline",
+                            href: MARKETING_SITE,
+                            rel: "noreferrer",
+                            aria_label: "S.E.E. home",
+                            img {
+                                src: asset!("/assets/branding/logo.svg"),
+                                width: "44",
+                                height: "44",
+                                alt: "",
+                            }
+                            span { {APP_DISPLAY_NAME} }
+                        }
+                        p {
+                            class: "mt-5 max-w-sm text-[0.95rem] leading-relaxed text-zinc-400",
+                            "Goal-driven agent execution that keeps direction, work, and evidence connected."
+                        }
+                    }
+                    div { class: "grid grid-cols-1 gap-8 sm:grid-cols-3",
+                        for group in FOOTER_SHELL_GROUPS {
+                            FooterShellGroupNav { key: "{group.label}", group: *group }
+                        }
+                    }
+                }
+                div {
+                    class: "mt-12 flex flex-col items-center gap-1 border-t border-zinc-700 pt-5 text-center text-sm tracking-wide text-zinc-500",
+                    p { "{copyright}" }
+                    GarunskiCredit {}
+                }
+            }
         }
     }
 }

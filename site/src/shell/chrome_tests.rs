@@ -20,3 +20,20 @@ fn library_copyright_names_garunski_llc() {
     assert_eq!(line, "© 2026 Garunski LLC");
     assert!(!line.contains("S.E.E."));
 }
+
+#[test]
+fn footer_shell_overview_points_at_the_marketing_site() {
+    let product = super::FOOTER_SHELL_GROUPS
+        .iter()
+        .find(|group| group.label == "Product")
+        .expect("product group");
+    let overview = product
+        .links
+        .iter()
+        .find(|link| link.label == "Overview")
+        .expect("overview");
+    assert_eq!(
+        overview.href,
+        "https://garunski.github.io/s_e_e_site/product/overview/"
+    );
+}
