@@ -1,0 +1,44 @@
+{
+  "id": "system-planning-recovery",
+  "name": "Recover planning observation",
+  "description": "Sweep objectives and observe only stale fingerprints. Do not create milestones or stories.",
+  "content": {
+    "id": "system-planning-recovery",
+    "name": "Recover planning observation",
+    "description": "Hourly recovery sweep for objectives that are not yet observed at the current fingerprint.",
+    "runtime_inputs": [
+      {
+        "key": "project_id",
+        "input_type": "string",
+        "required": false,
+        "label": "Project id"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "recovery",
+        "name": "Recovery sweep",
+        "capture_output": true,
+        "function": {
+          "name": "planning_observe",
+          "input": {
+            "operation": "recovery"
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "coverage",
+            "name": "Coverage recovery sweep",
+            "capture_output": true,
+            "function": {
+              "name": "planning_coverage",
+              "input": {
+                "operation": "recovery"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

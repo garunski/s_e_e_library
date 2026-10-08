@@ -22,27 +22,40 @@
     ],
     "tasks": [
       {
-        "id": "read",
-        "name": "Read the current milestone",
+        "id": "validate",
+        "name": "Bind validated manifest",
+        "capture_output": true,
         "function": {
-          "name": "command",
+          "name": "planning_manifest",
           "input": {
-            "prompt": "You are the Scope stage. The validated manifest is {{runtime.manifest}} for run {{runtime.run_id}}. Use item_fetch to read the current milestones. Do not call item_call. Do not create a story. Do not mark work Done. Do not start implementation. Reply with the milestone outcome from the manifest."
+            "manifest_runtime_key": "manifest"
           }
         },
         "next_tasks": [
           {
-            "id": "scope",
-            "name": "Persist the milestone cut",
-            "capture_output": true,
+            "id": "read",
+            "name": "Read the current milestone",
             "function": {
-              "name": "planning_suite",
+              "name": "command",
               "input": {
-                "operation": "scope",
-                "manifest_runtime_key": "manifest",
-                "run_runtime_key": "run_id"
+                "prompt": "You are the Scope stage. The validated manifest is already bound for run {{runtime.run_id}}. Use item_fetch to read the current milestones. Do not call item_call. Do not create a story. Do not mark work Done. Do not start implementation. Reply with the milestone outcome from the validated manifest."
               }
-            }
+            },
+            "next_tasks": [
+              {
+                "id": "scope",
+                "name": "Persist the milestone cut",
+                "capture_output": true,
+                "function": {
+                  "name": "planning_suite",
+                  "input": {
+                    "operation": "scope",
+                    "manifest_runtime_key": "",
+                    "run_runtime_key": "run_id"
+                  }
+                }
+              }
+            ]
           }
         ]
       }

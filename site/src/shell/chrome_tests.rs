@@ -22,18 +22,18 @@ fn library_copyright_names_garunski_llc() {
 }
 
 #[test]
-fn footer_shell_overview_points_at_the_marketing_site() {
-    let product = super::FOOTER_SHELL_GROUPS
+fn footer_shell_points_at_the_new_marketing_pages() {
+    let marketing = super::FOOTER_SHELL_GROUPS
         .iter()
-        .find(|group| group.label == "Product")
-        .expect("product group");
-    let overview = product
+        .find(|group| group.label == "S.E.E.")
+        .expect("marketing group");
+    let how_it_works = marketing
         .links
         .iter()
-        .find(|link| link.label == "Overview")
-        .expect("overview");
+        .find(|link| link.label == "How it works")
+        .expect("how it works");
     assert_eq!(
-        overview.href,
-        "https://garunski.github.io/s_e_e_site/product/overview/"
+        how_it_works.href,
+        "https://garunski.github.io/s_e_e_site/how-it-works/"
     );
 }

@@ -65,64 +65,34 @@ struct FooterShellGroup {
 
 const FOOTER_SHELL_GROUPS: &[FooterShellGroup] = &[
     FooterShellGroup {
-        aria_label: "Product links",
-        label: "Product",
+        aria_label: "S.E.E. site links",
+        label: "S.E.E.",
         links: &[
             FooterShellLink {
-                label: "Overview",
-                href: "https://garunski.github.io/s_e_e_site/product/overview/",
+                label: "Home",
+                href: "https://garunski.github.io/s_e_e_site/",
             },
             FooterShellLink {
-                label: "Workflows",
-                href: "https://garunski.github.io/s_e_e_site/product/workflows/",
+                label: "How it works",
+                href: "https://garunski.github.io/s_e_e_site/how-it-works/",
             },
             FooterShellLink {
-                label: "Runs",
-                href: "https://garunski.github.io/s_e_e_site/product/runs/",
+                label: "Evidence",
+                href: "https://garunski.github.io/s_e_e_site/evidence/",
             },
             FooterShellLink {
-                label: "Library",
-                href: "https://garunski.github.io/s_e_e_site/library/",
+                label: "Access",
+                href: "https://garunski.github.io/s_e_e_site/access/",
             },
+        ],
+    },
+    FooterShellGroup {
+        aria_label: "Resource links",
+        label: "Resources",
+        links: &[
             FooterShellLink {
-                label: "Browse the library",
+                label: "Official Library",
                 href: LIBRARY_CATALOG,
-            },
-        ],
-    },
-    FooterShellGroup {
-        aria_label: "Learn links",
-        label: "Learn",
-        links: &[
-            FooterShellLink {
-                label: "Core idea",
-                href: "https://garunski.github.io/s_e_e_site/learn/core-idea/",
-            },
-            FooterShellLink {
-                label: "Human control",
-                href: "https://garunski.github.io/s_e_e_site/learn/human-control/",
-            },
-            FooterShellLink {
-                label: "Adaptive layer",
-                href: "https://garunski.github.io/s_e_e_site/learn/adaptive-layer/",
-            },
-            FooterShellLink {
-                label: "Real work",
-                href: "https://garunski.github.io/s_e_e_site/learn/real-work/",
-            },
-            FooterShellLink {
-                label: "Boundaries",
-                href: "https://garunski.github.io/s_e_e_site/learn/boundaries/",
-            },
-        ],
-    },
-    FooterShellGroup {
-        aria_label: "Access links",
-        label: "Access",
-        links: &[
-            FooterShellLink {
-                label: "Pricing",
-                href: "https://garunski.github.io/s_e_e_site/pricing/",
             },
             FooterShellLink {
                 label: "Join the beta",

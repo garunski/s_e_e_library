@@ -2,7 +2,7 @@
   "id": "cycle-orchestrator-default",
   "name": "Orchestrator default",
   "host": "orchestrator",
-  "schema_version": 1,
+  "schema_version": 2,
   "stores": [
     "world",
     "objectives",
@@ -22,7 +22,9 @@
         "objectives",
         "world"
       ],
-      "writes": "deliberations"
+      "writes": [
+        "deliberations"
+      ]
     },
     {
       "key": "rank",
@@ -33,7 +35,9 @@
         "learning",
         "world"
       ],
-      "writes": "ranking"
+      "writes": [
+        "ranking"
+      ]
     },
     {
       "key": "propose",
@@ -44,7 +48,9 @@
         "ranking",
         "deliberations"
       ],
-      "writes": "proposals"
+      "writes": [
+        "proposals"
+      ]
     },
     {
       "key": "implement",
@@ -54,7 +60,9 @@
       "reads": [
         "proposals"
       ],
-      "writes": "executions"
+      "writes": [
+        "executions"
+      ]
     },
     {
       "key": "observe",
@@ -64,7 +72,9 @@
       "reads": [
         "executions"
       ],
-      "writes": "learning"
+      "writes": [
+        "learning"
+      ]
     }
   ]
 }

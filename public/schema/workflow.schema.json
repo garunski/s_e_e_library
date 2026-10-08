@@ -1,131 +1,912 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow.schema.json",
-  "title": "Workflow package payload (definition.json)",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://see.workflow/schema/v1.0.0",
+  "title": "Workflow Schema",
+  "description": "Schema for workflow definitions with tasks and dependencies",
+  "version": "1.0.6",
   "type": "object",
-  "required": ["id", "name", "content"],
+  "required": [
+    "id",
+    "name",
+    "tasks"
+  ],
   "properties": {
-    "id": { "type": "string", "minLength": 1 },
-    "name": { "type": "string", "minLength": 1 },
-    "description": { "type": "string" },
-    "version": { "type": "string" },
-    "content": { "$ref": "#/$defs/workflow" }
-  },
-  "$defs": {
-    "workflow": {
-      "type": "object",
-      "required": ["id", "name", "tasks"],
-      "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "spoke_root": { "type": "string", "description": "Existing absolute directory or exact {{runtime.KEY}} reference to a string runtime input" },
-        "hub_root": { "type": "string" },
-        "stories_root": { "type": "string" },
-        "knowledge_root": { "type": "string" },
-        "runtime_inputs": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/runtime_input" }
-        },
-        "default_command_id": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Optional default for command tasks that omit command_id"
-        },
-        "tasks": {
-          "type": "array",
-          "minItems": 1,
-          "items": { "$ref": "#/$defs/task" }
-        }
-      }
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the workflow"
     },
-    "runtime_input": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable workflow name"
+    },
+    "hub_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Hub workspace root (contains .s_e_e); optional, injected for hub-scoped runs"
+    },
+    "stories_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Story store root (`.s_e_e/planning/` with config.json, stories/, milestones/, …); optional if resolvable from registry"
+    },
+    "knowledge_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Knowledge root (`.s_e_e/knowledge/` with docs/, decisions/); optional; defaults next to stories_root"
+    },
+    "spoke_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Default spoke workspace root for command tasks with cwd spoke. An exact {{runtime.KEY}} reference to a string input resolves before execution and resume; the resolved path must be an existing absolute directory"
+    },
+    "spoke_lock_policy": {
+      "type": "string",
+      "enum": [
+        "fail_fast",
+        "wait",
+        "force"
+      ],
+      "description": "Default per-spoke mutex policy for command tasks in this workflow"
+    },
+    "runtime_inputs": {
+      "type": "array",
+      "description": "Optional execute-time input declarations (see doc-13); engine validates supplied map at run start",
+      "items": {
+        "$ref": "#/definitions/RuntimeInputDeclaration"
+      },
+      "default": []
+    },
+    "default_command_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional command id stored on the workflow for command tasks that omit command_id"
+    },
+    "evidence_contract": {
+      "type": "array",
+      "description": "Evidence kinds required before a run may complete (doc-51)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "tests",
+          "build",
+          "screenshot"
+        ]
+      },
+      "default": []
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Task"
+      },
+      "description": "Array of root-level tasks"
+    }
+  },
+  "definitions": {
+    "RuntimeInputDeclaration": {
       "type": "object",
-      "required": ["key", "input_type"],
+      "required": [
+        "key",
+        "input_type"
+      ],
       "properties": {
         "key": {
           "type": "string",
+          "minLength": 1,
           "pattern": "^[^.]+$",
-          "description": "Referenced as {{runtime.KEY}}; no dots."
+          "description": "Key for {{runtime.key}}; dots are reserved for namespaces"
         },
-        "input_type": { "type": "string" },
-        "required": { "type": "boolean" },
-        "label": { "type": "string" }
+        "label": {
+          "type": "string",
+          "description": "Human label for UIs (optional)"
+        },
+        "input_type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "number",
+            "boolean",
+            "string_array",
+            "multiline_string"
+          ]
+        },
+        "required": {
+          "type": "boolean",
+          "description": "If true, a value must be supplied at run start (unless default is set)"
+        },
+        "default": {
+          "description": "Optional default when the run-time map omits this key",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
       }
     },
-    "task": {
+    "Task": {
       "type": "object",
-      "required": ["id", "name", "function"],
+      "required": [
+        "id",
+        "name",
+        "function"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "name": { "type": "string" },
-        "function": { "$ref": "#/$defs/function" },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique identifier for the task within the workflow"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable task name"
+        },
+        "function": {
+          "$ref": "#/definitions/Function"
+        },
         "next_tasks": {
           "type": "array",
-          "items": { "$ref": "#/$defs/task" }
+          "default": [],
+          "description": "Optional array of tasks that execute after this task",
+          "items": {
+            "$ref": "#/definitions/Task"
+          }
         },
         "capture_output": {
           "type": "boolean",
           "default": false,
-          "description": "Record handler output for `{{task.<id>.output...}}` templates"
+          "description": "Record this task's handler output for {{task.<id>.output}} reference (doc-13)"
         },
         "wait_for": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 },
-          "description": "Task ids that must complete before this task runs"
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Task ids (or foreach ids) that must complete before this task runs"
         },
         "continue_on_failure": {
           "type": "boolean",
           "default": false,
-          "description": "Treat a failed task as complete so descendants and captured output stay reachable"
+          "description": "When true, a failed task is recorded as complete so descendants and captured output remain available"
         },
         "run_when": {
-          "$ref": "#/$defs/condition",
-          "description": "Gate execution on a prior task's captured output"
+          "$ref": "#/definitions/Condition",
+          "description": "Run this task only when the condition on a prior task's captured output is true"
         }
       }
     },
-    "condition": {
+    "Condition": {
       "type": "object",
-      "required": ["task", "op"],
+      "required": [
+        "task",
+        "op"
+      ],
       "properties": {
         "task": {
           "type": "string",
           "minLength": 1,
-          "description": "Producer task id (capture_output: true)"
+          "description": "Producer task id (must have capture_output: true)"
         },
         "path": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 },
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "default": [],
-          "description": "Path into producer output (e.g. exit_code, stdout)"
+          "description": "Path into the producer output JSON (e.g. [\"exit_code\"])"
         },
         "op": {
           "type": "string",
-          "enum": ["eq", "ne", "gt", "lt", "ge", "le", "exists"]
+          "enum": [
+            "eq",
+            "ne",
+            "gt",
+            "lt",
+            "ge",
+            "le",
+            "exists"
+          ],
+          "description": "Comparison operator"
         },
         "value": {
-          "description": "Comparison value; omit when op is exists"
+          "description": "Right-hand value for eq/ne/gt/lt/ge/le; omit for exists"
         }
       }
     },
-    "function": {
+    "Function": {
+      "description": "Task function with oneOf constraints",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/CliCommandFunction"
+        },
+        {
+          "$ref": "#/definitions/CommandFunction"
+        },
+        {
+          "$ref": "#/definitions/UserInputFunction"
+        },
+        {
+          "$ref": "#/definitions/CustomFunction"
+        },
+        {
+          "$ref": "#/definitions/GitActionFunction"
+        },
+        {
+          "$ref": "#/definitions/SeeActionFunction"
+        },
+        {
+          "$ref": "#/definitions/ForeachFunction"
+        },
+        {
+          "$ref": "#/definitions/RepairLoopFunction"
+        },
+        {
+          "$ref": "#/definitions/SpokeDiffReviewFunction"
+        },
+        {
+          "$ref": "#/definitions/DeliberateFunction"
+        },
+        {
+          "$ref": "#/definitions/RankCandidatesFunction"
+        },
+        {
+          "$ref": "#/definitions/PlanningManifestFunction"
+        },
+        {
+          "$ref": "#/definitions/PlanningSuiteFunction"
+        },
+        {
+          "$ref": "#/definitions/PlanningObserveFunction"
+        },
+        {
+          "$ref": "#/definitions/PlanningReadyFunction"
+        }
+      ]
+    },
+    "CliCommandFunction": {
       "type": "object",
-      "required": ["name"],
+      "description": "CLI command execution function",
+      "required": [
+        "name",
+        "input"
+      ],
       "properties": {
         "name": {
-          "enum": [
-            "cli_command",
-            "command",
-            "user_input",
-            "git_action",
-            "s_e_e_action",
-            "foreach",
-            "custom",
-            "planning_manifest",
-            "planning_suite"
-          ]
+          "type": "string",
+          "const": "cli_command"
         },
-        "input": { "type": "object" }
+        "input": {
+          "type": "object",
+          "required": [
+            "command"
+          ],
+          "properties": {
+            "command": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The command to execute"
+            },
+            "args": {
+              "type": "array",
+              "default": [],
+              "description": "Command arguments",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CommandFunction": {
+      "type": "object",
+      "description": "Installed command definition (e.g. cursor-agent)",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "command"
+        },
+        "input": {
+          "type": "object",
+          "properties": {
+            "command_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Id of the installed command definition under .s_e_e/commands/. Omit to leave the task unbound. An empty string is invalid."
+            },
+            "prompt": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Prompt text when the command definition uses prompt delivery"
+            },
+            "config": {
+              "type": "object",
+              "description": "Command parameter values keyed by param key",
+              "default": {}
+            }
+          }
+        }
+      }
+    },
+    "UserInputFunction": {
+      "type": "object",
+      "description": "User input function",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "user_input"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "prompt",
+            "input_type"
+          ],
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The prompt to display to the user"
+            },
+            "input_type": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Type of input expected (string, number, boolean, etc.)"
+            },
+            "required": {
+              "type": "boolean",
+              "default": true,
+              "description": "Whether the input is required"
+            },
+            "default": {
+              "description": "Default value if user doesn't provide input"
+            }
+          }
+        }
+      }
+    },
+    "CustomFunction": {
+      "type": "object",
+      "description": "Custom function",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "custom"
+        },
+        "input": {
+          "type": "object",
+          "description": "Custom function input data (any valid JSON object)",
+          "default": {}
+        }
+      }
+    },
+    "GitActionFunction": {
+      "type": "object",
+      "description": "Git write/read via doc-3 runner",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "git_action"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "action"
+          ],
+          "properties": {
+            "spoke": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Spoke repo root; workflow spoke_root applies when omitted"
+            },
+            "action": {
+              "type": "string",
+              "enum": [
+                "commit",
+                "push",
+                "pull",
+                "fetch",
+                "checkout",
+                "stash",
+                "stash_pop"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "description": "Commit message (commit) or stash message (stash, optional)"
+            },
+            "paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Paths for commit (omit for all)"
+            },
+            "branch": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Branch for checkout"
+            },
+            "stash_ref": {
+              "type": "string",
+              "description": "Stash ref for stash_pop (e.g. stash@{0})"
+            },
+            "id": {
+              "type": "string",
+              "description": "Alias for stash_ref on stash_pop"
+            }
+          },
+          "oneOf": [
+            {
+              "properties": {
+                "action": {
+                  "const": "commit"
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "action",
+                "message"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "push"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "pull"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "fetch"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "checkout"
+                },
+                "branch": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "action",
+                "branch"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "stash"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            {
+              "properties": {
+                "action": {
+                  "const": "stash_pop"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "SeeActionFunction": {
+      "type": "object",
+      "description": "Call one MCP tool. input.tool is the tool name. input.arguments is that tool's argument object. The execution project is injected when arguments omit project.",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "s_e_e_action"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "tool"
+          ],
+          "properties": {
+            "tool": {
+              "type": "string",
+              "minLength": 1,
+              "description": "MCP tool name"
+            },
+            "arguments": {
+              "type": "object",
+              "default": {},
+              "description": "Arguments for that tool. project is injected from the execution when omitted."
+            }
+          }
+        }
+      }
+    },
+    "ForeachFunction": {
+      "type": "object",
+      "description": "Repeat next_tasks once per element of a string array. The array comes from a string_array runtime input (collection_runtime_key) or from the captured output of an earlier task (collection_task_id). next_tasks must be exactly one task, and that body must be one chain with a single leaf. A later branch is rejected. Nested foreach is allowed when each body is still one chain.",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "foreach"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "item_runtime_key"
+          ],
+          "properties": {
+            "collection_runtime_key": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^.]+$",
+              "description": "Must match a runtime_inputs key declared as string_array"
+            },
+            "collection_task_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Id of an earlier task (capture_output: true) whose output holds the string array"
+            },
+            "collection_task_path": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Path into the referenced task output that resolves to the string array (e.g. [\"story_ids\"])"
+            },
+            "item_runtime_key": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^.]+$",
+              "description": "Per-iteration key for {{runtime.<key>}} inside the loop body"
+            }
+          },
+          "oneOf": [
+            {
+              "required": [
+                "collection_runtime_key"
+              ]
+            },
+            {
+              "required": [
+                "collection_task_id"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "RepairLoopFunction": {
+      "type": "object",
+      "description": "Run a body task, evaluate a verifier, and re-dispatch the body when the verifier fails until attempts or wall clock are exhausted. The body is one chain with a single leaf, then one verifier task. Verifier output is available to the body on retry via {{runtime.<verifier_feedback_runtime_key>}}.",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "repair_loop"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "max_attempts",
+            "wall_clock_ms",
+            "verifier_feedback_runtime_key"
+          ],
+          "properties": {
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Maximum body-plus-verifier attempts before the loop fails"
+            },
+            "wall_clock_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Wall clock budget in milliseconds across all attempts"
+            },
+            "verifier_feedback_runtime_key": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^.]+$",
+              "description": "Runtime overlay key for failed verifier output on retry ({{runtime.<key>}})"
+            }
+          }
+        }
+      }
+    },
+    "SpokeDiffReviewFunction": {
+      "type": "object",
+      "description": "Pause for operator review of a spoke working tree diff before continuing",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "spoke_diff_review"
+        },
+        "input": {
+          "type": "object",
+          "properties": {
+            "spoke": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Spoke root path; defaults to workflow spoke_root"
+            },
+            "baseline_task_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Task id whose pre_head output defines the reject restore point"
+            },
+            "prompt": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Operator-facing review prompt"
+            }
+          }
+        }
+      }
+    },
+    "DeliberateFunction": {
+      "type": "object",
+      "description": "Orchestrator deliberation step that proposes a change set (doc-50)",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "deliberate"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "step"
+          ],
+          "properties": {
+            "step": {
+              "type": "string",
+              "enum": [
+                "direction",
+                "stories",
+                "workflows",
+                "prompt_assemblies",
+                "execution_plan",
+                "readiness",
+                "outcome"
+              ],
+              "description": "Deliberation step kind"
+            }
+          }
+        }
+      }
+    },
+    "RankCandidatesFunction": {
+      "type": "object",
+      "description": "Orchestrator rank stage: scores capabilities and writes ranked candidates",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "rank_candidates"
+        },
+        "input": {
+          "type": "object",
+          "default": {}
+        }
+      }
+    },
+    "PlanningManifestFunction": {
+      "type": "object",
+      "description": "Validate a planning manifest before any milestone or story write",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "planning_manifest"
+        },
+        "input": {
+          "type": "object",
+          "properties": {
+            "manifest_runtime_key": {
+              "type": "string",
+              "description": "Runtime input key whose value is intake manifest JSON when no draft task output is configured"
+            },
+            "manifest_draft_task_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Captured command task id whose output is the reviewed manifest JSON"
+            }
+          },
+          "anyOf": [
+            {
+              "required": ["manifest_runtime_key"],
+              "properties": {
+                "manifest_runtime_key": { "minLength": 1 }
+              }
+            },
+            {
+              "required": ["manifest_draft_task_id"],
+              "properties": {
+                "manifest_draft_task_id": { "minLength": 1 }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "PlanningReadyFunction": {
+      "type": "object",
+      "description": "Publish evidence-backed planning readiness for a stored case",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "planning_ready"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "case_runtime_key"
+          ],
+          "properties": {
+            "case_runtime_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "PlanningObserveFunction": {
+      "type": "object",
+      "description": "Observe objectives and open planning cases without authoring milestones",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "planning_observe"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "operation"
+          ],
+          "properties": {
+            "operation": {
+              "type": "string",
+              "enum": ["event", "recovery"]
+            }
+          }
+        }
+      }
+    },
+    "PlanningSuiteFunction": {
+      "type": "object",
+      "description": "Write or review a validated planning suite without starting implementation",
+      "required": [
+        "name",
+        "input"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "planning_suite"
+        },
+        "input": {
+          "type": "object",
+          "required": [
+            "operation",
+            "manifest_runtime_key",
+            "run_runtime_key"
+          ],
+          "properties": {
+            "operation": {
+              "type": "string",
+              "enum": ["scope", "decompose", "review", "learn"]
+            },
+            "manifest_runtime_key": {
+              "type": "string",
+              "description": "Deprecated intake key; planning_suite reads the validated manifest from execution context"
+            },
+            "run_runtime_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lesson_runtime_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
       }
     }
   }

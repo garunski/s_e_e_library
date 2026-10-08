@@ -4,7 +4,9 @@
   "category": "workflow",
   "name": "Review planning suite",
   "description": "Compares stored milestones and stories with the validated manifest, repairs omissions, and returns links to the records.",
-  "labels": ["story"],
+  "labels": [
+    "story"
+  ],
   "dependencies": [],
   "toolIds": [],
   "releases": [
@@ -14,7 +16,13 @@
       "note": "Review stage reports gaps and repairs them through the journal."
     }
   ],
-  "usageContexts": ["standalone"],
-  "cliScope": { "scope": "any" },
-  "technologyScope": { "scope": "general" }
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
 }

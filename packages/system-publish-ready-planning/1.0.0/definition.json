@@ -1,11 +1,11 @@
 {
-  "id": "system-review-planning",
-  "name": "Review planning suite",
-  "description": "Read stored records with item_fetch. The suite task reports gaps, repairs them, and returns links. Do not mark work Done. Do not start implementation.",
+  "id": "system-publish-ready-planning",
+  "name": "Publish planning readiness",
+  "description": "Review the stored case against the validated manifest. Publish a ready digest when every surface is covered and no product choice is open. Do not mark work Done. Do not start implementation.",
   "content": {
-    "id": "system-review-planning",
-    "name": "Review planning suite",
-    "description": "Check membership, criteria, and dependencies, then repair omissions.",
+    "id": "system-publish-ready-planning",
+    "name": "Publish planning readiness",
+    "description": "Emit PlanReady when the reviewed case is evidence complete.",
     "runtime_inputs": [
       {
         "key": "manifest",
@@ -17,7 +17,7 @@
         "key": "run_id",
         "input_type": "string",
         "required": true,
-        "label": "Planning run id"
+        "label": "Planning case id"
       }
     ],
     "tasks": [
@@ -38,20 +38,18 @@
             "function": {
               "name": "command",
               "input": {
-                "prompt": "You are the Review stage. The validated manifest is already bound for run {{runtime.run_id}}. Use item_fetch to read the milestone and its stories. Do not call item_call. Do not mark work Done. Do not start implementation. Reply with any missing member or criterion you observed."
+                "prompt": "You are the Ready stage. The validated manifest is already bound for case {{runtime.run_id}}. Use item_fetch to read the milestone, stories, and planning case. Do not call item_call. Do not mark work Done. Do not start implementation. Reply with whether every necessary surface is mapped and every fact is checked."
               }
             },
             "next_tasks": [
               {
-                "id": "review",
-                "name": "Repair and return record links",
+                "id": "ready",
+                "name": "Publish ready digest",
                 "capture_output": true,
                 "function": {
-                  "name": "planning_suite",
+                  "name": "planning_ready",
                   "input": {
-                    "operation": "review",
-                    "manifest_runtime_key": "",
-                    "run_runtime_key": "run_id"
+                    "case_runtime_key": "run_id"
                   }
                 }
               }

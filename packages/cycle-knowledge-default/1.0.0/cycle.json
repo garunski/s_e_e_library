@@ -2,7 +2,7 @@
   "id": "cycle-knowledge-default",
   "name": "Knowledge default",
   "host": "knowledge",
-  "schema_version": 1,
+  "schema_version": 2,
   "stores": [
     "spokes",
     "changes",
@@ -22,7 +22,9 @@
       "reads": [
         "spokes"
       ],
-      "writes": "components"
+      "writes": [
+        "components"
+      ]
     },
     {
       "key": "record",
@@ -32,7 +34,9 @@
       "reads": [
         "spokes"
       ],
-      "writes": "changes"
+      "writes": [
+        "changes"
+      ]
     },
     {
       "key": "refresh",
@@ -42,7 +46,9 @@
       "reads": [
         "changes"
       ],
-      "writes": "components"
+      "writes": [
+        "components"
+      ]
     },
     {
       "key": "trace",
@@ -52,7 +58,9 @@
       "reads": [
         "changes"
       ],
-      "writes": "impacts"
+      "writes": [
+        "impacts"
+      ]
     },
     {
       "key": "audit",
@@ -62,7 +70,9 @@
       "reads": [
         "components"
       ],
-      "writes": "audits"
+      "writes": [
+        "audits"
+      ]
     },
     {
       "key": "publish",
@@ -72,7 +82,9 @@
       "reads": [
         "components"
       ],
-      "writes": "docs"
+      "writes": [
+        "docs"
+      ]
     },
     {
       "key": "repair",
@@ -82,7 +94,9 @@
       "reads": [
         "docs"
       ],
-      "writes": "links"
+      "writes": [
+        "links"
+      ]
     }
   ]
 }

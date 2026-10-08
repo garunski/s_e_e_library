@@ -3,14 +3,19 @@
   "slug": "cycle-stories-default",
   "category": "cycle",
   "name": "Stories default",
-  "description": "The four-stage stories loop as a cycle document for the stories host.",
+  "description": "Stories planning cycle with Observe, Coverage, Reap, recovery, Scope, Decompose, Review, Ready, and Learn.",
   "labels": [
     "cycle",
     "stories"
   ],
   "dependencies": [
+    "wf-system-check-planning-coverage",
     "wf-system-decompose-planning",
     "wf-system-learn-planning",
+    "wf-system-planning-observe",
+    "wf-system-planning-recovery",
+    "wf-system-publish-ready-planning",
+    "wf-system-reap-planning",
     "wf-system-review-planning",
     "wf-system-scope-planning"
   ],
@@ -28,7 +33,12 @@
     {
       "version": "1.0.0",
       "date": "2026-10-07",
-      "note": "Stories cycle installs Scope, Decompose, Review, and Learn."
+      "note": "Stories cycle installs Scope, Decompose, Review, and Learn for manual planning suites."
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-08",
+      "note": "Adds Ready, Observe, Coverage, Reap, and hourly recovery stages with declared cross-cycle reads and event predicates. See knowledge doc doc-2 for Planning Cycle ownership."
     }
   ]
 }

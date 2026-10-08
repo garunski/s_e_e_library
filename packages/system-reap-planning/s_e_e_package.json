@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-reap-planning",
+  "slug": "system-reap-planning",
+  "category": "workflow",
+  "name": "Reap completed planning stories",
+  "description": "Guard story deletion on verified outcome coverage and receipts then remove active planning files.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-08",
+      "note": "Story phase reports reap blockers and resumes file removal from the planning case journal."
+    }
+  ],
+  "usageContexts": ["cycle"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-planning-recovery",
+  "slug": "system-planning-recovery",
+  "category": "workflow",
+  "name": "Recover planning observation",
+  "description": "Hourly recovery sweep that observes objectives only when the stored fingerprint is stale.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-08",
+      "note": "Recovery stage no-ops when every objective fingerprint is already observed."
+    }
+  ],
+  "usageContexts": ["cycle"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}

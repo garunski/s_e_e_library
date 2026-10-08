@@ -1,0 +1,31 @@
+{
+  "id": "system-reap-planning",
+  "name": "Reap completed planning stories",
+  "description": "Remove verified stories after completion receipts and report held blockers when evidence is missing.",
+  "content": {
+    "id": "system-reap-planning",
+    "name": "Reap completed planning stories",
+    "description": "Story phase performs guarded deletion or recovery replay for pending journal removals.",
+    "runtime_inputs": [
+      {
+        "key": "story_id",
+        "input_type": "string",
+        "required": false,
+        "label": "Story id"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "reap-story",
+        "name": "Reap story",
+        "capture_output": true,
+        "function": {
+          "name": "planning_reap",
+          "input": {
+            "operation": "story"
+          }
+        }
+      }
+    ]
+  }
+}

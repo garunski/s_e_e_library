@@ -808,12 +808,17 @@
         "scope": "any"
       },
       "dependencies": [
+        "wf-system-check-planning-coverage",
         "wf-system-decompose-planning",
         "wf-system-learn-planning",
+        "wf-system-planning-observe",
+        "wf-system-planning-recovery",
+        "wf-system-publish-ready-planning",
+        "wf-system-reap-planning",
         "wf-system-review-planning",
         "wf-system-scope-planning"
       ],
-      "description": "The four-stage stories loop as a cycle document for the stories host.",
+      "description": "Stories planning cycle with Observe, Coverage, Reap, recovery, Scope, Decompose, Review, Ready, and Learn.",
       "files": [
         {
           "from": "packages/cycle-stories-default/1.0.0/cycle.json",
@@ -830,8 +835,13 @@
       "releases": [
         {
           "date": "2026-10-07",
-          "note": "Stories cycle installs Scope, Decompose, Review, and Learn.",
+          "note": "Stories cycle installs Scope, Decompose, Review, and Learn for manual planning suites.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-08",
+          "note": "Adds Ready, Observe, Coverage, Reap, and hourly recovery stages with declared cross-cycle reads and event predicates. See knowledge doc doc-2 for Planning Cycle ownership.",
+          "version": "2.0.0"
         }
       ],
       "requires": [],
@@ -844,7 +854,7 @@
         "cycle"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "2.0.0"
     },
     {
       "author": "garunski",
@@ -1830,7 +1840,7 @@
       },
       "toolIds": [],
       "usageContexts": [
-        "standalone"
+        "cycle"
       ],
       "verified": true,
       "version": "1.0.0"
@@ -2018,7 +2028,7 @@
       },
       "toolIds": [],
       "usageContexts": [
-        "standalone"
+        "cycle"
       ],
       "verified": true,
       "version": "1.0.0"
@@ -2190,7 +2200,205 @@
       },
       "toolIds": [],
       "usageContexts": [
-        "standalone"
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Reviews a stored planning case and publishes a ready digest when evidence is complete.",
+      "files": [
+        {
+          "from": "packages/system-publish-ready-planning/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-publish-ready-planning.json"
+        }
+      ],
+      "id": "wf-system-publish-ready-planning",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Publish planning readiness",
+      "releases": [
+        {
+          "date": "2026-10-08",
+          "note": "Ready stage emits PlanReady when the reviewed case is evidence complete.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [
+        "mise",
+        "git"
+      ],
+      "slug": "system-publish-ready-planning",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Observe objective content fingerprints and open or refresh planning cases without authoring milestones.",
+      "files": [
+        {
+          "from": "packages/system-planning-observe/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-planning-observe.json"
+        }
+      ],
+      "id": "wf-system-planning-observe",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Observe planning objectives",
+      "releases": [
+        {
+          "date": "2026-10-08",
+          "note": "Observe stage records planning cases on objective fingerprint changes.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-planning-observe",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Project verified Knowledge coverage for bound planning implementations without writing Knowledge records.",
+      "files": [
+        {
+          "from": "packages/system-check-planning-coverage/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-check-planning-coverage.json"
+        }
+      ],
+      "id": "wf-system-check-planning-coverage",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Check planning Knowledge coverage",
+      "releases": [
+        {
+          "date": "2026-10-08",
+          "note": "Coverage stage matches ChangeRecord and current ComponentDocument verification for bound stories.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-check-planning-coverage",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Guard story deletion on verified outcome coverage and receipts then remove active planning files.",
+      "files": [
+        {
+          "from": "packages/system-reap-planning/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-reap-planning.json"
+        }
+      ],
+      "id": "wf-system-reap-planning",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Reap completed planning stories",
+      "releases": [
+        {
+          "date": "2026-10-08",
+          "note": "Story phase reports reap blockers and resumes file removal from the planning case journal.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-reap-planning",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
+      ],
+      "verified": true,
+      "version": "1.0.0"
+    },
+    {
+      "author": "garunski",
+      "category": "workflow",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Hourly recovery sweep that observes objectives only when the stored fingerprint is stale.",
+      "files": [
+        {
+          "from": "packages/system-planning-recovery/1.0.0/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-planning-recovery.json"
+        }
+      ],
+      "id": "wf-system-planning-recovery",
+      "labels": [
+        "story"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Recover planning observation",
+      "releases": [
+        {
+          "date": "2026-10-08",
+          "note": "Recovery stage no-ops when every objective fingerprint is already observed.",
+          "version": "1.0.0"
+        }
+      ],
+      "requires": [],
+      "slug": "system-planning-recovery",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "cycle"
       ],
       "verified": true,
       "version": "1.0.0"
@@ -2232,7 +2440,7 @@
       },
       "toolIds": [],
       "usageContexts": [
-        "standalone"
+        "cycle"
       ],
       "verified": true,
       "version": "1.0.0"

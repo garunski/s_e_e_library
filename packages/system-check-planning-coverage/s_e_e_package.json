@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-check-planning-coverage",
+  "slug": "system-check-planning-coverage",
+  "category": "workflow",
+  "name": "Check planning Knowledge coverage",
+  "description": "Project verified Knowledge coverage for bound planning implementations without writing Knowledge records.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-08",
+      "note": "Coverage stage matches ChangeRecord and current ComponentDocument verification for bound stories."
+    }
+  ],
+  "usageContexts": ["cycle"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}

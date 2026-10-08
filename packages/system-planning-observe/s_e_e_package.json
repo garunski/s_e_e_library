@@ -1,0 +1,20 @@
+{
+  "id": "wf-system-planning-observe",
+  "slug": "system-planning-observe",
+  "category": "workflow",
+  "name": "Observe planning objectives",
+  "description": "Observe objective content fingerprints and open or refresh planning cases without authoring milestones.",
+  "labels": ["story"],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-08",
+      "note": "Observe stage records planning cases on objective fingerprint changes."
+    }
+  ],
+  "usageContexts": ["cycle"],
+  "cliScope": { "scope": "any" },
+  "technologyScope": { "scope": "general" }
+}

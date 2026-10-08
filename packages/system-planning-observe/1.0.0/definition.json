@@ -1,0 +1,43 @@
+{
+  "id": "system-planning-observe",
+  "name": "Observe planning objectives",
+  "description": "Record or refresh a planning case when objective content changes. Do not create milestones or stories. Do not mark work Done.",
+  "content": {
+    "id": "system-planning-observe",
+    "name": "Observe planning objectives",
+    "description": "Compare the objective fingerprint with stored planning cases and emit a planning need when content changed.",
+    "runtime_inputs": [
+      {
+        "key": "objective_id",
+        "input_type": "string",
+        "required": true,
+        "label": "Objective id"
+      },
+      {
+        "key": "objective_fingerprint",
+        "input_type": "string",
+        "required": false,
+        "label": "Objective content fingerprint"
+      },
+      {
+        "key": "hub_event_sequence",
+        "input_type": "number",
+        "required": false,
+        "label": "Hub event sequence"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "observe",
+        "name": "Observe objective and planning case",
+        "capture_output": true,
+        "function": {
+          "name": "planning_observe",
+          "input": {
+            "operation": "event"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -4,7 +4,9 @@
   "category": "workflow",
   "name": "Decompose planning stories",
   "description": "Creates or updates milestone members, dependencies, and numbered criteria from a validated planning manifest. Resume uses the operation journal.",
-  "labels": ["story"],
+  "labels": [
+    "story"
+  ],
   "dependencies": [],
   "toolIds": [],
   "releases": [
@@ -14,7 +16,13 @@
       "note": "Decompose stage writes stories from the journal."
     }
   ],
-  "usageContexts": ["standalone"],
-  "cliScope": { "scope": "any" },
-  "technologyScope": { "scope": "general" }
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
 }

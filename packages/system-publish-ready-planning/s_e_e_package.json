@@ -1,0 +1,28 @@
+{
+  "id": "wf-system-publish-ready-planning",
+  "slug": "system-publish-ready-planning",
+  "category": "workflow",
+  "name": "Publish planning readiness",
+  "description": "Reviews a stored planning case against the validated manifest and publishes a ready digest when evidence is complete.",
+  "labels": [
+    "story"
+  ],
+  "dependencies": [],
+  "toolIds": [],
+  "releases": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-08",
+      "note": "Ready stage publishes PlanReady output for Orchestrator handoff."
+    }
+  ],
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  },
+  "technologyScope": {
+    "scope": "general"
+  }
+}

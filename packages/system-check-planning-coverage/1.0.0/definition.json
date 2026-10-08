@@ -1,0 +1,49 @@
+{
+  "id": "system-check-planning-coverage",
+  "name": "Check planning Knowledge coverage",
+  "description": "Project verified Knowledge coverage for bound implementations. Do not write Knowledge records. Do not mark stories Done.",
+  "content": {
+    "id": "system-check-planning-coverage",
+    "name": "Check planning Knowledge coverage",
+    "description": "Match bound executions to ChangeRecord and current ComponentDocument verification.",
+    "runtime_inputs": [
+      {
+        "key": "story_id",
+        "input_type": "string",
+        "required": false,
+        "label": "Story id"
+      },
+      {
+        "key": "change_id",
+        "input_type": "string",
+        "required": false,
+        "label": "Knowledge change id"
+      },
+      {
+        "key": "component",
+        "input_type": "string",
+        "required": false,
+        "label": "Knowledge component id"
+      },
+      {
+        "key": "hub_event_sequence",
+        "input_type": "number",
+        "required": false,
+        "label": "Hub event sequence"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "coverage",
+        "name": "Check Knowledge coverage",
+        "capture_output": true,
+        "function": {
+          "name": "planning_coverage",
+          "input": {
+            "operation": "event"
+          }
+        }
+      }
+    ]
+  }
+}

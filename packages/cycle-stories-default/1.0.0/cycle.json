@@ -2,40 +2,136 @@
   "id": "cycle-stories-default",
   "name": "Stories default",
   "host": "stories",
-  "schema_version": 1,
-  "stores": ["milestones", "stories", "runs", "planning_lessons"],
+  "schema_version": 2,
+  "stores": [
+    "milestones",
+    "stories",
+    "runs",
+    "planning_lessons"
+  ],
   "stages": [
     {
       "key": "scope",
       "verb": "Scope",
       "workflow_definition_id": "system-scope-planning",
       "trigger": "manual",
-      "reads": ["milestones"],
-      "writes": "milestones"
+      "reads": [
+        "milestones"
+      ],
+      "writes": [
+        "milestones"
+      ]
     },
     {
       "key": "decompose",
       "verb": "Decompose",
       "workflow_definition_id": "system-decompose-planning",
       "trigger": "manual",
-      "reads": ["stories"],
-      "writes": "stories"
+      "reads": [
+        "stories"
+      ],
+      "writes": [
+        "stories"
+      ]
     },
     {
       "key": "review",
       "verb": "Review",
       "workflow_definition_id": "system-review-planning",
       "trigger": "manual",
-      "reads": ["stories"],
-      "writes": "stories"
+      "reads": [
+        "stories"
+      ],
+      "writes": [
+        "stories"
+      ]
+    },
+    {
+      "key": "ready",
+      "verb": "Ready",
+      "workflow_definition_id": "system-publish-ready-planning",
+      "trigger": "manual",
+      "reads": [
+        "stories"
+      ],
+      "writes": [
+        "stories"
+      ]
     },
     {
       "key": "learn",
       "verb": "Learn",
       "workflow_definition_id": "system-learn-planning",
       "trigger": "manual",
-      "reads": ["planning_lessons"],
-      "writes": "planning_lessons"
+      "reads": [
+        "planning_lessons"
+      ],
+      "writes": [
+        "planning_lessons"
+      ]
+    },
+    {
+      "key": "observe",
+      "verb": "Observe",
+      "workflow_definition_id": "system-planning-observe",
+      "trigger": "event",
+      "reads": [
+        "orchestrator:objectives",
+        "stories",
+        "planning_lessons",
+        "orchestrator:executions",
+        "knowledge:components"
+      ],
+      "writes": [
+        "stories"
+      ],
+      "event_predicate": "objective_content_change"
+    },
+    {
+      "key": "coverage",
+      "verb": "Coverage",
+      "workflow_definition_id": "system-check-planning-coverage",
+      "trigger": "event",
+      "reads": [
+        "stories",
+        "knowledge:changes",
+        "knowledge:components"
+      ],
+      "writes": [
+        "stories"
+      ],
+      "event_predicate": "knowledge_record_change"
+    },
+    {
+      "key": "reap",
+      "verb": "Reap",
+      "workflow_definition_id": "system-reap-planning",
+      "trigger": "event",
+      "reads": [
+        "stories",
+        "orchestrator:executions",
+        "knowledge:changes"
+      ],
+      "writes": [
+        "stories"
+      ],
+      "event_predicate": "knowledge_record_change"
+    },
+    {
+      "key": "recovery",
+      "verb": "Recover",
+      "workflow_definition_id": "system-planning-recovery",
+      "trigger": "schedule",
+      "reads": [
+        "orchestrator:objectives",
+        "stories",
+        "planning_lessons",
+        "orchestrator:executions",
+        "knowledge:components"
+      ],
+      "writes": [
+        "stories"
+      ]
     }
   ]
 }
