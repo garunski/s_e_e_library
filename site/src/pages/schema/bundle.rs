@@ -4,10 +4,10 @@ use dioxus_router::Link;
 use crate::pages::authoring_common::{INLINE_CODE, LIST, PAGE_LEDE, SECTION_TITLE};
 use crate::pages::schema_common::{SchemaBlockByName, SchemaGuideFrame};
 use crate::routes::Route;
+use crate::shell::AppLink;
 
 #[component]
 pub fn LibrarySchemaBundle() -> Element {
-    let install_paths_href = crate::library_href("/schema/#install-paths");
     rsx! {
         SchemaGuideFrame {
             document_title: "Bundle schema",
@@ -26,9 +26,9 @@ pub fn LibrarySchemaBundle() -> Element {
                 " array installs the payloads of several other packages together; the build infers each file's kind from its "
                 code { class: "{INLINE_CODE}", "to" }
                 " prefix (see "
-                a {
+                AppLink {
                     class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300",
-                    href: "{install_paths_href}",
+                    path: "/schema/",
                     "Install paths"
                 }
                 " on the catalog schema page)."

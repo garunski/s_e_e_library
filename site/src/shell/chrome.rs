@@ -13,6 +13,7 @@ use s_e_e_gui_kit::{
 };
 use s_e_e_shapes::Theme;
 
+use super::AppLink;
 use crate::library_href;
 use crate::nav::{is_primary_current, shell_layout_classes, HEADER_CATALOG, PRIMARY_NAV};
 use crate::routes::Route;
@@ -293,27 +294,13 @@ pub fn LibraryMasthead(current_path: String) -> Element {
 fn LibraryNavRouterLink(path: &'static str, label: &'static str, current: String) -> Element {
     let active = is_primary_current(path, current.as_str());
     let class = if active { NAV_ON } else { NAV_LINK };
+    let aria_current = if active { "page" } else { "false" };
     rsx! {
-        if path == "/authoring/" {
-            Link {
-                to: Route::AuthoringIndex {},
-                class: "{class}",
-                aria_current: if active { "page" } else { "false" },
-                "{label}"
-            }
-        } else if path == "/schema/" {
-            Link {
-                to: Route::SchemaIndex {},
-                class: "{class}",
-                aria_current: if active { "page" } else { "false" },
-                "{label}"
-            }
-        } else {
-            Link {
-                to: Route::Home {},
-                class: "{class}",
-                "{label}"
-            }
+        AppLink {
+            path,
+            class,
+            aria_current,
+            {label}
         }
     }
 }

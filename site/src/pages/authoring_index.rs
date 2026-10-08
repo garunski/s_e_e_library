@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 use crate::library_href;
 use crate::pages::page_links::{AUTHORING_GUIDE_LINKS, AUTHORING_PUBLISH_LINK};
-use crate::shell::LibraryDocFrame;
+use crate::shell::{AppLink, LibraryDocFrame};
 
 const PAGE_LEDE: &str = "text-sm leading-relaxed text-zinc-600 dark:text-zinc-400";
 const SECTION_TITLE: &str = "text-sm font-semibold text-zinc-900 dark:text-zinc-50";
@@ -33,7 +33,7 @@ pub fn LibraryAuthoringIndex() -> Element {
             ul { class: "mt-3 divide-y divide-zinc-200/80 dark:divide-zinc-700",
                 li { class: "{LIST_ITEM}",
                     strong {
-                        a { class: "{LIST_LINK}", href: library_href(AUTHORING_GUIDE_LINKS[0].path), "Workflows" }
+                        AppLink { class: LIST_LINK, path: AUTHORING_GUIDE_LINKS[0].path, "Workflows" }
                     }
                     span { class: "block text-sm text-zinc-600 dark:text-zinc-400",
                         "Task graphs the engine runs ("
@@ -43,7 +43,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                 }
                 li { class: "{LIST_ITEM}",
                     strong {
-                        a { class: "{LIST_LINK}", href: library_href(AUTHORING_GUIDE_LINKS[1].path), "Prompts" }
+                        AppLink { class: LIST_LINK, path: AUTHORING_GUIDE_LINKS[1].path, "Prompts" }
                     }
                     span { class: "block text-sm text-zinc-600 dark:text-zinc-400",
                         "Named instruction text ("
@@ -53,7 +53,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                 }
                 li { class: "{LIST_ITEM}",
                     strong {
-                        a { class: "{LIST_LINK}", href: library_href(AUTHORING_GUIDE_LINKS[2].path), "Skills" }
+                        AppLink { class: LIST_LINK, path: AUTHORING_GUIDE_LINKS[2].path, "Skills" }
                     }
                     span { class: "block text-sm text-zinc-600 dark:text-zinc-400",
                         "Activatable capability guides ("
@@ -63,7 +63,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                 }
                 li { class: "{LIST_ITEM}",
                     strong {
-                        a { class: "{LIST_LINK}", href: library_href(AUTHORING_GUIDE_LINKS[3].path), "Commands" }
+                        AppLink { class: LIST_LINK, path: AUTHORING_GUIDE_LINKS[3].path, "Commands" }
                     }
                     span { class: "block text-sm text-zinc-600 dark:text-zinc-400",
                         "Worker definitions for an agent CLI ("
@@ -73,7 +73,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                 }
                 li { class: "{LIST_ITEM}",
                     strong {
-                        a { class: "{LIST_LINK}", href: library_href(AUTHORING_GUIDE_LINKS[4].path), "Bundles" }
+                        AppLink { class: LIST_LINK, path: AUTHORING_GUIDE_LINKS[4].path, "Bundles" }
                     }
                     span { class: "block text-sm text-zinc-600 dark:text-zinc-400",
                         "Install maps that deliver several packages together."
@@ -81,7 +81,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                 }
                 li { class: "{LIST_ITEM}",
                     strong {
-                        a { class: "{LIST_LINK}", href: library_href(AUTHORING_GUIDE_LINKS[5].path), "Cycles" }
+                        AppLink { class: LIST_LINK, path: AUTHORING_GUIDE_LINKS[5].path, "Cycles" }
                     }
                     span { class: "block text-sm text-zinc-600 dark:text-zinc-400",
                         "Host loops wiring workflows to stores ("
@@ -92,9 +92,9 @@ pub fn LibraryAuthoringIndex() -> Element {
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "Publishing" }
             p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
-                a {
-                    class: "{LIST_LINK}",
-                    href: library_href(AUTHORING_PUBLISH_LINK.path),
+                AppLink {
+                    class: LIST_LINK,
+                    path: AUTHORING_PUBLISH_LINK.path,
                     "Publish to the catalog"
                 }
                 " covers payload layout, the "
@@ -104,9 +104,9 @@ pub fn LibraryAuthoringIndex() -> Element {
             h2 { class: "mt-8 {SECTION_TITLE}", "The contract" }
             ul { class: "mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600 dark:text-zinc-400",
                 li {
-                    a {
-                        class: "{LIST_LINK}",
-                        href: library_href("/schema/"),
+                    AppLink {
+                        class: LIST_LINK,
+                        path: "/schema/",
                         "Catalog schema"
                     }
                     ", per-type payload schemas, and hub document schemas"
@@ -114,7 +114,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                 li {
                     "Catalog manifest: "
                     a {
-                        class: "{LIST_LINK}",
+                        class: LIST_LINK,
                         href: library_href("/catalog.json"),
                         code { class: "{INLINE_CODE}", "see.library/v1" }
                     }
@@ -122,7 +122,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                 li {
                     "Same guidance as one plain-text file for agents: "
                     a {
-                        class: "{LIST_LINK}",
+                        class: LIST_LINK,
                         href: library_href("/llms.txt"),
                         code { class: "{INLINE_CODE}", "llms.txt" }
                     }

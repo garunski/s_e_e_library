@@ -70,6 +70,42 @@ pub enum Route {
         NotFound { segments: Vec<String> },
 }
 
+#[must_use]
+pub fn route_for_path(href: &str) -> Option<Route> {
+    if href.starts_with('#') || href.contains("://") {
+        return None;
+    }
+    let path = href.split(['#', '?']).next().unwrap_or(href);
+    Some(match path {
+        "/" => Route::Home {},
+        "/authoring/" => Route::AuthoringIndex {},
+        "/authoring/workflows/" => Route::AuthoringWorkflows {},
+        "/authoring/prompts/" => Route::AuthoringPrompts {},
+        "/authoring/skills/" => Route::AuthoringSkills {},
+        "/authoring/commands/" => Route::AuthoringCommands {},
+        "/authoring/bundles/" => Route::AuthoringBundles {},
+        "/authoring/cycles/" => Route::AuthoringCycles {},
+        "/authoring/publish/" => Route::AuthoringPublish {},
+        "/schema/" => Route::SchemaIndex {},
+        "/schema/workflow/" => Route::SchemaWorkflow {},
+        "/schema/prompt/" => Route::SchemaPrompt {},
+        "/schema/skill/" => Route::SchemaSkill {},
+        "/schema/command/" => Route::SchemaCommand {},
+        "/schema/rule-template/" => Route::SchemaRuleTemplate {},
+        "/schema/bundle/" => Route::SchemaBundle {},
+        "/schema/cycle/" => Route::SchemaCycle {},
+        "/schema/hub-config/" => Route::SchemaHubConfig {},
+        "/schema/global-config/" => Route::SchemaGlobalConfig {},
+        "/schema/app-settings/" => Route::SchemaAppSettings {},
+        "/schema/routing-rules/" => Route::SchemaRoutingRules {},
+        "/schema/stories-config/" => Route::SchemaStoriesConfig {},
+        "/schema/orchestrator-policy/" => Route::SchemaOrchestratorPolicy {},
+        "/schema/schedule/" => Route::SchemaSchedule {},
+        "/schema/schedule-rule-set/" => Route::SchemaScheduleRuleSet {},
+        _ => return None,
+    })
+}
+
 #[component]
 fn Home() -> Element {
     rsx! {
@@ -251,3 +287,7 @@ fn SchemaScheduleRuleSet() -> Element {
         LibrarySchemaScheduleRuleSet {}
     }
 }
+
+#[cfg(test)]
+#[path = "routes_tests.rs"]
+mod routes_tests;
