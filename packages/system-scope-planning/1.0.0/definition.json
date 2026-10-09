@@ -5,7 +5,7 @@
   "content": {
     "id": "system-scope-planning",
     "name": "Scope planning milestone",
-    "description": "Confirm the milestone cut, then persist it.",
+    "description": "Confirm the milestone cut, then persist it. Drafts are not evidence.",
     "runtime_inputs": [
       {
         "key": "manifest",

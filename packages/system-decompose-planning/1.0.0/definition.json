@@ -5,7 +5,7 @@
   "content": {
     "id": "system-decompose-planning",
     "name": "Decompose planning stories",
-    "description": "Materialize every necessary story from the validated manifest.",
+    "description": "Materialize every necessary story from the validated manifest. Drafts are not evidence.",
     "runtime_inputs": [
       {
         "key": "manifest",

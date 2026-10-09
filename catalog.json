@@ -472,7 +472,7 @@
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json",
+          "from": "packages/system-orchestrator-chat/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-orchestrator-chat.json"
         },
         {
@@ -1169,7 +1169,7 @@
       "description": "Chat agent preamble loaded from the hub prompt store.",
       "files": [
         {
-          "from": "packages/system-orchestrator-chat/1.0.0/prompt.json",
+          "from": "packages/system-orchestrator-chat/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-orchestrator-chat.json"
         }
       ],
@@ -1184,6 +1184,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-08",
+          "note": "Document explicit Knowledge Draft search and paged read for operator chat.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1196,7 +1201,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
