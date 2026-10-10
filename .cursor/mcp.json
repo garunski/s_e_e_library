@@ -2,7 +2,7 @@
   "mcpServers": {
     "see": {
       "type": "http",
-      "url": "http://127.0.0.1:44729/mcp"
+      "url": "http://127.0.0.1:30127/mcp"
     }
   }
 }
