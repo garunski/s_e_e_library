@@ -44,6 +44,18 @@ pub fn LibraryAuthoringPrompts() -> Element {
                     " placeholders expanded at run time."
                 }
             }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Hub MCP assignment (not in packages)" }
+            p { class: "{BODY_TEXT}",
+                "Installed "
+                code { class: "{INLINE_CODE}", "prompt.json" }
+                " files carry only "
+                code { class: "{INLINE_CODE}", "id" }
+                ", "
+                code { class: "{INLINE_CODE}", "name" }
+                ", and "
+                code { class: "{INLINE_CODE}", "content" }
+                ". In the hub Prompts editor you may assign an MCP prompt name and choose Legacy authoring arguments, Project only, or up to 32 custom MCP argument rows. Those hub fields are not part of portable library packages."
+            }
             h2 { class: "mt-8 {SECTION_TITLE}", "Reference example" }
             p { class: "{BODY_TEXT}",
                 "From "

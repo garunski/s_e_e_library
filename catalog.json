@@ -1082,7 +1082,7 @@
       "description": "Authors a milestone through MCP store tools.",
       "files": [
         {
-          "from": "packages/system-milestone-authoring/1.0.1/prompt.json",
+          "from": "packages/system-milestone-authoring/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-milestone-authoring.json"
         }
       ],
@@ -1102,6 +1102,11 @@
           "date": "2026-10-07",
           "note": "Evidence-first contract and the shared MCP fragment.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-11",
+          "note": "Named milestone tools replace item_fetch and item_call.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1114,7 +1119,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -2217,7 +2222,7 @@
         "scope": "any"
       },
       "dependencies": [],
-      "description": "Reviews a stored planning case and publishes a ready digest when evidence is complete.",
+      "description": "Reviews a stored planning case against the validated manifest and publishes a ready digest when evidence is complete.",
       "files": [
         {
           "from": "packages/system-publish-ready-planning/1.0.0/definition.json",
@@ -2233,7 +2238,7 @@
       "releases": [
         {
           "date": "2026-10-08",
-          "note": "Ready stage emits PlanReady when the reviewed case is evidence complete.",
+          "note": "Ready stage publishes PlanReady output for Orchestrator handoff.",
           "version": "1.0.0"
         }
       ],
@@ -2804,5 +2809,5 @@
       "name": "Cursor"
     }
   ],
-  "updated": "2026-10-03T00:49:31.212Z"
+  "updated": "2026-10-11T22:32:03.505Z"
 }

@@ -8,7 +8,7 @@ const REQUIRED_PHRASES: &[&str] = &[
     "implementation_notes",
     "final_summary",
     "member story",
-    "item_fetch",
+    "milestone_get",
     "conflict_token",
     "milestone_update",
     "milestone_add_criterion",

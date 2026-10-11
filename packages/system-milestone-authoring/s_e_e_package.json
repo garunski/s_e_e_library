@@ -19,6 +19,11 @@
       "version": "1.0.1",
       "date": "2026-10-07",
       "note": "Evidence-first contract and the shared MCP fragment."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-11",
+      "note": "Named milestone tools replace item_fetch and item_call."
     }
   ],
   "usageContexts": [

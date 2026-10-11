@@ -30,10 +30,12 @@ run = "cargo run -q -p see_library_site --bin see_library_site_routes"
 
 [tasks.site-package-pages]
 description = "Stage Dioxus output and library payloads for GitHub Pages"
+depends = ["site-build"]
 run = "bash scripts/site-package-pages.sh"
 
 [tasks.site-verify-docs]
 description = "Verify staged documentation routes, llms.txt, and internal links"
+depends = ["site-package-pages"]
 run = "cargo run -p see_library_catalog_tool -- verify-docs"
 
 [tasks.site-smoke-pages]
@@ -42,7 +44,7 @@ run = "bash scripts/site-smoke-pages.sh"
 
 [tasks.build]
 description = "Validate catalog, build the site, and stage the Pages artifact"
-depends = ["validate", "site-build", "site-package-pages", "site-verify-docs"]
+depends = ["validate", "site-verify-docs"]
 
 [tasks.dev]
 description = "Dioxus fullstack dev server for the documentation site"

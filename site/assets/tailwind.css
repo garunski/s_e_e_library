@@ -468,6 +468,9 @@
   .z-20 {
     z-index: 20;
   }
+  .z-30 {
+    z-index: 30;
+  }
   .z-40 {
     z-index: 40;
   }
@@ -879,6 +882,9 @@
   .min-h-9 {
     min-height: calc(var(--spacing) * 9);
   }
+  .min-h-24 {
+    min-height: calc(var(--spacing) * 24);
+  }
   .min-h-40 {
     min-height: calc(var(--spacing) * 40);
   }
@@ -893,6 +899,12 @@
   }
   .min-h-\[3\.25rem\] {
     min-height: 3.25rem;
+  }
+  .min-h-\[4rem\] {
+    min-height: 4rem;
+  }
+  .min-h-\[5rem\] {
+    min-height: 5rem;
   }
   .min-h-\[6rem\] {
     min-height: 6rem;

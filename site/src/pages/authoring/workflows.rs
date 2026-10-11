@@ -11,6 +11,7 @@ const FIXED_TASK: &str = include_str!("../../../content/authoring/workflows_fixe
 const REFERENCE_EXAMPLE: &str =
     include_str!("../../../content/authoring/workflows_reference_example.json");
 const INSTALL: &str = include_str!("../../../content/authoring/workflows_install.json");
+const PROJECT_PLACEHOLDER: &str = "{{project.id}}";
 
 #[component]
 pub fn LibraryAuthoringWorkflows() -> Element {
@@ -120,11 +121,15 @@ pub fn LibraryAuthoringWorkflows() -> Element {
                 code { class: "{INLINE_CODE}", "s_e_e_action" }
                 " calls one MCP tool. "
                 code { class: "{INLINE_CODE}", "input.tool" }
-                " is the tool name. "
+                " is the precise named tool id. "
+                code { class: "{INLINE_CODE}", "item_call" }
+                " remains for a call that has no named tool. "
                 code { class: "{INLINE_CODE}", "input.arguments" }
-                " is that tool's argument object. Omit "
+                " is that tool's argument object and includes an explicit "
                 code { class: "{INLINE_CODE}", "project" }
-                "; the run injects the execution project. Tool names are in the Tools reference."
+                " such as "
+                code { class: "{INLINE_CODE}", "{PROJECT_PLACEHOLDER}" }
+                ". Tool names are in the Tools reference."
             }
             p { class: "{BODY_TEXT}",
                 code { class: "{INLINE_CODE}", "foreach" }
