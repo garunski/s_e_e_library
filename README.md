@@ -24,7 +24,7 @@ Schema: `see.library/v1`; see the `/schema/` pages.
 
 ## Local development
 
-Requires [mise](https://mise.jdx.dev/) (`mise install` provisions Rust 1.96.0, `wasm32-unknown-unknown`, and Dioxus CLI 0.7.10). The site crate path-depends on a sibling checkout of `s_e_e` at `../s_e_e` (pinned in CI via `.github/see-code-revision`).
+Requires [mise](https://mise.jdx.dev/) (`mise install` provisions Rust 1.96.0, `wasm32-unknown-unknown`, and Dioxus CLI 0.7.10). The site crate path-depends on a sibling checkout of `s_e_e` at `../s_e_e`; CI checks out `s_e_e` `main` there.
 
 From the library repository root:
 

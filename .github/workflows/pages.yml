@@ -26,15 +26,11 @@ jobs:
         with:
           path: s_e_e_library
 
-      - name: Read pinned s_e_e revision
-        id: see_rev
-        run: echo "sha=$(tr -d '[:space:]' < .github/see-code-revision)" >> "$GITHUB_OUTPUT"
-
       - name: Checkout s_e_e (path dependencies)
         uses: actions/checkout@v7
         with:
           repository: garunski/s_e_e
-          ref: ${{ steps.see_rev.outputs.sha }}
+          ref: main
           path: s_e_e
           ssh-key: ${{ secrets.SEE_CHECKOUT_KEY }}
 
