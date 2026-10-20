@@ -35,6 +35,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Use workflow store tools and explicit command selection."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-20",
+      "note": "Omit spoke_root by default and drop path tokens."
     }
   ]
 }

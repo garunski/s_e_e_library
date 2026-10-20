@@ -29,6 +29,11 @@
       "version": "1.0.3",
       "date": "2026-10-19",
       "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff."
+    },
+    {
+      "version": "1.0.4",
+      "date": "2026-10-20",
+      "note": "Install the generic skills and prompts, and workflows that default their folder and agent command."
     }
   ],
   "usageContexts": [

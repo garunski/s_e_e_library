@@ -21,6 +21,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Use the workflow skill and workflow store."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-20",
+      "note": "Omit spoke_root by default and drop hub-specific references."
     }
   ],
   "usageContexts": [

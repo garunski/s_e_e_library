@@ -12,35 +12,35 @@
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "files": [
         {
-          "from": "packages/author-stories-from-doc/1.0.1/doc/SKILL.md",
+          "from": "packages/doc/1.0.2/SKILL.md",
           "to": ".agents/skills/doc/SKILL.md"
         },
         {
-          "from": "packages/author-stories-from-doc/1.0.2/stories/SKILL.md",
+          "from": "packages/stories/1.0.3/SKILL.md",
           "to": ".agents/skills/stories/SKILL.md"
         },
         {
-          "from": "packages/author-stories-from-doc/1.0.1/work/SKILL.md",
+          "from": "packages/work/1.0.2/SKILL.md",
           "to": ".agents/skills/work/SKILL.md"
         },
         {
-          "from": "packages/author-stories-from-doc/1.0.1/system-stories-from-doc-authoring/prompt.json",
+          "from": "packages/system-stories-from-doc-authoring/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
         },
         {
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/author-stories-from-doc/1.0.1/system-author-stories-from-doc/definition.json",
+          "from": "packages/system-author-stories-from-doc/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json"
         }
       ],
@@ -66,6 +66,11 @@
           "date": "2026-10-19",
           "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff.",
           "version": "1.0.2"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.3"
         }
       ],
       "requires": [],
@@ -78,7 +83,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.2"
+      "version": "1.0.3"
     },
     {
       "author": "garunski",
@@ -90,31 +95,31 @@
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "files": [
         {
-          "from": "packages/author-story/1.0.3/stories/SKILL.md",
+          "from": "packages/stories/1.0.3/SKILL.md",
           "to": ".agents/skills/stories/SKILL.md"
         },
         {
-          "from": "packages/author-story/1.0.2/work/SKILL.md",
+          "from": "packages/work/1.0.2/SKILL.md",
           "to": ".agents/skills/work/SKILL.md"
         },
         {
-          "from": "packages/author-story/1.0.2/system-story-authoring/prompt.json",
+          "from": "packages/system-story-authoring/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-story-authoring.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
         },
         {
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/author-story/1.0.2/system-author-story/definition.json",
+          "from": "packages/system-author-story/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-author-story.json"
         }
       ],
@@ -144,6 +149,11 @@
           "date": "2026-10-19",
           "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff.",
           "version": "1.0.3"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.4"
         }
       ],
       "requires": [],
@@ -156,7 +166,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.3"
+      "version": "1.0.4"
     },
     {
       "author": "garunski",
@@ -168,27 +178,27 @@
       "description": "Packages linked by template references: workflows, prompts, commands.",
       "files": [
         {
-          "from": "packages/author-workflow/1.0.1/workflow/SKILL.md",
+          "from": "packages/workflow/1.0.2/SKILL.md",
           "to": ".agents/skills/workflow/SKILL.md"
         },
         {
-          "from": "packages/author-workflow/1.0.1/system-workflow-authoring/prompt.json",
+          "from": "packages/system-workflow-authoring/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-workflow-authoring.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
         },
         {
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/author-workflow/1.0.1/system-author-workflow/definition.json",
+          "from": "packages/system-author-workflow/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-author-workflow.json"
         }
       ],
@@ -208,10 +218,66 @@
           "date": "2026-09-29",
           "note": "Refresh workflow authoring prompt and include the workflow skill.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
       "slug": "author-workflow",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.2"
+    },
+    {
+      "author": "garunski",
+      "category": "bundle",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
+      "files": [
+        {
+          "from": "packages/system-milestone-summary-doc/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-milestone-summary-doc.json"
+        },
+        {
+          "from": "packages/system-generate-milestone-summary-doc/1.0.2/definition.json",
+          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json"
+        }
+      ],
+      "id": "bundle-generate-milestone-summary",
+      "labels": [
+        "knowledge",
+        "milestone"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "Generate milestone summary",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [
+        "cursor-agent"
+      ],
+      "slug": "generate-milestone-summary",
       "technologyScope": {
         "scope": "general"
       },
@@ -229,80 +295,34 @@
         "scope": "any"
       },
       "dependencies": [],
-      "description": "Workflow and prompt that draft a knowledge doc from a milestone's stories.",
-      "files": [
-        {
-          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json",
-          "to": ".s_e_e/prompts/system-milestone-summary-doc.json"
-        },
-        {
-          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json",
-          "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json"
-        }
-      ],
-      "id": "bundle-generate-milestone-summary",
-      "labels": [
-        "knowledge",
-        "milestone"
-      ],
-      "license": "AGPL-3.0-only",
-      "name": "Generate milestone summary",
-      "releases": [
-        {
-          "date": "2026-09-01",
-          "note": "Initial catalog release.",
-          "version": "1.0.0"
-        }
-      ],
-      "requires": [
-        "cursor-agent"
-      ],
-      "slug": "generate-milestone-summary",
-      "technologyScope": {
-        "scope": "general"
-      },
-      "toolIds": [],
-      "usageContexts": [
-        "standalone"
-      ],
-      "verified": true,
-      "version": "1.0.0"
-    },
-    {
-      "author": "garunski",
-      "category": "bundle",
-      "cliScope": {
-        "scope": "any"
-      },
-      "dependencies": [],
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "files": [
         {
-          "from": "packages/implement-story/1.0.1/work/SKILL.md",
+          "from": "packages/work/1.0.2/SKILL.md",
           "to": ".agents/skills/work/SKILL.md"
         },
         {
-          "from": "packages/implement-story/1.0.1/system-implement-story/prompt.json",
+          "from": "packages/system-implement-story/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-implement-story.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
         },
         {
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/implement-story/1.0.1/system-implement-stories-bulk/definition.json",
+          "from": "packages/system-implement-stories-bulk/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json"
         },
         {
-          "from": "packages/implement-story/1.0.1/system-implement-story/definition.json",
+          "from": "packages/system-implement-story/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-implement-story.json"
         }
       ],
@@ -323,6 +343,11 @@
           "date": "2026-09-29",
           "note": "Refresh embedded work skill and implementation prompt.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -335,7 +360,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -383,31 +408,31 @@
           "to": ".s_e_e/prompts/system-trace-contract.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-audit-system/definition.json",
+          "from": "packages/knowledge-system/1.0.1/system-audit-system/definition.json",
           "to": ".s_e_e/workflows/definitions/system-audit-system.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-discover-components/definition.json",
+          "from": "packages/knowledge-system/1.0.1/system-discover-components/definition.json",
           "to": ".s_e_e/workflows/definitions/system-discover-components.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-fix-broken-links/definition.json",
+          "from": "packages/knowledge-system/1.0.1/system-fix-broken-links/definition.json",
           "to": ".s_e_e/workflows/definitions/system-fix-broken-links.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-publish-documentation/definition.json",
+          "from": "packages/knowledge-system/1.0.1/system-publish-documentation/definition.json",
           "to": ".s_e_e/workflows/definitions/system-publish-documentation.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-record-git-change/definition.json",
+          "from": "packages/knowledge-system/1.0.1/system-record-git-change/definition.json",
           "to": ".s_e_e/workflows/definitions/system-record-git-change.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-refresh-component/definition.json",
+          "from": "packages/knowledge-system/1.0.1/system-refresh-component/definition.json",
           "to": ".s_e_e/workflows/definitions/system-refresh-component.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-trace-contract/definition.json",
+          "from": "packages/knowledge-system/1.0.1/system-trace-contract/definition.json",
           "to": ".s_e_e/workflows/definitions/system-trace-contract.json"
         },
         {
@@ -439,6 +464,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.1"
         }
       ],
       "requires": [
@@ -454,7 +484,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -466,19 +496,19 @@
       "description": "Cycle workflows for shape, rank, and observe, plus orchestrator chat and learning prompts, including MCP fragments they expand.",
       "files": [
         {
-          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-claude-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-claude-delivery.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
         },
         {
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
@@ -513,6 +543,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -525,7 +560,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -537,8 +572,28 @@
       "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
       "files": [
         {
-          "from": "packages/work-milestone-stories/1.0.0/system-work-milestone-stories/definition.json",
+          "from": "packages/work-milestone-stories/1.0.1/system-work-milestone-stories/definition.json",
           "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json"
+        },
+        {
+          "from": "packages/work/1.0.2/SKILL.md",
+          "to": ".agents/skills/work/SKILL.md"
+        },
+        {
+          "from": "packages/system-work-story/1.0.2/prompt.json",
+          "to": ".s_e_e/prompts/system-work-story.json"
+        },
+        {
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
+        },
+        {
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         }
       ],
       "id": "bundle-work-milestone-stories",
@@ -554,6 +609,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Work each story with the store-only work prompt, let the agent set Done after verification, and run the repository quality gate from AGENTS.md.",
+          "version": "1.0.1"
         }
       ],
       "requires": [
@@ -569,7 +629,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -581,27 +641,27 @@
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "files": [
         {
-          "from": "packages/work-swimlane-stories/1.0.1/work/SKILL.md",
+          "from": "packages/work/1.0.2/SKILL.md",
           "to": ".agents/skills/work/SKILL.md"
         },
         {
-          "from": "packages/work-swimlane-stories/1.0.1/system-work-story/prompt.json",
+          "from": "packages/system-work-story/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-work-story.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
         },
         {
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/work-swimlane-stories/1.0.1/system-work-swimlane-stories/definition.json",
+          "from": "packages/system-work-swimlane-stories/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json"
         }
       ],
@@ -623,6 +683,11 @@
           "date": "2026-09-29",
           "note": "Refresh embedded work skill and implementation prompt.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -635,7 +700,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -877,7 +942,7 @@
       ],
       "files": [
         {
-          "from": "packages/system-implement-story/1.0.1/prompt.json",
+          "from": "packages/system-implement-story/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-implement-story.json"
         }
       ],
@@ -897,10 +962,108 @@
           "date": "2026-09-29",
           "note": "Use the work skill and project store without direct story file edits.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Load the work skill from the project home and read the story with story_get.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
       "slug": "system-implement-story",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.2"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "cliIds": [
+          "claude"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
+      "description": "How Claude Code receives hub MCP config.",
+      "files": [
+        {
+          "from": "packages/system-mcp-claude-delivery/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json"
+        }
+      ],
+      "id": "prompt-system-mcp-claude-delivery",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "MCP delivery (Claude Code)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Describe the maintained claude-mcp.json delivery.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-mcp-claude-delivery",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.1"
+    },
+    {
+      "author": "garunski",
+      "category": "prompt",
+      "cliScope": {
+        "scope": "any"
+      },
+      "dependencies": [],
+      "description": "Shared MCP store contract expanded by other prompts.",
+      "files": [
+        {
+          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "to": ".s_e_e/prompts/system-mcp-contract.json"
+        }
+      ],
+      "id": "prompt-system-mcp-contract",
+      "labels": [
+        "prompt"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "MCP contract (any client)",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Generic store contract without hub-specific references.",
+          "version": "1.0.1"
+        }
+      ],
+      "requires": [],
+      "slug": "system-mcp-contract",
       "technologyScope": {
         "scope": "general"
       },
@@ -916,89 +1079,6 @@
       "category": "prompt",
       "cliScope": {
         "cliIds": [
-          "claude"
-        ],
-        "scope": "specific"
-      },
-      "dependencies": [],
-      "description": "How Claude Code receives hub MCP config.",
-      "files": [
-        {
-          "from": "packages/system-mcp-claude-delivery/1.0.0/prompt.json",
-          "to": ".s_e_e/prompts/system-mcp-claude-delivery.json"
-        }
-      ],
-      "id": "prompt-system-mcp-claude-delivery",
-      "labels": [
-        "prompt"
-      ],
-      "license": "AGPL-3.0-only",
-      "name": "MCP delivery (Claude Code)",
-      "releases": [
-        {
-          "date": "2026-09-01",
-          "note": "Initial catalog release.",
-          "version": "1.0.0"
-        }
-      ],
-      "requires": [],
-      "slug": "system-mcp-claude-delivery",
-      "technologyScope": {
-        "scope": "general"
-      },
-      "toolIds": [
-        "claude"
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "verified": true,
-      "version": "1.0.0"
-    },
-    {
-      "author": "garunski",
-      "category": "prompt",
-      "cliScope": {
-        "scope": "any"
-      },
-      "dependencies": [],
-      "description": "Shared MCP store contract expanded by other prompts.",
-      "files": [
-        {
-          "from": "packages/system-mcp-contract/1.0.0/prompt.json",
-          "to": ".s_e_e/prompts/system-mcp-contract.json"
-        }
-      ],
-      "id": "prompt-system-mcp-contract",
-      "labels": [
-        "prompt"
-      ],
-      "license": "AGPL-3.0-only",
-      "name": "MCP contract (any client)",
-      "releases": [
-        {
-          "date": "2026-09-01",
-          "note": "Initial catalog release.",
-          "version": "1.0.0"
-        }
-      ],
-      "requires": [],
-      "slug": "system-mcp-contract",
-      "technologyScope": {
-        "scope": "general"
-      },
-      "toolIds": [],
-      "usageContexts": [
-        "standalone"
-      ],
-      "verified": true,
-      "version": "1.0.0"
-    },
-    {
-      "author": "garunski",
-      "category": "prompt",
-      "cliScope": {
-        "cliIds": [
           "cursor"
         ],
         "scope": "specific"
@@ -1007,7 +1087,7 @@
       "description": "Measured Cursor MCP caveats expanded by other prompts.",
       "files": [
         {
-          "from": "packages/system-mcp-cursor-caveats/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-caveats/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-caveats.json"
         }
       ],
@@ -1022,6 +1102,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Keep only caveats that hold for every project.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1036,7 +1121,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1051,7 +1136,7 @@
       "description": "How Cursor Agent receives hub MCP config.",
       "files": [
         {
-          "from": "packages/system-mcp-cursor-delivery/1.0.0/prompt.json",
+          "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         }
       ],
@@ -1066,6 +1151,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Describe the maintained .cursor/mcp.json entry.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1080,7 +1170,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1092,7 +1182,7 @@
       "description": "Authors a milestone through MCP store tools.",
       "files": [
         {
-          "from": "packages/system-milestone-authoring/1.0.2/prompt.json",
+          "from": "packages/system-milestone-authoring/1.0.3/prompt.json",
           "to": ".s_e_e/prompts/system-milestone-authoring.json"
         }
       ],
@@ -1117,6 +1207,11 @@
           "date": "2026-10-11",
           "note": "Named milestone tools replace item_fetch and item_call.",
           "version": "1.0.2"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Drop hub-specific decision references.",
+          "version": "1.0.3"
         }
       ],
       "requires": [],
@@ -1129,7 +1224,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.2"
+      "version": "1.0.3"
     },
     {
       "author": "garunski",
@@ -1141,7 +1236,7 @@
       "description": "Drafts a knowledge doc body from a milestone's stories.",
       "files": [
         {
-          "from": "packages/system-milestone-summary-doc/1.0.0/prompt.json",
+          "from": "packages/system-milestone-summary-doc/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-milestone-summary-doc.json"
         }
       ],
@@ -1156,6 +1251,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Read stories and the milestone through the see tools instead of store files.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1168,7 +1268,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1266,7 +1366,7 @@
       "dependencies": [],
       "files": [
         {
-          "from": "packages/system-quality-full-fix/1.0.0/prompt.json",
+          "from": "packages/system-quality-full-fix/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-quality-full-fix.json"
         }
       ],
@@ -1281,6 +1381,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Run the full quality gate named in the repository AGENTS.md.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1293,7 +1398,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1304,7 +1409,7 @@
       "dependencies": [],
       "files": [
         {
-          "from": "packages/system-stories-from-doc-authoring/1.0.0/prompt.json",
+          "from": "packages/system-stories-from-doc-authoring/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json"
         }
       ],
@@ -1319,6 +1424,11 @@
           "date": "2026-09-01",
           "note": "Initial catalog release.",
           "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Read the doc through knowledge_doc_get and defer to repository AGENTS.md rules.",
+          "version": "1.0.1"
         }
       ],
       "requires": [],
@@ -1331,7 +1441,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "author": "garunski",
@@ -1342,7 +1452,7 @@
       "dependencies": [],
       "files": [
         {
-          "from": "packages/system-story-authoring/1.0.1/prompt.json",
+          "from": "packages/system-story-authoring/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-story-authoring.json"
         }
       ],
@@ -1362,6 +1472,11 @@
           "date": "2026-10-07",
           "note": "Evidence-first contract and the shared MCP fragment.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Drop hub-specific decision references.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1374,7 +1489,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1387,7 +1502,7 @@
       ],
       "files": [
         {
-          "from": "packages/system-work-story/1.0.1/prompt.json",
+          "from": "packages/system-work-story/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-work-story.json"
         }
       ],
@@ -1407,6 +1522,11 @@
           "date": "2026-09-29",
           "note": "Use the work skill and project store without direct story file edits.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Use repository AGENTS.md commands and configured statuses instead of S.E.E. repository rules.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1419,7 +1539,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1432,7 +1552,7 @@
       ],
       "files": [
         {
-          "from": "packages/system-workflow-authoring/1.0.1/prompt.json",
+          "from": "packages/system-workflow-authoring/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-workflow-authoring.json"
         }
       ],
@@ -1452,6 +1572,11 @@
           "date": "2026-09-29",
           "note": "Use the workflow skill and workflow store.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root by default and drop hub-specific references.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1464,7 +1589,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1480,7 +1605,7 @@
       "description": "Create or revise S.E.E. knowledge docs and architecture decisions through the project store.",
       "files": [
         {
-          "from": "packages/doc/1.0.1/SKILL.md",
+          "from": "packages/doc/1.0.2/SKILL.md",
           "to": ".agents/skills/doc/SKILL.md"
         }
       ],
@@ -1500,66 +1625,15 @@
           "date": "2026-09-29",
           "note": "Use store tools and focused current-state guidance.",
           "version": "1.0.1"
-        }
-      ],
-      "requires": [],
-      "slug": "doc",
-      "technologyScope": {
-        "scope": "general"
-      },
-      "toolIds": [
-        "claude",
-        "cursor"
-      ],
-      "usageContexts": [
-        "standalone"
-      ],
-      "verified": true,
-      "version": "1.0.1"
-    },
-    {
-      "author": "garunski",
-      "category": "skill",
-      "cliScope": {
-        "cliIds": [
-          "claude",
-          "cursor"
-        ],
-        "scope": "specific"
-      },
-      "dependencies": [],
-      "description": "Evidence-backed SEE story and milestone authoring with executable plans and honest readiness checks.",
-      "files": [
-        {
-          "from": "packages/stories/1.0.2/SKILL.md",
-          "to": ".agents/skills/stories/SKILL.md"
-        }
-      ],
-      "id": "skill-stories",
-      "labels": [
-        "skill"
-      ],
-      "license": "AGPL-3.0-only",
-      "name": "stories",
-      "releases": [
-        {
-          "date": "2026-09-01",
-          "note": "Initial catalog release.",
-          "version": "1.0.0"
         },
         {
-          "date": "2026-10-07",
-          "note": "Evidence-first authoring contract.",
-          "version": "1.0.1"
-        },
-        {
-          "date": "2026-10-19",
-          "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff.",
+          "date": "2026-10-20",
+          "note": "Resolve the project from the S.E.E. section of AGENTS.md.",
           "version": "1.0.2"
         }
       ],
       "requires": [],
-      "slug": "stories",
+      "slug": "doc",
       "technologyScope": {
         "scope": "general"
       },
@@ -1584,10 +1658,71 @@
         "scope": "specific"
       },
       "dependencies": [],
+      "description": "Evidence-backed SEE story and milestone authoring with executable plans and honest readiness checks.",
+      "files": [
+        {
+          "from": "packages/stories/1.0.3/SKILL.md",
+          "to": ".agents/skills/stories/SKILL.md"
+        }
+      ],
+      "id": "skill-stories",
+      "labels": [
+        "skill"
+      ],
+      "license": "AGPL-3.0-only",
+      "name": "stories",
+      "releases": [
+        {
+          "date": "2026-09-01",
+          "note": "Initial catalog release.",
+          "version": "1.0.0"
+        },
+        {
+          "date": "2026-10-07",
+          "note": "Evidence-first authoring contract.",
+          "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-19",
+          "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff.",
+          "version": "1.0.2"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Generic authoring contract without workspace-specific rules or path tokens.",
+          "version": "1.0.3"
+        }
+      ],
+      "requires": [],
+      "slug": "stories",
+      "technologyScope": {
+        "scope": "general"
+      },
+      "toolIds": [
+        "claude",
+        "cursor"
+      ],
+      "usageContexts": [
+        "standalone"
+      ],
+      "verified": true,
+      "version": "1.0.3"
+    },
+    {
+      "author": "garunski",
+      "category": "skill",
+      "cliScope": {
+        "cliIds": [
+          "claude",
+          "cursor"
+        ],
+        "scope": "specific"
+      },
+      "dependencies": [],
       "description": "Implement an existing S.E.E. story against its plan and acceptance criteria through the project store.",
       "files": [
         {
-          "from": "packages/work/1.0.1/SKILL.md",
+          "from": "packages/work/1.0.2/SKILL.md",
           "to": ".agents/skills/work/SKILL.md"
         }
       ],
@@ -1607,6 +1742,11 @@
           "date": "2026-09-29",
           "note": "Use store tools and repository-specific verification.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Resolve the project from the S.E.E. section of AGENTS.md and statuses from the stories config.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1622,7 +1762,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1638,7 +1778,7 @@
       "description": "Create or revise S.E.E. workflow definitions and Library workflow packages.",
       "files": [
         {
-          "from": "packages/workflow/1.0.1/SKILL.md",
+          "from": "packages/workflow/1.0.2/SKILL.md",
           "to": ".agents/skills/workflow/SKILL.md"
         }
       ],
@@ -1658,6 +1798,11 @@
           "date": "2026-09-29",
           "note": "Use workflow store tools and explicit command selection.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root by default and drop path tokens.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1673,7 +1818,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1687,7 +1832,7 @@
       "description": "Runs a Cursor agent (auto mode) with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic story files under `.s_e_e/planning/stories/`.",
       "files": [
         {
-          "from": "packages/system-author-stories-from-doc/1.0.0/definition.json",
+          "from": "packages/system-author-stories-from-doc/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-author-stories-from-doc.json"
         }
       ],
@@ -1708,6 +1853,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [
@@ -1723,7 +1873,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1791,7 +1941,7 @@
       "description": "Runs a Cursor agent with the workflow-authoring prompt and your description. Produce valid workflow JSON under `.s_e_e/workflows/definitions/`.",
       "files": [
         {
-          "from": "packages/system-author-workflow/1.0.0/definition.json",
+          "from": "packages/system-author-workflow/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-author-workflow.json"
         }
       ],
@@ -1811,6 +1961,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [
@@ -1826,7 +1981,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1882,7 +2037,7 @@
       "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
       "files": [
         {
-          "from": "packages/system-generate-milestone-summary-doc/1.0.0/definition.json",
+          "from": "packages/system-generate-milestone-summary-doc/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-generate-milestone-summary-doc.json"
         }
       ],
@@ -1903,6 +2058,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1915,7 +2075,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1929,7 +2089,7 @@
       "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) on each story id from board column bulk selection.",
       "files": [
         {
-          "from": "packages/system-implement-stories-bulk/1.0.0/definition.json",
+          "from": "packages/system-implement-stories-bulk/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-implement-stories-bulk.json"
         }
       ],
@@ -1950,6 +2110,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [
@@ -1965,7 +2130,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1979,7 +2144,7 @@
       "description": "Runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) to implement a single story; requires story id at run start.",
       "files": [
         {
-          "from": "packages/system-implement-story/1.0.0/definition.json",
+          "from": "packages/system-implement-story/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-implement-story.json"
         }
       ],
@@ -1999,6 +2164,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [
@@ -2014,7 +2184,7 @@
         "cycle"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -2480,7 +2650,7 @@
       "description": "Resolves the story ids assigned to a milestone, then bulk-updates each story to a target status.",
       "files": [
         {
-          "from": "packages/system-set-milestone-stories-status/1.0.0/definition.json",
+          "from": "packages/system-set-milestone-stories-status/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-set-milestone-stories-status.json"
         }
       ],
@@ -2501,6 +2671,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -2513,7 +2688,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -2622,7 +2797,7 @@
       "description": "Fetches every story in a board swimlane (status column), then runs a Cursor CLI agent (auto mode, composer-2.5[fast=false]) executing the /work skill on each story in a loop.",
       "files": [
         {
-          "from": "packages/system-work-swimlane-stories/1.0.0/definition.json",
+          "from": "packages/system-work-swimlane-stories/1.0.2/definition.json",
           "to": ".s_e_e/workflows/definitions/system-work-swimlane-stories.json"
         }
       ],
@@ -2644,6 +2819,11 @@
           "date": "2026-09-29",
           "note": "Command-neutral agent steps use the project default command.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-20",
+          "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command.",
+          "version": "1.0.2"
         }
       ],
       "requires": [
@@ -2659,7 +2839,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     }
   ],
   "schema": "see.library/v2",
@@ -2824,5 +3004,5 @@
       "name": "Cursor"
     }
   ],
-  "updated": "2026-10-20T00:31:10.164Z"
+  "updated": "2026-10-20T15:59:47.620Z"
 }

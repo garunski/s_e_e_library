@@ -24,6 +24,11 @@
       "version": "1.0.2",
       "date": "2026-10-11",
       "note": "Named milestone tools replace item_fetch and item_call."
+    },
+    {
+      "version": "1.0.3",
+      "date": "2026-10-20",
+      "note": "Drop hub-specific decision references."
     }
   ],
   "usageContexts": [

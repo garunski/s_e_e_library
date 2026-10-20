@@ -40,6 +40,11 @@
       "version": "1.0.2",
       "date": "2026-10-19",
       "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff."
+    },
+    {
+      "version": "1.0.3",
+      "date": "2026-10-20",
+      "note": "Generic authoring contract without workspace-specific rules or path tokens."
     }
   ]
 }

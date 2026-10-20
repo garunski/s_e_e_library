@@ -1,0 +1,65 @@
+{
+  "id": "system-publish-documentation",
+  "name": "Publish documentation",
+  "description": "Assembles human-facing architecture and workflow docs from current component documents and change records without reading spoke source.",
+  "labels": [
+    "system"
+  ],
+  "content": {
+    "id": "publish-documentation",
+    "name": "Publish documentation",
+    "runtime_inputs": [],
+    "tasks": [
+      {
+        "id": "list_components",
+        "name": "List component documents",
+        "capture_output": true,
+        "function": {
+          "name": "s_e_e_action",
+          "input": {
+            "tool": "item_call",
+            "arguments": {
+              "project": "{{project.id}}",
+              "kind": "knowledge_component",
+              "action": "knowledge_component_list",
+              "arguments": {}
+            }
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "list_changes",
+            "name": "List change records",
+            "capture_output": true,
+            "function": {
+              "name": "s_e_e_action",
+              "input": {
+                "tool": "item_call",
+                "arguments": {
+                  "project": "{{project.id}}",
+                  "kind": "knowledge_change",
+                  "action": "knowledge_change_list",
+                  "arguments": {}
+                }
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "publish_views",
+                "name": "Publish documentation views",
+                "function": {
+                  "name": "s_e_e_action",
+                  "input": {
+                    "tool": "knowledge_documentation_publish",
+                    "arguments": {}
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

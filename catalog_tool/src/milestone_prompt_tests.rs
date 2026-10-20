@@ -71,13 +71,10 @@ fn root_catalog_points_at_corrected_prompt_payload() {
         })
         .expect("system-milestone-authoring");
     let (from, content) = published_milestone_prompt(&root);
-    assert_eq!(
-        entry
-            .get("version")
-            .and_then(|v| v.as_str())
-            .expect("version"),
-        "1.0.2"
-    );
-    assert!(from.ends_with("1.0.2/prompt.json"));
+    let version = entry
+        .get("version")
+        .and_then(|v| v.as_str())
+        .expect("version");
+    assert!(from.ends_with(&format!("/{version}/prompt.json")), "{from} is not version {version}");
     assert!(milestone_authoring_contract_errors(&content).is_empty());
 }

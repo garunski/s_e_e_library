@@ -1,0 +1,89 @@
+{
+  "id": "system-generate-milestone-summary-doc",
+  "name": "Generate milestone summary doc",
+  "description": "Resolves a milestone's story ids, drafts a summary with an agent, then persists it as a knowledge doc.",
+  "labels": [
+    "system"
+  ],
+  "subject_kinds": [
+    "milestone"
+  ],
+  "content": {
+    "id": "generate-milestone-summary-doc",
+    "name": "Generate milestone summary doc",
+    "runtime_inputs": [
+      {
+        "key": "milestone_id",
+        "label": "Milestone id",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "category",
+        "label": "Knowledge category",
+        "input_type": "string",
+        "required": false,
+        "default": "overview"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "resolve_story_ids",
+        "name": "Resolve story ids for milestone",
+        "capture_output": true,
+        "function": {
+          "name": "s_e_e_action",
+          "input": {
+            "tool": "item_call",
+            "arguments": {
+              "project": "{{project.id}}",
+              "kind": "story",
+              "action": "story_list",
+              "arguments": {
+                "milestone_id": "{{runtime.milestone_id}}"
+              }
+            }
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "draft_summary",
+            "name": "Draft milestone summary",
+            "capture_output": true,
+            "function": {
+              "name": "command",
+              "input": {
+                "prompt": "{{prompt.system-milestone-summary-doc}}",
+                "config": {}
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "persist_doc",
+                "name": "Persist summary doc",
+                "function": {
+                  "name": "s_e_e_action",
+                  "input": {
+                    "tool": "item_call",
+                    "arguments": {
+                      "project": "{{project.id}}",
+                      "kind": "knowledge_doc",
+                      "action": "knowledge_doc_create",
+                      "arguments": {
+                        "title": "{{task.draft_summary.output.title}}",
+                        "category": "{{runtime.category}}",
+                        "body": "{{task.draft_summary.output.body}}",
+                        "type": "guide"
+                      }
+                    }
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

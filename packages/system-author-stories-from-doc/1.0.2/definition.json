@@ -1,0 +1,40 @@
+{
+  "id": "system-author-stories-from-doc",
+  "name": "Author stories from doc",
+  "description": "Runs the project's agent command with the stories-from-doc prompt. Reads a knowledge doc by id and creates many atomic stories through the S.E.E. store.",
+  "content": {
+    "id": "author-stories-from-doc",
+    "name": "Author stories from doc",
+    "runtime_inputs": [
+      {
+        "input_type": "string",
+        "key": "doc_id",
+        "label": "Doc id (e.g. 13 or doc-13)",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "function": {
+          "input": {
+            "config": {},
+            "prompt": "{{prompt.system-stories-from-doc-authoring}}\n\n## Target doc id\n{{runtime.doc_id}}"
+          },
+          "name": "command"
+        },
+        "id": "author_stories_from_doc_cursor",
+        "name": "Author stories from doc",
+        "next_tasks": []
+      }
+    ]
+  },
+  "is_edited": false,
+  "labels": [
+    "system"
+  ],
+  "created_at": "2026-07-04T11:34:00.424097367Z",
+  "updated_at": "2026-07-04T11:34:00.424097689Z",
+  "subject_kinds": [
+    "doc"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "system-fix-broken-links",
+  "name": "Fix broken links",
+  "description": "Lists dangling entity links and Runs the project's agent command on each missing target until the group clears.",
+  "labels": [
+    "system"
+  ],
+  "content": {
+    "id": "fix-broken-links",
+    "name": "Fix broken links",
+    "tasks": [
+      {
+        "id": "list_dangling",
+        "name": "List dangling link targets",
+        "capture_output": true,
+        "function": {
+          "name": "s_e_e_action",
+          "input": {
+            "tool": "links_list_dangling",
+            "arguments": {}
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_dangling",
+            "name": "For each dangling target",
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "list_dangling",
+                "collection_task_path": [
+                  "target_keys"
+                ],
+                "item_runtime_key": "dangling_target"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "fix_one",
+                "name": "Fix one dangling target",
+                "function": {
+                  "name": "command",
+                  "input": {
+                    "prompt": "{{prompt.system-fix-broken-links}}\n\nFix only dangling target {{runtime.dangling_target}}.",
+                    "config": {
+                      "timeout_secs": 7200
+                    }
+                  }
+                },
+                "next_tasks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

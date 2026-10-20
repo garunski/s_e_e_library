@@ -1,0 +1,5 @@
+{
+  "id": "system-mcp-contract",
+  "name": "MCP contract (any client)",
+  "content": "## S.E.E. MCP contract\n\nThis run's stories, milestones, knowledge docs, decisions, and workflows live in the S.E.E. store, reached through the `see` MCP server.\n\n- Pass `project` `{{project.id}}` on every MCP tool call.\n- Read and change S.E.E. records only through `see` tools. Never edit files under `{{project.hub_root}}/.s_e_e/` directly.\n- Reads return a `conflict_token`. Pass the most recent token on every write. A stale token is rejected with the current record; read again and retry.\n- Read `see:/projects/{{project.id}}/stories/config` for valid story statuses and label conventions instead of hardcoding them.\n- Read `see:/projects/{{project.id}}/workspace-layout` when a task needs the project's folder layout.\n- Clients on MCP protocol `2026-07-28` or newer receive `tools/list` in pages; follow `nextCursor` until it is absent.\n- If the `see` server or a needed tool is unavailable, stop and report it. Do not fall back to editing store files."
+}

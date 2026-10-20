@@ -39,7 +39,7 @@
     "spoke_root": {
       "type": "string",
       "minLength": 1,
-      "description": "Default spoke workspace root for command tasks with cwd spoke. An exact {{runtime.KEY}} reference to a string input resolves before execution and resume; the resolved path must be an existing absolute directory"
+      "description": "Optional workspace root for command tasks with cwd spoke and git actions without a per-task spoke. Omit it to use the project default: the project's code folder for story implementation and code knowledge workflows, and the project home folder for every other workflow. An exact {{runtime.KEY}} reference to a string input resolves before execution and resume; an explicit value must be an existing absolute directory. Library packages omit it or use a {{runtime.KEY}} reference"
     },
     "spoke_lock_policy": {
       "type": "string",

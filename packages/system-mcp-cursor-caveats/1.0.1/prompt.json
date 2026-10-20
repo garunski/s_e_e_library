@@ -1,0 +1,5 @@
+{
+  "id": "system-mcp-cursor-caveats",
+  "name": "Cursor MCP caveats (measured)",
+  "content": "## Cursor MCP caveats\n\n- Cursor loads MCP servers when the agent starts. If the `see` tools are not in your tool list, stop and report it instead of editing files.\n- The S.E.E. server identifies itself as `s-e-e-mcp` in its `initialize` response."
+}

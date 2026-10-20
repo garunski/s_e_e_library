@@ -1352,6 +1352,9 @@
   .gap-4 {
     gap: calc(var(--spacing) * 4);
   }
+  .gap-5 {
+    gap: calc(var(--spacing) * 5);
+  }
   .gap-6 {
     gap: calc(var(--spacing) * 6);
   }
@@ -2984,6 +2987,9 @@
   }
   .underline-offset-4 {
     text-underline-offset: 4px;
+  }
+  .accent-sky-600 {
+    accent-color: var(--color-sky-600);
   }
   .opacity-0 {
     opacity: 0%;

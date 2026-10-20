@@ -10,6 +10,7 @@ use crate::package_meta::{
 };
 use crate::payload_meta::{extract_payload_meta, presentation_for_entry};
 use crate::validate::{read_catalog, run_catalog};
+use s_e_e_library_ops::library_portability::spoke_root_is_portable;
 
 const VERSION: &str = "1.0.0";
 const AUTHOR: &str = "garunski";
@@ -322,11 +323,36 @@ fn workflow_entry(root: &Path, hub: &Path, stem: &str) -> Result<BuiltEntry, Str
         .join(".s_e_e/workflows/definitions")
         .join(format!("{stem}.json"));
     let dest = root.join(&from);
-    let content = read_hub_json(hub, &format!(".s_e_e/workflows/definitions/{stem}.json"))?;
-    serde_json::from_str::<Value>(&content)
-        .map_err(|e| format!("invalid JSON in .s_e_e/workflows/definitions/{stem}.json: {e}"))?;
-    copy_file(&src, &dest)?;
+    let raw = read_hub_json(hub, &format!(".s_e_e/workflows/definitions/{stem}.json"))?;
+    let content = portable_workflow_json(&raw)
+        .map_err(|e| format!("invalid JSON in {}: {e}", src.display()))?;
+    if let Some(parent) = dest.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| format!("mkdir {}: {e}", parent.display()))?;
+    }
+    std::fs::write(&dest, &content).map_err(|e| format!("write {}: {e}", dest.display()))?;
     Ok(workflow_entry_from_content(root, stem, &content))
+}
+
+pub(crate) fn portable_workflow_json(raw: &str) -> Result<String, String> {
+    let mut value: Value = serde_json::from_str(raw).map_err(|e| e.to_string())?;
+    let has_tasks = value.get("tasks").is_some();
+    let target = if has_tasks {
+        value.as_object_mut()
+    } else {
+        value.get_mut("content").and_then(Value::as_object_mut)
+    };
+    if let Some(workflow) = target {
+        let pinned = workflow
+            .get("spoke_root")
+            .and_then(Value::as_str)
+            .is_some_and(|root| !spoke_root_is_portable(root));
+        if pinned {
+            workflow.remove("spoke_root");
+        }
+    }
+    serde_json::to_string_pretty(&value)
+        .map(|text| format!("{text}\n"))
+        .map_err(|e| e.to_string())
 }
 
 fn library_only_workflow_entry(root: &Path, stem: &str) -> Result<BuiltEntry, String> {
@@ -370,12 +396,13 @@ fn command_entry(root: &Path, hub: &Path, id: &str) -> Result<BuiltEntry, String
     })
 }
 
-fn skill_entry(root: &Path, hub: &Path, slug: &str) -> Result<BuiltEntry, String> {
+fn skill_entry(root: &Path, slug: &str) -> Result<BuiltEntry, String> {
     let from = format!("packages/{slug}/{VERSION}/SKILL.md");
-    let src = hub.join(".agents/skills").join(slug).join("SKILL.md");
-    let dest = root.join(&from);
-    let content = read_hub_json(hub, &format!(".agents/skills/{slug}/SKILL.md"))?;
-    copy_file(&src, &dest)?;
+    let path = root.join(&from);
+    if !path.is_file() {
+        return Err(format!("missing library-owned skill payload: {}", path.display()));
+    }
+    let content = std::fs::read_to_string(&path).map_err(|e| e.to_string())?;
     let entry = with_presentation(
         root,
         serde_json::json!({
@@ -483,7 +510,7 @@ pub fn run_harvest(library_root: &Path, hub: &Path) -> Result<(), String> {
         member_built.push(command_entry(library_root, hub, id)?);
     }
     for slug in SKILLS {
-        member_built.push(skill_entry(library_root, hub, slug)?);
+        member_built.push(skill_entry(library_root, slug)?);
     }
 
     let by_id: HashMap<String, Value> = member_built

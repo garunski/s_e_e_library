@@ -1,0 +1,107 @@
+{
+  "id": "system-set-milestone-stories-status",
+  "name": "Set milestone stories status",
+  "description": "Resolves the story ids assigned to a milestone deterministically, then bulk-updates each story to a target status.",
+  "labels": [
+    "system"
+  ],
+  "subject_kinds": [
+    "milestone"
+  ],
+  "content": {
+    "id": "set-milestone-stories-status",
+    "name": "Set milestone stories status",
+    "runtime_inputs": [
+      {
+        "key": "milestone_id",
+        "label": "Milestone id",
+        "input_type": "string",
+        "required": true
+      },
+      {
+        "key": "target_status",
+        "label": "Target status",
+        "input_type": "string",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "resolve_story_ids",
+        "name": "Resolve story ids for milestone",
+        "capture_output": true,
+        "function": {
+          "name": "s_e_e_action",
+          "input": {
+            "tool": "item_call",
+            "arguments": {
+              "project": "{{project.id}}",
+              "kind": "story",
+              "action": "story_list",
+              "arguments": {
+                "milestone_id": "{{runtime.milestone_id}}"
+              }
+            }
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_story",
+            "name": "For each story",
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "resolve_story_ids",
+                "collection_task_path": [
+                  "story_ids"
+                ],
+                "item_runtime_key": "story_id"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "read_story",
+                "name": "Read story",
+                "capture_output": true,
+                "function": {
+                  "name": "s_e_e_action",
+                  "input": {
+                    "tool": "item_fetch",
+                    "arguments": {
+                      "project": "{{project.id}}",
+                      "kind": "story",
+                      "id": "{{runtime.story_id}}"
+                    }
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "set_story_status",
+                    "name": "Set story status",
+                    "function": {
+                      "name": "s_e_e_action",
+                      "input": {
+                        "tool": "item_call",
+                        "arguments": {
+                          "project": "{{project.id}}",
+                          "kind": "story",
+                          "id": "{{runtime.story_id}}",
+                          "action": "story_set_status",
+                          "arguments": {
+                            "status": "{{runtime.target_status}}",
+                            "conflict_token": "{{task.read_story.output.item.conflict_token}}"
+                          }
+                        }
+                      }
+                    },
+                    "next_tasks": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

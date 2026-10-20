@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 use std::path::Path;
 
 use s_e_e_core::validate_catalog_manifest_value;
-use s_e_e_library_ops::validate_package_payload;
+use s_e_e_library_ops::{validate_package_payload, validate_package_portability};
 use s_e_e_shapes::{CREATE_PROPOSAL_DEFINITION_ID, LibraryKind, SCHEMA_SEE_LIBRARY_V1, SCHEMA_SEE_LIBRARY_V2};
 use serde_json::Value;
 
@@ -266,6 +266,14 @@ fn validate_package_files(entry: &Value, label: &str, root: &Path) -> Result<(),
                 .first()
                 .map(|e| e.message.clone())
                 .unwrap_or_else(|| "invalid payload".to_string());
+            return Err(format!("{label}: {from}: {first}"));
+        }
+        if let Err(errors) = validate_package_portability(kind, &[(to, content.as_str())]) {
+            let first = errors
+                .errors
+                .first()
+                .map(|e| e.message.clone())
+                .unwrap_or_else(|| "payload is not portable".to_string());
             return Err(format!("{label}: {from}: {first}"));
         }
     }

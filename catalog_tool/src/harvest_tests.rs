@@ -4,7 +4,7 @@ use std::path::Path;
 use serde_json::Value;
 use tempfile::TempDir;
 
-use crate::harvest::{package_signatures_from_catalog, run_harvest};
+use crate::harvest::{package_signatures_from_catalog, portable_workflow_json, run_harvest};
 use crate::package_meta::catalog_without_updated;
 use crate::validate::{read_catalog, run_validate};
 
@@ -109,4 +109,19 @@ fn catalog_without_updated_ignores_timestamp() {
     let catalog = read_catalog(&library_root()).expect("read");
     let stripped = catalog_without_updated(&catalog);
     assert!(stripped.get("updated").is_none());
+}
+
+#[test]
+fn harvested_workflows_drop_machine_spoke_roots_and_keep_runtime_ones() {
+    let pinned = r#"{"id":"wf","content":{"id":"wf","spoke_root":"/home/fang/code/hub","tasks":[]}}"#;
+    let placeholder = r#"{"id":"wf","spoke_root":"/tmp/see-embedded-wf-template","tasks":[]}"#;
+    let runtime = r#"{"id":"wf","content":{"spoke_root":"{{runtime.repository_root}}","tasks":[]}}"#;
+    let out: Value = serde_json::from_str(&portable_workflow_json(pinned).unwrap()).unwrap();
+    assert!(out["content"].get("spoke_root").is_none());
+    assert_eq!(out["content"]["id"], "wf");
+    let out: Value = serde_json::from_str(&portable_workflow_json(placeholder).unwrap()).unwrap();
+    assert!(out.get("spoke_root").is_none());
+    let out: Value = serde_json::from_str(&portable_workflow_json(runtime).unwrap()).unwrap();
+    assert_eq!(out["content"]["spoke_root"], "{{runtime.repository_root}}");
+    assert!(portable_workflow_json("not json").is_err());
 }

@@ -1,0 +1,5 @@
+{
+  "id": "system-mcp-cursor-delivery",
+  "name": "MCP delivery (Cursor)",
+  "content": "## Agent CLI: MCP delivery (Cursor)\n\nThis run uses the `cursor-agent` command. Cursor reads MCP servers from `.cursor/mcp.json` in its working folder. S.E.E. keeps a `see` entry in that file for every project folder and checks it before the run starts. Cursor ignores MCP settings passed only through the child environment."
+}

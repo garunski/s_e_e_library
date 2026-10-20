@@ -35,6 +35,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Use store tools and repository-specific verification."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-20",
+      "note": "Resolve the project from the S.E.E. section of AGENTS.md and statuses from the stories config."
     }
   ]
 }

@@ -21,6 +21,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Use the work skill and project store without direct story file edits."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-20",
+      "note": "Load the work skill from the project home and read the story with story_get."
     }
   ],
   "usageContexts": [

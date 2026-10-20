@@ -21,6 +21,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Use the work skill and project store without direct story file edits."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-20",
+      "note": "Use repository AGENTS.md commands and configured statuses instead of S.E.E. repository rules."
     }
   ],
   "usageContexts": [

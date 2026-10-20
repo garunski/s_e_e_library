@@ -75,9 +75,9 @@ pub fn LibraryAuthoringWorkflows() -> Element {
                 dd { class: "{DD}", "Ordered graph of engine tasks." }
                 dt { class: "{DT}", code { "spoke_root" } }
                 dd { class: "{DD}",
-                    "Required when command tasks use spoke cwd or git actions omit per-task spoke. Set it to an existing absolute path or an exact "
+                    "Optional. Omit it in Library packages: the run then uses the project's code folder for story implementation and code knowledge workflows, and the project home folder for every other workflow. To let the user pick the folder, set it to an exact "
                     code { class: "{INLINE_CODE}", "{{runtime.KEY}}" }
-                    " reference to a string runtime input. The run resolves and validates the path before executing tasks and again when resuming after user input."
+                    " reference to a string runtime input; the run resolves and validates the absolute path before executing tasks and again when resuming after user input. Catalog validation rejects a package that sets a literal path."
                 }
             }
             h3 { class: "mt-6 {SUBSECTION_TITLE}", "Task types" }

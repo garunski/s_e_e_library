@@ -51,7 +51,7 @@ pub fn LibrarySchemaWorkflow() -> Element {
                         li { code { class: "{INLINE_CODE}", "tasks[]" }, " - required, non-empty." }
                         li { code { class: "{INLINE_CODE}", "runtime_inputs[]" }, " - optional; each ", code { class: "{INLINE_CODE}", "{{ key, input_type, required, label }}" }, "; ", code { class: "{INLINE_CODE}", "key" }, " must not contain dots." }
                         li { code { class: "{INLINE_CODE}", "default_command_id" }, " - optional installed command id for ", code { class: "{INLINE_CODE}", "command" }, " tasks that omit ", code { class: "{INLINE_CODE}", "function.input.command_id" }, "." }
-                        li { code { class: "{INLINE_CODE}", "spoke_root" }, ", ", code { class: "{INLINE_CODE}", "hub_root" }, ", ", code { class: "{INLINE_CODE}", "stories_root" }, ", ", code { class: "{INLINE_CODE}", "knowledge_root" }, " - optional root paths." }
+                        li { code { class: "{INLINE_CODE}", "spoke_root" }, ", ", code { class: "{INLINE_CODE}", "hub_root" }, ", ", code { class: "{INLINE_CODE}", "stories_root" }, ", ", code { class: "{INLINE_CODE}", "knowledge_root" }, " - optional root paths. When ", code { class: "{INLINE_CODE}", "spoke_root" }, " is omitted, the run uses the project's code folder for story implementation and code knowledge workflows and the project home folder otherwise." }
                     }
                 }
             }

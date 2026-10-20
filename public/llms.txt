@@ -19,10 +19,10 @@ site order: how to author each package type first, then the payload contracts.
 Where a section and a schema file disagree, the schema file wins.
 
 Story authors: see **Story authoring packages** in the Skills section for the
-mandatory `decision-24` specificity review. It applies before a story is handed
-off, scheduled, or moved into active work and whenever its scope changes.
+mandatory specificity review. It applies before a story is handed off,
+scheduled, or moved into active work and whenever its scope changes.
 Milestone authors: see **Milestone authoring packages** in the Skills section
-for the `decision-25` cut, membership, and completion review.
+for the cut, membership, and completion review.
 
 ## Contents
 
@@ -112,7 +112,7 @@ shape only.
 | `runtime_inputs` | Run-start values; each object with `key`, `input_type`, `required`, `label`; keys must not contain dots |
 | `default_command_id` | Optional installed command id for `command` tasks that omit `command_id` |
 | `tasks` | Ordered graph of engine tasks |
-| `spoke_root` | Required when command tasks use spoke cwd or git actions omit per-task spoke. Use an existing absolute path or an exact `{{runtime.KEY}}` reference to a string runtime input. The run resolves and validates it before execution and again on resume. |
+| `spoke_root` | Optional. Omit it in Library packages: the run then uses the project's code folder for story implementation and code knowledge workflows, and the project home folder for every other workflow. To let the user pick the folder, set it to an exact `{{runtime.KEY}}` reference to a string runtime input; the run resolves and validates the absolute path before execution and again on resume. Catalog validation rejects a package that sets a literal path. |
 
 ### Task types
 
@@ -337,12 +337,22 @@ applicable repository rules and load only the skills and references relevant
 to the work. Copying every layer into the first prompt makes repeated and
 conflicting guidance harder to maintain.
 
-The current `doc`, `workflow`, and `work` skills use the project store
-interfaces for installed records. They do not direct agents to edit store
+The current `doc`, `stories`, `workflow`, and `work` skills use the project
+store interfaces for installed records. They do not direct agents to edit store
 Markdown or workflow JSON on disk. Library package source files remain
 editable in this repository before publication. Publish a changed skill as a
 new version and refresh any bundle that embeds its payload. Existing
 installations need an upgrade to receive that version.
+
+## Write skills for any project
+
+S.E.E. installs `SKILL.md` exactly as written. Do not use `<hub>` or
+`<spoke:NAME>` path tokens, and do not copy another project's paths, ids,
+languages, or commands into a skill; catalog validation rejects path tokens.
+Point agents at the repository `AGENTS.md` for local rules and commands.
+Project setup writes a managed S.E.E. section into each project folder's
+`AGENTS.md` that names the project id, the `see` MCP server, and where the
+S.E.E. skills are installed.
 
 ## Reference example
 
@@ -375,9 +385,9 @@ user intent. Keep procedures in the markdown body, not in frontmatter.
 
 ## Story authoring packages
 
-The bundled `stories` skill and `system-story-authoring` prompt carry the S.E.E.
-hub's accepted decision `decision-24`. Broad stories hide affected surfaces and
-can make partial work look complete. Apply the specificity review whenever a
+The bundled `stories` skill and `system-story-authoring` prompt carry the story
+specificity review. Broad stories hide affected surfaces and can make partial
+work look complete. Apply the specificity review whenever a
 story is created or materially revised, before it is handed off, scheduled, or
 moved into active work.
 
@@ -396,9 +406,9 @@ reviewing stories.
 
 ## Milestone authoring packages
 
-The `stories` skill and `system-milestone-authoring` prompt carry the S.E.E.
-hub's accepted decision `decision-25`. Apply it when creating or revising a
-milestone and before declaring it Done. A milestone cut names one observable
+The `stories` skill and `system-milestone-authoring` prompt carry the milestone
+cut and completion review. Apply it when creating or revising a milestone and
+before declaring it Done. A milestone cut names one observable
 outcome, includes the stories necessary to deliver it, and states why other
 work is deferred.
 
@@ -1368,7 +1378,7 @@ An outer envelope wraps the engine `content`:
   - `tasks[]` - required, non-empty.
   - `runtime_inputs[]` - optional; each `{ key, input_type, required, label }`; `key` must not contain dots.
   - `default_command_id` - optional installed command id for `command` tasks that omit `function.input.command_id`.
-  - `spoke_root`, `hub_root`, `stories_root`, `knowledge_root` - optional root paths. An exact `{{runtime.KEY}}` value resolves from a string run input before execution and resume. The resulting path must exist and be absolute. Hub-scoped runs may inject hub and store roots from the project.
+  - `spoke_root`, `hub_root`, `stories_root`, `knowledge_root` - optional root paths. An exact `{{runtime.KEY}}` value resolves from a string run input before execution and resume. The resulting path must exist and be absolute. Hub-scoped runs may inject hub and store roots from the project. When `spoke_root` is omitted, the run uses the project's code folder for story implementation and code knowledge workflows and the project home folder otherwise.
 
 ## Tasks
 

@@ -22,6 +22,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Command-neutral agent steps use the project default command."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-20",
+      "note": "Omit spoke_root so runs use the project default folder, and use the project default agent command."
     }
   ],
   "usageContexts": [

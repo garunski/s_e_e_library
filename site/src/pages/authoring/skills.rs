@@ -50,10 +50,28 @@ pub fn LibraryAuthoringSkills() -> Element {
                 "The current "
                 code { class: "{INLINE_CODE}", "doc" }
                 ", "
+                code { class: "{INLINE_CODE}", "stories" }
+                ", "
                 code { class: "{INLINE_CODE}", "workflow" }
                 ", and "
                 code { class: "{INLINE_CODE}", "work" }
                 " skills use the project store interfaces for installed records. They do not direct agents to edit store Markdown or workflow JSON on disk. Library package source files remain editable in this repository before publication. Publish a changed skill as a new version and refresh any bundle that embeds its payload. Existing installations need an upgrade to receive that version."
+            }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Write skills for any project" }
+            p { class: "{BODY_TEXT}",
+                "S.E.E. installs "
+                code { class: "{INLINE_CODE}", "SKILL.md" }
+                " exactly as written. Do not use "
+                code { class: "{INLINE_CODE}", "<hub>" }
+                " or "
+                code { class: "{INLINE_CODE}", "<spoke:NAME>" }
+                " path tokens, and do not copy another project's paths, ids, languages, or commands into a skill; catalog validation rejects path tokens. Point agents at the repository "
+                code { class: "{INLINE_CODE}", "AGENTS.md" }
+                " for local rules and commands. Project setup writes a managed S.E.E. section into each project folder's "
+                code { class: "{INLINE_CODE}", "AGENTS.md" }
+                " that names the project id, the "
+                code { class: "{INLINE_CODE}", "see" }
+                " MCP server, and where the S.E.E. skills are installed."
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "Reference example" }
             p { class: "{BODY_TEXT}",
@@ -75,9 +93,7 @@ pub fn LibraryAuthoringSkills() -> Element {
                 code { class: "{INLINE_CODE}", "stories" }
                 " skill and "
                 code { class: "{INLINE_CODE}", "system-story-authoring" }
-                " prompt carry the S.E.E. hub's accepted decision "
-                code { class: "{INLINE_CODE}", "decision-24" }
-                ". Broad stories hide affected surfaces and can make partial work look complete. Apply the specificity review whenever a story is created or materially revised, before it is handed off, scheduled, or moved into active work."
+                " prompt carry the story specificity review. Broad stories hide affected surfaces and can make partial work look complete. Apply the specificity review whenever a story is created or materially revised, before it is handed off, scheduled, or moved into active work."
             }
             p { class: "{BODY_TEXT}",
                 "Verify the current gap and count affected screens, stored objects, application code paths, APIs, runtime components, Library definitions, and existing installations. Name each affected path and exact behavior in the implementation plan. Split independently deliverable work into separate stories. Give each affected surface an observable acceptance criterion with evidence beyond the authored change. Complete and read back any store-created shell in the same authoring session."
@@ -93,9 +109,7 @@ pub fn LibraryAuthoringSkills() -> Element {
                 code { class: "{INLINE_CODE}", "stories" }
                 " skill and "
                 code { class: "{INLINE_CODE}", "system-milestone-authoring" }
-                " prompt carry the S.E.E. hub's accepted decision "
-                code { class: "{INLINE_CODE}", "decision-25" }
-                ". Apply it when creating or revising a milestone and before declaring it Done. A milestone cut names one observable outcome, includes the stories necessary to deliver it, and states why other work is deferred."
+                " prompt carry the milestone cut and completion review. Apply it when creating or revising a milestone and before declaring it Done. A milestone cut names one observable outcome, includes the stories necessary to deliver it, and states why other work is deferred."
             }
             p { class: "{BODY_TEXT}",
                 "Assign stories through their milestone field and read membership back. Add a "

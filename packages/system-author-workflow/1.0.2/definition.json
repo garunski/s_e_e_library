@@ -1,0 +1,40 @@
+{
+  "id": "system-author-workflow",
+  "name": "Author workflow",
+  "description": "Runs the project's agent command with the workflow-authoring prompt and your description. Saves a valid workflow through the S.E.E. store.",
+  "content": {
+    "id": "author-workflow",
+    "name": "Author workflow",
+    "runtime_inputs": [
+      {
+        "input_type": "multiline_string",
+        "key": "workflow_description",
+        "label": "Describe the workflow to create",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "function": {
+          "input": {
+            "config": {},
+            "prompt": "{{prompt.system-workflow-authoring}}\n\n## Operator request\n{{runtime.workflow_description}}"
+          },
+          "name": "command"
+        },
+        "id": "author_workflow_cursor",
+        "name": "Author workflow",
+        "next_tasks": []
+      }
+    ]
+  },
+  "is_edited": false,
+  "labels": [
+    "system"
+  ],
+  "created_at": "2026-07-04T11:34:00.421254257Z",
+  "updated_at": "2026-07-04T11:34:00.421254565Z",
+  "subject_kinds": [
+    "workflow"
+  ]
+}

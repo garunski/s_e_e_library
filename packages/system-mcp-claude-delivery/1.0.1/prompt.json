@@ -1,0 +1,5 @@
+{
+  "id": "system-mcp-claude-delivery",
+  "name": "MCP delivery (Claude Code)",
+  "content": "## Agent CLI: MCP delivery (Claude Code)\n\nThis run uses the `claude-code` command. S.E.E. keeps the project's MCP configuration in `claude-mcp.json` inside the project's `.s_e_e` folder and passes that file to Claude Code with `--mcp-config`. Claude Code ignores MCP settings passed only through the child environment."
+}
