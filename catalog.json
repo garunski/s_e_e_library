@@ -16,7 +16,7 @@
           "to": ".agents/skills/doc/SKILL.md"
         },
         {
-          "from": "packages/author-stories-from-doc/1.0.1/stories/SKILL.md",
+          "from": "packages/author-stories-from-doc/1.0.2/stories/SKILL.md",
           "to": ".agents/skills/stories/SKILL.md"
         },
         {
@@ -61,6 +61,11 @@
           "date": "2026-09-29",
           "note": "Refresh embedded doc and work skills.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-19",
+          "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -73,7 +78,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -85,7 +90,7 @@
       "description": "Packages linked by template references: workflows, prompts, skills, commands.",
       "files": [
         {
-          "from": "packages/author-story/1.0.2/stories/SKILL.md",
+          "from": "packages/author-story/1.0.3/stories/SKILL.md",
           "to": ".agents/skills/stories/SKILL.md"
         },
         {
@@ -134,6 +139,11 @@
           "date": "2026-10-07",
           "note": "Evidence-first prompt and milestone context on the author-story workflow.",
           "version": "1.0.2"
+        },
+        {
+          "date": "2026-10-19",
+          "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff.",
+          "version": "1.0.3"
         }
       ],
       "requires": [],
@@ -146,7 +156,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.2"
+      "version": "1.0.3"
     },
     {
       "author": "garunski",
@@ -1518,10 +1528,10 @@
         "scope": "specific"
       },
       "dependencies": [],
-      "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
+      "description": "Evidence-backed SEE story and milestone authoring with executable plans and honest readiness checks.",
       "files": [
         {
-          "from": "packages/stories/1.0.1/SKILL.md",
+          "from": "packages/stories/1.0.2/SKILL.md",
           "to": ".agents/skills/stories/SKILL.md"
         }
       ],
@@ -1541,6 +1551,11 @@
           "date": "2026-10-07",
           "note": "Evidence-first authoring contract.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-10-19",
+          "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1556,7 +1571,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -2809,5 +2824,5 @@
       "name": "Cursor"
     }
   ],
-  "updated": "2026-10-11T22:32:03.505Z"
+  "updated": "2026-10-20T00:31:10.164Z"
 }

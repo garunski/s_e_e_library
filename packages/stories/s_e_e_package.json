@@ -3,7 +3,7 @@
   "slug": "stories",
   "category": "skill",
   "name": "stories",
-  "description": "Expert story author for the S.E.E. stories store. Atomic, testable,",
+  "description": "Evidence-backed SEE story and milestone authoring with executable plans and honest readiness checks.",
   "labels": [
     "skill"
   ],
@@ -35,6 +35,11 @@
       "version": "1.0.1",
       "date": "2026-10-07",
       "note": "Evidence-first authoring contract."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-19",
+      "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff."
     }
   ]
 }

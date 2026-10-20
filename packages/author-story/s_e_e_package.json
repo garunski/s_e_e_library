@@ -24,6 +24,11 @@
       "version": "1.0.2",
       "date": "2026-10-07",
       "note": "Evidence-first prompt and milestone context on the author-story workflow."
+    },
+    {
+      "version": "1.0.3",
+      "date": "2026-10-19",
+      "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff."
     }
   ],
   "usageContexts": [

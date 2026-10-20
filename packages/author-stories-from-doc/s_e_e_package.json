@@ -20,6 +20,11 @@
       "version": "1.0.1",
       "date": "2026-09-29",
       "note": "Refresh embedded doc and work skills."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-10-19",
+      "note": "Verify commands, prerequisites, resource budgets, workflow compatibility, and acceptance evidence before story handoff."
     }
   ],
   "usageContexts": [
