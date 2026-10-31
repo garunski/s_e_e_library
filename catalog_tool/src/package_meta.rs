@@ -77,7 +77,10 @@ pub fn catalog_without_updated(catalog: &Value) -> Value {
 }
 
 pub fn stable_stringify(value: &Value) -> String {
-    format!("{}\n", serde_json::to_string_pretty(value).expect("serialize catalog"))
+    format!(
+        "{}\n",
+        serde_json::to_string_pretty(value).expect("serialize catalog")
+    )
 }
 
 pub fn marketplace_ref_errors(
@@ -90,7 +93,11 @@ pub fn marketplace_ref_errors(
     let mut tool_ids = HashSet::new();
     for tool in tools {
         let id = tool.get("id").and_then(|v| v.as_str()).unwrap_or("").trim();
-        let name = tool.get("name").and_then(|v| v.as_str()).unwrap_or("").trim();
+        let name = tool
+            .get("name")
+            .and_then(|v| v.as_str())
+            .unwrap_or("")
+            .trim();
         if id.is_empty() || name.is_empty() {
             errors.push("tool requires id and name".to_string());
             continue;
@@ -103,8 +110,16 @@ pub fn marketplace_ref_errors(
 
     let mut stack_ids = HashSet::new();
     for stack in stacks {
-        let id = stack.get("id").and_then(|v| v.as_str()).unwrap_or("").trim();
-        let name = stack.get("name").and_then(|v| v.as_str()).unwrap_or("").trim();
+        let id = stack
+            .get("id")
+            .and_then(|v| v.as_str())
+            .unwrap_or("")
+            .trim();
+        let name = stack
+            .get("name")
+            .and_then(|v| v.as_str())
+            .unwrap_or("")
+            .trim();
         if id.is_empty() || name.is_empty() {
             errors.push("stack requires id and name".to_string());
             continue;
@@ -189,10 +204,10 @@ pub fn marketplace_ref_errors(
 
 pub fn load_marketplace_source(root: &Path) -> Result<Value, String> {
     let path = root.join("scripts/stacks.json");
-    let raw = std::fs::read_to_string(&path)
-        .map_err(|_| "missing scripts/stacks.json".to_string())?;
-    let source: Value = serde_json::from_str(&raw)
-        .map_err(|e| format!("invalid scripts/stacks.json: {e}"))?;
+    let raw =
+        std::fs::read_to_string(&path).map_err(|_| "missing scripts/stacks.json".to_string())?;
+    let source: Value =
+        serde_json::from_str(&raw).map_err(|e| format!("invalid scripts/stacks.json: {e}"))?;
     if !source.get("tools").and_then(|v| v.as_array()).is_some() {
         return Err("scripts/stacks.json tools must be an array".to_string());
     }
@@ -217,7 +232,10 @@ pub fn meta_file_name(entry: &Value, counts: &HashMap<String, usize>) -> String 
     if counts.get(slug).copied().unwrap_or(0) <= 1 {
         "s_e_e_package.json".to_string()
     } else {
-        let id = entry.get("id").and_then(|v| v.as_str()).unwrap_or("missing");
+        let id = entry
+            .get("id")
+            .and_then(|v| v.as_str())
+            .unwrap_or("missing");
         format!("s_e_e_package.{id}.json")
     }
 }
@@ -229,7 +247,11 @@ pub fn meta_path(root: &Path, entry: &Value, counts: &HashMap<String, usize>) ->
         .join(meta_file_name(entry, counts))
 }
 
-pub fn read_existing_meta(root: &Path, entry: &Value, counts: &HashMap<String, usize>) -> Option<Value> {
+pub fn read_existing_meta(
+    root: &Path,
+    entry: &Value,
+    counts: &HashMap<String, usize>,
+) -> Option<Value> {
     let path = meta_path(root, entry, counts);
     if !path.is_file() {
         return None;

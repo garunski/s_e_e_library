@@ -38,10 +38,7 @@ fn frontmatter_field(yaml: &str, field: &str) -> String {
     }
     if let Some(start) = yaml.find(&prefix) {
         let after = &yaml[start + prefix.len()..];
-        let end = after
-            .find("\n[a-z_]+:")
-            .map(|i| i)
-            .unwrap_or(after.len());
+        let end = after.find("\n[a-z_]+:").map(|i| i).unwrap_or(after.len());
         let block = after[..end].trim();
         let block = block.trim_start_matches(['>', '-']).trim();
         if !block.is_empty() {
@@ -94,10 +91,7 @@ pub fn extract_payload_meta(category: &str, content: &str) -> (String, String) {
 }
 
 pub fn presentation_for_entry(entry: &Value, root: &Path) -> (String, String) {
-    let category = entry
-        .get("category")
-        .and_then(|v| v.as_str())
-        .unwrap_or("");
+    let category = entry.get("category").and_then(|v| v.as_str()).unwrap_or("");
     if category == "bundle" {
         let slug = entry.get("slug").and_then(|v| v.as_str()).unwrap_or("");
         let name = entry

@@ -151,7 +151,9 @@ pub(crate) fn normalize_href_path(href: &str) -> Option<String> {
     } else {
         path.trim_start_matches('/')
     };
-    let base = PAGES_BASE_PREFIX.trim_start_matches('/').trim_end_matches('/');
+    let base = PAGES_BASE_PREFIX
+        .trim_start_matches('/')
+        .trim_end_matches('/');
     let rel = if path.starts_with(base) {
         path[base.len()..].trim_start_matches('/')
     } else {
@@ -300,11 +302,17 @@ pub fn verify_staged_docs(root: &Path, staging: &Path) -> Result<(), String> {
 #[cfg(test)]
 pub(crate) fn fixture_authoring_index_html() -> String {
     let mut html = String::from("<html><body>");
-    for slug in ["workflows", "prompts", "skills", "commands", "bundles", "cycles"] {
+    for slug in [
+        "workflows",
+        "prompts",
+        "skills",
+        "commands",
+        "bundles",
+        "cycles",
+    ] {
         html.push_str(&format!(
             "<a href=\"{}/authoring/{}/\">{slug}</a>",
-            PAGES_BASE_PREFIX,
-            slug
+            PAGES_BASE_PREFIX, slug
         ));
     }
     html.push_str(&format!(
@@ -321,8 +329,7 @@ pub(crate) fn fixture_schema_index_html() -> String {
     for slug in SCHEMA_SLUGS {
         html.push_str(&format!(
             "<a href=\"{}/schema/{}/\">{slug}</a>",
-            PAGES_BASE_PREFIX,
-            slug
+            PAGES_BASE_PREFIX, slug
         ));
     }
     html.push_str("</body></html>");

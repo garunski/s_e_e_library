@@ -79,8 +79,7 @@ fn prompt_deps_from_workflow(content: &str) -> Vec<String> {
 
 fn copy_file(src: &Path, dest: &Path) -> Result<(), String> {
     if let Some(parent) = dest.parent() {
-        std::fs::create_dir_all(parent)
-            .map_err(|e| format!("mkdir {}: {e}", parent.display()))?;
+        std::fs::create_dir_all(parent).map_err(|e| format!("mkdir {}: {e}", parent.display()))?;
     }
     std::fs::copy(src, dest)
         .map_err(|e| format!("copy {} -> {}: {e}", src.display(), dest.display()))?;
@@ -104,7 +103,13 @@ fn write_meta(
         .and_then(|v| v.as_str())
         .map(str::trim)
         .filter(|s| !s.is_empty())
-        .or_else(|| entry.get("name").and_then(|v| v.as_str()).map(str::trim).filter(|s| !s.is_empty()))
+        .or_else(|| {
+            entry
+                .get("name")
+                .and_then(|v| v.as_str())
+                .map(str::trim)
+                .filter(|s| !s.is_empty())
+        })
         .unwrap_or("")
         .to_string();
     let description = existing
@@ -113,21 +118,38 @@ fn write_meta(
         .and_then(|v| v.as_str())
         .map(str::trim)
         .filter(|s| !s.is_empty())
-        .or_else(|| entry.get("description").and_then(|v| v.as_str()).map(str::trim).filter(|s| !s.is_empty()))
+        .or_else(|| {
+            entry
+                .get("description")
+                .and_then(|v| v.as_str())
+                .map(str::trim)
+                .filter(|s| !s.is_empty())
+        })
         .unwrap_or("")
         .to_string();
 
-    let labels = if existing.as_ref().map(|e| e.get("labels").is_some()).unwrap_or(false) {
+    let labels = if existing
+        .as_ref()
+        .map(|e| e.get("labels").is_some())
+        .unwrap_or(false)
+    {
         normalize_labels(existing.as_ref().unwrap().get("labels").unwrap())
             .ok_or_else(|| format!("{entry_id}: invalid labels in existing meta"))?
     } else {
         normalize_labels(&Value::Array(
-            seed_labels.iter().map(|s| Value::String(s.clone())).collect(),
+            seed_labels
+                .iter()
+                .map(|s| Value::String(s.clone()))
+                .collect(),
         ))
         .unwrap_or_default()
     };
 
-    let authored = if existing.as_ref().map(|e| e.get("dependencies").is_some()).unwrap_or(false) {
+    let authored = if existing
+        .as_ref()
+        .map(|e| e.get("dependencies").is_some())
+        .unwrap_or(false)
+    {
         normalize_deps(existing.as_ref().unwrap().get("dependencies").unwrap())
             .ok_or_else(|| format!("{entry_id}: invalid dependencies in existing meta"))?
     } else {
@@ -146,18 +168,29 @@ fn write_meta(
     let mut merged_deps = entry_deps;
     merged_deps.extend(authored);
     let dependencies = normalize_deps(&Value::Array(
-        merged_deps.iter().map(|s| Value::String(s.clone())).collect(),
+        merged_deps
+            .iter()
+            .map(|s| Value::String(s.clone()))
+            .collect(),
     ))
     .ok_or_else(|| format!("{entry_id}: invalid merged dependencies"))?;
 
-    let tool_ids = if existing.as_ref().map(|e| e.get("toolIds").is_some()).unwrap_or(false) {
+    let tool_ids = if existing
+        .as_ref()
+        .map(|e| e.get("toolIds").is_some())
+        .unwrap_or(false)
+    {
         normalize_tool_ids(existing.as_ref().unwrap().get("toolIds").unwrap())
             .ok_or_else(|| format!("{entry_id}: invalid toolIds in existing meta"))?
     } else {
         Vec::new()
     };
 
-    let releases = if existing.as_ref().map(|e| e.get("releases").is_some()).unwrap_or(false) {
+    let releases = if existing
+        .as_ref()
+        .map(|e| e.get("releases").is_some())
+        .unwrap_or(false)
+    {
         normalize_releases(existing.as_ref().unwrap().get("releases").unwrap())
             .ok_or_else(|| format!("{entry_id}: invalid releases in existing meta"))?
     } else {
@@ -176,10 +209,15 @@ fn write_meta(
         "releases": releases,
     });
     if let Some(existing) = existing {
-        if existing.get("requires").and_then(|v| v.as_array()).is_some() {
-            meta.as_object_mut()
-                .unwrap()
-                .insert("requires".to_string(), existing.get("requires").cloned().unwrap());
+        if existing
+            .get("requires")
+            .and_then(|v| v.as_array())
+            .is_some()
+        {
+            meta.as_object_mut().unwrap().insert(
+                "requires".to_string(),
+                existing.get("requires").cloned().unwrap(),
+            );
         }
     }
 
@@ -201,9 +239,17 @@ fn finalize_entries(root: &Path, built: &[BuiltEntry]) -> Result<Vec<Value>, Str
         let obj = entry.as_object_mut().unwrap();
         obj.insert(
             "name".to_string(),
-            Value::String(meta.get("name").and_then(|v| v.as_str()).unwrap_or("").to_string()),
+            Value::String(
+                meta.get("name")
+                    .and_then(|v| v.as_str())
+                    .unwrap_or("")
+                    .to_string(),
+            ),
         );
-        let desc = meta.get("description").and_then(|v| v.as_str()).unwrap_or("");
+        let desc = meta
+            .get("description")
+            .and_then(|v| v.as_str())
+            .unwrap_or("");
         if desc.is_empty() {
             obj.remove("description");
         } else {
@@ -215,7 +261,10 @@ fn finalize_entries(root: &Path, built: &[BuiltEntry]) -> Result<Vec<Value>, Str
             meta.get("dependencies").cloned().unwrap(),
         );
         obj.insert("toolIds".to_string(), meta.get("toolIds").cloned().unwrap());
-        obj.insert("releases".to_string(), meta.get("releases").cloned().unwrap());
+        obj.insert(
+            "releases".to_string(),
+            meta.get("releases").cloned().unwrap(),
+        );
         out.push(entry);
     }
     Ok(out)
@@ -227,13 +276,23 @@ fn with_presentation(root: &Path, entry: Value, payload_content: &str) -> Value 
     let mut merged = entry.clone();
     if !meta.0.is_empty() {
         let obj = merged.as_object_mut().unwrap();
-        if obj.get("name").and_then(|v| v.as_str()).unwrap_or("").is_empty() {
+        if obj
+            .get("name")
+            .and_then(|v| v.as_str())
+            .unwrap_or("")
+            .is_empty()
+        {
             obj.insert("name".to_string(), Value::String(meta.0.clone()));
         }
     }
     if !meta.1.is_empty() {
         let obj = merged.as_object_mut().unwrap();
-        if obj.get("description").and_then(|v| v.as_str()).unwrap_or("").is_empty() {
+        if obj
+            .get("description")
+            .and_then(|v| v.as_str())
+            .unwrap_or("")
+            .is_empty()
+        {
             obj.insert("description".to_string(), Value::String(meta.1.clone()));
         }
     }
@@ -253,8 +312,7 @@ fn read_hub_json(hub: &Path, rel: &str) -> Result<String, String> {
     if !path.is_file() {
         return Err(format!("missing hub file: {}", path.display()));
     }
-    std::fs::read_to_string(&path)
-        .map_err(|e| format!("read {}: {e}", path.display()))
+    std::fs::read_to_string(&path).map_err(|e| format!("read {}: {e}", path.display()))
 }
 
 fn prompt_entry(root: &Path, hub: &Path, stem: &str) -> Result<BuiltEntry, String> {
@@ -311,10 +369,7 @@ fn workflow_entry_from_content(root: &Path, stem: &str, content: &str) -> BuiltE
         }),
         content,
     );
-    BuiltEntry {
-        entry,
-        seed_labels,
-    }
+    BuiltEntry { entry, seed_labels }
 }
 
 fn workflow_entry(root: &Path, hub: &Path, stem: &str) -> Result<BuiltEntry, String> {
@@ -359,7 +414,10 @@ fn library_only_workflow_entry(root: &Path, stem: &str) -> Result<BuiltEntry, St
     let from = format!("packages/{stem}/{VERSION}/definition.json");
     let path = root.join(&from);
     if !path.is_file() {
-        return Err(format!("missing library-only workflow payload: {}", path.display()));
+        return Err(format!(
+            "missing library-only workflow payload: {}",
+            path.display()
+        ));
     }
     let content = std::fs::read_to_string(&path).map_err(|e| e.to_string())?;
     Ok(workflow_entry_from_content(root, stem, &content))
@@ -400,7 +458,10 @@ fn skill_entry(root: &Path, slug: &str) -> Result<BuiltEntry, String> {
     let from = format!("packages/{slug}/{VERSION}/SKILL.md");
     let path = root.join(&from);
     if !path.is_file() {
-        return Err(format!("missing library-owned skill payload: {}", path.display()));
+        return Err(format!(
+            "missing library-owned skill payload: {}",
+            path.display()
+        ));
     }
     let content = std::fs::read_to_string(&path).map_err(|e| e.to_string())?;
     let entry = with_presentation(

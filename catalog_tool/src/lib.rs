@@ -2,8 +2,8 @@ mod discover_bundles;
 mod harvest;
 mod milestone_prompt;
 mod package_meta;
-mod payload_meta;
 mod pages_artifact;
+mod payload_meta;
 mod validate;
 mod verify_docs;
 

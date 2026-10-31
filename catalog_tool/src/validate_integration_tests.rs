@@ -32,8 +32,11 @@ fn invalid_cases_return_path_and_reason() {
         r#"{"id":"bad-pkg","slug":"bad-pkg","category":"prompt","name":"Bad","labels":[],"dependencies":[],"toolIds":[],"releases":[{"version":"1.0.0","date":"2026-09-01","note":"x"}]}"#,
     )
     .expect("meta");
-    fs::write(root.join("packages/bad-pkg/1.0.0/prompt.json"), r#"{"id":"","name":""}"#)
-        .expect("payload");
+    fs::write(
+        root.join("packages/bad-pkg/1.0.0/prompt.json"),
+        r#"{"id":"","name":""}"#,
+    )
+    .expect("payload");
 
     let catalog = json!({
         "schema": "see.library/v2",
@@ -207,7 +210,10 @@ fn catalog_command_preserves_manifest_fields_except_updated() {
         copy
     };
 
-    assert_eq!(before_packages, after.get("packages").cloned().expect("packages"));
+    assert_eq!(
+        before_packages,
+        after.get("packages").cloned().expect("packages")
+    );
     assert_eq!(
         serde_json::to_string(&before_without_updated).expect("serialize"),
         serde_json::to_string(&after_without_updated).expect("serialize")

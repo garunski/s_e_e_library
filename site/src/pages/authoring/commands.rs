@@ -118,6 +118,47 @@ pub fn LibraryAuthoringCommands() -> Element {
                 code { class: "{INLINE_CODE}", "id" }
                 "."
             }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Codex JSON output" }
+            p { class: "{BODY_TEXT}",
+                "The success_when rule supports one comparison of exit_code with a signed 32-bit integer using ==, !=, <, <=, > or >=, with optional whitespace. Unsupported expressions fail before the child starts. Generic commands may accept a configured nonzero code; Codex JSON commands always also require actual exit code zero."
+            }
+            p { class: "{BODY_TEXT}",
+                "Codex capture is enabled only when the resolved command has "
+                code { class: "{INLINE_CODE}", "cliId: codex" }
+                " and its effective argv contains "
+                code { class: "{INLINE_CODE}", "--json" }
+                ". The "
+                code { class: "{INLINE_CODE}", "execution.stream.format" }
+                " field remains unused metadata and does not select a parser. At actual child exit, output may include "
+                code { class: "{INLINE_CODE}", "session_id" }
+                ", "
+                code { class: "{INLINE_CODE}", "final_message" }
+                ", "
+                code { class: "{INLINE_CODE}", "usage" }
+                ", and "
+                code { class: "{INLINE_CODE}", "codex_terminal" }
+                "; capture and terminal failures add "
+                code { class: "{INLINE_CODE}", "codex_error" }
+                ". These fields preserve SEE's "
+                code { class: "{INLINE_CODE}", "run_id" }
+                ", actual process "
+                code { class: "{INLINE_CODE}", "exit_code" }
+                ", duration, and output tails."
+            }
+            p { class: "{BODY_TEXT}",
+                "Codex task success requires the actual child exit code to be zero, the configured "
+                code { class: "{INLINE_CODE}", "success_when" }
+                " rule to pass, and the latest turn to end with "
+                code { class: "{INLINE_CODE}", "turn.completed" }
+                ". A failed or missing terminal turn, nonzero exit, or frame/final-message size over 4,194,304 bytes fails the task. A later "
+                code { class: "{INLINE_CODE}", "turn.started" }
+                " makes the previous terminal event incomplete. Recovered standalone errors do not fail a completed turn. Explicit "
+                code { class: "{INLINE_CODE}", "result.extract[]" }
+                " behavior continues to use its configured stdout/stderr source and path."
+            }
+            p { class: "{BODY_TEXT}",
+                "Codex transport failures keep the existing four-attempt retry bound when the child exits nonzero, stderr contains RetriableError, and no terminal event or capture-size failure was received. Each attempt starts with fresh capture metadata. Failed terminal turns, zero-exit incomplete streams, capture-size failures and success-rule mismatches are not retried. Cancellation and timeout keep their existing cleanup behavior. Command success does not verify story criteria or mark a story Done."
+            }
             SchemaReferenceFooter {
                 catalog_schema_label: "see.library/v1",
                 schema_route: Route::SchemaCommand {},

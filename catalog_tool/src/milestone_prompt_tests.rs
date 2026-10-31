@@ -65,9 +65,9 @@ fn root_catalog_points_at_corrected_prompt_payload() {
         .get("packages")
         .and_then(|v| v.as_array())
         .and_then(|packages| {
-            packages
-                .iter()
-                .find(|pkg| pkg.get("slug").and_then(|v| v.as_str()) == Some("system-milestone-authoring"))
+            packages.iter().find(|pkg| {
+                pkg.get("slug").and_then(|v| v.as_str()) == Some("system-milestone-authoring")
+            })
         })
         .expect("system-milestone-authoring");
     let (from, content) = published_milestone_prompt(&root);
@@ -75,6 +75,9 @@ fn root_catalog_points_at_corrected_prompt_payload() {
         .get("version")
         .and_then(|v| v.as_str())
         .expect("version");
-    assert!(from.ends_with(&format!("/{version}/prompt.json")), "{from} is not version {version}");
+    assert!(
+        from.ends_with(&format!("/{version}/prompt.json")),
+        "{from} is not version {version}"
+    );
     assert!(milestone_authoring_contract_errors(&content).is_empty());
 }

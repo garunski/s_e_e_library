@@ -5,9 +5,10 @@ use tempfile::TempDir;
 
 use crate::pages_artifact::{run_package_pages, DEFAULT_PAGES_BASE};
 use crate::verify_docs::{
-    extract_hrefs, llms_source_paths, normalize_href_path, run_verify_docs, verify_authoring_index_links,
-    verify_internal_links, verify_llms_sections, verify_schema_index_links, verify_staged_docs,
-    verify_staged_schema_downloads, PAGES_BASE_PREFIX,
+    extract_hrefs, llms_source_paths, normalize_href_path, run_verify_docs,
+    verify_authoring_index_links, verify_internal_links, verify_llms_sections,
+    verify_schema_index_links, verify_staged_docs, verify_staged_schema_downloads,
+    PAGES_BASE_PREFIX,
 };
 
 fn library_fixture_root() -> std::path::PathBuf {
@@ -28,11 +29,7 @@ fn write_minimal_prerender(dx_public: &std::path::Path, authoring_html: &str, sc
         };
         fs::write(dir.join("index.html"), body).expect("write html");
     }
-    fs::write(
-        site.join("404.html"),
-        "<html><body>not found</body></html>",
-    )
-    .expect("404");
+    fs::write(site.join("404.html"), "<html><body>not found</body></html>").expect("404");
 }
 
 fn copy_schemas_and_logos(root: &std::path::Path, dest_public: &std::path::Path) {
@@ -101,7 +98,11 @@ fn removing_staged_route_html_fails_verify_with_path() {
     copy_schemas_and_logos(root, &root.join("public"));
     fs::create_dir_all(root.join("packages")).expect("packages");
     let dx = root.join("dx");
-    write_minimal_prerender(&dx, &fixture_authoring_index_html(), &fixture_schema_index_html());
+    write_minimal_prerender(
+        &dx,
+        &fixture_authoring_index_html(),
+        &fixture_schema_index_html(),
+    );
     let staging = root.join("artifact");
     run_package_pages(root, &dx, &staging).expect("package");
     let missing = staging.join("authoring/workflows/index.html");
@@ -125,7 +126,11 @@ fn removing_staged_schema_download_fails_verify_with_path() {
     copy_schemas_and_logos(root, &root.join("public"));
     fs::create_dir_all(root.join("packages")).expect("packages");
     let dx = root.join("dx");
-    write_minimal_prerender(&dx, &fixture_authoring_index_html(), &fixture_schema_index_html());
+    write_minimal_prerender(
+        &dx,
+        &fixture_authoring_index_html(),
+        &fixture_schema_index_html(),
+    );
     let staging = root.join("artifact");
     run_package_pages(root, &dx, &staging).expect("package");
     let schema_file = staging.join("schema/workflow.schema.json");
@@ -196,7 +201,11 @@ fn verify_staged_docs_passes_minimal_packaged_tree() {
     copy_schemas_and_logos(root, &root.join("public"));
     fs::create_dir_all(root.join("packages")).expect("packages");
     let dx = root.join("dx");
-    write_minimal_prerender(&dx, &fixture_authoring_index_html(), &fixture_schema_index_html());
+    write_minimal_prerender(
+        &dx,
+        &fixture_authoring_index_html(),
+        &fixture_schema_index_html(),
+    );
     let staging = root.join("artifact");
     run_package_pages(root, &dx, &staging).expect("package");
     verify_staged_docs(root, &staging).expect("verify docs");

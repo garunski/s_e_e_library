@@ -63,8 +63,12 @@ fn marketplace_ref_errors_reject_unknown_ids_and_undeclared_featured_stack() {
         Some("stack-missing"),
         &package_ids,
     );
-    assert!(errors.iter().any(|e| e.contains("duplicate tool id: cursor")));
-    assert!(errors.iter().any(|e| e.contains("unknown stack package id: missing")));
+    assert!(errors
+        .iter()
+        .any(|e| e.contains("duplicate tool id: cursor")));
+    assert!(errors
+        .iter()
+        .any(|e| e.contains("unknown stack package id: missing")));
     assert!(errors
         .iter()
         .any(|e| e.contains("undeclared tool in stack variant: ghost")));
@@ -75,10 +79,7 @@ fn marketplace_ref_errors_reject_unknown_ids_and_undeclared_featured_stack() {
 
 #[test]
 fn marketplace_ref_errors_accepts_valid_featured_stack() {
-    let package_ids = HashSet::from([
-        "wf-1".to_string(),
-        "cmd-cursor-agent".to_string(),
-    ]);
+    let package_ids = HashSet::from(["wf-1".to_string(), "cmd-cursor-agent".to_string()]);
     let errors = marketplace_ref_errors(
         &[json!({"id": "cursor", "name": "Cursor"})],
         &[json!({

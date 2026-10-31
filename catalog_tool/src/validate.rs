@@ -3,7 +3,9 @@ use std::path::Path;
 
 use s_e_e_core::validate_catalog_manifest_value;
 use s_e_e_library_ops::{validate_package_payload, validate_package_portability};
-use s_e_e_shapes::{CREATE_PROPOSAL_DEFINITION_ID, LibraryKind, SCHEMA_SEE_LIBRARY_V1, SCHEMA_SEE_LIBRARY_V2};
+use s_e_e_shapes::{
+    LibraryKind, CREATE_PROPOSAL_DEFINITION_ID, SCHEMA_SEE_LIBRARY_V1, SCHEMA_SEE_LIBRARY_V2,
+};
 use serde_json::Value;
 
 use crate::package_meta::{
@@ -18,14 +20,7 @@ const ALLOWED_TO_PREFIXES: &[&str] = &[".s_e_e/", ".agents/", ".cursor/", "templ
 
 fn categories() -> HashSet<&'static str> {
     [
-        "workflow",
-        "prompt",
-        "skill",
-        "rule",
-        "template",
-        "command",
-        "bundle",
-        "cycle",
+        "workflow", "prompt", "skill", "rule", "template", "command", "bundle", "cycle",
     ]
     .into_iter()
     .collect()
@@ -115,22 +110,35 @@ fn read_package_meta(
         .filter(|s| !s.is_empty())
         .ok_or_else(|| format!("{label}: s_e_e_package.json requires a non-empty name"))?;
     if meta.get("description").is_some() && !meta.get("description").unwrap().is_string() {
-        return Err(format!("{label}: s_e_e_package.json description must be a string"));
+        return Err(format!(
+            "{label}: s_e_e_package.json description must be a string"
+        ));
     }
-    let labels = normalize_labels(meta.get("labels").unwrap_or(&Value::Array(vec![])))
-        .ok_or_else(|| {
+    let labels =
+        normalize_labels(meta.get("labels").unwrap_or(&Value::Array(vec![]))).ok_or_else(|| {
             format!("{label}: s_e_e_package.json labels must be an array of non-empty strings")
         })?;
     let dependencies = normalize_deps(meta.get("dependencies").unwrap_or(&Value::Array(vec![])))
         .ok_or_else(|| {
-            format!("{label}: s_e_e_package.json dependencies must be an array of non-empty strings")
+            format!(
+                "{label}: s_e_e_package.json dependencies must be an array of non-empty strings"
+            )
         })?;
-    if !meta.as_object().map(|o| o.contains_key("toolIds")).unwrap_or(false) {
+    if !meta
+        .as_object()
+        .map(|o| o.contains_key("toolIds"))
+        .unwrap_or(false)
+    {
         return Err(format!("{label}: s_e_e_package.json requires toolIds"));
     }
-    let tool_ids = normalize_tool_ids(meta.get("toolIds").unwrap())
-        .ok_or_else(|| format!("{label}: s_e_e_package.json toolIds must be an array of non-empty strings"))?;
-    if !meta.as_object().map(|o| o.contains_key("releases")).unwrap_or(false) {
+    let tool_ids = normalize_tool_ids(meta.get("toolIds").unwrap()).ok_or_else(|| {
+        format!("{label}: s_e_e_package.json toolIds must be an array of non-empty strings")
+    })?;
+    if !meta
+        .as_object()
+        .map(|o| o.contains_key("releases"))
+        .unwrap_or(false)
+    {
         return Err(format!("{label}: s_e_e_package.json requires releases"));
     }
     let releases = normalize_releases(meta.get("releases").unwrap()).ok_or_else(|| {
@@ -154,18 +162,30 @@ fn apply_package_meta(
 ) -> Result<(), String> {
     let meta = read_package_meta(root, entry, label, counts)?;
     let name = meta.get("name").and_then(|v| v.as_str()).unwrap_or("");
-    let description = meta.get("description").and_then(|v| v.as_str()).unwrap_or("");
+    let description = meta
+        .get("description")
+        .and_then(|v| v.as_str())
+        .unwrap_or("");
     let labels = meta.get("labels").cloned().unwrap_or(Value::Array(vec![]));
-    let dependencies = meta.get("dependencies").cloned().unwrap_or(Value::Array(vec![]));
+    let dependencies = meta
+        .get("dependencies")
+        .cloned()
+        .unwrap_or(Value::Array(vec![]));
     let tool_ids = meta.get("toolIds").cloned().unwrap_or(Value::Array(vec![]));
-    let releases = meta.get("releases").cloned().unwrap_or(Value::Array(vec![]));
+    let releases = meta
+        .get("releases")
+        .cloned()
+        .unwrap_or(Value::Array(vec![]));
 
     let obj = entry.as_object_mut().expect("package entry object");
     obj.insert("name".to_string(), Value::String(name.to_string()));
     if description.is_empty() {
         obj.remove("description");
     } else {
-        obj.insert("description".to_string(), Value::String(description.to_string()));
+        obj.insert(
+            "description".to_string(),
+            Value::String(description.to_string()),
+        );
     }
     obj.insert("labels".to_string(), labels);
     obj.insert("dependencies".to_string(), dependencies);
@@ -211,9 +231,14 @@ fn validate_package_files(entry: &Value, label: &str, root: &Path) -> Result<(),
         let to = to.unwrap();
         let from = from.unwrap();
         if to.contains('\\') {
-            return Err(format!("{label}: install path must use forward slashes: {to}"));
+            return Err(format!(
+                "{label}: install path must use forward slashes: {to}"
+            ));
         }
-        if !ALLOWED_TO_PREFIXES.iter().any(|prefix| to.starts_with(prefix)) {
+        if !ALLOWED_TO_PREFIXES
+            .iter()
+            .any(|prefix| to.starts_with(prefix))
+        {
             return Err(format!(
                 "{label}: install path must start with one of {}: {}",
                 ALLOWED_TO_PREFIXES.join(", "),
@@ -256,7 +281,9 @@ fn validate_package_files(entry: &Value, label: &str, root: &Path) -> Result<(),
                 continue;
             }
             if kind.is_none() {
-                return Err(format!("{label}: cannot infer payload kind for install path: {to}"));
+                return Err(format!(
+                    "{label}: cannot infer payload kind for install path: {to}"
+                ));
             }
         }
         let kind = kind.expect("library kind");
@@ -346,7 +373,9 @@ fn package_provides_workflow(
         return false;
     }
     seen.insert(package_id.to_string());
-    let entry = packages.iter().find(|p| p.get("id").and_then(|v| v.as_str()) == Some(package_id));
+    let entry = packages
+        .iter()
+        .find(|p| p.get("id").and_then(|v| v.as_str()) == Some(package_id));
     if entry.is_none() {
         return false;
     }
@@ -355,7 +384,9 @@ fn package_provides_workflow(
     let files = entry.get("files").and_then(|v| v.as_array());
     if files
         .map(|files| {
-            files.iter().any(|f| f.get("to").and_then(|v| v.as_str()) == Some(path.as_str()))
+            files
+                .iter()
+                .any(|f| f.get("to").and_then(|v| v.as_str()) == Some(path.as_str()))
         })
         .unwrap_or(false)
     {
@@ -399,7 +430,9 @@ fn validate_standard_cycle_workflow_deps(catalog: &Value, root: &Path) -> Result
         let from = cycle_file
             .and_then(|f| f.get("from"))
             .and_then(|v| v.as_str())
-            .ok_or_else(|| format!("{entry_id}: verified cycle is missing a cycle document file"))?;
+            .ok_or_else(|| {
+                format!("{entry_id}: verified cycle is missing a cycle document file")
+            })?;
         let from_path = root.join(from);
         if !from_path.is_file() {
             return Err(format!("{entry_id}: missing cycle payload {from}"));
@@ -504,19 +537,27 @@ pub fn build_next_catalog(root: &Path, catalog: &mut Value) -> Result<Value, Str
         for dep in deps {
             let dep_id = dep.as_str().unwrap_or("");
             if !ids.contains(dep_id) {
-                return Err(format!("{entry_id}: dependency not found in catalog: {dep_id}"));
+                return Err(format!(
+                    "{entry_id}: dependency not found in catalog: {dep_id}"
+                ));
             }
         }
     }
-    catalog.as_object_mut().unwrap().insert(
-        "packages".to_string(),
-        Value::Array(package_values),
-    );
+    catalog
+        .as_object_mut()
+        .unwrap()
+        .insert("packages".to_string(), Value::Array(package_values));
     validate_standard_cycle_workflow_deps(catalog, root)?;
 
     let marketplace = load_marketplace_source(root)?;
-    let tools = marketplace.get("tools").cloned().unwrap_or(Value::Array(vec![]));
-    let stacks = marketplace.get("stacks").cloned().unwrap_or(Value::Array(vec![]));
+    let tools = marketplace
+        .get("tools")
+        .cloned()
+        .unwrap_or(Value::Array(vec![]));
+    let stacks = marketplace
+        .get("stacks")
+        .cloned()
+        .unwrap_or(Value::Array(vec![]));
     let featured = marketplace
         .get("featuredStackId")
         .and_then(|v| v.as_str())

@@ -21,7 +21,12 @@ fn copy_dir_filtered(from: &Path, to: &Path) -> std::io::Result<()> {
     for entry in fs::read_dir(from)? {
         let entry = entry?;
         let name = entry.file_name();
-        if name == "node_modules" || name == "target" || name == ".git" || name == "out" || name == ".next" {
+        if name == "node_modules"
+            || name == "target"
+            || name == ".git"
+            || name == "out"
+            || name == ".next"
+        {
             continue;
         }
         let src = entry.path();
@@ -41,9 +46,10 @@ fn harvest_matches_official_package_signatures() {
     if !hub.is_dir() {
         return;
     }
-    let reference: Value =
-        serde_json::from_str(&fs::read_to_string(library_root().join("catalog.json")).expect("catalog"))
-            .expect("json");
+    let reference: Value = serde_json::from_str(
+        &fs::read_to_string(library_root().join("catalog.json")).expect("catalog"),
+    )
+    .expect("json");
     let expected = package_signatures_from_catalog(&reference);
 
     let tmp = TempDir::new().expect("tmpdir");
@@ -85,7 +91,9 @@ fn harvest_malformed_hub_json_leaves_catalog_unchanged() {
 
     let hub_tmp = TempDir::new().expect("hub tmp");
     copy_dir_filtered(&hub, hub_tmp.path()).expect("copy hub");
-    let bad = hub_tmp.path().join(".s_e_e/prompts/system-implement-story.json");
+    let bad = hub_tmp
+        .path()
+        .join(".s_e_e/prompts/system-implement-story.json");
     fs::write(&bad, "{").expect("broken json");
 
     let err = run_harvest(root, hub_tmp.path()).expect_err("bad json");
@@ -113,9 +121,11 @@ fn catalog_without_updated_ignores_timestamp() {
 
 #[test]
 fn harvested_workflows_drop_machine_spoke_roots_and_keep_runtime_ones() {
-    let pinned = r#"{"id":"wf","content":{"id":"wf","spoke_root":"/home/fang/code/hub","tasks":[]}}"#;
+    let pinned =
+        r#"{"id":"wf","content":{"id":"wf","spoke_root":"/home/fang/code/hub","tasks":[]}}"#;
     let placeholder = r#"{"id":"wf","spoke_root":"/tmp/see-embedded-wf-template","tasks":[]}"#;
-    let runtime = r#"{"id":"wf","content":{"spoke_root":"{{runtime.repository_root}}","tasks":[]}}"#;
+    let runtime =
+        r#"{"id":"wf","content":{"spoke_root":"{{runtime.repository_root}}","tasks":[]}}"#;
     let out: Value = serde_json::from_str(&portable_workflow_json(pinned).unwrap()).unwrap();
     assert!(out["content"].get("spoke_root").is_none());
     assert_eq!(out["content"]["id"], "wf");

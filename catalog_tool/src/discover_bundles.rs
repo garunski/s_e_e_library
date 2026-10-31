@@ -23,8 +23,7 @@ fn infer_meta_from_payload(root: &Path, slug: &str) -> Option<Value> {
     }
     let def = version_dir.join("definition.json");
     if def.is_file() {
-        let parsed: Value =
-            serde_json::from_str(&std::fs::read_to_string(&def).ok()?).ok()?;
+        let parsed: Value = serde_json::from_str(&std::fs::read_to_string(&def).ok()?).ok()?;
         return Some(serde_json::json!({
             "id": format!("wf-{slug}"),
             "slug": slug,
@@ -35,8 +34,7 @@ fn infer_meta_from_payload(root: &Path, slug: &str) -> Option<Value> {
     }
     let prompt = version_dir.join("prompt.json");
     if prompt.is_file() {
-        let parsed: Value =
-            serde_json::from_str(&std::fs::read_to_string(&prompt).ok()?).ok()?;
+        let parsed: Value = serde_json::from_str(&std::fs::read_to_string(&prompt).ok()?).ok()?;
         let id = parsed
             .get("id")
             .and_then(|v| v.as_str())
@@ -52,8 +50,7 @@ fn infer_meta_from_payload(root: &Path, slug: &str) -> Option<Value> {
     }
     let command = version_dir.join("command.json");
     if command.is_file() {
-        let parsed: Value =
-            serde_json::from_str(&std::fs::read_to_string(&command).ok()?).ok()?;
+        let parsed: Value = serde_json::from_str(&std::fs::read_to_string(&command).ok()?).ok()?;
         let id = parsed
             .get("id")
             .and_then(|v| v.as_str())
@@ -179,7 +176,10 @@ fn weak_refs_from_text(text: &str) -> HashSet<String> {
         let tail = &text[base..];
         let after_key = tail.strip_prefix("command_id").unwrap_or("");
         let after_key = after_key.trim_start();
-        let after_key = after_key.strip_prefix(':').unwrap_or(after_key).trim_start();
+        let after_key = after_key
+            .strip_prefix(':')
+            .unwrap_or(after_key)
+            .trim_start();
         let after_key = after_key
             .strip_prefix('"')
             .or_else(|| after_key.strip_prefix('\\'))
@@ -255,7 +255,8 @@ fn connected_components(
     by_id: &HashMap<String, Value>,
     strong_edges: &HashMap<String, HashSet<String>>,
 ) -> Vec<Vec<String>> {
-    let mut parent: HashMap<String, String> = by_id.keys().map(|id| (id.clone(), id.clone())).collect();
+    let mut parent: HashMap<String, String> =
+        by_id.keys().map(|id| (id.clone(), id.clone())).collect();
 
     fn find(parent: &mut HashMap<String, String>, id: &str) -> String {
         let mut root = id.to_string();
@@ -290,10 +291,7 @@ fn connected_components(
         let root = find(&mut parent, id);
         groups.entry(root).or_default().push(id.clone());
     }
-    groups
-        .into_values()
-        .filter(|g| g.len() > 1)
-        .collect()
+    groups.into_values().filter(|g| g.len() > 1).collect()
 }
 
 fn bundle_slug_for_group(ids: &[String], by_id: &HashMap<String, Value>) -> String {
@@ -307,11 +305,21 @@ fn bundle_slug_for_group(ids: &[String], by_id: &HashMap<String, Value>) -> Stri
     let mut workflows = workflows;
     workflows.sort();
     if workflows.len() == 1 {
-        return workflows[0].strip_prefix("system-").unwrap_or(&workflows[0]).to_string();
+        return workflows[0]
+            .strip_prefix("system-")
+            .unwrap_or(&workflows[0])
+            .to_string();
     }
     if workflows.len() > 1 {
-        let primary = workflows.iter().min_by_key(|w| w.len()).cloned().unwrap_or_default();
-        return primary.strip_prefix("system-").unwrap_or(&primary).to_string();
+        let primary = workflows
+            .iter()
+            .min_by_key(|w| w.len())
+            .cloned()
+            .unwrap_or_default();
+        return primary
+            .strip_prefix("system-")
+            .unwrap_or(&primary)
+            .to_string();
     }
     let first_id = ids.iter().min().cloned().unwrap_or_default();
     let slug = by_id
@@ -344,7 +352,10 @@ fn bundle_name_for_group(slug: &str, ids: &[String], by_id: &HashMap<String, Val
 fn bundle_description_for_group(ids: &[String], by_id: &HashMap<String, Value>) -> String {
     let mut kinds = HashSet::new();
     for id in ids {
-        if let Some(cat) = by_id.get(id).and_then(|m| m.get("category").and_then(|v| v.as_str())) {
+        if let Some(cat) = by_id
+            .get(id)
+            .and_then(|m| m.get("category").and_then(|v| v.as_str()))
+        {
             kinds.insert(cat);
         }
     }
@@ -361,7 +372,10 @@ fn bundle_description_for_group(ids: &[String], by_id: &HashMap<String, Value>) 
     if kinds.contains("command") {
         parts.push("commands");
     }
-    format!("Packages linked by template references: {}.", parts.join(", "))
+    format!(
+        "Packages linked by template references: {}.",
+        parts.join(", ")
+    )
 }
 
 fn labels_for_group(ids: &[String], by_id: &HashMap<String, Value>) -> Vec<String> {
@@ -451,7 +465,11 @@ pub fn run_discover_bundles(root: &Path, write: bool) -> Result<(), String> {
             .map_err(|e| format!("write {}: {e}", path.display()))?;
         eprintln!("wrote {} bundles to {}", bundles.len(), path.display());
     } else {
-        println!("{}", serde_json::to_string_pretty(&bundle_defs_to_json(&bundles)).map_err(|e| e.to_string())?);
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&bundle_defs_to_json(&bundles))
+                .map_err(|e| e.to_string())?
+        );
     }
     Ok(())
 }

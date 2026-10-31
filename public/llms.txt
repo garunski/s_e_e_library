@@ -511,6 +511,43 @@ Catalog `files[]` entry:
 The `to` path must equal `.s_e_e/commands/{id}.json` where `id`
 matches `command.json` `id`.
 
+## Codex JSON output
+
+The `success_when` rule supports one comparison of `exit_code` with a signed
+32-bit integer using `==`, `!=`, `<`, `<=`, `>` or `>=`, with optional whitespace.
+Unsupported expressions fail before the child starts. Generic commands may
+accept a configured nonzero code; Codex JSON commands always also require
+actual exit code zero.
+
+Codex capture is enabled only when the resolved command has `cliId: "codex"`
+and its effective argv contains `--json`. The
+`execution.stream.format` field remains unused metadata and does not select a
+parser. At actual child exit, output may include `session_id` from
+`thread.started.thread_id`, `final_message` from the last completed
+`agent_message`, `usage` from `turn.completed.usage`, and `codex_terminal`
+containing the latest `turn.completed` or `turn.failed` event. Capture and
+terminal failures add `codex_error`. These fields preserve SEE's `run_id`,
+actual process `exit_code`, duration, and output tails.
+
+Codex task success requires the actual child exit code to be zero, the
+configured `success_when` rule to pass, and the latest turn to end with
+`turn.completed`. A failed or missing terminal turn, nonzero exit, or frame or
+final-message size over 4,194,304 bytes fails the task. A later `turn.started`
+makes the previous terminal event incomplete. Recovered standalone errors do
+not fail a completed turn. Capture retains only current thread id, last
+completed assistant message, latest terminal event, usage, and failure detail.
+Automatic agent JSON merging uses only a complete `final_message` that parses
+as a JSON object. Explicit `result.extract[]` behavior continues to use its
+configured stdout/stderr source and path.
+
+Codex transport failures keep the existing four-attempt retry bound when the
+child exits nonzero, stderr contains `RetriableError`, and no terminal event or
+capture-size failure was received. Each attempt starts with fresh capture
+metadata. Failed terminal turns, zero-exit incomplete streams, capture-size
+failures and success-rule mismatches are not retried. Cancellation and timeout
+keep their existing cleanup behavior. Command success does not verify story
+criteria or mark a story Done.
+
 ## Schema reference
 
 - Catalog manifest: [`see.library/v1`](/catalog.json)
