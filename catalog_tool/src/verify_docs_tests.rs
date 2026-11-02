@@ -57,8 +57,8 @@ fn copy_schemas_and_logos(root: &std::path::Path, dest_public: &std::path::Path)
 use crate::verify_docs::{fixture_authoring_index_html, fixture_schema_index_html};
 
 #[test]
-fn llms_source_path_count_is_twenty_four() {
-    assert_eq!(llms_source_paths().len(), 24);
+fn llms_source_path_count_is_twenty_six() {
+    assert_eq!(llms_source_paths().len(), 26);
 }
 
 #[test]
@@ -72,17 +72,17 @@ fn verify_llms_sections_fails_with_missing_source_path() {
 }
 
 #[test]
-fn verify_authoring_index_requires_six_guides_and_publish() {
+fn verify_authoring_index_requires_six_package_guides_research_and_publish() {
     let errors = verify_authoring_index_links("<html></html>");
-    assert_eq!(errors.len(), 7);
+    assert_eq!(errors.len(), 8);
     let html = fixture_authoring_index_html();
     assert!(verify_authoring_index_links(&html).is_empty());
 }
 
 #[test]
-fn verify_schema_index_requires_fifteen_detail_links() {
+fn verify_schema_index_requires_sixteen_detail_links() {
     let errors = verify_schema_index_links("<html></html>");
-    assert_eq!(errors.len(), 15);
+    assert_eq!(errors.len(), 16);
     assert!(verify_schema_index_links(&fixture_schema_index_html()).is_empty());
 }
 
@@ -136,7 +136,7 @@ fn removing_staged_schema_download_fails_verify_with_path() {
     let schema_file = staging.join("schema/workflow.schema.json");
     fs::remove_file(&schema_file).expect("remove schema");
     let errors = verify_staged_schema_downloads(&staging);
-    assert!(errors.iter().any(|e| e.contains("18")));
+    assert!(errors.iter().any(|e| e.contains("19")));
 }
 
 #[test]

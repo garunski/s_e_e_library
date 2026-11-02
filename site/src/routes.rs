@@ -3,11 +3,11 @@ use dioxus::prelude::*;
 use crate::pages::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
     LibraryAuthoringIndex, LibraryAuthoringPrompts, LibraryAuthoringPublish,
-    LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome, LibraryNotFound,
+    LibraryAuthoringResearch, LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome, LibraryNotFound,
     LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCommand, LibrarySchemaCycle,
     LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
     LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaRoutingRules,
-    LibrarySchemaRuleTemplate, LibrarySchemaSchedule, LibrarySchemaScheduleRuleSet,
+    LibrarySchemaResearch, LibrarySchemaRuleTemplate, LibrarySchemaSchedule, LibrarySchemaScheduleRuleSet,
     LibrarySchemaSkill, LibrarySchemaStoriesConfig, LibrarySchemaWorkflow,
 };
 use crate::shell::LibraryShell;
@@ -32,6 +32,8 @@ pub enum Route {
         AuthoringBundles {},
         #[route("/authoring/cycles/")]
         AuthoringCycles {},
+        #[route("/authoring/research/")]
+        AuthoringResearch {},
         #[route("/authoring/publish/")]
         AuthoringPublish {},
         #[route("/schema/")]
@@ -66,6 +68,8 @@ pub enum Route {
         SchemaSchedule {},
         #[route("/schema/schedule-rule-set/")]
         SchemaScheduleRuleSet {},
+        #[route("/schema/knowledge-research/")]
+        SchemaResearch {},
         #[route("/:..segments")]
         NotFound { segments: Vec<String> },
 }
@@ -85,6 +89,7 @@ pub fn route_for_path(href: &str) -> Option<Route> {
         "/authoring/commands/" => Route::AuthoringCommands {},
         "/authoring/bundles/" => Route::AuthoringBundles {},
         "/authoring/cycles/" => Route::AuthoringCycles {},
+        "/authoring/research/" => Route::AuthoringResearch {},
         "/authoring/publish/" => Route::AuthoringPublish {},
         "/schema/" => Route::SchemaIndex {},
         "/schema/workflow/" => Route::SchemaWorkflow {},
@@ -102,6 +107,7 @@ pub fn route_for_path(href: &str) -> Option<Route> {
         "/schema/orchestrator-policy/" => Route::SchemaOrchestratorPolicy {},
         "/schema/schedule/" => Route::SchemaSchedule {},
         "/schema/schedule-rule-set/" => Route::SchemaScheduleRuleSet {},
+        "/schema/knowledge-research/" => Route::SchemaResearch {},
         _ => return None,
     })
 }
@@ -167,6 +173,11 @@ fn AuthoringCycles() -> Element {
     rsx! {
         LibraryAuthoringCycles {}
     }
+}
+
+#[component]
+fn AuthoringResearch() -> Element {
+    rsx! { LibraryAuthoringResearch {} }
 }
 
 #[component]
@@ -286,6 +297,11 @@ fn SchemaScheduleRuleSet() -> Element {
     rsx! {
         LibrarySchemaScheduleRuleSet {}
     }
+}
+
+#[component]
+fn SchemaResearch() -> Element {
+    rsx! { LibrarySchemaResearch {} }
 }
 
 #[cfg(test)]

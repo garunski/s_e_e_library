@@ -101,6 +101,11 @@ pub fn LibraryAuthoringIndex() -> Element {
                 code { class: "{INLINE_CODE}", "catalog.json" }
                 " entry, and validation."
             }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Knowledge authoring" }
+            p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
+                AppLink { class: LIST_LINK, path: "/authoring/research/", "Knowledge Research" }
+                " covers structured research, reports, analysis, and guides. Research documents use their own profile-backed wire contract and are not Library catalog packages."
+            }
             h2 { class: "mt-8 {SECTION_TITLE}", "The contract" }
             ul { class: "mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-600 dark:text-zinc-400",
                 li {

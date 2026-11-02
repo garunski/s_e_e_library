@@ -1,0 +1,107 @@
+{
+  "profile_version": 1,
+  "source_note": "All four records are illustrative examples. The bibliography entry is a placeholder and must be replaced with a source actually supplied or inspected for real work.",
+  "valid_documents": [
+    {
+      "id": "startup-question-example",
+      "kind": "research",
+      "profile_version": 1,
+      "title": "Illustrative startup behavior research",
+      "audience": "Project maintainers",
+      "purpose": "Answer how startup and shutdown ownership is arranged.",
+      "key_message": "The example distinguishes source inspection from reported observations.",
+      "scope": "An example of structured sections, not a claim about a real project.",
+      "basis": "Illustrative content only; replace with inspected sources and findings.",
+      "tags": ["example", "research"],
+      "created_at": "2026-11-02T12:00:00",
+      "updated_at": "2026-11-02T12:00:00",
+      "sources": [{"source_id":"source-placeholder","title":"Replace with an actual source","locator_kind":"url","locator":"https://example.invalid/source","access_status":"unavailable","inspected_scope":"None; placeholder only.","limitation":"Reserved example value; it was not accessed and is not evidence."}],
+      "pages": [{"page_key":"question-and-answer","title":"Question and answer","summary":"A complete role set for a bounded research answer.","sections":[
+        {"section_key":"question","role":"question","heading":"Question","content":"Which lifecycle component owns startup and shutdown?","source_ids":[],"evidence_basis":"illustrative","evidence_note":"Example question only; no system was inspected."},
+        {"section_key":"method","role":"method","heading":"Method","content":"For real research, inspect the named implementation and record the exact files and behavior reviewed.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"This describes an example method; it was not executed."},
+        {"section_key":"findings","role":"findings","heading":"Findings","content":"A real answer would separate directly observed code behavior from runtime reports and hypotheses.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No findings are asserted by this example."},
+        {"section_key":"limits","role":"limitations","heading":"Limitations","content":"This sample has no inspected evidence and cannot support a factual conclusion.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"The example is intentionally limited to schema shape."},
+        {"section_key":"synthesis","role":"synthesis","heading":"Synthesis","content":"Replace every illustrative statement with a supported answer before publication.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"Example conclusion, not a project result."}
+      ]}]
+    },
+    {
+      "id": "period-report-example",
+      "kind": "report",
+      "profile_version": 1,
+      "title": "Illustrative period report",
+      "audience": "Project stakeholders",
+      "purpose": "Show typed reporting context, exceptions, and actions.",
+      "key_message": "Period results and action ownership belong in explicit fields.",
+      "scope": "An illustrative schema example, not an operational report.",
+      "basis": "Synthetic example; no project metrics were observed.",
+      "tags": ["example", "report"],
+      "created_at": "2026-11-02T12:00:00",
+      "updated_at": "2026-11-02T12:00:00",
+      "reporting_context": {"kind":"closed_period","start_date":"2026-10-01","end_date":"2026-10-31"},
+      "sources": [{"source_id":"report-placeholder","title":"Replace with a period source","locator_kind":"file","locator":"reports/period-summary.txt","access_status":"provided","inspected_scope":"Placeholder path only; no file content is included.","limitation":"Synthetic example; replace with a supplied or inspected source."}],
+      "pages": [{"page_key":"period-summary","title":"Period summary","summary":"The required report roles and typed action representation.","sections":[
+        {"section_key":"summary","role":"summary","heading":"Summary","content":"This example covers 2026-10-01 through 2026-10-31; it reports no observed results.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"Synthetic content only."},
+        {"section_key":"results","role":"results","heading":"Results","content":"No period measurements are supplied by this example.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"Do not treat this sample as a report of project outcomes."},
+        {"section_key":"exceptions","role":"exceptions","heading":"Exceptions","content":"None are asserted because this is a schema illustration.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No operational period was reviewed.","none_reason":"Illustrative fixture, not a reporting run."},
+        {"section_key":"actions","role":"actions","heading":"Actions","content":"One example action demonstrates explicit unassigned ownership and a trigger.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"The action is not assigned in a real project.","action_items":[{"action_id":"review-example","description":"Replace this action with a supported follow-up.","owner_state":"unassigned","due":{"kind":"condition","value":"When a report owner is assigned"}}]}
+      ]}]
+    },
+    {
+      "id": "deployment-analysis-example",
+      "kind": "analysis",
+      "profile_version": 1,
+      "title": "Illustrative deployment analysis",
+      "audience": "Decision makers",
+      "purpose": "Show a structured comparison and conditional recommendation.",
+      "key_message": "An analysis states criteria, alternatives, assumptions, and what could change its recommendation.",
+      "scope": "Example structure only; no deployment option is evaluated here.",
+      "basis": "Illustrative reasoning without project evidence.",
+      "tags": ["example", "analysis"],
+      "created_at": "2026-11-02T12:00:00",
+      "updated_at": "2026-11-02T12:00:00",
+      "sources": [{"source_id":"analysis-placeholder","title":"Replace with decision evidence","locator_kind":"dataset","locator":"decision/evidence.csv","access_status":"metadata_only","inspected_scope":"Only the example locator is shown; no dataset was read.","limitation":"Metadata-only placeholder and not evidence for an alternative."}],
+      "pages": [{"page_key":"decision-frame","title":"Decision frame","summary":"Required analysis roles with explicit example limitations.","sections":[
+        {"section_key":"problem","role":"problem","heading":"Problem","content":"The example asks how to compare two deployment approaches.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No live deployment is considered."},
+        {"section_key":"criteria","role":"criteria","heading":"Criteria","content":"A real analysis could compare reliability, operating effort, and cost using declared evidence.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"Criteria are illustrative and have no measured values."},
+        {"section_key":"evidence","role":"evidence","heading":"Evidence","content":"No source evidence is provided in this sample.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"The bibliography placeholder was not accessed."},
+        {"section_key":"alternatives","role":"alternatives","heading":"Alternatives","content":"Describe each feasible option and compare it against every criterion before recommending one.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No option is ranked by this sample."},
+        {"section_key":"assumptions","role":"assumptions","heading":"Assumptions","content":"State any unverified constraints and explain their effect on the comparison.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No project constraint is asserted."},
+        {"section_key":"recommendation","role":"recommendation","heading":"Recommendation","content":"Give a conditional recommendation only after evidence and trade-offs are reviewed.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"This example makes no deployment recommendation."}
+      ]}]
+    },
+    {
+      "id": "recovery-guide-example",
+      "kind": "guide",
+      "profile_version": 1,
+      "title": "Illustrative recovery guide",
+      "audience": "Task operators",
+      "purpose": "Show a procedure, observable verification, and recovery path.",
+      "key_message": "A guide separates examples from steps that were actually executed.",
+      "scope": "Illustrative structure only; it is not an operational runbook.",
+      "basis": "No commands were run for this example.",
+      "tags": ["example", "guide"],
+      "created_at": "2026-11-02T12:00:00",
+      "updated_at": "2026-11-02T12:00:00",
+      "sources": [{"source_id":"guide-placeholder","title":"Replace with an approved procedure source","locator_kind":"file","locator":"docs/recovery.md","access_status":"unavailable","inspected_scope":"None; placeholder only.","limitation":"The referenced path is an example and was not opened."}],
+      "pages": [{"page_key":"safe-recovery","title":"Safe recovery","summary":"Required guide roles with explicit non-execution status.","sections":[
+        {"section_key":"outcome","role":"outcome","heading":"Outcome","content":"The intended outcome should describe a service state an operator can observe.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No service state is claimed."},
+        {"section_key":"prerequisites","role":"prerequisites","heading":"Prerequisites","content":"List permissions, backups, and environment assumptions before giving a procedure.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No real environment is prepared.","none_reason":"Prerequisites are omitted from this structural example, not from a real procedure."},
+        {"section_key":"procedure","role":"procedure","heading":"Procedure","content":"1. Read the approved runbook.\n2. Follow only steps that match the target environment.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"These illustrative instructions were not executed."},
+        {"section_key":"verification","role":"verification","heading":"Verification","content":"Define an observable health result and identify its authoritative source.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No verification was run."},
+        {"section_key":"troubleshooting","role":"troubleshooting","heading":"Troubleshooting","content":"State what to inspect and how to return to a safe state if verification fails.","source_ids":[],"evidence_basis":"illustrative","evidence_note":"No failure was induced.","none_reason":"Recovery steps must be supplied for a real guide; this example only shows the role."}
+      ]}]
+    }
+  ],
+  "validation_repairs": [
+    {"kind":"research","profile_version":1,"rejected":{"code":"research.required_role_missing","field_path":"pages[*].sections[role=limitations]","remedy":"Add a section with the required `limitations` role."},"before":{"section_key":"limits","role":"findings","heading":"Limitations","content":"State the limits."},"corrected":{"section_key":"limits","role":"limitations","heading":"Limitations","content":"State the evidence and scope limits."}},
+    {"kind":"report","profile_version":1,"rejected":{"code":"research.field_missing","field_path":"reporting_context","remedy":"Provide Reporting context before publication."},"before":null,"corrected":{"kind":"closed_period","start_date":"2026-10-01","end_date":"2026-10-31"}},
+    {"kind":"analysis","profile_version":1,"rejected":{"code":"research.required_role_missing","field_path":"pages[*].sections[role=assumptions]","remedy":"Add a section with the required `assumptions` role."},"before":{"section_key":"assumptions","role":"evidence","heading":"Assumptions","content":"List the assumptions."},"corrected":{"section_key":"assumptions","role":"assumptions","heading":"Assumptions","content":"State each assumption and its effect on the comparison."}},
+    {"kind":"guide","profile_version":1,"rejected":{"code":"research.required_role_missing","field_path":"pages[*].sections[role=troubleshooting]","remedy":"Add a section with the required `troubleshooting` role."},"before":null,"corrected":{"section_key":"troubleshooting","role":"troubleshooting","heading":"Troubleshooting","content":"If verification fails, stop and follow the approved recovery procedure.","none_reason":null}}
+  ],
+  "publication_readback": {
+    "draft_read": {"view":"draft","edition_id":null,"is_draft":true,"aggregate_token":"<current aggregate token>"},
+    "publish_request": {"conflict_token":"<latest aggregate token>"},
+    "published_read": {"view":"edition","edition_id":"<returned immutable edition id>","is_draft":false},
+    "follow_up_edit": "A later draft edit does not change the selected earlier edition; publishing again creates another edition."
+  }
+}

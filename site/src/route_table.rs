@@ -26,16 +26,18 @@ pub const SCHEMA_SLUGS: &[&str] = &[
     "orchestrator-policy",
     "schedule",
     "schedule-rule-set",
+    "knowledge-research",
 ];
 
 /// Every public documentation URL path (leading slash, trailing slash except home is `/`).
 pub fn documentation_route_paths() -> Vec<&'static str> {
-    let mut paths = Vec::with_capacity(25);
+    let mut paths = Vec::with_capacity(27);
     paths.push("/");
     paths.push("/authoring/");
     for slug in AUTHORING_SLUGS {
         paths.push(authoring_path(slug));
     }
+    paths.push("/authoring/research/");
     paths.push("/schema/");
     for slug in SCHEMA_SLUGS {
         paths.push(schema_path(slug));
@@ -51,6 +53,7 @@ pub fn authoring_path(slug: &str) -> &'static str {
         "commands" => "/authoring/commands/",
         "bundles" => "/authoring/bundles/",
         "cycles" => "/authoring/cycles/",
+        "research" => "/authoring/research/",
         "publish" => "/authoring/publish/",
         _ => "/authoring/",
     }
@@ -73,6 +76,7 @@ pub fn schema_path(slug: &str) -> &'static str {
         "orchestrator-policy" => "/schema/orchestrator-policy/",
         "schedule" => "/schema/schedule/",
         "schedule-rule-set" => "/schema/schedule-rule-set/",
+        "knowledge-research" => "/schema/knowledge-research/",
         _ => "/schema/",
     }
 }

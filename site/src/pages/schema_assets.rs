@@ -31,6 +31,8 @@ pub const ORCHESTRATOR_POLICY_SCHEMA_JSON: &str =
 pub const SCHEDULE_SCHEMA_JSON: &str = include_str!("../../../public/schema/schedule.schema.json");
 pub const SCHEDULE_RULE_SET_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/schedule-rule-set.schema.json");
+pub const KNOWLEDGE_RESEARCH_SCHEMA_JSON: &str =
+    include_str!("../../../public/schema/knowledge-research.schema.json");
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct SchemaDownload {
@@ -118,11 +120,17 @@ pub const CONFIG_PAGE_SCHEMAS: [SchemaDownload; 8] = [
     },
 ];
 
+pub const WIRE_CONTRACT_SCHEMAS: [SchemaDownload; 1] = [SchemaDownload {
+    filename: "knowledge-research.schema.json",
+    json: KNOWLEDGE_RESEARCH_SCHEMA_JSON,
+}];
+
 #[must_use]
 pub fn all_embedded_schemas() -> impl Iterator<Item = &'static SchemaDownload> {
     PACKAGE_PAGE_SCHEMAS
         .iter()
         .chain(CONFIG_PAGE_SCHEMAS.iter())
+        .chain(WIRE_CONTRACT_SCHEMAS.iter())
 }
 
 #[must_use]

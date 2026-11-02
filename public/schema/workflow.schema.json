@@ -591,7 +591,7 @@
     },
     "ForeachFunction": {
       "type": "object",
-      "description": "Repeat next_tasks once per element of a string array. The array comes from a string_array runtime input (collection_runtime_key) or from the captured output of an earlier task (collection_task_id). next_tasks must be exactly one task, and that body must be one chain with a single leaf. A later branch is rejected. Nested foreach is allowed when each body is still one chain.",
+      "description": "Repeat next_tasks once per element of a string array. The array comes from a string_array runtime input (collection_runtime_key) or from the captured output of an earlier task (collection_task_id). next_tasks must be exactly one task, and that body must be one chain with a single leaf. A later branch is rejected. Nested foreach is allowed when each body is still one chain. A repair_loop body and its verifier form one logical chain; each item retains its own runtime values, outputs, feedback and retry budget.",
       "required": [
         "name",
         "input"
@@ -676,7 +676,7 @@
             "wall_clock_ms": {
               "type": "integer",
               "minimum": 0,
-              "description": "Wall clock budget in milliseconds across all attempts"
+              "description": "Retry budget in milliseconds across all attempts, starting when this loop's first body task starts, independently for each foreach item"
             },
             "verifier_feedback_runtime_key": {
               "type": "string",

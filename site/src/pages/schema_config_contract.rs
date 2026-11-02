@@ -70,7 +70,7 @@ pub const CONFIG_SCHEMA_PAGES: [ConfigSchemaPageContract; 8] = [
 
 #[must_use]
 pub fn config_schema_slugs_match_route_table() -> bool {
-    let hub_slugs = &SCHEMA_SLUGS[7..];
+    let hub_slugs = &SCHEMA_SLUGS[7..15];
     hub_slugs.len() == CONFIG_SCHEMA_PAGES.len()
         && CONFIG_SCHEMA_PAGES
             .iter()

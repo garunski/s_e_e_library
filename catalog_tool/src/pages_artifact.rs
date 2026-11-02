@@ -84,9 +84,9 @@ fn schema_sources(root: &Path) -> Result<Vec<PathBuf>, String> {
         })
         .collect();
     files.sort();
-    if files.len() != 18 {
+    if files.len() != 19 {
         return Err(format!(
-            "expected 18 public/schema/*.schema.json files, found {}",
+            "expected 19 public/schema/*.schema.json files, found {}",
             files.len()
         ));
     }
@@ -151,9 +151,9 @@ pub fn run_package_pages(root: &Path, dx_public: &Path, staging: &Path) -> Resul
 
 pub fn verify_documentation_routes(staging: &Path) -> Result<(), String> {
     let routes = documentation_route_paths();
-    if routes.len() != 25 {
+    if routes.len() != 27 {
         return Err(format!(
-            "expected 25 documentation routes, got {}",
+            "expected 27 documentation routes, got {}",
             routes.len()
         ));
     }

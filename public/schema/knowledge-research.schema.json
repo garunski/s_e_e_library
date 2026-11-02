@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/knowledge-research.schema.json",
+  "title": "S.E.E. Knowledge Research wire contract",
+  "description": "Research HTTP and MCP request/response models. Profile role requirements are served by knowledge_research_profile_get; all four current descriptors use profile_version 1.",
+  "$defs": {
+    "Kind": { "type": "string", "enum": ["research", "report", "analysis", "guide"] },
+    "Role": { "type": "string", "enum": ["question", "method", "findings", "limitations", "synthesis", "summary", "results", "exceptions", "actions", "problem", "criteria", "evidence", "alternatives", "assumptions", "recommendation", "outcome", "prerequisites", "procedure", "verification", "troubleshooting", "context", "references", "appendix", "open_questions"] },
+    "EvidenceBasis": { "type": "string", "enum": ["source_backed", "author_reasoning", "illustrative", "not_applicable"] },
+    "SourceLocatorKind": { "type": "string", "enum": ["url", "file", "entity", "dataset", "interview"] },
+    "SourceAccessStatus": { "type": "string", "enum": ["inspected", "provided", "metadata_only", "unavailable"] },
+    "OwnerState": { "type": "string", "enum": ["assigned", "unassigned"] },
+    "ReportingContext": {
+      "oneOf": [
+        { "type": "object", "required": ["kind", "start_date", "end_date"], "properties": { "kind": { "const": "closed_period" }, "start_date": { "type": "string", "format": "date" }, "end_date": { "type": "string", "format": "date" } } },
+        { "type": "object", "required": ["kind", "as_of_date"], "properties": { "kind": { "const": "as_of" }, "as_of_date": { "type": "string", "format": "date" } } }
+      ]
+    },
+    "ActionDue": {
+      "oneOf": [
+        { "type": "object", "required": ["kind", "value"], "properties": { "kind": { "const": "date" }, "value": { "type": "string", "format": "date" } } },
+        { "type": "object", "required": ["kind", "value"], "properties": { "kind": { "const": "condition" }, "value": { "type": "string" } } }
+      ]
+    },
+    "ActionItem": {
+      "type": "object", "required": ["action_id", "description", "owner_state", "due"],
+      "properties": { "action_id": { "type": "string" }, "description": { "type": "string" }, "owner_state": { "$ref": "#/$defs/OwnerState" }, "owner": { "type": ["string", "null"] }, "due": { "$ref": "#/$defs/ActionDue" } }
+    },
+    "Source": {
+      "type": "object", "required": ["source_id", "title", "locator_kind", "locator", "access_status", "inspected_scope", "limitation"],
+      "properties": { "source_id": { "type": "string" }, "title": { "type": "string" }, "locator_kind": { "$ref": "#/$defs/SourceLocatorKind" }, "locator": { "type": "string" }, "access_status": { "$ref": "#/$defs/SourceAccessStatus" }, "inspected_scope": { "type": "string" }, "inspected_at": { "type": ["string", "null"], "format": "date" }, "version_or_date": { "type": ["string", "null"] }, "limitation": { "type": "string" } }
+    },
+    "Section": {
+      "type": "object", "required": ["section_key", "role", "heading", "content", "evidence_basis", "evidence_note"],
+      "properties": { "section_key": { "type": "string" }, "role": { "$ref": "#/$defs/Role" }, "heading": { "type": "string" }, "content": { "type": "string" }, "source_ids": { "type": "array", "items": { "type": "string" } }, "evidence_basis": { "$ref": "#/$defs/EvidenceBasis" }, "evidence_note": { "type": "string" }, "none_reason": { "type": ["string", "null"] }, "action_items": { "type": "array", "items": { "$ref": "#/$defs/ActionItem" } } }
+    },
+    "Page": {
+      "type": "object", "required": ["page_key", "title", "summary"],
+      "properties": { "page_key": { "type": "string" }, "title": { "type": "string" }, "summary": { "type": "string" }, "sections": { "type": "array", "items": { "$ref": "#/$defs/Section" } } }
+    },
+    "Document": {
+      "type": "object", "required": ["id", "kind", "profile_version", "title", "audience", "purpose", "key_message", "scope", "basis", "created_at", "updated_at"],
+      "properties": { "id": { "type": "string" }, "kind": { "$ref": "#/$defs/Kind" }, "profile_version": { "type": "integer", "minimum": 0 }, "title": { "type": "string" }, "audience": { "type": "string" }, "purpose": { "type": "string" }, "key_message": { "type": "string" }, "scope": { "type": "string" }, "basis": { "type": "string" }, "tags": { "type": "array", "items": { "type": "string" } }, "created_at": { "type": "string", "format": "date-time" }, "updated_at": { "type": "string", "format": "date-time" }, "reporting_context": { "anyOf": [{ "$ref": "#/$defs/ReportingContext" }, { "type": "null" }] }, "sources": { "type": "array", "items": { "$ref": "#/$defs/Source" } }, "pages": { "type": "array", "items": { "$ref": "#/$defs/Page" } } }
+    },
+    "DocumentPut": {
+      "type": "object", "required": ["kind", "profile_version", "title", "audience", "purpose", "key_message", "scope", "basis", "tags", "sources", "page_order"],
+      "properties": { "kind": { "$ref": "#/$defs/Kind" }, "profile_version": { "type": "integer", "minimum": 0 }, "title": { "type": "string" }, "audience": { "type": "string" }, "purpose": { "type": "string" }, "key_message": { "type": "string" }, "scope": { "type": "string" }, "basis": { "type": "string" }, "tags": { "type": "array", "items": { "type": "string" } }, "reporting_context": { "anyOf": [{ "$ref": "#/$defs/ReportingContext" }, { "type": "null" }] }, "sources": { "type": "array", "items": { "$ref": "#/$defs/Source" } }, "page_order": { "type": "array", "items": { "type": "string" } }, "pages": { "type": "array", "items": { "$ref": "#/$defs/Page" } }, "confirm_kind_change": { "type": "boolean", "default": false } }
+    },
+    "Issue": {
+      "type": "object", "required": ["code", "severity", "field_path", "remedy"],
+      "properties": { "code": { "type": "string" }, "severity": { "type": "string", "enum": ["error", "warning"] }, "field_path": { "type": "string" }, "page_key": { "type": ["string", "null"] }, "section_key": { "type": ["string", "null"] }, "remedy": { "type": "string" } }
+    },
+    "WorkingCopy": { "type": "object", "required": ["document", "aggregate_token"], "properties": { "document": { "$ref": "#/$defs/Document" }, "aggregate_token": { "type": "string" }, "diagnostics": { "type": "array", "items": { "$ref": "#/$defs/Issue" } } } },
+    "Edition": { "type": "object", "required": ["edition_id", "published_at", "document"], "properties": { "edition_id": { "type": "string" }, "published_at": { "type": "string", "format": "date-time" }, "document": { "$ref": "#/$defs/Document" } } },
+    "PublishResponse": { "type": "object", "required": ["edition", "aggregate_token"], "properties": { "edition": { "$ref": "#/$defs/Edition" }, "aggregate_token": { "type": "string" } } },
+    "ReadResponse": { "type": "object", "required": ["document", "aggregate_token", "is_draft"], "properties": { "document": { "$ref": "#/$defs/Document" }, "aggregate_token": { "type": "string" }, "edition_id": { "type": ["string", "null"] }, "is_draft": { "type": "boolean" }, "published_at": { "type": ["string", "null"], "format": "date-time" }, "diagnostics": { "type": "array", "items": { "$ref": "#/$defs/Issue" } } } },
+    "ProfileField": { "type": "object", "required": ["key", "label", "required", "description"], "properties": { "key": { "type": "string" }, "label": { "type": "string" }, "required": { "type": "boolean" }, "description": { "type": "string" }, "example_values": { "type": "array", "items": { "type": "string" } } } },
+    "ProfileRole": { "type": "object", "required": ["role", "required", "allows_none_reason", "description", "example_heading"], "properties": { "role": { "$ref": "#/$defs/Role" }, "required": { "type": "boolean" }, "allows_none_reason": { "type": "boolean" }, "description": { "type": "string" }, "example_heading": { "type": "string" } } },
+    "ProfileExample": { "type": "object", "required": ["title", "purpose", "audience", "page"], "properties": { "title": { "type": "string" }, "purpose": { "type": "string" }, "audience": { "type": "string" }, "page": { "$ref": "#/$defs/Page" } } },
+    "ProfileDescriptor": { "type": "object", "required": ["kind", "profile_version", "fields", "roles", "examples"], "properties": { "kind": { "$ref": "#/$defs/Kind" }, "profile_version": { "type": "integer", "const": 1 }, "fields": { "type": "array", "items": { "$ref": "#/$defs/ProfileField" } }, "roles": { "type": "array", "items": { "$ref": "#/$defs/ProfileRole" } }, "examples": { "type": "array", "items": { "$ref": "#/$defs/ProfileExample" } }, "validation_rules": { "type": "array", "items": { "type": "string" } } }
+    },
+    "ValidationResponse": { "type": "object", "required": ["profile_version", "aggregate_token", "publishable"], "properties": { "profile_version": { "type": "integer", "const": 1 }, "aggregate_token": { "type": "string" }, "publishable": { "type": "boolean" }, "issues": { "type": "array", "items": { "$ref": "#/$defs/Issue" } } } },
+    "McpProfileGetArgs": { "type": "object", "required": ["project", "kind"], "properties": { "project": { "type": "string" }, "kind": { "$ref": "#/$defs/Kind" }, "version": { "type": ["integer", "null"], "minimum": 0 } } },
+    "McpListArgs": { "type": "object", "required": ["project"], "properties": { "project": { "type": "string" }, "kind": { "anyOf": [{ "$ref": "#/$defs/Kind" }, { "type": "null" }] }, "tag": { "type": ["string", "null"] }, "query": { "type": ["string", "null"] }, "view": { "type": "string", "enum": ["all", "draft", "published"], "default": "all" }, "cursor": { "type": ["string", "null"] }, "limit": { "type": ["integer", "null"], "minimum": 1, "maximum": 100 } } },
+    "McpGetArgs": { "type": "object", "required": ["project", "research_id"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" }, "view": { "type": ["string", "null"], "enum": ["default", "draft", "edition", null] }, "edition_id": { "type": ["string", "null"] } } },
+    "McpCreateArgs": { "allOf": [{ "$ref": "#/$defs/Document" }, { "type": "object", "required": ["project"], "properties": { "project": { "type": "string" } } }] },
+    "McpPutArgs": { "type": "object", "required": ["project", "research_id", "conflict_token", "document"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" }, "conflict_token": { "type": "string" }, "document": { "$ref": "#/$defs/DocumentPut" } } },
+    "McpDeleteArgs": { "type": "object", "required": ["project", "research_id", "conflict_token", "confirm"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" }, "conflict_token": { "type": "string" }, "confirm": { "type": "boolean" } } },
+    "McpPageGetArgs": { "type": "object", "required": ["project", "research_id", "page_key"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" }, "page_key": { "type": "string" }, "view": { "type": ["string", "null"], "enum": ["default", "draft", "edition", null] }, "edition_id": { "type": ["string", "null"] } } },
+    "McpPagePutArgs": { "type": "object", "required": ["project", "research_id", "page_key", "conflict_token", "page"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" }, "page_key": { "type": "string" }, "conflict_token": { "type": "string" }, "page": { "$ref": "#/$defs/Page" } } },
+    "McpPageDeleteArgs": { "type": "object", "required": ["project", "research_id", "page_key", "conflict_token"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" }, "page_key": { "type": "string" }, "conflict_token": { "type": "string" } } },
+    "McpValidateArgs": { "type": "object", "required": ["project", "research_id"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" } } },
+    "McpPublishArgs": { "type": "object", "required": ["project", "research_id", "conflict_token"], "properties": { "project": { "type": "string" }, "research_id": { "type": "string" }, "conflict_token": { "type": "string" } } },
+    "HttpDocumentPutRequest": { "type": "object", "required": ["conflict_token", "document"], "properties": { "conflict_token": { "type": "string" }, "document": { "$ref": "#/$defs/DocumentPut" } } },
+    "HttpPagePutRequest": { "type": "object", "required": ["conflict_token", "page"], "properties": { "conflict_token": { "type": "string" }, "page": { "$ref": "#/$defs/Page" } } },
+    "TokenRequest": { "type": "object", "required": ["conflict_token"], "properties": { "conflict_token": { "type": "string" } } },
+    "DeleteRequest": { "type": "object", "required": ["conflict_token", "confirm"], "properties": { "conflict_token": { "type": "string" }, "confirm": { "type": "boolean" } } },
+    "Manifest": { "type": "object", "properties": { "id": { "type": "string" }, "kind": { "$ref": "#/$defs/Kind" }, "profile_version": { "type": "integer", "const": 1 }, "title": { "type": "string" }, "audience": { "type": "string" }, "purpose": { "type": "string" }, "key_message": { "type": "string" }, "scope": { "type": "string" }, "basis": { "type": "string" }, "tags": { "type": "array", "items": { "type": "string" } }, "created_at": { "type": "string", "format": "date-time" }, "updated_at": { "type": "string", "format": "date-time" }, "reporting_context": { "anyOf": [{ "$ref": "#/$defs/ReportingContext" }, { "type": "null" }] }, "sources": { "type": "array", "items": { "$ref": "#/$defs/Source" } }, "pages": { "type": "array", "items": { "$ref": "#/$defs/PageSummary" } }, "edition_ids": { "type": "array", "items": { "type": "string" } }, "aggregate_token": { "type": "string" }, "diagnostics": { "type": "array", "items": { "$ref": "#/$defs/Issue" } } }
+    },
+    "PageSummary": { "type": "object", "required": ["page_key", "title", "summary", "sections"], "properties": { "page_key": { "type": "string" }, "title": { "type": "string" }, "summary": { "type": "string" }, "sections": { "type": "array", "items": { "type": "object", "required": ["section_key", "role", "heading"], "properties": { "section_key": { "type": "string" }, "role": { "$ref": "#/$defs/Role" }, "heading": { "type": "string" } } } } }
+    },
+    "PageReadResponse": { "type": "object", "required": ["document_id", "page", "markdown", "aggregate_token", "is_draft", "diagnostics"], "properties": { "document_id": { "type": "string" }, "page": { "$ref": "#/$defs/Page" }, "markdown": { "type": "string" }, "aggregate_token": { "type": "string" }, "edition_id": { "type": ["string", "null"] }, "is_draft": { "type": "boolean" }, "published_at": { "type": ["string", "null"], "format": "date-time" }, "diagnostics": { "type": "array", "items": { "$ref": "#/$defs/Issue" } } }
+    },
+    "ListQuery": { "type": "object", "properties": { "kind": { "anyOf": [{ "$ref": "#/$defs/Kind" }, { "type": "null" }] }, "tag": { "type": ["string", "null"] }, "query": { "type": ["string", "null"] }, "view": { "type": "string", "enum": ["all", "draft", "published"], "default": "all" }, "cursor": { "type": ["string", "null"] }, "limit": { "type": ["integer", "null"], "minimum": 1, "maximum": 100 } }
+    },
+    "ListResponse": { "type": "object", "required": ["documents", "limit"], "properties": { "documents": { "type": "array", "items": { "type": "object", "required": ["id", "kind", "title", "purpose", "tags", "page_count", "is_published", "updated_at"], "properties": { "id": { "type": "string" }, "kind": { "$ref": "#/$defs/Kind" }, "title": { "type": "string" }, "purpose": { "type": "string" }, "tags": { "type": "array", "items": { "type": "string" } }, "page_count": { "type": "integer", "minimum": 0 }, "is_published": { "type": "boolean" }, "latest_edition_id": { "type": ["string", "null"] }, "updated_at": { "type": "string", "format": "date-time" } } } }, "next_cursor": { "type": ["string", "null"] }, "limit": { "type": "integer", "minimum": 1, "maximum": 100 } }
+    },
+    "DeleteResponse": { "type": "object", "required": ["id", "deleted"], "properties": { "id": { "type": "string" }, "deleted": { "type": "boolean" } } },
+    "ResearchError": { "type": "object", "required": ["error", "code"], "properties": { "error": { "type": "string" }, "code": { "type": "string" }, "path": { "type": "string" }, "remedy": { "type": "string" }, "issues": { "type": "array", "items": { "$ref": "#/$defs/Issue" } } }
+    }
+  },
+  "x-profile-descriptors": {
+    "authority": "knowledge_research_profile_get",
+    "version": 1,
+    "kinds": ["research", "report", "analysis", "guide"],
+    "optional_roles": ["context", "references", "appendix", "open_questions"]
+  },
+  "x-operations": {
+    "knowledge_research_profile_get": { "http": "GET /api/projects/{project}/knowledge/research/profiles/{kind}?version=", "mcp_input_schema": "#/$defs/McpProfileGetArgs", "http_response_schema": "#/$defs/ProfileDescriptor" },
+    "knowledge_research_list": { "http": "GET /api/projects/{project}/knowledge/research", "mcp_input_schema": "#/$defs/McpListArgs", "http_query_schema": "#/$defs/ListQuery", "http_response_schema": "#/$defs/ListResponse" },
+    "knowledge_research_get": { "http": "GET /api/projects/{project}/knowledge/research/{research_id}?view=&edition_id=", "mcp_input_schema": "#/$defs/McpGetArgs", "http_response_schema": "#/$defs/Manifest" },
+    "knowledge_research_create": { "http": "POST /api/projects/{project}/knowledge/research", "mcp_input_schema": "#/$defs/McpCreateArgs", "http_request_schema": "#/$defs/Document", "http_response_schema": "#/$defs/WorkingCopy" },
+    "knowledge_research_put": { "http": "PUT /api/projects/{project}/knowledge/research/{research_id}", "mcp_input_schema": "#/$defs/McpPutArgs", "http_request_schema": "#/$defs/HttpDocumentPutRequest", "http_response_schema": "#/$defs/WorkingCopy" },
+    "knowledge_research_delete": { "http": "DELETE /api/projects/{project}/knowledge/research/{research_id}", "mcp_input_schema": "#/$defs/McpDeleteArgs", "http_request_schema": "#/$defs/DeleteRequest", "http_response_schema": "#/$defs/DeleteResponse" },
+    "knowledge_research_page_get": { "http": "GET /api/projects/{project}/knowledge/research/{research_id}/pages/{page_key}?view=&edition_id=", "mcp_input_schema": "#/$defs/McpPageGetArgs", "http_response_schema": "#/$defs/PageReadResponse" },
+    "knowledge_research_page_put": { "http": "PUT /api/projects/{project}/knowledge/research/{research_id}/pages/{page_key}", "mcp_input_schema": "#/$defs/McpPagePutArgs", "http_request_schema": "#/$defs/HttpPagePutRequest", "http_response_schema": "#/$defs/WorkingCopy" },
+    "knowledge_research_page_delete": { "http": "DELETE /api/projects/{project}/knowledge/research/{research_id}/pages/{page_key}", "mcp_input_schema": "#/$defs/McpPageDeleteArgs", "http_request_schema": "#/$defs/TokenRequest", "http_response_schema": "#/$defs/WorkingCopy" },
+    "knowledge_research_validate": { "http": "POST /api/projects/{project}/knowledge/research/{research_id}/validate", "mcp_input_schema": "#/$defs/McpValidateArgs", "http_response_schema": "#/$defs/ValidationResponse" },
+    "knowledge_research_publish": { "http": "POST /api/projects/{project}/knowledge/research/{research_id}/publish", "mcp_input_schema": "#/$defs/McpPublishArgs", "http_request_schema": "#/$defs/TokenRequest", "http_response_schema": "#/$defs/PublishResponse" }
+  },
+  "$ref": "#/$defs/Document"
+}

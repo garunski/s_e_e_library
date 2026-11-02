@@ -42,6 +42,13 @@ pub fn LibrarySchemaIndex() -> Element {
                 NamedSchemaLink { route: Route::SchemaBundle {}, label: "Bundle", description: "Install map with no payload of its own." }
                 NamedSchemaLink { route: Route::SchemaCycle {}, label: "Cycle", description: "Stages, stores, and triggers for a host loop." }
             }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Knowledge wire contracts" }
+            p { class: "text-sm text-zinc-600 dark:text-zinc-400",
+                "Structured Knowledge Research has an HTTP/MCP schema and versioned runtime profiles; it is not a Library package payload."
+            }
+            ul { class: "mt-3 list-none space-y-2 text-sm text-zinc-600 dark:text-zinc-400",
+                NamedSchemaLink { route: Route::SchemaResearch {}, label: "Knowledge Research", description: "Eleven HTTP/MCP operations, wire models, errors, and profile version contract." }
+            }
             h2 { class: "mt-8 {SECTION_TITLE}", "Hub document schemas" }
             p { class: "text-sm text-zinc-600 dark:text-zinc-400",
                 "JSON documents the hub stores besides catalog payloads. Each has a schema file and is validated on save."

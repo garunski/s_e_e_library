@@ -139,7 +139,7 @@ pub fn LibraryAuthoringWorkflows() -> Element {
                 code { class: "{INLINE_CODE}", "foreach" }
                 " is allowed when each body is still one chain. "
                 code { class: "{INLINE_CODE}", "repair_loop" }
-                " is the other handler with a chain rule: one leaf body, then one verifier. Other tasks may branch."
+                " has one leaf body, then one verifier, and can be a foreach body. Each item keeps its own runtime values, attempt outputs and verifier feedback. The next item waits for verification to pass. Its retry budget starts at the first body task, not at workflow launch, and the start time survives checkpoint resume. Task timeouts remain separate. Other tasks may branch."
             }
             h3 { class: "mt-6 {SUBSECTION_TITLE}", "Command selection" }
             p { class: "{BODY_TEXT}",

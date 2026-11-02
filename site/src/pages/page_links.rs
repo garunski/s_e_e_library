@@ -182,6 +182,7 @@ pub fn authoring_index_link_hrefs(base: &str) -> Vec<String> {
         .map(|link| resolve_page_link(base, *link))
         .collect::<Vec<_>>();
     hrefs.push(resolve_page_link(base, AUTHORING_PUBLISH_LINK));
+    hrefs.push(library_href_with_base(base, "/authoring/research/"));
     hrefs.push(library_href_with_base(base, "/schema/"));
     hrefs.push(library_href_with_base(base, "/catalog.json"));
     hrefs.push(library_href_with_base(base, "/llms.txt"));

@@ -113,6 +113,7 @@ pub fn route_current_path(route: &Route) -> &'static str {
         Route::AuthoringCommands {} => "/authoring/commands/",
         Route::AuthoringBundles {} => "/authoring/bundles/",
         Route::AuthoringCycles {} => "/authoring/cycles/",
+        Route::AuthoringResearch {} => "/authoring/research/",
         Route::AuthoringPublish {} => "/authoring/publish/",
         Route::SchemaIndex {} => "/schema/",
         Route::SchemaWorkflow {} => "/schema/workflow/",
@@ -130,6 +131,7 @@ pub fn route_current_path(route: &Route) -> &'static str {
         Route::SchemaOrchestratorPolicy {} => "/schema/orchestrator-policy/",
         Route::SchemaSchedule {} => "/schema/schedule/",
         Route::SchemaScheduleRuleSet {} => "/schema/schedule-rule-set/",
+        Route::SchemaResearch {} => "/schema/knowledge-research/",
         Route::NotFound { .. } => "/404",
     }
 }

@@ -3973,7 +3973,7 @@ checksum = "9774ba4a74de5f7b1c1451ed6cd5285a32eddb5cccb8cc655a4e50009e06477f"
 
 [[package]]
 name = "s_e_e_api_client"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "futures-util",
  "reqwest 0.12.28",
@@ -3986,7 +3986,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_command"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "libc",
  "s_e_e_shapes",
@@ -3996,7 +3996,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_core"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "argon2",
  "async-trait",
@@ -4033,7 +4033,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_git"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "libc",
  "s_e_e_subprocess_env",
@@ -4044,7 +4044,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_gui_kit"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "axum",
  "chrono",
@@ -4072,7 +4072,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_hub"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "chrono",
  "hex",
@@ -4090,7 +4090,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_hub_index"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "chrono",
  "regex",
@@ -4107,14 +4107,14 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_icons"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "resvg",
 ]
 
 [[package]]
 name = "s_e_e_knowledge"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "chrono",
  "fd-lock",
@@ -4132,7 +4132,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_library_ops"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "chrono",
  "reqwest 0.12.28",
@@ -4149,7 +4149,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_logs"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "chrono",
  "libc",
@@ -4170,7 +4170,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_markdown"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "html-escape",
  "markdown",
@@ -4182,7 +4182,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_shapes"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "blake3",
  "chrono",
@@ -4196,7 +4196,7 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_stories"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "chrono",
  "fd-lock",
@@ -4213,14 +4213,14 @@ dependencies = [
 
 [[package]]
 name = "s_e_e_subprocess_env"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "s_e_e_shapes",
 ]
 
 [[package]]
 name = "s_e_e_workflow_runtime"
-version = "1.0.6754"
+version = "1.0.6889"
 dependencies = [
  "async-trait",
  "chrono",

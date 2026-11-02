@@ -22,12 +22,15 @@ fn home_package_summaries_cover_five_types() {
 }
 
 #[test]
-fn authoring_index_lists_six_guides_and_publish() {
+fn authoring_index_lists_six_package_guides_and_research() {
     assert_eq!(AUTHORING_GUIDE_LINKS.len(), 6);
     assert!(AUTHORING_GUIDE_LINKS
         .iter()
         .any(|link| link.label == "Cycles"));
     assert_eq!(AUTHORING_PUBLISH_LINK.path, "/authoring/publish/");
+    assert!(authoring_index_link_hrefs("/s_e_e_library")
+        .iter()
+        .any(|href| href == "/s_e_e_library/authoring/research/"));
 }
 
 #[test]

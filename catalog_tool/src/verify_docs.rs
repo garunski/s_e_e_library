@@ -19,13 +19,14 @@ fn with_pages_base(site_path: &str) -> String {
     }
 }
 
-/// Public documentation paths that must have a `Source:` line in llms.txt (24 entries).
+/// Public documentation paths that must have a `Source:` line in llms.txt.
 pub fn llms_source_paths() -> Vec<&'static str> {
-    let mut paths = Vec::with_capacity(24);
+    let mut paths = Vec::with_capacity(26);
     paths.push("/authoring/");
     for slug in AUTHORING_SLUGS {
         paths.push(authoring_path(slug));
     }
+    paths.push("/authoring/research/");
     paths.push("/schema/");
     for slug in SCHEMA_SLUGS {
         paths.push(schema_path(slug));
@@ -99,6 +100,12 @@ pub fn verify_authoring_index_links(html: &str) -> Vec<String> {
                 "authoring/index.html does not link to /authoring/{slug}/ (expected href {href})"
             ));
         }
+    }
+    let research_href = with_pages_base("/authoring/research/");
+    if !html.contains(&research_href) {
+        errors.push(format!(
+            "authoring/index.html does not link to Research authoring (expected href {research_href})"
+        ));
     }
     let publish_href = with_pages_base(authoring_path("publish"));
     if !html.contains(&publish_href) {
@@ -244,9 +251,9 @@ pub fn verify_staged_schema_downloads(staging: &Path) -> Vec<String> {
         })
         .collect();
     files.sort();
-    if files.len() != 18 {
+    if files.len() != 19 {
         return vec![format!(
-            "expected 18 staged schema/*.schema.json files, found {} under {schema_dir:?}",
+            "expected 19 staged schema/*.schema.json files, found {} under {schema_dir:?}",
             files.len()
         )];
     }
@@ -315,6 +322,10 @@ pub(crate) fn fixture_authoring_index_html() -> String {
             PAGES_BASE_PREFIX, slug
         ));
     }
+    html.push_str(&format!(
+        "<a href=\"{}/authoring/research/\">research</a>",
+        PAGES_BASE_PREFIX
+    ));
     html.push_str(&format!(
         "<a href=\"{}/authoring/publish/\">publish</a>",
         PAGES_BASE_PREFIX

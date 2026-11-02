@@ -12,7 +12,7 @@ mod schema_package_contract;
 
 pub use authoring::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
-    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringSkills,
+    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringResearch, LibraryAuthoringSkills,
     LibraryAuthoringWorkflows,
 };
 pub use authoring_index::LibraryAuthoringIndex;
@@ -21,7 +21,7 @@ pub use schema::{
     LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCommand, LibrarySchemaCycle,
     LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
     LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaRoutingRules,
-    LibrarySchemaRuleTemplate, LibrarySchemaSchedule, LibrarySchemaScheduleRuleSet,
+    LibrarySchemaResearch, LibrarySchemaRuleTemplate, LibrarySchemaSchedule, LibrarySchemaScheduleRuleSet,
     LibrarySchemaSkill, LibrarySchemaStoriesConfig, LibrarySchemaWorkflow,
 };
 
