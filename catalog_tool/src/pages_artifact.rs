@@ -84,9 +84,9 @@ fn schema_sources(root: &Path) -> Result<Vec<PathBuf>, String> {
         })
         .collect();
     files.sort();
-    if files.len() != 19 {
+    if files.len() != 21 {
         return Err(format!(
-            "expected 19 public/schema/*.schema.json files, found {}",
+            "expected 21 public/schema/*.schema.json files, found {}",
             files.len()
         ));
     }

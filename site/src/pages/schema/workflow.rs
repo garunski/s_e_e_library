@@ -70,6 +70,10 @@ pub fn LibrarySchemaWorkflow() -> Element {
             SchemaBlockByName { filename: "workflow-definition.schema.json" }
             h2 { class: "mt-8 {SECTION_TITLE}", "Engine content schema" }
             SchemaBlockByName { filename: "workflow-engine.schema.json" }
+            h2 {class:"mt-8 {SECTION_TITLE}","Execution response and errors"}
+            p {class:"text-sm text-zinc-600 dark:text-zinc-400","HTTP and MCP expose the same current execution fields. Resource rejection details name the limit, allowed and attempted amounts, task and execution. Accepted worker failures retain bounded diagnostics in runtime_progress.worker_failure."}
+            SchemaBlockByName {filename:"workflow-execution.schema.json"}
+            SchemaBlockByName {filename:"execution-error.schema.json"}
             p { class: "mt-6 text-sm text-zinc-600 dark:text-zinc-400",
                 "See the "
                 Link { to: Route::AuthoringWorkflows {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "workflow authoring guide" }

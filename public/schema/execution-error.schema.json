@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://garunski.github.io/s_e_e_library/schema/execution-error.schema.json",
+  "title": "Execution HTTP error envelope",
+  "description": "A rejected HTTP request. A run that was already accepted instead exposes its failure through WorkflowExecution.errors and runtime_progress.worker_failure. MCP preserves the same run fields.",
+  "type": "object",
+  "required": ["error"],
+  "properties": {
+    "error": {"type": "string", "minLength": 1, "description": "Error detail. resource_limit_exceeded includes limit, allowed, attempted, task and execution identifiers."},
+    "code": {"type": "string", "description": "Optional API error classification; omitted when no classification is supplied."}
+  },
+  "additionalProperties": false
+}

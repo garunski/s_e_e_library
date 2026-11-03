@@ -1,0 +1,1615 @@
+{
+  "$defs": {
+    "AdmittedLibraryRef": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/LibraryKind"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "type": "object"
+    },
+    "AgentTurn": {
+      "properties": {
+        "actor": {
+          "$ref": "#/$defs/EntityActor"
+        },
+        "at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "direction": {
+          "$ref": "#/$defs/AgentTurnDirection"
+        },
+        "id": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "task_id",
+        "direction",
+        "body",
+        "actor",
+        "at"
+      ],
+      "type": "object"
+    },
+    "AgentTurnDirection": {
+      "enum": [
+        "operator",
+        "agent"
+      ],
+      "type": "string"
+    },
+    "AssemblyManifest": {
+      "properties": {
+        "admitted_library_refs": {
+          "items": {
+            "$ref": "#/$defs/AdmittedLibraryRef"
+          },
+          "type": "array"
+        },
+        "assets": {
+          "items": {
+            "$ref": "#/$defs/WorkflowSpaceAssetRef"
+          },
+          "type": "array"
+        },
+        "comparable_group": {
+          "type": "string"
+        },
+        "evidence_contract": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "excluded_keys": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "story_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "story_id",
+        "assets"
+      ],
+      "type": "object"
+    },
+    "AuditEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "changes_count": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/AuditStatus"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "task_id",
+        "status",
+        "timestamp",
+        "changes_count",
+        "message"
+      ],
+      "type": "object"
+    },
+    "AuditStatus": {
+      "enum": [
+        "success",
+        "failure"
+      ],
+      "type": "string"
+    },
+    "CapabilityKind": {
+      "enum": [
+        "workflow",
+        "mcp_tool",
+        "command"
+      ],
+      "type": "string"
+    },
+    "CommandIdSource": {
+      "enum": [
+        "task",
+        "launch",
+        "workflow_default",
+        "project_default",
+        "legacy_explicit"
+      ],
+      "type": "string"
+    },
+    "ContextExcerpt": {
+      "properties": {
+        "entity_ref": {
+          "$ref": "#/$defs/EntityRef"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity_ref",
+        "title",
+        "excerpt"
+      ],
+      "type": "object"
+    },
+    "ContextExclusion": {
+      "properties": {
+        "item_key": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "item_key",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "CycleDocumentHost": {
+      "enum": [
+        "orchestrator",
+        "knowledge",
+        "stories",
+        "events"
+      ],
+      "type": "string"
+    },
+    "DeliberationRecord": {
+      "properties": {
+        "byte_budget": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "invocation_preview": {
+          "type": "string"
+        },
+        "prepared_context": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PreparedContext"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "proposal_id": {
+          "type": "string"
+        },
+        "turns": {
+          "items": {
+            "$ref": "#/$defs/DeliberationTurn"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "proposal_id",
+        "turns",
+        "invocation_preview",
+        "byte_budget"
+      ],
+      "type": "object"
+    },
+    "DeliberationStepKind": {
+      "enum": [
+        "direction",
+        "stories",
+        "workflows",
+        "prompt_assemblies",
+        "execution_plan",
+        "readiness",
+        "outcome"
+      ],
+      "type": "string"
+    },
+    "DeliberationTurn": {
+      "properties": {
+        "admitted_source_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "notes": {
+          "items": {
+            "$ref": "#/$defs/WorkingNote"
+          },
+          "type": "array"
+        },
+        "step": {
+          "$ref": "#/$defs/DeliberationStepKind"
+        }
+      },
+      "required": [
+        "step",
+        "notes",
+        "admitted_source_count",
+        "created_at"
+      ],
+      "type": "object"
+    },
+    "EntityActor": {
+      "oneOf": [
+        {
+          "properties": {
+            "kind": {
+              "const": "person",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "execution_id": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "workflow_execution",
+              "type": "string"
+            },
+            "task_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "execution_id"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "client_id": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "mcp_client",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "client_id"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "external",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "EntityKind": {
+      "enum": [
+        "story",
+        "milestone",
+        "doc",
+        "decision",
+        "workflow",
+        "cycle",
+        "prompt",
+        "command",
+        "execution",
+        "schedule",
+        "rule",
+        "spoke",
+        "objective",
+        "proposal",
+        "component",
+        "change",
+        "impact",
+        "audit",
+        "draft",
+        "research",
+        "planning_completion_receipt",
+        "planning_milestone_completion_receipt"
+      ],
+      "type": "string"
+    },
+    "EntityRef": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/EntityKind"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "type": "object"
+    },
+    "ExecutionLoopKind": {
+      "enum": [
+        "foreach",
+        "repair"
+      ],
+      "type": "string"
+    },
+    "ExecutionLoopProgress": {
+      "properties": {
+        "active_attempt": {
+          "description": "One-based active repair attempt number, or null when no attempt is active.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "barrier_pending": {
+          "description": "True until the entire loop completes; completing item zero does not release dependents.",
+          "type": "boolean"
+        },
+        "collection_size": {
+          "description": "Known foreach collection size; null until resolved, and null for repair controls.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "completed_iterations": {
+          "description": "Successfully completed foreach iterations.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "current_iteration": {
+          "description": "Zero-based active foreach iteration index, or null when no iteration is active.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "kind": {
+          "$ref": "#/$defs/ExecutionLoopKind",
+          "description": "Foreach or repair control."
+        },
+        "task_id": {
+          "description": "Exact scoped loop task ID.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "task_id",
+        "kind",
+        "completed_iterations",
+        "barrier_pending"
+      ],
+      "type": "object"
+    },
+    "ExecutionProgress": {
+      "properties": {
+        "completed_tasks": {
+          "description": "Completed materialized actions. This is not a percentage of unknown future work.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "generated_edges": {
+          "description": "Lifetime edge allocation counter, preserved on resume.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "generated_nodes": {
+          "description": "Lifetime node allocation counter, preserved on resume.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "loops": {
+          "description": "Materialized loop controls with collection, iteration, attempt and barrier progress.",
+          "items": {
+            "$ref": "#/$defs/ExecutionLoopProgress"
+          },
+          "type": "array"
+        },
+        "materialized_tasks": {
+          "description": "Count of currently materialized action IDs, excluding templates and loop control barriers.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pause_requested": {
+          "description": "A pause request is pending; Paused is reported only after active actions and the checkpoint settle.",
+          "type": "boolean"
+        },
+        "retained_edges": {
+          "description": "Current retained graph edges.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "retained_nodes": {
+          "description": "Current retained graph nodes, including templates and controls.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "status": {
+          "$ref": "#/$defs/WorkflowExecutionStatus",
+          "description": "Authoritative execution status; a successful worker spawn is not completion."
+        },
+        "total_tasks": {
+          "description": "Total action count only after all future loop work is settled; null while future work remains unknown.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "worker_failure": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExecutionWorkerFailure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Bounded worker failure diagnostics; null for a normal terminal exchange."
+        },
+        "worker_pid": {
+          "description": "Owned supervised worker process ID, or null when unavailable.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "materialized_tasks",
+        "completed_tasks",
+        "generated_nodes",
+        "generated_edges",
+        "retained_nodes",
+        "retained_edges",
+        "loops",
+        "pause_requested"
+      ],
+      "type": "object"
+    },
+    "ExecutionRunOrigin": {
+      "enum": [
+        "knowledge_cycle",
+        "orchestrator_cycle",
+        "stories_cycle",
+        "events_cycle",
+        "ad_hoc"
+      ],
+      "type": "string"
+    },
+    "ExecutionTrigger": {
+      "oneOf": [
+        {
+          "properties": {
+            "kind": {
+              "const": "manual",
+              "type": "string"
+            },
+            "overrides_used": {
+              "default": false,
+              "type": "boolean"
+            },
+            "schedule_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "cron",
+              "type": "string"
+            },
+            "schedule_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "schedule_id"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "interval",
+              "type": "string"
+            },
+            "schedule_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "schedule_id"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "entity_event",
+              "type": "string"
+            },
+            "schedule_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "schedule_id"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "execution_outcome",
+              "type": "string"
+            },
+            "schedule_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "schedule_id"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "catch_up",
+              "type": "string"
+            },
+            "schedule_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "schedule_id"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "ExecutionWorkerFailure": {
+      "properties": {
+        "code": {
+          "description": "Worker failure classification, including worker_aborted, worker_protocol_error and bounded control, startup, exit or persistence failures.",
+          "type": "string"
+        },
+        "detail": {
+          "description": "Finite failure explanation without bootstrap credentials.",
+          "type": "string"
+        },
+        "dropped_bytes": {
+          "description": "Count of diagnostic bytes omitted by bounded retention or its queue.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "exit_code": {
+          "description": "Exact process exit code, or null for signal termination.",
+          "format": "int32",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "signal": {
+          "description": "Exact terminating signal, or null for normal code exits.",
+          "format": "int32",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "stderr_tail": {
+          "description": "Lossy UTF-8 diagnostic rendering of at most 64 KiB of retained raw stderr bytes.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "detail",
+        "stderr_tail",
+        "dropped_bytes"
+      ],
+      "type": "object"
+    },
+    "LibraryKind": {
+      "enum": [
+        "workflow",
+        "prompt",
+        "skill",
+        "rule",
+        "template",
+        "command",
+        "bundle",
+        "cycle"
+      ],
+      "type": "string"
+    },
+    "OperatorRejectionHint": {
+      "properties": {
+        "capability_id": {
+          "type": "string"
+        },
+        "capability_kind": {
+          "$ref": "#/$defs/CapabilityKind"
+        },
+        "inputs": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "array"
+            },
+            {
+              "additionalProperties": true,
+              "type": "object"
+            }
+          ],
+          "default": null
+        },
+        "objective_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "capability_kind",
+        "capability_id",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "PlanningClarificationAnswerRecord": {
+      "properties": {
+        "answer": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "array"
+            },
+            {
+              "additionalProperties": true,
+              "type": "object"
+            }
+          ]
+        },
+        "decision_blocked": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "question_id": {
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "unavailable": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "question_id",
+        "prompt",
+        "decision_blocked",
+        "answer"
+      ],
+      "type": "object"
+    },
+    "PlanningClarificationPendingQuestion": {
+      "properties": {
+        "decision_blocked": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "question_id": {
+          "type": "string"
+        },
+        "required": {
+          "default": false,
+          "type": "boolean"
+        },
+        "sources": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "question_id",
+        "prompt",
+        "decision_blocked"
+      ],
+      "type": "object"
+    },
+    "PlanningClarificationState": {
+      "properties": {
+        "answers": {
+          "items": {
+            "$ref": "#/$defs/PlanningClarificationAnswerRecord"
+          },
+          "type": "array"
+        },
+        "original_request": {
+          "type": "string"
+        },
+        "pending": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PlanningClarificationPendingQuestion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "started_at_ms": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "status": {
+          "$ref": "#/$defs/PlanningClarificationStatus"
+        },
+        "wall_clock_ms": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "original_request",
+        "answers",
+        "status",
+        "started_at_ms",
+        "wall_clock_ms"
+      ],
+      "type": "object"
+    },
+    "PlanningClarificationStatus": {
+      "enum": [
+        "in_progress",
+        "complete",
+        "incomplete",
+        "cancelled",
+        "timed_out"
+      ],
+      "type": "string"
+    },
+    "PredictedFailureMode": {
+      "properties": {
+        "confidence": {
+          "format": "double",
+          "type": "number"
+        },
+        "corpus_story_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "description": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "description",
+        "confidence"
+      ],
+      "type": "object"
+    },
+    "PreparedContext": {
+      "properties": {
+        "assembly_cost": {
+          "$ref": "#/$defs/PreparedContextAssemblyCost"
+        },
+        "entity_refs": {
+          "items": {
+            "$ref": "#/$defs/EntityRef"
+          },
+          "type": "array"
+        },
+        "excluded": {
+          "items": {
+            "$ref": "#/$defs/ContextExclusion"
+          },
+          "type": "array"
+        },
+        "file_paths": {
+          "items": {
+            "$ref": "#/$defs/ResolvedFilePath"
+          },
+          "type": "array"
+        },
+        "governing_decisions": {
+          "items": {
+            "$ref": "#/$defs/ContextExcerpt"
+          },
+          "type": "array"
+        },
+        "governing_docs": {
+          "items": {
+            "$ref": "#/$defs/ContextExcerpt"
+          },
+          "type": "array"
+        },
+        "hub_event_sequence": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "operator_rejection_hints": {
+          "items": {
+            "$ref": "#/$defs/OperatorRejectionHint"
+          },
+          "type": "array"
+        },
+        "related_entities": {
+          "items": {
+            "$ref": "#/$defs/RelatedEntitySummary"
+          },
+          "type": "array"
+        },
+        "target": {
+          "$ref": "#/$defs/EntityRef"
+        },
+        "test_assertions": {
+          "items": {
+            "$ref": "#/$defs/TestAssertionEntry"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "hub_event_sequence",
+        "target",
+        "assembly_cost"
+      ],
+      "type": "object"
+    },
+    "PreparedContextAssemblyCost": {
+      "properties": {
+        "millis": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "tokens": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tokens",
+        "millis"
+      ],
+      "type": "object"
+    },
+    "ProposalDeliberation": {
+      "properties": {
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/ProposalDeliberationSource"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "type": "object"
+    },
+    "ProposalDeliberationSource": {
+      "enum": [
+        "ranked",
+        "model"
+      ],
+      "type": "string"
+    },
+    "RelatedEntitySummary": {
+      "properties": {
+        "entity_ref": {
+          "$ref": "#/$defs/EntityRef"
+        },
+        "relation": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity_ref",
+        "title",
+        "relation"
+      ],
+      "type": "object"
+    },
+    "RepairAttemptPredictions": {
+      "properties": {
+        "attempt_index": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "failure_modes": {
+          "items": {
+            "$ref": "#/$defs/PredictedFailureMode"
+          },
+          "type": "array"
+        },
+        "repair_loop_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "repair_loop_id",
+        "attempt_index",
+        "failure_modes"
+      ],
+      "type": "object"
+    },
+    "ResolvedFilePath": {
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "spoke": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "spoke",
+        "path"
+      ],
+      "type": "object"
+    },
+    "TaskExecution": {
+      "properties": {
+        "command_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "command_id_source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CommandIdSource"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "input_request_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "output": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/TaskExecutionStatus"
+        },
+        "user_input": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workflow_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "workflow_id",
+        "name",
+        "status",
+        "created_at"
+      ],
+      "type": "object"
+    },
+    "TaskExecutionStatus": {
+      "enum": [
+        "pending",
+        "in_progress",
+        "complete",
+        "failed",
+        "waiting_for_input"
+      ],
+      "type": "string"
+    },
+    "TestAssertionEntry": {
+      "properties": {
+        "assertions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "file_path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "file_path"
+      ],
+      "type": "object"
+    },
+    "WorkerIdentity": {
+      "properties": {
+        "harness": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "harness",
+        "provider",
+        "model"
+      ],
+      "type": "object"
+    },
+    "WorkflowExecutionStatus": {
+      "enum": [
+        "pending",
+        "running",
+        "complete",
+        "failed",
+        "waiting_for_input",
+        "cancelled",
+        "paused"
+      ],
+      "type": "string"
+    },
+    "WorkflowSpaceAssetKind": {
+      "enum": [
+        "workflow",
+        "prompt_assembly",
+        "skill",
+        "command",
+        "evaluation"
+      ],
+      "type": "string"
+    },
+    "WorkflowSpaceAssetRef": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/WorkflowSpaceAssetKind"
+        },
+        "version": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "WorkingNote": {
+      "properties": {
+        "admitted": {
+          "type": "boolean"
+        },
+        "body": {
+          "type": "string"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/EntityRef"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "exclusion_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "$ref": "#/$defs/WorkingNoteKind"
+        },
+        "source": {
+          "$ref": "#/$defs/ProposalDeliberation"
+        }
+      },
+      "required": [
+        "kind",
+        "body",
+        "source",
+        "created_at"
+      ],
+      "type": "object"
+    },
+    "WorkingNoteKind": {
+      "enum": [
+        "observation",
+        "question",
+        "hypothesis",
+        "decision",
+        "exclusion"
+      ],
+      "type": "string"
+    }
+  },
+  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow-execution.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Current workflow execution returned by HTTP and MCP. runtime_progress describes the flat runtime and supervised worker; unknown future work has a null total.",
+  "properties": {
+    "agent_turns": {
+      "items": {
+        "$ref": "#/$defs/AgentTurn"
+      },
+      "type": "array"
+    },
+    "assembly_manifest": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AssemblyManifest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "audit_trail": {
+      "items": {
+        "$ref": "#/$defs/AuditEvent"
+      },
+      "type": "array"
+    },
+    "completed_at": {
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "completed_task_count": {
+      "default": 0,
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "cycle_document_host": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CycleDocumentHost"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cycle_document_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cycle_document_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cycle_launch_command_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cycle_launch_command_id_source": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CommandIdSource"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cycle_stage_key": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deliberation_snapshot": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DeliberationRecord"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "errors": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "id": {
+      "type": "string"
+    },
+    "learning_record_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "per_task_logs": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "type": "object"
+    },
+    "persisted_server_epoch": {
+      "default": 0,
+      "format": "uint64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "plan_digest": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "planned_task_count": {
+      "default": 0,
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "planning_case_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "planning_clarification_states": {
+      "additionalProperties": {
+        "$ref": "#/$defs/PlanningClarificationState"
+      },
+      "type": "object"
+    },
+    "repair_failure_predictions": {
+      "items": {
+        "$ref": "#/$defs/RepairAttemptPredictions"
+      },
+      "type": "array"
+    },
+    "run_origin": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExecutionRunOrigin"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runtime_inputs": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "array"
+          },
+          {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        ]
+      },
+      "default": {},
+      "type": "object"
+    },
+    "runtime_progress": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExecutionProgress"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "$ref": "#/$defs/WorkflowExecutionStatus"
+    },
+    "tasks": {
+      "items": {
+        "$ref": "#/$defs/TaskExecution"
+      },
+      "type": "array"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "trigger": {
+      "$ref": "#/$defs/ExecutionTrigger",
+      "default": {
+        "kind": "manual",
+        "overrides_used": false
+      }
+    },
+    "worker_identity": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/WorkerIdentity"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "workflow_definition_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "workflow_name": {
+      "type": "string"
+    },
+    "workflow_snapshot": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "array"
+        },
+        {
+          "additionalProperties": true,
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "workflow_name",
+    "workflow_snapshot",
+    "status",
+    "created_at",
+    "tasks",
+    "timestamp",
+    "audit_trail",
+    "per_task_logs",
+    "errors"
+  ],
+  "title": "WorkflowExecution",
+  "type": "object"
+}

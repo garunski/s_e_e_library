@@ -12,6 +12,10 @@ const REFERENCE_EXAMPLE: &str =
     include_str!("../../../content/authoring/workflows_reference_example.json");
 const INSTALL: &str = include_str!("../../../content/authoring/workflows_install.json");
 const PROJECT_PLACEHOLDER: &str = "{{project.id}}";
+const RUNTIME_HELP:&str=include_str!("../../../content/authoring/workflow_runtime.md");
+const RUNNING_EXAMPLE:&str=include_str!("../../../content/authoring/workflow_execution_running.json");
+const WORKER_FAILURE_EXAMPLE:&str=include_str!("../../../content/authoring/workflow_execution_worker_failed.json");
+const LIMIT_ERROR_EXAMPLE:&str=include_str!("../../../content/authoring/workflow_execution_limit_error.json");
 
 #[component]
 pub fn LibraryAuthoringWorkflows() -> Element {
@@ -234,6 +238,13 @@ pub fn LibraryAuthoringWorkflows() -> Element {
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "Install path" }
             CodeExample { text: INSTALL }
+            s_e_e_gui_kit::components::MarkdownHtml {src:RUNTIME_HELP.to_string()}
+            h2 {class:"mt-8 {SECTION_TITLE}","Running execution example"}
+            CodeExample {text:RUNNING_EXAMPLE}
+            h2 {class:"mt-8 {SECTION_TITLE}","Worker failure example"}
+            CodeExample {text:WORKER_FAILURE_EXAMPLE}
+            h2 {class:"mt-8 {SECTION_TITLE}","Resource rejection example"}
+            CodeExample {text:LIMIT_ERROR_EXAMPLE}
             SchemaReferenceFooter {
                 catalog_schema_label: "see.library/v1",
                 schema_route: Route::SchemaWorkflow {},
