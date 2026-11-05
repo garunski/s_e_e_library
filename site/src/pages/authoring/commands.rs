@@ -15,7 +15,6 @@ pub fn LibraryAuthoringCommands() -> Element {
         AuthoringGuideFrame {
             document_title: "Commands",
             meta_description: "A command package defines how the S.E.E. engine runs an external agent CLI against a spoke workspace.",
-            rail_number: "04",
             rail_title: "Install path is the command id.",
             rail_description: "The catalog to path must equal .s_e_e/commands/{{id}}.json.",
             p { class: "{PAGE_LEDE}",

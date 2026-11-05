@@ -24,8 +24,8 @@ A story is an implementation contract: what to change, why, how, and what observ
 
 Tool input schemas are the contract. Prefer the named tools; use `item_fetch` and `item_call` only when no named tool exists.
 
-- Stories: `story_create` (title only, allocates the id), `story_get`, `story_update` (description, implementation plan, implementation notes, final summary), `story_set_status`, `story_set_labels`, `story_set_priority`, `story_set_milestone`, `story_set_dependencies`, `story_set_assignee`, and the criterion tools `story_add_criterion`, `story_edit_criterion`, `story_check_criterion`, `story_remove_criterion`, `story_reorder_criteria`.
-- Milestones: `milestone_list`, `milestone_get`, `milestone_create`, `milestone_update`, `milestone_set_status`, `milestone_set_priority`, `milestone_set_labels`, `milestone_set_ordinal`, `milestone_set_title`, `milestone_set_description`, `milestone_add_members`, `milestone_remove_members`, and the criterion tools `milestone_add_criterion`, `milestone_edit_criterion`, `milestone_remove_criterion`, `milestone_reorder_criteria`, `milestone_check_criterion`.
+- Stories: `story_create` (title only, allocates the id), `story_get`, `story_update` (description, implementation plan, implementation notes, final summary), `story_set_status`, `story_set_labels`, `story_set_milestone`, `story_set_dependencies`, `story_set_assignee`, and the criterion tools `story_add_criterion`, `story_edit_criterion`, `story_check_criterion`, `story_remove_criterion`, `story_reorder_criteria`.
+- Milestones: `milestone_list`, `milestone_get`, `milestone_create`, `milestone_update`, `milestone_set_status`, `milestone_set_labels`, `milestone_set_ordinal`, `milestone_set_title`, `milestone_set_description`, `milestone_add_members`, `milestone_remove_members`, and the criterion tools `milestone_add_criterion`, `milestone_edit_criterion`, `milestone_remove_criterion`, `milestone_reorder_criteria`, `milestone_check_criterion`.
 
 ## A story contains no choices
 
@@ -68,7 +68,7 @@ Number each criterion and state one outcome per criterion, in present tense: "`p
 
 ## Milestones
 
-A milestone is a record with status, priority, labels, ordinal, typed criteria, plan, notes, and summary. Membership is the story's `milestone` field, set with `story_set_milestone` or `milestone_add_members`; a label never implies membership.
+A milestone is a record with status, labels, ordinal, typed criteria, plan, notes, and summary. Membership is the story's `milestone` field, set with `story_set_milestone` or `milestone_add_members`; a label never implies membership.
 
 - Write the observable outcome and its boundary first. Inventory every necessary behavior and map each to an implementation-ready story. Include a story only when the outcome or an explicit milestone criterion needs it, and state what is outside the cut.
 - Add a `milestone_progress` criterion targeting the milestone itself with `min_completion_percent` 100, plus separate typed criteria for cross-story outcomes. Use `manual` only for evidence the evaluator cannot derive, and name that evidence. Address milestone criteria by `criterion_id`, never by position.
@@ -81,7 +81,7 @@ A milestone is a record with status, priority, labels, ordinal, typed criteria, 
 2. Complete the evidence, scope, and choice reviews above before creating anything.
 3. `story_create` with the title, then `story_update` with the description and implementation plan, using the token from `story_get`.
 4. Add numbered criteria with `story_add_criterion`.
-5. Set labels, priority, milestone, and dependencies.
+5. Set labels, milestone, and dependencies.
 6. Read the full story back: description, plan, criteria, dependencies, milestone, and the configured initial status.
 7. Report the story id and title, and state whether it is ready, waiting on dependencies, or blocked, and why.
 

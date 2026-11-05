@@ -72,7 +72,6 @@ pub fn verify_llms_semantics(llms_path: &Path) -> Vec<String> {
         "S.E.E. Official Library",
         "see.library/v1",
         "usageContexts",
-        "technologies[]",
         "Legacy classification inference",
         "Classification (required for new packages)",
     ] {

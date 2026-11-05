@@ -11,7 +11,6 @@ pub fn LibrarySchemaHubConfig() -> Element {
         SchemaGuideFrame {
             document_title: "Hub config schema",
             meta_description: "Hub data-root config.json. A JSON object with at least one property. Validated on save.",
-            rail_number: "08",
             rail_title: "Validators run on save.",
             rail_description: ".s_e_e/config.json. additionalProperties is allowed so project-specific keys persist.",
             p { class: "{PAGE_LEDE}",

@@ -24,18 +24,15 @@ pub const PRE: &str =
 pub fn AuthoringGuideFrame(
     document_title: &'static str,
     meta_description: &'static str,
-    rail_number: &'static str,
     rail_title: &'static str,
     rail_description: &'static str,
     children: Element,
 ) -> Element {
     rsx! {
-        document::Title { "{document_title}" }
         document::Meta { name: "description", content: "{meta_description}" }
         LibraryDocFrame {
             title: document_title.to_string(),
             description: meta_description.to_string(),
-            rail_number,
             rail_title,
             rail_description,
             {children}

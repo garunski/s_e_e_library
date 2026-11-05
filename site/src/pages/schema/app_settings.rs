@@ -9,7 +9,6 @@ pub fn LibrarySchemaAppSettings() -> Element {
         SchemaGuideFrame {
             document_title: "App settings schema",
             meta_description: "User-level ~/.s_e_e/settings.json. Theme, auth, retention, and command allowlist. Validated on save.",
-            rail_number: "10",
             rail_title: "Validators run on save.",
             rail_description: "~/.s_e_e/settings.json. theme is light, dark, or system. Extra keys are kept.",
             p { class: "{PAGE_LEDE}",

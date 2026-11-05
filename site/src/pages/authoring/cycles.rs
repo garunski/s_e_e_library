@@ -72,7 +72,6 @@ pub fn LibraryAuthoringCycles() -> Element {
         AuthoringGuideFrame {
             document_title: "Cycles",
             meta_description: "A cycle package describes stages, stores, and triggers for an orchestrator or knowledge host.",
-            rail_number: "06",
             rail_title: "Installs under .s_e_e/cycles.",
             rail_description: "Payload file cycle.json; to path must match the document id.",
             p { class: "{PAGE_LEDE}",

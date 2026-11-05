@@ -14,8 +14,8 @@ fn shell_uses_shared_page_and_frame_tokens() {
 }
 
 #[test]
-fn shell_buttons_use_compiled_sky_focus_rings() {
+fn shell_buttons_use_sky_focus_outlines_in_both_themes() {
     let classes = button_classes(ButtonVariant::Primary, ButtonSize::Medium, false, None);
-    assert!(classes.contains("sky-100") || classes.contains("primary-600"));
-    assert!(classes.contains("focus-visible:ring"));
+    assert!(classes.contains("focus-visible:outline-sky-600"));
+    assert!(classes.contains("dark:focus-visible:outline-sky-300"));
 }

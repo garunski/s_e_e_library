@@ -43,16 +43,16 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 - `story_create` - allocate id and create shell (`title` required).
 - `story_get` - read full story including description, AC, plan, `conflict_token`.
 - `story_update` - write `description`, `implementation_plan`, `implementation_notes`, `final_summary` (pass `conflict_token` from the prior read).
-- `story_set_status`, `story_set_labels`, `story_set_assignee`, `story_set_priority`, `story_set_milestone`, `story_set_dependencies` - metadata (pass `conflict_token` from the prior read).
+- `story_set_status`, `story_set_labels`, `story_set_assignee`, `story_set_milestone`, `story_set_dependencies` - metadata (pass `conflict_token` from the prior read).
 - `story_add_criterion`, `story_edit_criterion`, `story_check_criterion`, `story_remove_criterion`, `story_reorder_criteria` - acceptance criteria.
 
-**Milestones** (a milestone is a record, not a label: status, priority, labels, dates, ordinal, typed criteria, plan, notes, summary; no assignee):
+**Milestones** (a milestone is a record, not a label: status, labels, dates, ordinal, typed criteria, plan, notes, summary; no assignee):
 
 - `milestone_list` - browse ids and progress.
 - `milestone_get` - full record including criteria, body sections, and `conflict_token`.
 - `milestone_create` - allocate id from title and description.
 - `milestone_update` - write description, implementation_plan, implementation_notes, and final_summary.
-- `milestone_set_status`, `milestone_set_priority`, `milestone_set_labels`, `milestone_set_ordinal`, `milestone_set_title`, `milestone_set_description`.
+- `milestone_set_status`, `milestone_set_labels`, `milestone_set_ordinal`, `milestone_set_title`, `milestone_set_description`.
 - `milestone_add_members`, `milestone_remove_members`.
 - `milestone_add_criterion`, `milestone_edit_criterion`, `milestone_remove_criterion`, `milestone_reorder_criteria`, `milestone_check_criterion` (Manual only).
 
@@ -99,7 +99,6 @@ references: []
 documentation: []
 parent_story_id: story-<n>
 sub_stories: []
-priority: medium
 ordinal: 1
 implementation_order: 1
 spoke: s_e_e
@@ -177,7 +176,7 @@ If authoring surfaces a decision you cannot make, stop and ask the user before c
 3. `story_create` with title, or run the `story-authoring` prompt.
 4. Set description and implementation plan with `story_update` (pass `conflict_token` from `story_get`) or prompt follow-through.
 5. Add numbered AC with `story_add_criterion`.
-6. Set labels, priority, milestone, and dependencies via MCP tools.
+6. Set labels, milestone, and dependencies via MCP tools.
 7. Read the created or renamed entity back through the store and confirm its id and title.
 8. Apply the required specificity review and read back the completed body, criteria, and metadata.
 9. Hand off implementation with the `work` skill.

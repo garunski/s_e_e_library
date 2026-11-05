@@ -4,7 +4,9 @@
   "category": "workflow",
   "name": "Scope planning milestone",
   "description": "Creates or updates the milestone cut from a validated planning manifest and records it in the operation journal.",
-  "labels": ["story"],
+  "labels": [
+    "story"
+  ],
   "dependencies": [],
   "toolIds": [],
   "releases": [
@@ -14,7 +16,10 @@
       "note": "Scope stage writes the milestone cut before stories."
     }
   ],
-  "usageContexts": ["cycle"],
-  "cliScope": { "scope": "any" },
-  "technologyScope": { "scope": "general" }
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  }
 }

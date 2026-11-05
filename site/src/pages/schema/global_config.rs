@@ -9,7 +9,6 @@ pub fn LibrarySchemaGlobalConfig() -> Element {
         SchemaGuideFrame {
             document_title: "Global config schema",
             meta_description: "User-level ~/.s_e_e/config.json. A JSON object. Validated on save.",
-            rail_number: "09",
             rail_title: "Validators run on save.",
             rail_description: "~/.s_e_e/config.json. The value must be a JSON object, not an array or scalar.",
             p { class: "{PAGE_LEDE}",

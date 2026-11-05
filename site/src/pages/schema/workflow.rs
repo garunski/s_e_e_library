@@ -26,7 +26,6 @@ pub fn LibrarySchemaWorkflow() -> Element {
         SchemaGuideFrame {
             document_title: "Workflow schema",
             meta_description: "Category workflow. Payload file definition.json. Installs to .s_e_e/workflows/definitions/{{slug}}.json.",
-            rail_number: "01",
             rail_title: "Installs under workflow definitions.",
             rail_description: "Destination is .s_e_e/workflows/definitions/{{slug}}.json.",
             p { class: "{PAGE_LEDE}",

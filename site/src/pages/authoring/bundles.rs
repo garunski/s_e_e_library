@@ -17,7 +17,6 @@ pub fn LibraryAuthoringBundles() -> Element {
         AuthoringGuideFrame {
             document_title: "Bundles",
             meta_description: "A bundle installs several library packages together using a shared catalog files map.",
-            rail_number: "05",
             rail_title: "The install path decides the kind.",
             rail_description: "The build decides payload kind from the destination prefix.",
             p { class: "{PAGE_LEDE}",

@@ -11,7 +11,6 @@ pub fn LibrarySchemaPrompt() -> Element {
         SchemaGuideFrame {
             document_title: "Prompt schema",
             meta_description: "Category prompt. Payload file prompt.json. Installs to .s_e_e/prompts/{{file}}.json.",
-            rail_number: "02",
             rail_title: "Installs under .s_e_e/prompts.",
             rail_description: "Destination is .s_e_e/prompts/{{file}}.json.",
             p { class: "{PAGE_LEDE}",

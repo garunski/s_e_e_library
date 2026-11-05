@@ -48,13 +48,12 @@ pub const PACKAGE_SCHEMA_PAGES: [PackageSchemaPageContract; 7] = [
 ];
 
 /// Markers the catalog index must expose for AC #1 (classification and destinations).
-pub const CATALOG_INDEX_MARKERS: [&str; 8] = [
+pub const CATALOG_INDEX_MARKERS: [&str; 7] = [
     "see.library/v1",
     "see.library/v2",
     "Package classification",
     "usageContexts",
     "cliScope",
-    "technologyScope",
     "Install paths",
     "categories",
 ];

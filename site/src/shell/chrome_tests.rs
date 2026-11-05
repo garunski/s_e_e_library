@@ -23,17 +23,17 @@ fn library_copyright_names_garunski_llc() {
 
 #[test]
 fn footer_shell_points_at_the_new_marketing_pages() {
-    let marketing = super::FOOTER_SHELL_GROUPS
+    let learn = super::FOOTER_SHELL_LINKS
         .iter()
-        .find(|group| group.label == "S.E.E.")
-        .expect("marketing group");
-    let how_it_works = marketing
-        .links
+        .find(|link| link.label == "Learn")
+        .expect("Learn link");
+    assert_eq!(learn.href, "https://garunski.github.io/s_e_e_site/learn/");
+    let beta = super::FOOTER_SHELL_LINKS
         .iter()
-        .find(|link| link.label == "How it works")
-        .expect("how it works");
+        .find(|link| link.label == "Join the beta")
+        .expect("beta signup link");
     assert_eq!(
-        how_it_works.href,
-        "https://garunski.github.io/s_e_e_site/how-it-works/"
+        beta.href,
+        "https://garunski.github.io/s_e_e_site/join-beta/"
     );
 }

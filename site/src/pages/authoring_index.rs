@@ -15,7 +15,6 @@ const INLINE_CODE: &str = "rounded bg-zinc-100 px-1 py-0.5 font-mono text-[11px]
 #[component]
 pub fn LibraryAuthoringIndex() -> Element {
     rsx! {
-        document::Title { "Authoring" }
         document::Meta {
             name: "description",
             content: "How to author each S.E.E. library package type: workflows, prompts, skills, commands, bundles, cycles, and publishing to the catalog.",
@@ -23,7 +22,6 @@ pub fn LibraryAuthoringIndex() -> Element {
         LibraryDocFrame {
             title: "Authoring".to_string(),
             description: "How to author each S.E.E. library package type: workflows, prompts, skills, commands, bundles, cycles, and publishing to the catalog.".to_string(),
-            rail_number: "01",
             rail_title: "Six package types",
             rail_description: "The guide names the file, the fields, and the install destination.",
             p { class: "{PAGE_LEDE}",

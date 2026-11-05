@@ -11,7 +11,6 @@ pub fn LibrarySchemaRoutingRules() -> Element {
         SchemaGuideFrame {
             document_title: "Routing rules schema",
             meta_description: "LLM task_profiles and cost_caps. Stored as llm.routing in hub config.json. Validated on save.",
-            rail_number: "11",
             rail_title: "Validators run on save.",
             rail_description: "llm.routing. Lives in hub config.json under llm.routing.",
             p { class: "{PAGE_LEDE}",

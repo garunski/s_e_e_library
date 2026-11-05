@@ -4,8 +4,7 @@ use dioxus_router::Link;
 use crate::library_href;
 use crate::pages::authoring::publish_wire::{
     CATALOG_IDENTITY, CLI_SCOPE_ANY, CLI_SCOPE_SPECIFIC, DOCS_CHECK_COMMANDS, PACKAGE_SIDECAR_PATH,
-    PAYLOAD_LAYOUT, RELEASE_HISTORY_SHAPE, TECH_SCOPE_GENERAL, TECH_SCOPE_SPECIFIC,
-    VALIDATE_AND_CATALOG_COMMANDS,
+    PAYLOAD_LAYOUT, RELEASE_HISTORY_SHAPE, VALIDATE_AND_CATALOG_COMMANDS,
 };
 use crate::pages::authoring_common::{
     AuthoringGuideFrame, CodeExample, BODY_TEXT, DD, DL, DT, INLINE_CODE, LINK, LIST, PAGE_LEDE,
@@ -24,7 +23,6 @@ pub fn LibraryAuthoringPublish() -> Element {
         AuthoringGuideFrame {
             document_title: "Publish to the catalog",
             meta_description: "Add a package payload to this repository, update catalog.json, and validate before opening a pull request.",
-            rail_number: "07",
             rail_title: "Publishing is a catalog entry.",
             rail_description: "The payload lives under packages/; catalog.json is the install map. Validation gates the entry.",
             p { class: "{PAGE_LEDE}",
@@ -143,13 +141,9 @@ pub fn LibraryAuthoringPublish() -> Element {
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "Classification (required for new packages)" }
             p { class: "{BODY_TEXT}",
-                "Every new package must declare how it is used and what it is compatible with. Add these fields to "
+                "Every new package must declare usage contexts and CLI compatibility in "
                 code { class: "{INLINE_CODE}", "s_e_e_package.json" }
-                " (and declare matching registry rows in "
-                code { class: "{INLINE_CODE}", "scripts/stacks.json" }
-                " or catalog "
-                code { class: "{INLINE_CODE}", "technologies[]" }
-                " when using specific scopes):"
+                ". Specific CLI IDs must be declared in the catalog tools registry."
             }
             dl { class: "{DL}",
                 dt { class: "{DT}", code { "usageContexts" } }
@@ -173,17 +167,6 @@ pub fn LibraryAuthoringPublish() -> Element {
                     code { class: "{INLINE_CODE}", "cliIds" }
                     " entry must exist in "
                     code { class: "{INLINE_CODE}", "tools[]" }
-                    "."
-                }
-                dt { class: "{DT}", code { "technologyScope" } }
-                dd { class: "{DD}",
-                    code { class: "{INLINE_CODE}", "{TECH_SCOPE_GENERAL}" }
-                    " or "
-                    code { class: "{INLINE_CODE}", "{TECH_SCOPE_SPECIFIC}" }
-                    ". When specific, list "
-                    code { class: "{INLINE_CODE}", "technologyIds" }
-                    " on the sidecar (or nested on the scope) and declare each id under catalog "
-                    code { class: "{INLINE_CODE}", "technologies[]" }
                     "."
                 }
                 dt { class: "{DT}", code { "toolIds" } }

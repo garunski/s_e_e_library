@@ -21,8 +21,5 @@
   ],
   "cliScope": {
     "scope": "any"
-  },
-  "technologyScope": {
-    "scope": "general"
   }
 }

@@ -11,7 +11,6 @@ pub fn LibrarySchemaScheduleRuleSet() -> Element {
         SchemaGuideFrame {
             document_title: "Schedule rule set schema",
             meta_description: "Named subject-filter rules for schedules. id and name are required. Validated on save.",
-            rail_number: "15",
             rail_title: "Validators run on save.",
             rail_description: ".s_e_e/workflows/schedule_rule_sets. id must be a safe JSON filename.",
             p { class: "{PAGE_LEDE}",

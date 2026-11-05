@@ -1,6 +1,14 @@
 {
-  "usageContexts": ["standalone"],
-  "cliScope": { "scope": "specific", "cliIds": ["cursor"] },
-  "technologyScope": { "scope": "general" },
-  "toolIds": ["cursor"]
+  "usageContexts": [
+    "standalone"
+  ],
+  "cliScope": {
+    "scope": "specific",
+    "cliIds": [
+      "cursor"
+    ]
+  },
+  "toolIds": [
+    "cursor"
+  ]
 }

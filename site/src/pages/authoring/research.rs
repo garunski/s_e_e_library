@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
 
-use crate::pages::authoring_common::{AuthoringGuideFrame, CodeExample, INLINE_CODE, PAGE_LEDE, SECTION_TITLE};
+use crate::pages::authoring_common::{
+    AuthoringGuideFrame, CodeExample, INLINE_CODE, PAGE_LEDE, SECTION_TITLE,
+};
 
 const EXAMPLES: &str = include_str!("../../../content/authoring/research_examples.json");
 
@@ -10,7 +12,6 @@ pub fn LibraryAuthoringResearch() -> Element {
         AuthoringGuideFrame {
             document_title: "Knowledge Research",
             meta_description: "Author structured S.E.E. Knowledge Research documents, validate drafts, and publish immutable editions.",
-            rail_number: "07",
             rail_title: "One profile source.",
             rail_description: "Read the kind and version descriptor before authoring.",
             p { class: "{PAGE_LEDE}",
@@ -92,4 +93,3 @@ pub fn LibraryAuthoringResearch() -> Element {
         }
     }
 }
-

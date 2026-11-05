@@ -11,7 +11,6 @@ pub fn LibrarySchemaCycle() -> Element {
         SchemaGuideFrame {
             document_title: "Cycle schema",
             meta_description: "Category cycle. Payload file cycle.json. Installs to .s_e_e/cycles/{{id}}.json.",
-            rail_number: "07",
             rail_title: "Installs under .s_e_e/cycles.",
             rail_description: "Destination is .s_e_e/cycles/{{id}}.json where id matches the document id.",
             p { class: "{PAGE_LEDE}",

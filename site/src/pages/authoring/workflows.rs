@@ -12,10 +12,13 @@ const REFERENCE_EXAMPLE: &str =
     include_str!("../../../content/authoring/workflows_reference_example.json");
 const INSTALL: &str = include_str!("../../../content/authoring/workflows_install.json");
 const PROJECT_PLACEHOLDER: &str = "{{project.id}}";
-const RUNTIME_HELP:&str=include_str!("../../../content/authoring/workflow_runtime.md");
-const RUNNING_EXAMPLE:&str=include_str!("../../../content/authoring/workflow_execution_running.json");
-const WORKER_FAILURE_EXAMPLE:&str=include_str!("../../../content/authoring/workflow_execution_worker_failed.json");
-const LIMIT_ERROR_EXAMPLE:&str=include_str!("../../../content/authoring/workflow_execution_limit_error.json");
+const RUNTIME_HELP: &str = include_str!("../../../content/authoring/workflow_runtime.md");
+const RUNNING_EXAMPLE: &str =
+    include_str!("../../../content/authoring/workflow_execution_running.json");
+const WORKER_FAILURE_EXAMPLE: &str =
+    include_str!("../../../content/authoring/workflow_execution_worker_failed.json");
+const LIMIT_ERROR_EXAMPLE: &str =
+    include_str!("../../../content/authoring/workflow_execution_limit_error.json");
 
 #[component]
 pub fn LibraryAuthoringWorkflows() -> Element {
@@ -23,7 +26,6 @@ pub fn LibraryAuthoringWorkflows() -> Element {
         AuthoringGuideFrame {
             document_title: "Workflows",
             meta_description: "A workflow package defines tasks the S.E.E. engine runs against a hub or spoke.",
-            rail_number: "01",
             rail_title: "Installs under workflow definitions.",
             rail_description: "Destination is .s_e_e/workflows/definitions/{{slug}}.json.",
             p { class: "{PAGE_LEDE}",

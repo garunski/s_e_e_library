@@ -11,7 +11,6 @@ pub fn LibrarySchemaSchedule() -> Element {
         SchemaGuideFrame {
             document_title: "Schedule schema",
             meta_description: "Workflow schedule JSON. id, name, workflow_id, kind, and enabled are required. Validated on save.",
-            rail_number: "14",
             rail_title: "Validators run on save.",
             rail_description: ".s_e_e/workflows/schedules. workflow_id must name an existing workflow definition.",
             p { class: "{PAGE_LEDE}",

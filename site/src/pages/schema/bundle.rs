@@ -12,7 +12,6 @@ pub fn LibrarySchemaBundle() -> Element {
         SchemaGuideFrame {
             document_title: "Bundle schema",
             meta_description: "Category bundle. No payload of its own. catalog files[] installs member payloads together.",
-            rail_number: "06",
             rail_title: "Metadata lives in the sidecar.",
             rail_description: "s_e_e_package.json carries id, slug, category, name, and dependencies.",
             p { class: "{PAGE_LEDE}",

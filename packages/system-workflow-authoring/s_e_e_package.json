@@ -31,9 +31,6 @@
   "usageContexts": [
     "standalone"
   ],
-  "technologyScope": {
-    "scope": "general"
-  },
   "cliScope": {
     "scope": "any"
   }

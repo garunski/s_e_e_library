@@ -12,10 +12,6 @@ pub const CLI_SCOPE_ANY: &str = r#"{ "scope": "any" }"#;
 
 pub const CLI_SCOPE_SPECIFIC: &str = r#"{ "scope": "specific", "cliIds": ["cursor"] }"#;
 
-pub const TECH_SCOPE_GENERAL: &str = r#"{ "scope": "general" }"#;
-
-pub const TECH_SCOPE_SPECIFIC: &str = r#"{ "scope": "specific" }"#;
-
 pub const RELEASE_HISTORY_SHAPE: &str = "{ version, date, note }";
 
 pub const CATALOG_IDENTITY: &str =

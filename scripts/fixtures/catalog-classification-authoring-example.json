@@ -2,8 +2,12 @@
   "schema": "see.library/v2",
   "name": "Classification authoring example",
   "updated": "2026-10-01T00:00:00Z",
-  "tools": [{ "id": "cursor", "name": "Cursor" }],
-  "technologies": [{ "id": "rust", "name": "Rust" }],
+  "tools": [
+    {
+      "id": "cursor",
+      "name": "Cursor"
+    }
+  ],
   "packages": [
     {
       "id": "wf-example-classified",
@@ -16,11 +20,18 @@
       "requires": [],
       "dependencies": [],
       "files": [],
-      "usageContexts": ["standalone"],
-      "cliScope": { "scope": "specific", "cliIds": ["cursor"] },
-      "technologyScope": { "scope": "specific" },
-      "technologyIds": ["rust"],
-      "toolIds": ["cursor"]
+      "usageContexts": [
+        "standalone"
+      ],
+      "cliScope": {
+        "scope": "specific",
+        "cliIds": [
+          "cursor"
+        ]
+      },
+      "toolIds": [
+        "cursor"
+      ]
     }
   ]
 }

@@ -4,7 +4,9 @@
   "category": "workflow",
   "name": "Check planning Knowledge coverage",
   "description": "Project verified Knowledge coverage for bound planning implementations without writing Knowledge records.",
-  "labels": ["story"],
+  "labels": [
+    "story"
+  ],
   "dependencies": [],
   "toolIds": [],
   "releases": [
@@ -14,7 +16,10 @@
       "note": "Coverage stage matches ChangeRecord and current ComponentDocument verification for bound stories."
     }
   ],
-  "usageContexts": ["cycle"],
-  "cliScope": { "scope": "any" },
-  "technologyScope": { "scope": "general" }
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  }
 }

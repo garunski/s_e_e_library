@@ -8,8 +8,10 @@ pub const WORKFLOW_DEFINITION_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/workflow-definition.schema.json");
 pub const WORKFLOW_ENGINE_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/workflow-engine.schema.json");
-pub const WORKFLOW_EXECUTION_SCHEMA_JSON: &str = include_str!("../../../public/schema/workflow-execution.schema.json");
-pub const EXECUTION_ERROR_SCHEMA_JSON: &str = include_str!("../../../public/schema/execution-error.schema.json");
+pub const WORKFLOW_EXECUTION_SCHEMA_JSON: &str =
+    include_str!("../../../public/schema/workflow-execution.schema.json");
+pub const EXECUTION_ERROR_SCHEMA_JSON: &str =
+    include_str!("../../../public/schema/execution-error.schema.json");
 pub const PROMPT_SCHEMA_JSON: &str = include_str!("../../../public/schema/prompt.schema.json");
 pub const SKILL_FRONTMATTER_SCHEMA_JSON: &str =
     include_str!("../../../public/schema/skill-frontmatter.schema.json");
@@ -122,10 +124,20 @@ pub const CONFIG_PAGE_SCHEMAS: [SchemaDownload; 8] = [
     },
 ];
 
-pub const WIRE_CONTRACT_SCHEMAS: [SchemaDownload; 3] = [SchemaDownload {
-    filename: "knowledge-research.schema.json",
-    json: KNOWLEDGE_RESEARCH_SCHEMA_JSON,
-},SchemaDownload {filename:"workflow-execution.schema.json",json:WORKFLOW_EXECUTION_SCHEMA_JSON},SchemaDownload {filename:"execution-error.schema.json",json:EXECUTION_ERROR_SCHEMA_JSON}];
+pub const WIRE_CONTRACT_SCHEMAS: [SchemaDownload; 3] = [
+    SchemaDownload {
+        filename: "knowledge-research.schema.json",
+        json: KNOWLEDGE_RESEARCH_SCHEMA_JSON,
+    },
+    SchemaDownload {
+        filename: "workflow-execution.schema.json",
+        json: WORKFLOW_EXECUTION_SCHEMA_JSON,
+    },
+    SchemaDownload {
+        filename: "execution-error.schema.json",
+        json: EXECUTION_ERROR_SCHEMA_JSON,
+    },
+];
 
 #[must_use]
 pub fn all_embedded_schemas() -> impl Iterator<Item = &'static SchemaDownload> {

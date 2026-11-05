@@ -15,7 +15,6 @@ pub fn LibraryAuthoringPrompts() -> Element {
         AuthoringGuideFrame {
             document_title: "Prompts",
             meta_description: "A prompt package stores reusable system prompt text referenced by workflows and commands.",
-            rail_number: "02",
             rail_title: "Installs under .s_e_e/prompts.",
             rail_description: "Payload file prompt.json carries id, name, and content.",
             p { class: "{PAGE_LEDE}",

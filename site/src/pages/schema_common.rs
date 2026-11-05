@@ -12,7 +12,6 @@ const DOWNLOAD_ROW: &str = "mt-3 flex flex-wrap gap-2";
 pub fn SchemaGuideFrame(
     document_title: &'static str,
     meta_description: &'static str,
-    rail_number: &'static str,
     rail_title: &'static str,
     rail_description: &'static str,
     children: Element,
@@ -21,7 +20,6 @@ pub fn SchemaGuideFrame(
         AuthoringGuideFrame {
             document_title,
             meta_description,
-            rail_number,
             rail_title,
             rail_description,
             {children}

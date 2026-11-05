@@ -21,9 +21,6 @@
   "cliScope": {
     "scope": "any"
   },
-  "technologyScope": {
-    "scope": "general"
-  },
   "releases": [
     {
       "version": "1.0.0",

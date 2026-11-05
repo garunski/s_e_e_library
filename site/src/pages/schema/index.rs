@@ -16,7 +16,6 @@ pub fn LibrarySchemaIndex() -> Element {
         SchemaGuideFrame {
             document_title: DOCUMENT_TITLE,
             meta_description: "The catalog is a single JSON manifest plus versioned payload files under packages/. Schema tags see.library/v1 and see.library/v2.",
-            rail_number: "00",
             rail_title: "The build enforces the schema.",
             rail_description: "see.library/v1 and see.library/v2 catalog manifests.",
             p { class: "{PAGE_LEDE}",
@@ -71,7 +70,6 @@ pub fn LibrarySchemaIndex() -> Element {
                 li { code { class: "{INLINE_CODE}", "updated" }, " - ISO-8601 timestamp (refreshed by ", code { class: "{INLINE_CODE}", "mise run catalog" }, ")." }
                 li { code { class: "{INLINE_CODE}", "packages[]" }, " - array of package entries." }
                 li { code { class: "{INLINE_CODE}", "tools[]" }, " - optional CLI tool registry." }
-                li { code { class: "{INLINE_CODE}", "technologies[]" }, " - optional technology registry." }
                 li { code { class: "{INLINE_CODE}", "stacks[]" }, " - optional source-owned stacks with ", code { class: "{INLINE_CODE}", "sharedPackageIds" }, " and ", code { class: "{INLINE_CODE}", "variants" }, "." }
                 li { code { class: "{INLINE_CODE}", "featuredStackId" }, " - optional id of one declared stack." }
             }
@@ -79,7 +77,7 @@ pub fn LibrarySchemaIndex() -> Element {
             p { class: "text-sm text-zinc-600 dark:text-zinc-400", "Each entry in ", code { class: "{INLINE_CODE}", "packages[]" }, ":" }
             ul { class: "{LIST}",
                 li { code { class: "{INLINE_CODE}", "id" }, ", ", code { class: "{INLINE_CODE}", "slug" }, ", ", code { class: "{INLINE_CODE}", "category" }, " (workflow, prompt, skill, rule, template, command, bundle, cycle), ", code { class: "{INLINE_CODE}", "version" }, ", ", code { class: "{INLINE_CODE}", "author" }, ", ", code { class: "{INLINE_CODE}", "verified" }, ", ", code { class: "{INLINE_CODE}", "license" }, ", ", code { class: "{INLINE_CODE}", "requires" }, ", ", code { class: "{INLINE_CODE}", "dependencies" }, ", ", code { class: "{INLINE_CODE}", "files[]" }, " (install map)." }
-                li { code { class: "{INLINE_CODE}", "toolIds" }, ", ", code { class: "{INLINE_CODE}", "usageContexts" }, ", ", code { class: "{INLINE_CODE}", "cliScope" }, ", ", code { class: "{INLINE_CODE}", "technologyScope" }, ", ", code { class: "{INLINE_CODE}", "technologyIds" }, ", ", code { class: "{INLINE_CODE}", "releases" }, "." }
+                li { code { class: "{INLINE_CODE}", "toolIds" }, ", ", code { class: "{INLINE_CODE}", "usageContexts" }, ", ", code { class: "{INLINE_CODE}", "cliScope" }, ", ", code { class: "{INLINE_CODE}", "releases" }, "." }
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "{CLASSIFICATION_HEADING}" }
             p { class: "text-sm text-zinc-600 dark:text-zinc-400",
@@ -88,10 +86,8 @@ pub fn LibrarySchemaIndex() -> Element {
                 code { class: "{INLINE_CODE}", "labels" }
                 " are topic tags. Classification fields describe use context and compatibility. New packages must author "
                 code { class: "{INLINE_CODE}", "usageContexts" }
-                ", "
+                " and "
                 code { class: "{INLINE_CODE}", "cliScope" }
-                ", and "
-                code { class: "{INLINE_CODE}", "technologyScope" }
                 " on the sidecar (copied into "
                 code { class: "{INLINE_CODE}", "catalog.json" }
                 " by "
@@ -104,7 +100,6 @@ pub fn LibrarySchemaIndex() -> Element {
             ul { class: "{LIST}",
                 li { code { class: "{INLINE_CODE}", "usageContexts" }, ": ", code { class: "{INLINE_CODE}", "cycle" }, " when ", code { class: "{INLINE_CODE}", "category" }, " is ", code { class: "{INLINE_CODE}", "cycle" }, ", otherwise ", code { class: "{INLINE_CODE}", "standalone" }, "." }
                 li { code { class: "{INLINE_CODE}", "cliScope" }, ": ", code { class: "{INLINE_CODE}", "any" }, " when ", code { class: "{INLINE_CODE}", "toolIds" }, " is empty or omitted; ", code { class: "{INLINE_CODE}", "specific" }, " with those ids when ", code { class: "{INLINE_CODE}", "toolIds" }, " is non-empty." }
-                li { code { class: "{INLINE_CODE}", "technologyScope" }, ": ", code { class: "{INLINE_CODE}", "general" }, " when omitted." }
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "Package metadata sidecar" }
             p { class: "text-sm text-zinc-600 dark:text-zinc-400",

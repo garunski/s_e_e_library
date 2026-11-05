@@ -15,7 +15,6 @@ pub fn LibraryAuthoringSkills() -> Element {
         AuthoringGuideFrame {
             document_title: "Skills",
             meta_description: "A skill package teaches an agent a repeatable capability with YAML frontmatter and a markdown body.",
-            rail_number: "03",
             rail_title: "Installs under .agents/skills.",
             rail_description: "Payload file SKILL.md. Destination is .agents/skills/{{slug}}/SKILL.md.",
             p { class: "{PAGE_LEDE}",

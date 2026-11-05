@@ -11,7 +11,6 @@ pub fn LibrarySchemaStoriesConfig() -> Element {
         SchemaGuideFrame {
             document_title: "Stories config schema",
             meta_description: "Stories section of hub config.json. project_name is required.",
-            rail_number: "12",
             rail_title: "Lives in hub config.json.",
             rail_description: "stories. project_name is required and must be non-empty.",
             p { class: "{PAGE_LEDE}",

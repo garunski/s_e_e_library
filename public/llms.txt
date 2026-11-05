@@ -1214,7 +1214,6 @@ the catalog. Do not hand-edit them on `catalog.json`.
 | --- | --- |
 | `usageContexts` | Non-empty array of `cycle` or `standalone` |
 | `cliScope` | `{ scope: "any" }` or `{ scope: "specific", cliIds: [...] }` referencing `tools[]` |
-| `technologyScope` | `{ scope: "general" }` or `{ scope: "specific" }` with `technologyIds` when specific |
 | `toolIds` | CLI tool ids; use `[]` with `cliScope.scope: any` |
 | `releases` | `{ version, date, note }` history for the package |
 
@@ -1349,7 +1348,6 @@ Hub document schemas:
 - `updated` - ISO-8601 timestamp (refreshed by `npm run build`).
 - `packages[]` - array of package entries.
 - `tools[]` - optional CLI tool registry (`id`, `name`, optional `description`). v1 catalogs omit this and parse as empty.
-- `technologies[]` - optional technology registry. Package `technologyIds` and specific `technologyScope` must reference ids declared here.
 - `stacks[]` - optional source-owned stacks with `sharedPackageIds` and `variants`.
 - `featuredStackId` - optional id of one declared stack.
 
@@ -1372,17 +1370,14 @@ Each entry in `packages[]`:
 - `toolIds` - optional declared CLI tool ids (legacy). Prefer `cliScope` for new packages.
 - `usageContexts` - optional `cycle` or `standalone` (required on new packages).
 - `cliScope` - `{ scope: "any" }` or `{ scope: "specific", cliIds: [...] }` referencing `tools[]`.
-- `technologyScope` - `{ scope: "general" }` or `{ scope: "specific" }` with `technologyIds`.
-- `technologyIds` - technology registry ids when scope is specific.
 - `releases` - optional `{ version, date, note }` history for the package.
 
 ## Legacy classification inference
 
-Packages published before explicit classification omit `usageContexts`, `cliScope`, and `technologyScope`. They still parse and install. The hub infers:
+Packages published before explicit classification omit `usageContexts`, `cliScope`. They still parse and install. The hub infers:
 
 - `usageContexts`: `cycle` when `category` is `cycle`, otherwise `standalone`.
 - `cliScope`: `any` when `toolIds` is empty; `specific` with those ids when non-empty.
-- `technologyScope`: `general` when omitted.
 
 API responses mark each dimension as authored or inferred without rewriting catalog source files.
 
@@ -1487,28 +1482,48 @@ Download: [catalog.schema.json](https://garunski.github.io/s_e_e_library/schema/
   "$id": "https://garunski.github.io/s_e_e_library/schema/catalog.schema.json",
   "title": "S.E.E. Library catalog manifest",
   "type": "object",
-  "required": ["schema", "name", "packages"],
+  "required": [
+    "schema",
+    "name",
+    "packages"
+  ],
   "properties": {
-    "schema": { "enum": ["see.library/v1", "see.library/v2"] },
-    "name": { "type": "string", "minLength": 1 },
-    "updated": { "type": "string", "format": "date-time" },
+    "schema": {
+      "enum": [
+        "see.library/v1",
+        "see.library/v2"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time"
+    },
     "packages": {
       "type": "array",
-      "items": { "$ref": "#/$defs/package" }
+      "items": {
+        "$ref": "#/$defs/package"
+      }
     },
     "tools": {
       "type": "array",
-      "items": { "$ref": "#/$defs/tool" }
-    },
-    "technologies": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/technology" }
+      "items": {
+        "$ref": "#/$defs/tool"
+      }
     },
     "stacks": {
       "type": "array",
-      "items": { "$ref": "#/$defs/stack" }
+      "items": {
+        "$ref": "#/$defs/stack"
+      }
     },
-    "featuredStackId": { "type": "string", "minLength": 1 }
+    "featuredStackId": {
+      "type": "string",
+      "minLength": 1
+    }
   },
   "$defs": {
     "package": {
@@ -1526,8 +1541,14 @@ Download: [catalog.schema.json](https://garunski.github.io/s_e_e_library/schema/
         "files"
       ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "slug": { "type": "string", "minLength": 1 },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1
+        },
         "category": {
           "enum": [
             "workflow",
@@ -1540,117 +1561,148 @@ Download: [catalog.schema.json](https://garunski.github.io/s_e_e_library/schema/
             "cycle"
           ]
         },
-        "version": { "type": "string", "minLength": 1 },
-        "author": { "type": "string" },
-        "verified": { "type": "boolean" },
-        "license": { "type": "string" },
-        "requires": { "type": "array", "items": { "type": "string" } },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "author": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "license": {
+          "type": "string"
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "dependencies": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
-        "name": { "type": "string" },
-        "description": { "type": "string" },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
         "labels": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "toolIds": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "usageContexts": {
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["cycle", "standalone"]
+            "enum": [
+              "cycle",
+              "standalone"
+            ]
           }
         },
-        "cliScope": { "$ref": "#/$defs/cliScope" },
-        "technologyScope": { "$ref": "#/$defs/technologyScope" },
-        "technologyIds": {
-          "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+        "cliScope": {
+          "$ref": "#/$defs/cliScope"
         },
         "releases": {
           "type": "array",
-          "items": { "$ref": "#/$defs/release" }
+          "items": {
+            "$ref": "#/$defs/release"
+          }
         },
         "files": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/file" }
+          "items": {
+            "$ref": "#/$defs/file"
+          }
         }
       }
     },
     "file": {
       "type": "object",
-      "required": ["to", "from"],
+      "required": [
+        "to",
+        "from"
+      ],
       "properties": {
         "to": {
           "type": "string",
           "pattern": "^(\\.s_e_e/|\\.agents/|\\.cursor/|templates/)[^\\\\]*$"
         },
-        "from": { "type": "string", "minLength": 1 }
+        "from": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "tool": {
       "type": "object",
-      "required": ["id", "name"],
+      "required": [
+        "id",
+        "name"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "description": { "type": "string" }
-      }
-    },
-    "technology": {
-      "type": "object",
-      "required": ["id", "name"],
-      "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "description": { "type": "string" }
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        }
       }
     },
     "cliScope": {
       "oneOf": [
         {
           "type": "object",
-          "required": ["scope"],
-          "properties": { "scope": { "const": "any" } },
-          "additionalProperties": true
-        },
-        {
-          "type": "object",
-          "required": ["scope", "cliIds"],
+          "required": [
+            "scope"
+          ],
           "properties": {
-            "scope": { "const": "specific" },
-            "cliIds": {
-              "type": "array",
-              "minItems": 1,
-              "items": { "type": "string", "minLength": 1 }
+            "scope": {
+              "const": "any"
             }
           },
           "additionalProperties": true
-        }
-      ]
-    },
-    "technologyScope": {
-      "oneOf": [
-        {
-          "type": "object",
-          "required": ["scope"],
-          "properties": { "scope": { "const": "general" } },
-          "additionalProperties": true
         },
         {
           "type": "object",
-          "required": ["scope"],
+          "required": [
+            "scope",
+            "cliIds"
+          ],
           "properties": {
-            "scope": { "const": "specific" },
-            "technologyIds": {
+            "scope": {
+              "const": "specific"
+            },
+            "cliIds": {
               "type": "array",
-              "items": { "type": "string", "minLength": 1 }
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           },
           "additionalProperties": true
@@ -1659,38 +1711,75 @@ Download: [catalog.schema.json](https://garunski.github.io/s_e_e_library/schema/
     },
     "release": {
       "type": "object",
-      "required": ["version", "date", "note"],
+      "required": [
+        "version",
+        "date",
+        "note"
+      ],
       "properties": {
-        "version": { "type": "string", "minLength": 1 },
-        "date": { "type": "string" },
-        "note": { "type": "string" }
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "date": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "stack": {
       "type": "object",
-      "required": ["id", "name", "sharedPackageIds"],
+      "required": [
+        "id",
+        "name",
+        "sharedPackageIds"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "description": { "type": "string" },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
         "sharedPackageIds": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "variants": {
           "type": "array",
-          "items": { "$ref": "#/$defs/variant" }
+          "items": {
+            "$ref": "#/$defs/variant"
+          }
         }
       }
     },
     "variant": {
       "type": "object",
-      "required": ["toolId", "packageIds"],
+      "required": [
+        "toolId",
+        "packageIds"
+      ],
       "properties": {
-        "toolId": { "type": "string", "minLength": 1 },
+        "toolId": {
+          "type": "string",
+          "minLength": 1
+        },
         "packageIds": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     }
@@ -1707,10 +1796,21 @@ Package metadata sidecar - download:
   "$id": "https://garunski.github.io/s_e_e_library/schema/package-meta.schema.json",
   "title": "Package metadata sidecar (s_e_e_package.json)",
   "type": "object",
-  "required": ["id", "slug", "category", "name"],
+  "required": [
+    "id",
+    "slug",
+    "category",
+    "name"
+  ],
   "properties": {
-    "id": { "type": "string", "minLength": 1 },
-    "slug": { "type": "string", "minLength": 1 },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1
+    },
     "category": {
       "enum": [
         "workflow",
@@ -1723,42 +1823,69 @@ Package metadata sidecar - download:
         "cycle"
       ]
     },
-    "name": { "type": "string", "minLength": 1 },
-    "description": { "type": "string" },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
     "labels": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "dependencies": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "toolIds": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "usageContexts": {
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["cycle", "standalone"]
+        "enum": [
+          "cycle",
+          "standalone"
+        ]
       }
     },
-    "cliScope": { "$ref": "#/$defs/cliScope" },
-    "technologyScope": { "$ref": "#/$defs/technologyScope" },
-    "technologyIds": {
-      "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+    "cliScope": {
+      "$ref": "#/$defs/cliScope"
     },
     "releases": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["version", "date", "note"],
+        "required": [
+          "version",
+          "date",
+          "note"
+        ],
         "properties": {
-          "version": { "type": "string", "minLength": 1 },
-          "date": { "type": "string", "minLength": 1 },
-          "note": { "type": "string", "minLength": 1 }
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "date": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     }
@@ -1768,41 +1895,33 @@ Package metadata sidecar - download:
       "oneOf": [
         {
           "type": "object",
-          "required": ["scope"],
-          "properties": { "scope": { "const": "any" } },
-          "additionalProperties": true
-        },
-        {
-          "type": "object",
-          "required": ["scope", "cliIds"],
+          "required": [
+            "scope"
+          ],
           "properties": {
-            "scope": { "const": "specific" },
-            "cliIds": {
-              "type": "array",
-              "minItems": 1,
-              "items": { "type": "string", "minLength": 1 }
+            "scope": {
+              "const": "any"
             }
           },
           "additionalProperties": true
-        }
-      ]
-    },
-    "technologyScope": {
-      "oneOf": [
-        {
-          "type": "object",
-          "required": ["scope"],
-          "properties": { "scope": { "const": "general" } },
-          "additionalProperties": true
         },
         {
           "type": "object",
-          "required": ["scope"],
+          "required": [
+            "scope",
+            "cliIds"
+          ],
           "properties": {
-            "scope": { "const": "specific" },
-            "technologyIds": {
+            "scope": {
+              "const": "specific"
+            },
+            "cliIds": {
               "type": "array",
-              "items": { "type": "string", "minLength": 1 }
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           },
           "additionalProperties": true

@@ -1,5 +1,18 @@
 use s_e_e_shapes::Theme;
 
+#[test]
+fn clicks_cycle_through_all_themes_and_return_to_system() {
+    let mut theme = Theme::System;
+    for expected in [Theme::Light, Theme::Dark, Theme::System] {
+        theme = super::next_theme(&theme);
+        assert_eq!(theme, expected);
+        assert_eq!(
+            parse_theme_storage_label(theme_storage_label(&theme)),
+            Some(expected)
+        );
+    }
+}
+
 use crate::theme::{
     parse_theme_storage_label, theme_appears_dark, theme_storage_label, THEME_BOOT_SCRIPT,
     THEME_STORAGE_KEY,

@@ -7,7 +7,6 @@ use crate::pages::schema_common::{SchemaBlockByName, SchemaGuideFrame};
 #[component]
 pub fn LibrarySchemaResearch() -> Element {
     rsx! {
-        document::Title { "Knowledge Research schema" }
         document::Meta {
             name: "description",
             content: "Wire schemas for S.E.E. structured Knowledge Research HTTP and MCP operations.",
@@ -15,7 +14,6 @@ pub fn LibrarySchemaResearch() -> Element {
         SchemaGuideFrame {
             document_title: "Knowledge Research schema",
             meta_description: "Wire schemas for S.E.E. structured Knowledge Research HTTP and MCP operations.",
-            rail_number: "16",
             rail_title: "Research wire contract.",
             rail_description: "Four profile descriptors, eleven shared operations, versioned editions.",
             p { class: "{PAGE_LEDE}",

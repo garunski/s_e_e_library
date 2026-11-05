@@ -1,5 +1,13 @@
 use s_e_e_shapes::Theme;
 
+pub fn next_theme(theme: &Theme) -> Theme {
+    match theme {
+        Theme::System => Theme::Light,
+        Theme::Light => Theme::Dark,
+        Theme::Dark => Theme::System,
+    }
+}
+
 #[allow(dead_code)]
 pub const THEME_STORAGE_KEY: &str = "see.theme";
 

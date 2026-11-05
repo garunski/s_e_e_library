@@ -12,17 +12,18 @@ mod schema_package_contract;
 
 pub use authoring::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
-    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringResearch, LibraryAuthoringSkills,
-    LibraryAuthoringWorkflows,
+    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringResearch,
+    LibraryAuthoringSkills, LibraryAuthoringWorkflows,
 };
 pub use authoring_index::LibraryAuthoringIndex;
 pub use home::LibraryHome;
 pub use schema::{
     LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCommand, LibrarySchemaCycle,
     LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
-    LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaRoutingRules,
-    LibrarySchemaResearch, LibrarySchemaRuleTemplate, LibrarySchemaSchedule, LibrarySchemaScheduleRuleSet,
-    LibrarySchemaSkill, LibrarySchemaStoriesConfig, LibrarySchemaWorkflow,
+    LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaResearch,
+    LibrarySchemaRoutingRules, LibrarySchemaRuleTemplate, LibrarySchemaSchedule,
+    LibrarySchemaScheduleRuleSet, LibrarySchemaSkill, LibrarySchemaStoriesConfig,
+    LibrarySchemaWorkflow,
 };
 
 use dioxus::prelude::*;
@@ -55,12 +56,10 @@ pub fn DocPlaceholder(
     rail_description: &'static str,
 ) -> Element {
     rsx! {
-        document::Title { "{title}" }
         document::Meta { name: "description", content: "{description}" }
         LibraryDocFrame {
             title: title.to_string(),
             description: description.to_string(),
-            rail_number: "01",
             rail_title,
             rail_description,
             p { class: "text-sm text-zinc-600 dark:text-zinc-400",
@@ -83,7 +82,6 @@ pub fn LibraryNotFound(segments: Vec<String>) -> Element {
         format!("/{}", segments.join("/"))
     };
     rsx! {
-        document::Title { "Page not found" }
         document::Meta {
             name: "description",
             content: "The requested library documentation page does not exist.",
@@ -91,7 +89,6 @@ pub fn LibraryNotFound(segments: Vec<String>) -> Element {
         LibraryDocFrame {
             title: "Page not found".to_string(),
             description: "The requested library documentation page does not exist.".to_string(),
-            rail_number: "404",
             rail_title: "Not found",
             rail_description: "This URL is not part of the published documentation set.",
             if !path.is_empty() {

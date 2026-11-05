@@ -11,7 +11,6 @@ pub fn LibrarySchemaRuleTemplate() -> Element {
         SchemaGuideFrame {
             document_title: "Rule and template schema",
             meta_description: "Two lightweight, file-only categories: Cursor rule .mdc files and scaffold templates.",
-            rail_number: "05",
             rail_title: "Install prefixes are fixed.",
             rail_description: "Rules go to .cursor/rules. Templates go under templates/.",
             p { class: "{PAGE_LEDE}", "Two lightweight, file-only categories." }

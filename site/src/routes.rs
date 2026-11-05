@@ -3,12 +3,13 @@ use dioxus::prelude::*;
 use crate::pages::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
     LibraryAuthoringIndex, LibraryAuthoringPrompts, LibraryAuthoringPublish,
-    LibraryAuthoringResearch, LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome, LibraryNotFound,
-    LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCommand, LibrarySchemaCycle,
-    LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
-    LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaRoutingRules,
-    LibrarySchemaResearch, LibrarySchemaRuleTemplate, LibrarySchemaSchedule, LibrarySchemaScheduleRuleSet,
-    LibrarySchemaSkill, LibrarySchemaStoriesConfig, LibrarySchemaWorkflow,
+    LibraryAuthoringResearch, LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome,
+    LibraryNotFound, LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCommand,
+    LibrarySchemaCycle, LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
+    LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaResearch,
+    LibrarySchemaRoutingRules, LibrarySchemaRuleTemplate, LibrarySchemaSchedule,
+    LibrarySchemaScheduleRuleSet, LibrarySchemaSkill, LibrarySchemaStoriesConfig,
+    LibrarySchemaWorkflow,
 };
 use crate::shell::LibraryShell;
 

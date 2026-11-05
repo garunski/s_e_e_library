@@ -11,7 +11,6 @@ pub fn LibrarySchemaCommand() -> Element {
         SchemaGuideFrame {
             document_title: "Command schema",
             meta_description: "Category command. Payload file command.json. Installs to .s_e_e/commands/{{id}}.json.",
-            rail_number: "04",
             rail_title: "The to path must match the id.",
             rail_description: "Destination is .s_e_e/commands/{{id}}.json, exactly.",
             p { class: "{PAGE_LEDE}",

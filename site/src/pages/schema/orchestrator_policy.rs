@@ -11,7 +11,6 @@ pub fn LibrarySchemaOrchestratorPolicy() -> Element {
         SchemaGuideFrame {
             document_title: "Orchestrator policy schema",
             meta_description: "auto_mode, policy.levels, and budgets. Stored as orchestrator in hub config.json. Validated on save.",
-            rail_number: "13",
             rail_title: "Validators run on save.",
             rail_description: "orchestrator. policy and budgets are required. Lives in hub config.json.",
             p { class: "{PAGE_LEDE}",

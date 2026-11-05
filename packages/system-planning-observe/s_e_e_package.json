@@ -4,7 +4,9 @@
   "category": "workflow",
   "name": "Observe planning objectives",
   "description": "Observe objective content fingerprints and open or refresh planning cases without authoring milestones.",
-  "labels": ["story"],
+  "labels": [
+    "story"
+  ],
   "dependencies": [],
   "toolIds": [],
   "releases": [
@@ -14,7 +16,10 @@
       "note": "Observe stage records planning cases on objective fingerprint changes."
     }
   ],
-  "usageContexts": ["cycle"],
-  "cliScope": { "scope": "any" },
-  "technologyScope": { "scope": "general" }
+  "usageContexts": [
+    "cycle"
+  ],
+  "cliScope": {
+    "scope": "any"
+  }
 }

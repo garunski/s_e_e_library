@@ -11,7 +11,6 @@ pub fn LibrarySchemaSkill() -> Element {
         SchemaGuideFrame {
             document_title: "Skill schema",
             meta_description: "Category skill. Payload file SKILL.md. Installs to .agents/skills/{{slug}}/SKILL.md.",
-            rail_number: "03",
             rail_title: "Installs under .agents/skills.",
             rail_description: "Destination is .agents/skills/{{slug}}/SKILL.md.",
             p { class: "{PAGE_LEDE}",
