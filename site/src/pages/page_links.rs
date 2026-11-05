@@ -10,7 +10,6 @@ pub struct PageLink {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PackageSummary {
-    pub number: &'static str,
     pub title: &'static str,
     pub description: &'static str,
     pub path: &'static str,
@@ -18,31 +17,26 @@ pub struct PackageSummary {
 
 pub const HOME_PACKAGE_TYPES: [PackageSummary; 5] = [
     PackageSummary {
-        number: "01",
         title: "Workflows",
         description: "Multi-step task definitions the engine runs against a project.",
         path: "/authoring/workflows/",
     },
     PackageSummary {
-        number: "02",
         title: "Prompts",
         description: "Named system instruction referenced by workflows and commands.",
         path: "/authoring/prompts/",
     },
     PackageSummary {
-        number: "03",
         title: "Skills",
         description: "Activatable guides that teach a worker a repeatable capability.",
         path: "/authoring/skills/",
     },
     PackageSummary {
-        number: "04",
         title: "Commands",
         description: "Worker definitions that map a task to an external agent CLI.",
         path: "/authoring/commands/",
     },
     PackageSummary {
-        number: "05",
         title: "Bundles",
         description: "Curated install maps that deliver several linked packages together.",
         path: "/authoring/bundles/",
@@ -72,36 +66,49 @@ pub const HOME_UTILITY_LINKS: [PageLink; 4] = [
     },
 ];
 
-pub const AUTHORING_GUIDE_LINKS: [PageLink; 6] = [
-    PageLink {
+pub struct AuthoringGuide {
+    pub label: &'static str,
+    pub path: &'static str,
+    pub description: &'static str,
+    pub payload: Option<&'static str>,
+}
+
+pub const AUTHORING_GUIDES: [AuthoringGuide; 6] = [
+    AuthoringGuide {
         label: "Workflows",
         path: "/authoring/workflows/",
-        external: false,
+        description: "Task graphs the engine runs",
+        payload: Some("definition.json"),
     },
-    PageLink {
+    AuthoringGuide {
         label: "Prompts",
         path: "/authoring/prompts/",
-        external: false,
+        description: "Named instruction text",
+        payload: Some("prompt.json"),
     },
-    PageLink {
+    AuthoringGuide {
         label: "Skills",
         path: "/authoring/skills/",
-        external: false,
+        description: "Activatable capability guides",
+        payload: Some("SKILL.md"),
     },
-    PageLink {
+    AuthoringGuide {
         label: "Commands",
         path: "/authoring/commands/",
-        external: false,
+        description: "Worker definitions for an agent CLI",
+        payload: Some("command.json"),
     },
-    PageLink {
+    AuthoringGuide {
         label: "Bundles",
         path: "/authoring/bundles/",
-        external: false,
+        description: "Install maps that deliver several packages together",
+        payload: None,
     },
-    PageLink {
+    AuthoringGuide {
         label: "Cycles",
         path: "/authoring/cycles/",
-        external: false,
+        description: "Host loops wiring workflows to stores",
+        payload: Some("cycle.json"),
     },
 ];
 
@@ -177,13 +184,12 @@ pub fn home_link_hrefs(base: &str) -> Vec<String> {
 #[must_use]
 #[cfg_attr(not(test), allow(dead_code))]
 pub fn authoring_index_link_hrefs(base: &str) -> Vec<String> {
-    let mut hrefs = AUTHORING_GUIDE_LINKS
+    let mut hrefs = AUTHORING_GUIDES
         .iter()
-        .map(|link| resolve_page_link(base, *link))
+        .map(|guide| library_href_with_base(base, guide.path))
         .collect::<Vec<_>>();
     hrefs.push(resolve_page_link(base, AUTHORING_PUBLISH_LINK));
-    hrefs.push(library_href_with_base(base, "/authoring/research/"));
-    hrefs.push(library_href_with_base(base, "/schema/"));
+    hrefs.push(library_href_with_base(base, "/schema/catalog/"));
     hrefs.push(library_href_with_base(base, "/catalog.json"));
     hrefs.push(library_href_with_base(base, "/llms.txt"));
     hrefs
@@ -200,10 +206,10 @@ pub fn authoring_guide_paths_match_route_table() -> bool {
         "bundles",
         "cycles",
     ];
-    slugs.len() == AUTHORING_GUIDE_LINKS.len()
+    slugs.len() == AUTHORING_GUIDES.len()
         && slugs
             .iter()
-            .zip(AUTHORING_GUIDE_LINKS.iter())
+            .zip(AUTHORING_GUIDES.iter())
             .all(|(slug, link)| link.path == authoring_path(slug))
         && AUTHORING_SLUGS.contains(&"publish")
 }

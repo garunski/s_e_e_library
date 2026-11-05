@@ -1,6 +1,6 @@
 use super::{
     authoring_guide_paths_match_route_table, authoring_index_link_hrefs, home_link_hrefs,
-    resolve_page_link, PageLink, AUTHORING_GUIDE_LINKS, AUTHORING_PUBLISH_LINK, HOME_PACKAGE_TYPES,
+    resolve_page_link, PageLink, AUTHORING_GUIDES, AUTHORING_PUBLISH_LINK, HOME_PACKAGE_TYPES,
     HOME_UTILITY_LINKS, SCHEMA_PACKAGE_TYPE_LINKS,
 };
 use crate::pages::schema_package_contract::package_schema_paths;
@@ -22,15 +22,10 @@ fn home_package_summaries_cover_five_types() {
 }
 
 #[test]
-fn authoring_index_lists_six_package_guides_and_research() {
-    assert_eq!(AUTHORING_GUIDE_LINKS.len(), 6);
-    assert!(AUTHORING_GUIDE_LINKS
-        .iter()
-        .any(|link| link.label == "Cycles"));
+fn authoring_index_lists_six_package_guides_and_publishing() {
+    assert_eq!(AUTHORING_GUIDES.len(), 6);
+    assert!(AUTHORING_GUIDES.iter().any(|guide| guide.label == "Cycles"));
     assert_eq!(AUTHORING_PUBLISH_LINK.path, "/authoring/publish/");
-    assert!(authoring_index_link_hrefs("/s_e_e_library")
-        .iter()
-        .any(|href| href == "/s_e_e_library/authoring/research/"));
 }
 
 #[test]

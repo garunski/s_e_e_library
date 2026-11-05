@@ -8,6 +8,12 @@ pub struct NavLink {
 
 pub const PRIMARY_NAV: &[NavLink] = &[
     NavLink {
+        path: "/",
+        label: "Home",
+        file: false,
+        external: false,
+    },
+    NavLink {
         path: "/authoring/",
         label: "Authoring",
         file: false,
@@ -44,7 +50,7 @@ fn section_root(href: &str) -> &'static str {
 
 #[must_use]
 pub fn is_primary_current(href: &str, current: &str) -> bool {
-    if href.ends_with(".json") || href.ends_with(".txt") {
+    if href == "/" || href.ends_with(".json") || href.ends_with(".txt") {
         return href == current;
     }
     let section = section_root(href);
@@ -56,8 +62,8 @@ pub fn shell_layout_classes() -> ShellLayoutClasses {
     ShellLayoutClasses {
         root:
             "flex min-h-screen w-full min-w-0 flex-col overflow-x-hidden bg-white dark:bg-zinc-950",
-        content_inner: "app-content-width mx-auto w-full min-w-0 px-4 sm:px-6",
-        main: "flex-1 min-w-0 py-6 sm:py-8",
+        content_inner: "library-content-width min-w-0",
+        main: "flex-1 min-w-0",
     }
 }
 

@@ -77,7 +77,7 @@ pub fn LibrarySchemaWorkflow() -> Element {
                 "See the "
                 Link { to: Route::AuthoringWorkflows {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "workflow authoring guide" }
                 " and the "
-                Link { to: Route::SchemaIndex {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
+                Link { to: Route::SchemaCatalog {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
                 "."
             }
         }

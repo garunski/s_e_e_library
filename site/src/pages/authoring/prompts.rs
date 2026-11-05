@@ -1,8 +1,7 @@
 use dioxus::prelude::*;
 
 use crate::pages::authoring_common::{
-    AuthoringGuideFrame, CodeExample, SchemaReferenceFooter, BODY_TEXT, DD, DL, DT, INLINE_CODE,
-    PAGE_LEDE, SECTION_TITLE,
+    AuthoringGuideFrame, AuthoringReference, CodeExample, BODY_TEXT, DD, DL, DT, INLINE_CODE,
 };
 use crate::routes::Route;
 
@@ -15,66 +14,83 @@ pub fn LibraryAuthoringPrompts() -> Element {
         AuthoringGuideFrame {
             document_title: "Prompts",
             meta_description: "A prompt package stores reusable system prompt text referenced by workflows and commands.",
-            rail_title: "Installs under .s_e_e/prompts.",
-            rail_description: "Payload file prompt.json carries id, name, and content.",
-            p { class: "{PAGE_LEDE}",
-                "A prompt package stores reusable system prompt text referenced by workflows and commands via the "
-                code { class: "{INLINE_CODE}", "{{prompt.<id>}}" }
-                " template form. Payload file: "
-                code { class: "{INLINE_CODE}", "prompt.json" }
-                ". Installs to "
-                code { class: "{INLINE_CODE}", ".s_e_e/prompts/{{id}}.json" }
-                "."
-            }
-            h2 { class: "mt-6 {SECTION_TITLE}", "Fields" }
-            dl { class: "{DL}",
-                dt { class: "{DT}", code { "id" } }
-                dd { class: "{DD}",
-                    "Stable prompt id (for example "
-                    code { class: "{INLINE_CODE}", "system-implement-story" }
-                    ")."
+            section {
+                h2 { "Prompt fields" }
+                p { class: BODY_TEXT,
+                    "A prompt package stores reusable system prompt text referenced by workflows and commands via the "
+                    code { class: "{INLINE_CODE}", "{{prompt.<id>}}" }
+                    " template form. Payload file: "
+                    code { class: "{INLINE_CODE}", "prompt.json" }
+                    ". Installs to "
+                    code { class: "{INLINE_CODE}", ".s_e_e/prompts/{{id}}.json" }
+                    "."
                 }
-                dt { class: "{DT}", code { "name" } }
-                dd { class: "{DD}", "Display name in the hub." }
-                dt { class: "{DT}", code { "content" } }
-                dd { class: "{DD}",
-                    "Prompt body; may include "
-                    code { class: "{INLINE_CODE}", "{{runtime.*}}" }
-                    " placeholders expanded at run time."
+                dl { class: "{DL}",
+                    div {
+                        dt { class: "{DT}",
+                            code { "id" }
+                        }
+                        dd { class: "{DD}",
+                            "Stable prompt id (for example "
+                            code { class: "{INLINE_CODE}", "system-implement-story" }
+                            ")."
+                        }
+                    }
+                    div {
+                        dt { class: "{DT}",
+                            code { "name" }
+                        }
+                        dd { class: "{DD}", "Display name in the hub." }
+                    }
+                    div {
+                        dt { class: "{DT}",
+                            code { "content" }
+                        }
+                        dd { class: "{DD}",
+                            "Prompt body; may include "
+                            code { class: "{INLINE_CODE}", "{{runtime.*}}" }
+                            " placeholders expanded at run time."
+                        }
+                    }
                 }
             }
-            h2 { class: "mt-8 {SECTION_TITLE}", "Hub MCP assignment (not in packages)" }
-            p { class: "{BODY_TEXT}",
-                "Installed "
-                code { class: "{INLINE_CODE}", "prompt.json" }
-                " files carry only "
-                code { class: "{INLINE_CODE}", "id" }
-                ", "
-                code { class: "{INLINE_CODE}", "name" }
-                ", and "
-                code { class: "{INLINE_CODE}", "content" }
-                ". In the hub Prompts editor you may assign an MCP prompt name and choose Legacy authoring arguments, Project only, or up to 32 custom MCP argument rows. Those hub fields are not part of portable library packages."
+            section {
+                h2 { "Hub MCP assignment" }
+                p { class: "{BODY_TEXT}",
+                    "Installed "
+                    code { class: "{INLINE_CODE}", "prompt.json" }
+                    " files carry only "
+                    code { class: "{INLINE_CODE}", "id" }
+                    ", "
+                    code { class: "{INLINE_CODE}", "name" }
+                    ", and "
+                    code { class: "{INLINE_CODE}", "content" }
+                    ". In the hub Prompts editor you may assign an MCP prompt name and choose Legacy authoring arguments, Project only, or up to 32 custom MCP argument rows. Those hub fields are not part of portable library packages."
+                }
             }
-            h2 { class: "mt-8 {SECTION_TITLE}", "Reference example" }
-            p { class: "{BODY_TEXT}",
-                "From "
-                code { class: "{INLINE_CODE}", "packages/system-implement-story/1.0.0/prompt.json" }
-                ":"
+            section {
+                h2 { "Example" }
+                p { class: "{BODY_TEXT}",
+                    "From "
+                    code { class: "{INLINE_CODE}", "packages/system-implement-story/1.0.0/prompt.json" }
+                    ":"
+                }
+                CodeExample { text: EXAMPLE }
+                p { class: "{BODY_TEXT}",
+                    "Use a "
+                    code { class: "{INLINE_CODE}", "system-*" }
+                    " id for bundled defaults. Keep template placeholders aligned with the workflow "
+                    code { class: "{INLINE_CODE}", "runtime_inputs" }
+                    " that declare each "
+                    code { class: "{INLINE_CODE}", "{{runtime.<key>}}" }
+                    " placeholder."
+                }
             }
-            CodeExample { text: EXAMPLE }
-            p { class: "{BODY_TEXT}",
-                "Use a "
-                code { class: "{INLINE_CODE}", "system-*" }
-                " id for bundled defaults. Keep template placeholders aligned with the workflow "
-                code { class: "{INLINE_CODE}", "runtime_inputs" }
-                " that declare each "
-                code { class: "{INLINE_CODE}", "{{runtime.<key>}}" }
-                " placeholder."
+            section {
+                h2 { "Installation" }
+                CodeExample { text: INSTALL }
             }
-            h2 { class: "mt-8 {SECTION_TITLE}", "Install path" }
-            CodeExample { text: INSTALL }
-            SchemaReferenceFooter {
-                catalog_schema_label: "see.library/v1",
+            AuthoringReference {
                 schema_route: Route::SchemaPrompt {},
                 schema_link_label: "Prompt schema",
                 extra_schema_links: None,

@@ -121,7 +121,11 @@ pub fn run_package_pages(root: &Path, dx_public: &Path, staging: &Path) -> Resul
     remove_dir_if_exists(staging)?;
     fs::create_dir_all(staging).map_err(|e| format!("mkdir {staging:?}: {e}"))?;
 
-    copy_dir_recursive(&site_src, staging)?;
+    for route in documentation_route_paths() {
+        let page = Path::new(route.trim_start_matches('/')).join("index.html");
+        copy_file_same_bytes(&site_src.join(&page), &staging.join(&page))?;
+    }
+    copy_file_same_bytes(&site_src.join("404.html"), &staging.join("404.html"))?;
     let assets_src = dx_public.join("assets");
     if assets_src.is_dir() {
         copy_dir_recursive(&assets_src, &staging.join("assets"))?;

@@ -9,6 +9,7 @@ use s_e_e_shapes::Theme;
 use super::AppLink;
 use crate::library_href;
 use crate::nav::{is_primary_current, shell_layout_classes, HEADER_CATALOG, PRIMARY_NAV};
+use crate::pages::page_links::{AUTHORING_GUIDES, AUTHORING_PUBLISH_LINK};
 use crate::routes::Route;
 use crate::theme::{
     apply_theme_to_html, next_theme, read_cached_theme, theme_storage_label, write_cached_theme,
@@ -57,9 +58,9 @@ pub fn route_current_path(route: &Route) -> &'static str {
         Route::AuthoringCommands {} => "/authoring/commands/",
         Route::AuthoringBundles {} => "/authoring/bundles/",
         Route::AuthoringCycles {} => "/authoring/cycles/",
-        Route::AuthoringResearch {} => "/authoring/research/",
         Route::AuthoringPublish {} => "/authoring/publish/",
         Route::SchemaIndex {} => "/schema/",
+        Route::SchemaCatalog {} => "/schema/catalog/",
         Route::SchemaWorkflow {} => "/schema/workflow/",
         Route::SchemaPrompt {} => "/schema/prompt/",
         Route::SchemaSkill {} => "/schema/skill/",
@@ -192,6 +193,34 @@ fn LibraryNavRouterLink(path: &'static str, label: &'static str, current: String
     }
 }
 
+#[component]
+fn AuthoringNav(current: &'static str) -> Element {
+    let links = AUTHORING_GUIDES
+        .iter()
+        .map(|guide| (guide.path, guide.label))
+        .chain(std::iter::once((
+            AUTHORING_PUBLISH_LINK.path,
+            AUTHORING_PUBLISH_LINK.label,
+        )))
+        .map(|(path, label)| {
+            let aria_current = if current == path { "page" } else { "false" };
+            (path, label, aria_current)
+        });
+
+    rsx! {
+        nav { class: "library-section-nav", aria_label: "Authoring sections",
+            for (path, label, aria_current) in links {
+                AppLink {
+                    key: "{path}",
+                    path,
+                    aria_current,
+                    "{label}"
+                }
+            }
+        }
+    }
+}
+
 #[must_use]
 pub fn library_copyright_line(year: i32) -> String {
     format!("© {year} {LIBRARY_COPYRIGHT_NAME}")
@@ -208,7 +237,7 @@ pub fn LibraryFooter() -> Element {
             div {
                 class: "{inner} pt-12 pb-6 md:pt-20",
                 div {
-                    class: "grid gap-[clamp(3rem,7vw,7rem)] min-[801px]:grid-cols-[minmax(15rem,1.2fr)_minmax(30rem,2fr)]",
+                    class: "grid gap-[clamp(3rem,7vw,7rem)] min-[801px]:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)]",
                     div {
                         a {
                             class: "inline-flex items-center gap-2.5 text-[1.15rem] font-semibold tracking-[0.12em] text-white no-underline",
@@ -255,12 +284,15 @@ pub fn LibraryFooter() -> Element {
 #[component]
 pub fn LibraryShell() -> Element {
     let route = use_route::<Route>();
-    let current_path = route_current_path(&route).to_string();
+    let current_path = route_current_path(&route);
     let layout = shell_layout_classes();
     let home = matches!(route, Route::Home {});
-    let main_class = if home { "flex-1 min-w-0" } else { layout.main };
+    let display_font = asset!("/assets/fonts/autour-one-latin-400.woff2");
 
     rsx! {
+        document::Style {
+            "@font-face {{ font-family: 'Autour One'; font-style: normal; font-weight: 400; font-display: swap; src: url('{display_font}') format('woff2'); }}"
+        }
         div {
             id: "top",
             class: layout.root,
@@ -269,12 +301,15 @@ pub fn LibraryShell() -> Element {
                 href: "#library-page",
                 "Skip to content"
             }
-            LibraryMasthead { current_path }
+            LibraryMasthead { current_path: current_path.to_string() }
+            if current_path.starts_with("/authoring/") {
+                AuthoringNav { current: current_path }
+            }
             main {
                 id: "library-page",
                 tabindex: "-1",
                 "data-testid": "library-shell-main",
-                class: main_class,
+                class: layout.main,
                 if home {
                     Outlet::<Route> {}
                 } else {

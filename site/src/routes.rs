@@ -3,9 +3,9 @@ use dioxus::prelude::*;
 use crate::pages::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
     LibraryAuthoringIndex, LibraryAuthoringPrompts, LibraryAuthoringPublish,
-    LibraryAuthoringResearch, LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome,
-    LibraryNotFound, LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCommand,
-    LibrarySchemaCycle, LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
+    LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome, LibraryNotFound,
+    LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCatalog, LibrarySchemaCommand, LibrarySchemaCycle,
+    LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
     LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaResearch,
     LibrarySchemaRoutingRules, LibrarySchemaRuleTemplate, LibrarySchemaSchedule,
     LibrarySchemaScheduleRuleSet, LibrarySchemaSkill, LibrarySchemaStoriesConfig,
@@ -33,12 +33,12 @@ pub enum Route {
         AuthoringBundles {},
         #[route("/authoring/cycles/")]
         AuthoringCycles {},
-        #[route("/authoring/research/")]
-        AuthoringResearch {},
         #[route("/authoring/publish/")]
         AuthoringPublish {},
         #[route("/schema/")]
         SchemaIndex {},
+        #[route("/schema/catalog/")]
+        SchemaCatalog {},
         #[route("/schema/workflow/")]
         SchemaWorkflow {},
         #[route("/schema/prompt/")]
@@ -90,9 +90,9 @@ pub fn route_for_path(href: &str) -> Option<Route> {
         "/authoring/commands/" => Route::AuthoringCommands {},
         "/authoring/bundles/" => Route::AuthoringBundles {},
         "/authoring/cycles/" => Route::AuthoringCycles {},
-        "/authoring/research/" => Route::AuthoringResearch {},
         "/authoring/publish/" => Route::AuthoringPublish {},
         "/schema/" => Route::SchemaIndex {},
+        "/schema/catalog/" => Route::SchemaCatalog {},
         "/schema/workflow/" => Route::SchemaWorkflow {},
         "/schema/prompt/" => Route::SchemaPrompt {},
         "/schema/skill/" => Route::SchemaSkill {},
@@ -177,11 +177,6 @@ fn AuthoringCycles() -> Element {
 }
 
 #[component]
-fn AuthoringResearch() -> Element {
-    rsx! { LibraryAuthoringResearch {} }
-}
-
-#[component]
 fn AuthoringPublish() -> Element {
     rsx! {
         LibraryAuthoringPublish {}
@@ -192,6 +187,13 @@ fn AuthoringPublish() -> Element {
 fn SchemaIndex() -> Element {
     rsx! {
         LibrarySchemaIndex {}
+    }
+}
+
+#[component]
+fn SchemaCatalog() -> Element {
+    rsx! {
+        LibrarySchemaCatalog {}
     }
 }
 

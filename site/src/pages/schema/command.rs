@@ -39,7 +39,7 @@ pub fn LibrarySchemaCommand() -> Element {
                 "See the "
                 Link { to: Route::AuthoringCommands {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "command authoring guide" }
                 " and the "
-                Link { to: Route::SchemaIndex {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
+                Link { to: Route::SchemaCatalog {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
                 "."
             }
         }

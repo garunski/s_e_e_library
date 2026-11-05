@@ -1,5 +1,6 @@
 mod app_settings;
 mod bundle;
+mod catalog;
 mod command;
 mod cycle;
 mod global_config;
@@ -19,6 +20,7 @@ mod workflow;
 
 pub use app_settings::LibrarySchemaAppSettings;
 pub use bundle::LibrarySchemaBundle;
+pub use catalog::LibrarySchemaCatalog;
 pub use command::LibrarySchemaCommand;
 pub use cycle::LibrarySchemaCycle;
 pub use global_config::LibrarySchemaGlobalConfig;

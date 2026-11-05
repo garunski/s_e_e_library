@@ -23,7 +23,7 @@ pub fn LibrarySchemaHubConfig() -> Element {
                 li { code { class: "{INLINE_CODE}", "overrides" }, " - object." }
                 li {
                     code { class: "{INLINE_CODE}", "library" }, " - catalog sources and collections. See "
-                    Link { to: Route::SchemaIndex {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
+                    Link { to: Route::SchemaCatalog {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
                     "."
                 }
                 li {

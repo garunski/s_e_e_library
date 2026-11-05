@@ -26,7 +26,6 @@ pub fn llms_source_paths() -> Vec<&'static str> {
     for slug in AUTHORING_SLUGS {
         paths.push(authoring_path(slug));
     }
-    paths.push("/authoring/research/");
     paths.push("/schema/");
     for slug in SCHEMA_SLUGS {
         paths.push(schema_path(slug));
@@ -99,12 +98,6 @@ pub fn verify_authoring_index_links(html: &str) -> Vec<String> {
                 "authoring/index.html does not link to /authoring/{slug}/ (expected href {href})"
             ));
         }
-    }
-    let research_href = with_pages_base("/authoring/research/");
-    if !html.contains(&research_href) {
-        errors.push(format!(
-            "authoring/index.html does not link to Research authoring (expected href {research_href})"
-        ));
     }
     let publish_href = with_pages_base(authoring_path("publish"));
     if !html.contains(&publish_href) {
@@ -321,10 +314,6 @@ pub(crate) fn fixture_authoring_index_html() -> String {
             PAGES_BASE_PREFIX, slug
         ));
     }
-    html.push_str(&format!(
-        "<a href=\"{}/authoring/research/\">research</a>",
-        PAGES_BASE_PREFIX
-    ));
     html.push_str(&format!(
         "<a href=\"{}/authoring/publish/\">publish</a>",
         PAGES_BASE_PREFIX

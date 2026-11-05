@@ -72,17 +72,17 @@ fn verify_llms_sections_fails_with_missing_source_path() {
 }
 
 #[test]
-fn verify_authoring_index_requires_six_package_guides_research_and_publish() {
+fn verify_authoring_index_requires_six_package_guides_and_publish() {
     let errors = verify_authoring_index_links("<html></html>");
-    assert_eq!(errors.len(), 8);
+    assert_eq!(errors.len(), 7);
     let html = fixture_authoring_index_html();
     assert!(verify_authoring_index_links(&html).is_empty());
 }
 
 #[test]
-fn verify_schema_index_requires_sixteen_detail_links() {
+fn verify_schema_index_requires_seventeen_detail_links() {
     let errors = verify_schema_index_links("<html></html>");
-    assert_eq!(errors.len(), 16);
+    assert_eq!(errors.len(), 17);
     assert!(verify_schema_index_links(&fixture_schema_index_html()).is_empty());
 }
 

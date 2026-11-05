@@ -3,7 +3,7 @@ mod authoring_common;
 mod authoring_guides_contract;
 mod authoring_index;
 mod home;
-mod page_links;
+pub(crate) mod page_links;
 mod schema;
 mod schema_assets;
 mod schema_common;
@@ -12,13 +12,13 @@ mod schema_package_contract;
 
 pub use authoring::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
-    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringResearch,
-    LibraryAuthoringSkills, LibraryAuthoringWorkflows,
+    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringSkills,
+    LibraryAuthoringWorkflows,
 };
 pub use authoring_index::LibraryAuthoringIndex;
 pub use home::LibraryHome;
 pub use schema::{
-    LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCommand, LibrarySchemaCycle,
+    LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCatalog, LibrarySchemaCommand, LibrarySchemaCycle,
     LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
     LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaResearch,
     LibrarySchemaRoutingRules, LibrarySchemaRuleTemplate, LibrarySchemaSchedule,
@@ -59,7 +59,6 @@ pub fn DocPlaceholder(
         document::Meta { name: "description", content: "{description}" }
         LibraryDocFrame {
             title: title.to_string(),
-            description: description.to_string(),
             rail_title,
             rail_description,
             p { class: "text-sm text-zinc-600 dark:text-zinc-400",
@@ -88,7 +87,6 @@ pub fn LibraryNotFound(segments: Vec<String>) -> Element {
         }
         LibraryDocFrame {
             title: "Page not found".to_string(),
-            description: "The requested library documentation page does not exist.".to_string(),
             rail_title: "Not found",
             rail_description: "This URL is not part of the published documentation set.",
             if !path.is_empty() {

@@ -1,4 +1,4 @@
-## Execution runtime and controls
+### Worker and run controls
 
 Definitions retain their nested authoring form. Execution uses a flat graph of task IDs and materializes one foreach iteration and one repair attempt at a time. A loop's `wait_for` barrier completes only after the whole loop, including its verifiers, succeeds. An empty successful loop contributes zero action records.
 
@@ -8,7 +8,7 @@ Each run has a supervised worker process. The parent API owns durable execution 
 
 **Resume** continues a safely checkpointed paused run without replaying completed task IDs or losing their outputs. Current checkpoints contain flat graph state, loop cursors, outputs, allocation counters, resource policy and frozen run provenance. Unknown in-flight actions after an interruption are recorded as failures and are not automatically replayed. Reconcile uncertain external side effects before starting replacement work. Exactly-once external effects are not guaranteed. The engine reads the current flat checkpoint format only.
 
-## Progress fields
+### Progress fields
 
 HTTP execution reads and MCP `execution_get` expose the same `runtime_progress` object. `status` remains authoritative; successful worker startup does not mean Complete.
 
@@ -26,7 +26,7 @@ HTTP execution reads and MCP `execution_get` expose the same `runtime_progress` 
 | `pause_requested` | A request is pending; this differs from a committed Paused state |
 | `worker_pid`, `worker_failure` | Owned worker identity and bounded failure diagnostics, when available |
 
-## Resource limits
+### Resource limits
 
 The policy is selected at launch and preserved on resume. Limits are checked before graph mutation or semantic output retention. A rejected semantic result is not silently truncated into apparently valid task output.
 

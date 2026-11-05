@@ -3,7 +3,7 @@ use dioxus_router::Link;
 use s_e_e_gui_kit::components::button::{button_classes, ButtonSize, ButtonVariant};
 
 use crate::library_href;
-use crate::pages::authoring_common::{AuthoringGuideFrame, PRE};
+use crate::pages::authoring_common::{AuthoringGuideFrame, PAGE_LEDE, PRE};
 use crate::pages::schema_assets::SchemaDownload;
 
 const DOWNLOAD_ROW: &str = "mt-3 flex flex-wrap gap-2";
@@ -20,9 +20,15 @@ pub fn SchemaGuideFrame(
         AuthoringGuideFrame {
             document_title,
             meta_description,
-            rail_title,
-            rail_description,
-            {children}
+            div { class: "library-schema-details",
+                p { class: "{PAGE_LEDE} mb-6 border-l-2 border-zinc-200 pl-4 [overflow-wrap:anywhere] dark:border-zinc-700",
+                    strong { class: "font-semibold text-zinc-900 dark:text-zinc-50", "{rail_title}" }
+                    if !rail_description.is_empty() {
+                        span { class: "block", "{rail_description}" }
+                    }
+                }
+                {children}
+            }
         }
     }
 }

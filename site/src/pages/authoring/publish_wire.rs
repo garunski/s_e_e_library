@@ -1,9 +1,5 @@
 //! Plain-text snippets shared by the publish page and machine checks.
 
-pub const VALIDATE_AND_CATALOG_COMMANDS: &str = "mise run validate\nmise run catalog";
-
-pub const DOCS_CHECK_COMMANDS: &str = "mise run quality";
-
 pub const PAYLOAD_LAYOUT: &str = "packages/{slug}/{version}/";
 
 pub const PACKAGE_SIDECAR_PATH: &str = "packages/{slug}/s_e_e_package.json";

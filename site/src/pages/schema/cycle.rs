@@ -46,7 +46,7 @@ pub fn LibrarySchemaCycle() -> Element {
             h2 { class: "mt-8 {SECTION_TITLE}", "JSON Schema" }
             SchemaBlockByName { filename: "cycle-document.schema.json" }
             p { class: "mt-6 text-sm text-zinc-600 dark:text-zinc-400",
-                Link { to: Route::SchemaIndex {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "Catalog schema" }
+                Link { to: Route::SchemaCatalog {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "Catalog schema" }
             }
         }
     }

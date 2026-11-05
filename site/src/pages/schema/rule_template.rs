@@ -34,7 +34,7 @@ pub fn LibrarySchemaRuleTemplate() -> Element {
             }
             p { class: "mt-6 text-sm text-zinc-600 dark:text-zinc-400",
                 "See the "
-                Link { to: Route::SchemaIndex {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
+                Link { to: Route::SchemaCatalog {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "catalog schema" }
                 " for the manifest and install-path rules."
             }
         }

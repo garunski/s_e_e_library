@@ -40,6 +40,7 @@ Authoring:
 
 Schema:
 
+- S.E.E. schemas
 - Catalog schema
 - Workflow schema
 - Prompt schema
@@ -75,7 +76,6 @@ its payload, then publish it to the catalog.
 - [Commands](/authoring/commands/): worker definitions for an agent CLI (`command.json`)
 - [Bundles](/authoring/bundles/): install maps that deliver several packages together
 - [Cycles](/authoring/cycles/): host loops wiring workflows to stores (`cycle.json`)
-- [Knowledge Research](/authoring/research/): structured research, report, analysis, and guide documents; profile-driven authoring and publication
 
 ## Publishing
 
@@ -84,21 +84,8 @@ its payload, then publish it to the catalog.
 ## Schema reference
 
 - Catalog manifest: [`see.library/v1`](/catalog.json)
-- Payload contract, per-type schemas, and hub document schemas: [Catalog schema](/schema/)
+- Payload contract, per-type schemas, and hub document schemas: [S.E.E. schemas](/schema/)
 - Research HTTP/MCP wire contract and profile versions: [Research schema](/schema/knowledge-research/)
-
-## Knowledge Research
-
-Source: /authoring/research/
-
-Knowledge Research is a structured Knowledge document service, not a Library catalog package. Its profile descriptor returned by `knowledge_research_profile_get` is the runtime authority for required fields, roles, examples, and validation rules. The current `research`, `report`, `analysis`, and `guide` profiles are version 1.
-
-- [Research authoring guide](/authoring/research/)
-- [Research wire schema page](/schema/knowledge-research/)
-- [Research JSON Schema](/schema/knowledge-research.schema.json)
-- [Complete valid examples and validation repairs](/authoring/research/#examples)
-
-The examples cover all four kinds, diagnostics and corrected fields, and Draft-to-edition readback. They are illustrative and make no claims about observed project facts. Local source validation or Pages staging does not prove remote publication or installation in a project.
 
 ## Knowledge Research schema
 
@@ -1305,20 +1292,19 @@ same guidance as one plain-text file for agents. Keep the page and
 ## Schema reference
 
 - Catalog manifest: [`see.library/v2`](/catalog.json)
-- Payload contract: [Catalog schema](/schema/)
+- Payload contract: [Catalog schema](/schema/catalog/)
 
 ---
 
-# Catalog schema
+# S.E.E. schemas
 
 Source: /schema/
 
-The catalog is a single JSON manifest (`catalog.json`) plus versioned payload
-files under `packages/`. The manifest schema tag is `see.library/v1` or
-`see.library/v2`. This section is the authoritative contract for this
-repository; `scripts/build-catalog.mjs` enforces it.
+## Library
 
-Per-type payload schemas:
+- [Catalog schema](/schema/catalog/)
+
+## Package schemas
 
 - [Workflow](/schema/workflow/)
 - [Prompt](/schema/prompt/)
@@ -1328,7 +1314,7 @@ Per-type payload schemas:
 - [Bundle](/schema/bundle/)
 - [Cycle](/schema/cycle/)
 
-Hub document schemas:
+## Configuration
 
 - [Hub config](/schema/hub-config/)
 - [Global config](/schema/global-config/)
@@ -1338,6 +1324,21 @@ Hub document schemas:
 - [Orchestrator policy](/schema/orchestrator-policy/)
 - [Schedule](/schema/schedule/)
 - [Schedule rule set](/schema/schedule-rule-set/)
+
+## Knowledge
+
+- [Knowledge Research](/schema/knowledge-research/)
+
+---
+
+# Catalog schema
+
+Source: /schema/catalog/
+
+The catalog is a single JSON manifest (`catalog.json`) plus versioned payload
+files under `packages/`. The manifest schema tag is `see.library/v1` or
+`see.library/v2`. This section is the authoritative contract for this
+repository; `scripts/build-catalog.mjs` enforces it.
 
 ## Manifest
 
@@ -2178,7 +2179,7 @@ Download: [workflow.schema.json](https://garunski.github.io/s_e_e_library/schema
 ```
 
 See the [workflow authoring guide](/authoring/workflows/) and the
-[catalog schema](/schema/).
+[catalog schema](/schema/catalog/).
 
 Stored definition envelope (hub object; `version` is an integer):
 [workflow-definition.schema.json](https://garunski.github.io/s_e_e_library/schema/workflow-definition.schema.json)
@@ -2224,7 +2225,7 @@ Download: [prompt.schema.json](https://garunski.github.io/s_e_e_library/schema/p
 ```
 
 See the [prompt authoring guide](/authoring/prompts/) and the
-[catalog schema](/schema/).
+[catalog schema](/schema/catalog/).
 
 ---
 
@@ -2262,7 +2263,7 @@ block. Download: [skill-frontmatter.schema.json](https://garunski.github.io/s_e_
 ```
 
 See the [skill authoring guide](/authoring/skills/) and the
-[catalog schema](/schema/).
+[catalog schema](/schema/catalog/).
 
 ---
 
@@ -2387,7 +2388,7 @@ Download: [command.schema.json](https://garunski.github.io/s_e_e_library/schema/
 ```
 
 See the [command authoring guide](/authoring/commands/) and the
-[catalog schema](/schema/).
+[catalog schema](/schema/catalog/).
 
 ---
 
@@ -2407,7 +2408,7 @@ frontmatter). Installs to `.cursor/rules/{slug}.mdc`.
 Category `template`. Payload is an arbitrary scaffold file. Installs under
 `templates/`.
 
-See the [catalog schema](/schema/) for the manifest and install-path rules.
+See the [catalog schema](/schema/catalog/) for the manifest and install-path rules.
 
 ---
 
@@ -2419,7 +2420,7 @@ Category `bundle`. No payload of its own.
 
 A bundle's catalog `files[]` array installs the payloads of several other
 packages together; the build infers each file's kind from its `to` prefix (see
-[Install paths](/schema/#install-paths)).
+[Install paths](/schema/catalog/#install-paths)).
 
 Bundle metadata lives in its `s_e_e_package.json`:
 
@@ -2456,10 +2457,10 @@ Schema for a bundle's `s_e_e_package.json`. Download:
 ```
 
 The bundle's `files[]` entries follow the `file` definition in the
-[catalog schema](/schema/#json-schema).
+[catalog schema](/schema/catalog/#json-schema).
 
 See the [bundle authoring guide](/authoring/bundles/) and the
-[catalog schema](/schema/).
+[catalog schema](/schema/catalog/).
 
 ---
 
@@ -2551,7 +2552,7 @@ Download: [cycle-document.schema.json](https://garunski.github.io/s_e_e_library/
 }
 ```
 
-See the [catalog schema](/schema/).
+See the [catalog schema](/schema/catalog/).
 
 ---
 
@@ -2563,7 +2564,7 @@ Hub data-root `config.json`. Must be a non-empty JSON object.
 
 - `project` - object; typically includes `id`.
 - `overrides` - object.
-- `library` - catalog sources and collections. See [catalog schema](/schema/).
+- `library` - catalog sources and collections. See [catalog schema](/schema/catalog/).
 - `stories` - see [stories config](/schema/stories-config/).
 - `llm.routing` - see [routing rules](/schema/routing-rules/).
 - `orchestrator` - see [orchestrator policy](/schema/orchestrator-policy/).
