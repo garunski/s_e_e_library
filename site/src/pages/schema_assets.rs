@@ -124,7 +124,11 @@ pub const CONFIG_PAGE_SCHEMAS: [SchemaDownload; 8] = [
     },
 ];
 
-pub const WIRE_CONTRACT_SCHEMAS: [SchemaDownload; 3] = [
+pub const WIRE_CONTRACT_SCHEMAS: [SchemaDownload; 4] = [
+    SchemaDownload {
+        filename: "collection-filter.schema.json",
+        json: include_str!("../../../public/schema/collection-filter.schema.json"),
+    },
     SchemaDownload {
         filename: "knowledge-research.schema.json",
         json: KNOWLEDGE_RESEARCH_SCHEMA_JSON,

@@ -136,7 +136,7 @@ fn removing_staged_schema_download_fails_verify_with_path() {
     let schema_file = staging.join("schema/workflow.schema.json");
     fs::remove_file(&schema_file).expect("remove schema");
     let errors = verify_staged_schema_downloads(&staging);
-    assert!(errors.iter().any(|e| e.contains("21")));
+    assert!(errors.iter().any(|e| e.contains("22")));
 }
 
 #[test]

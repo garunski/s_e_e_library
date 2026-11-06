@@ -4672,6 +4672,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "clap",
+ "jsonschema",
  "reqwest 0.12.28",
  "s_e_e_core",
  "s_e_e_library_ops",

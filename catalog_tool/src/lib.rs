@@ -48,3 +48,7 @@ mod pages_artifact_tests;
 #[cfg(test)]
 #[path = "verify_docs_tests.rs"]
 mod verify_docs_tests;
+
+#[cfg(test)]
+#[path = "collection_filter_tests.rs"]
+mod collection_filter_tests;

@@ -243,9 +243,9 @@ pub fn verify_staged_schema_downloads(staging: &Path) -> Vec<String> {
         })
         .collect();
     files.sort();
-    if files.len() != 21 {
+    if files.len() != 22 {
         return vec![format!(
-            "expected 21 staged schema/*.schema.json files, found {} under {schema_dir:?}",
+            "expected 22 staged schema/*.schema.json files, found {} under {schema_dir:?}",
             files.len()
         )];
     }

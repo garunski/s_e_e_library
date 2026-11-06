@@ -30,7 +30,7 @@ fn download_filenames_are_unique() {
     names.dedup();
     let count = all_embedded_schemas().count();
     assert_eq!(names.len(), count);
-    assert_eq!(count, 21);
+    assert_eq!(count, 22);
 }
 
 #[test]
@@ -46,6 +46,7 @@ fn package_schema_downloads_include_cycle_document() {
 
 #[test]
 fn wire_contract_schema_is_available_for_download() {
+    assert!(schema_download("collection-filter.schema.json").is_some());
     assert!(schema_download("knowledge-research.schema.json").is_some());
     assert!(schema_download("workflow-execution.schema.json").is_some());
     assert!(schema_download("execution-error.schema.json").is_some());

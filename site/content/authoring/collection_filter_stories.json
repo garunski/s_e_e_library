@@ -1,0 +1,7 @@
+{
+  "project": "s-e-e",
+  "milestone_id": "m-45",
+  "filters": [
+    { "field": "status", "op": "ne", "value": "Done" }
+  ]
+}

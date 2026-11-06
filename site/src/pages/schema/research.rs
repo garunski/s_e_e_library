@@ -36,6 +36,11 @@ pub fn LibrarySchemaResearch() -> Element {
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "Errors and publication" }
             p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
+                "Collection selection uses list_filter_get for knowledge_research. Combine typed filters with existing kind, tag, query and view selectors using AND. The response retains documents, next_cursor and limit. A continuation cursor is bound to the normalized selection and view. Restart without the cursor after changing either. MCP entity-resource query templates preserve this cursor independently of protocol catalog pagination. Shared predicate shapes are available in "
+                a { href: library_href("/schema/collection-filter.schema.json"), class: "font-semibold text-sky-700 dark:text-sky-300", "collection-filter.schema.json" }
+                "."
+            }
+            p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
                 "HTTP errors contain an error message and stable code, with optional field path, remedy, and validation issues. Validation issues include code, severity, field path, optional page and section keys, and remedy. Stale tokens return a conflict and require rereading and reconciling the current aggregate. Publish revalidates within the mutation and returns an immutable edition plus the latest aggregate token."
             }
             h2 { class: "mt-8 {SECTION_TITLE}", "Schema JSON" }

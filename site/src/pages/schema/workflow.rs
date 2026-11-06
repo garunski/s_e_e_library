@@ -62,6 +62,14 @@ pub fn LibrarySchemaWorkflow() -> Element {
             CodeExample { text: UNBOUND }
             h2 { class: "mt-8 {SECTION_TITLE}", "Template expansion" }
             CodeExample { text: TEMPLATE_EXPANSION }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Collection selection arguments" }
+            p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
+                "Existing collection tools accept the shared filters member in their arguments. Call list_filter_get with project and collection for the allowed fields, operators, nullable behavior and enum choices. The collection filter schema describes valid predicate shapes and bounds. Descriptor validation also enforces same-type operands and collection-specific rules. HTTP GET encodes filters once as a JSON array. Project, legacy selectors and paging remain operation-specific."
+            }
+            p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
+                "The workflow authoring guide includes executable story, milestone and document examples, limits, correction guidance and Research cursor handling. A foreach task can consume native story_list story_ids in their returned order."
+            }
+            SchemaBlockByName { filename: "collection-filter.schema.json" }
             h2 { class: "mt-8 {SECTION_TITLE}", "JSON Schema" }
             p { class: "text-sm text-zinc-600 dark:text-zinc-400", "Library package envelope (id, name, content):" }
             SchemaBlockByName { filename: "workflow.schema.json" }

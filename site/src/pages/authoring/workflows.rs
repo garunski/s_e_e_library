@@ -19,6 +19,12 @@ const WORKER_FAILURE_EXAMPLE: &str =
     include_str!("../../../content/authoring/workflow_execution_worker_failed.json");
 const LIMIT_ERROR_EXAMPLE: &str =
     include_str!("../../../content/authoring/workflow_execution_limit_error.json");
+const FILTER_HELP: &str = include_str!("../../../content/authoring/collection_filters.md");
+const FILTER_STORIES: &str =
+    include_str!("../../../content/authoring/collection_filter_stories.json");
+const FILTER_MILESTONES: &str =
+    include_str!("../../../content/authoring/collection_filter_milestones.json");
+const FILTER_DOCS: &str = include_str!("../../../content/authoring/collection_filter_docs.json");
 
 #[component]
 pub fn LibraryAuthoringWorkflows() -> Element {
@@ -26,6 +32,19 @@ pub fn LibraryAuthoringWorkflows() -> Element {
         AuthoringGuideFrame {
             document_title: "Workflows",
             meta_description: "A workflow package defines tasks the S.E.E. engine runs against a hub or spoke.",
+            section {
+                h2 { "Native collection selection" }
+                s_e_e_gui_kit::components::MarkdownHtml { src: FILTER_HELP.to_string() }
+                h3 { class: "mt-6 {SUBSECTION_TITLE}", "Unfinished milestone stories" }
+                p { class: "{BODY_TEXT}", "Arguments for story_list. Substitute your project and milestone IDs and use its configured status choices." }
+                CodeExample { text: FILTER_STORIES }
+                h3 { class: "mt-6 {SUBSECTION_TITLE}", "Milestone progress" }
+                p { class: "{BODY_TEXT}", "Arguments for milestone_list. Derived progress describes all member stories independently of list selection and declared milestone status." }
+                CodeExample { text: FILTER_MILESTONES }
+                h3 { class: "mt-6 {SUBSECTION_TITLE}", "Document type and tags" }
+                p { class: "{BODY_TEXT}", "Arguments for knowledge_doc_list. Discover knowledge_docs for supported document type choices." }
+                CodeExample { text: FILTER_DOCS }
+            }
             section {
                 h2 { "Workflow definition" }
                 p { class: "{BODY_TEXT}",

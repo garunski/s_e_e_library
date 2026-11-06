@@ -1,0 +1,7 @@
+{
+  "project": "s-e-e",
+  "filters": [
+    { "field": "linked_story_count", "op": "gte", "value": 1 },
+    { "field": "completion_percent", "op": "lte", "value": 75 }
+  ]
+}

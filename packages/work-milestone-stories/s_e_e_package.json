@@ -3,7 +3,7 @@
   "slug": "work-milestone-stories",
   "category": "bundle",
   "name": "Work milestone stories",
-  "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
+  "description": "Select unfinished milestone stories natively, verify saved completion with bounded retries and blockers, then require one final quality pass.",
   "labels": [
     "bulk",
     "milestone",
@@ -21,6 +21,11 @@
       "version": "1.0.1",
       "date": "2026-10-20",
       "note": "Work each story with the store-only work prompt, let the agent set Done after verification, and run the repository quality gate from AGENTS.md."
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-11-06",
+      "note": "Native unfinished-story selection, bounded repair and saved Done/all-checked verification, explicit blockers and one final quality owner. Customized installs require an explicit overwrite upgrade."
     }
   ],
   "usageContexts": [

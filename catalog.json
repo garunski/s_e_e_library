@@ -548,10 +548,10 @@
         "scope": "any"
       },
       "dependencies": [],
-      "description": "Reads every story in a milestone and runs a Cursor CLI agent on each in a loop, marking each Done. Each agent runs the quality task before completing its story.",
+      "description": "Select unfinished milestone stories natively, verify saved completion with bounded retries and blockers, then require one final quality pass.",
       "files": [
         {
-          "from": "packages/work-milestone-stories/1.0.1/system-work-milestone-stories/definition.json",
+          "from": "packages/work-milestone-stories/1.1.0/system-work-milestone-stories/definition.json",
           "to": ".s_e_e/workflows/definitions/system-work-milestone-stories.json"
         },
         {
@@ -573,6 +573,18 @@
         {
           "from": "packages/system-mcp-cursor-delivery/1.0.1/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
+        },
+        {
+          "from": "packages/work-milestone-stories/1.1.0/work-story-repair-attempt/prompt.json",
+          "to": ".s_e_e/prompts/work-story-repair-attempt.json"
+        },
+        {
+          "from": "packages/work-milestone-stories/1.1.0/work-story-retry-guidance/prompt.json",
+          "to": ".s_e_e/prompts/work-story-retry-guidance.json"
+        },
+        {
+          "from": "packages/work-milestone-stories/1.1.0/milestone-final-quality-pass/prompt.json",
+          "to": ".s_e_e/prompts/milestone-final-quality-pass.json"
         }
       ],
       "id": "bundle-work-milestone-stories",
@@ -593,6 +605,11 @@
           "date": "2026-10-20",
           "note": "Work each story with the store-only work prompt, let the agent set Done after verification, and run the repository quality gate from AGENTS.md.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-11-06",
+          "note": "Native unfinished-story selection, bounded repair and saved Done/all-checked verification, explicit blockers and one final quality owner. Customized installs require an explicit overwrite upgrade.",
+          "version": "1.1.0"
         }
       ],
       "requires": [
@@ -605,7 +622,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.1.0"
     },
     {
       "author": "garunski",
@@ -2842,5 +2859,5 @@
       "name": "Cursor"
     }
   ],
-  "updated": "2026-10-20T15:59:47.620Z"
+  "updated": "2026-11-06T08:07:18.513Z"
 }

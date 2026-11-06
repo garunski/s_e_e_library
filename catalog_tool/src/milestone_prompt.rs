@@ -1,6 +1,6 @@
 const REQUIRED_PHRASES: &[&str] = &[
     "status",
-    "priority",
+    "milestone_progress",
     "labels",
     "ordinal",
     "criteria",

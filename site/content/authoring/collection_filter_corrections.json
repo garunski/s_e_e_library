@@ -1,0 +1,38 @@
+[
+  {
+    "collection": "stories",
+    "invalid": [{"field":"priority","op":"eq","value":"high"}],
+    "code": "unknown_field",
+    "corrected": [{"field":"status","op":"ne","value":"Done"}]
+  },
+  {
+    "collection": "stories",
+    "invalid": [{"field":"status","op":"eq","value":"finished"}],
+    "code": "invalid_enum",
+    "corrected": [{"field":"status","op":"eq","value":"Done"}]
+  },
+  {
+    "collection": "stories",
+    "invalid": [{"field":"milestone_id","op":"is_unset","value":null}],
+    "code": "unexpected_value",
+    "corrected": [{"field":"milestone_id","op":"is_unset"}]
+  },
+  {
+    "collection": "milestones",
+    "invalid": [{"field":"completion_percent","op":"gte","value":"75"}],
+    "code": "invalid_type",
+    "corrected": [{"field":"completion_percent","op":"gte","value":75}]
+  },
+  {
+    "collection": "knowledge_docs",
+    "invalid": [{"field":"tags","op":"contains_all","value":[]}],
+    "code": "membership_size",
+    "corrected": [{"field":"tags","op":"contains_all","value":["api"]}]
+  },
+  {
+    "collection": "knowledge_docs",
+    "invalid": [{"field":"created_date","op":"gte","value":"2026-02-30"}],
+    "code": "invalid_date",
+    "corrected": [{"field":"created_date","op":"gte","value":"2026-02-28"}]
+  }
+]

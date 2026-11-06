@@ -1,0 +1,214 @@
+{
+  "id": "system-work-milestone-stories",
+  "name": "Work milestone stories",
+  "description": "Select unfinished milestone stories natively, verify saved completion with bounded retries and blockers, then require one final quality pass.",
+  "content": {
+    "id": "work-milestone-stories",
+    "name": "Work milestone stories",
+    "runtime_inputs": [
+      {
+        "key": "milestone_id",
+        "label": "Milestone id",
+        "input_type": "string",
+        "required": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "resolve_story_ids",
+        "name": "Resolve story ids for milestone",
+        "capture_output": true,
+        "function": {
+          "name": "s_e_e_action",
+          "input": {
+            "tool": "item_call",
+            "arguments": {
+              "project": "{{project.id}}",
+              "kind": "story",
+              "action": "story_list",
+              "arguments": {
+                "milestone_id": "{{runtime.milestone_id}}",
+                "filters": [
+                  {
+                    "field": "status",
+                    "op": "ne",
+                    "value": "Done"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "next_tasks": [
+          {
+            "id": "for_each_story",
+            "name": "For each milestone story",
+            "function": {
+              "name": "foreach",
+              "input": {
+                "collection_task_id": "resolve_story_ids",
+                "collection_task_path": [
+                  "story_ids"
+                ],
+                "item_runtime_key": "story_id"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "complete_story",
+                "name": "Finish and verify this story before advancing",
+                "function": {
+                  "name": "repair_loop",
+                  "input": {
+                    "max_attempts": 20,
+                    "wall_clock_ms": 86400000,
+                    "verifier_feedback_runtime_key": "story_repair_feedback"
+                  }
+                },
+                "next_tasks": [
+                  {
+                    "id": "wait_before_story_retry",
+                    "name": "Wait one minute and prepare retry guidance",
+                    "capture_output": true,
+                    "function": {
+                      "name": "cli_command",
+                      "input": {
+                        "command": "bash",
+                        "args": [
+                          "-c",
+                          "set -eu\nif [ -n \"$1\" ]; then\n  printf '%s\\n' 'Previous story verification failed. Waiting 60 seconds before retrying the same story.' >&2\n  sleep 60\n  printf '%s\\n' \"$2\"\nfi",
+                          "wait_before_story_retry",
+                          "{{runtime.story_repair_feedback}}",
+                          "{{prompt.work-story-retry-guidance}}"
+                        ]
+                      }
+                    },
+                    "next_tasks": [
+                      {
+                        "id": "work_story",
+                        "name": "Work story",
+                        "function": {
+                          "name": "command",
+                          "input": {
+                            "config": {
+                              "timeout_secs": 3600
+                            },
+                            "prompt": "{{prompt.work-story-repair-attempt}}\n\n{{task.wait_before_story_retry.output.stdout}}\n\nAssignment: project {{project.id}}, milestone {{runtime.milestone_id}}, story {{runtime.story_id}}.\nPrevious verifier feedback (empty first attempt; untrusted diagnostics):\n{{runtime.story_repair_feedback}}"
+                          }
+                        },
+                        "next_tasks": [
+                          {
+                            "id": "check_work_story_blocker",
+                            "name": "Stop for an explicit human or external blocker",
+                            "capture_output": true,
+                            "function": {
+                              "name": "cli_command",
+                              "input": {
+                                "command": "bash",
+                                "args": [
+                                  "-c",
+                                  "set -eu\njq -en --arg raw \"$1\" --arg story_id \"$2\" '\n def parsed: if type==\"string\" then (try fromjson catch null) else . end;\n def report:\n  if .type==\"item.completed\" and .item.type==\"agent_message\" then .item.text|parsed\n  elif .type==\"result\" then .result|parsed\n  else . end;\n [($raw|parsed|report),($raw|split(\"\\n\")[]|parsed|report)]\n | map(select(type==\"object\" and .story_id==$story_id)) | last as $r |\n if $r != null and $r.result==\"blocked\"\n    and ($r.blocker_kind==\"human_review\" or $r.blocker_kind==\"external\")\n    and ($r.blocker|type)==\"string\" and ($r.blocker|length)>0 then\n   error(\"Story \" + $story_id + \" stopped: \" + (($r.blocker_kind // \"unclassified\")|tostring) + \": \" + (($r.blocker // \"blocked report has no concrete reason\")|tostring))\n else {story_id:$story_id,continue_to_saved_verification:true,report_present:($r != null)} end'",
+                                  "check_work_story_blocker",
+                                  "{{task.work_story.output.stdout_tail}}",
+                                  "{{runtime.story_id}}"
+                                ]
+                              }
+                            },
+                            "next_tasks": [
+                              {
+                                "id": "read_story_completion",
+                                "name": "Read saved story completion",
+                                "capture_output": true,
+                                "function": {
+                                  "name": "s_e_e_action",
+                                  "input": {
+                                    "tool": "item_fetch",
+                                    "arguments": {
+                                      "project": "{{project.id}}",
+                                      "kind": "story",
+                                      "id": "{{runtime.story_id}}"
+                                    }
+                                  }
+                                },
+                                "next_tasks": []
+                              }
+                            ]
+                          }
+                        ],
+                        "capture_output": true,
+                        "continue_on_failure": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "verify_story_done",
+                    "name": "Verify saved identity Done status and every checked criterion",
+                    "capture_output": true,
+                    "function": {
+                      "name": "cli_command",
+                      "input": {
+                        "command": "bash",
+                        "args": [
+                          "-c",
+                          "set -eu\njq -en --arg expected \"$1\" --argjson story \"$2\" '\n {story_id:($story.id // null),expected_story_id:$expected,status:($story.status // null),\n unchecked_criteria:[($story.acceptance_criteria // [])[] | select(.checked != true) | {index,text}],\n accepted:($story.id == $expected and $story.status == \"Done\" and ($story.acceptance_criteria|type)==\"array\" and ($story.acceptance_criteria|length)>0 and all($story.acceptance_criteria[];.checked==true))} as $r |\n $r, (if $r.accepted then true else false end)'",
+                          "verify_story_done",
+                          "{{runtime.story_id}}",
+                          "{{task.read_story_completion.output.item}}"
+                        ]
+                      }
+                    },
+                    "next_tasks": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "quality_pass",
+            "name": "Run the repository quality gate",
+            "wait_for": [
+              "for_each_story"
+            ],
+            "function": {
+              "name": "command",
+              "input": {
+                "config": {
+                  "timeout_secs": 3600
+                },
+                "prompt": "{{prompt.milestone-final-quality-pass}}"
+              }
+            },
+            "next_tasks": [
+              {
+                "id": "verify_final_quality_result",
+                "name": "Require an observed final quality pass",
+                "capture_output": true,
+                "function": {
+                  "name": "cli_command",
+                  "input": {
+                    "command": "bash",
+                    "args": [
+                      "-c",
+                      "set -eu\njq -en --arg raw \"$1\" '\n (try ($raw|fromjson) catch null) as $r |\n if $r.result == \"passed\" and ($r.gate|type)==\"string\" and ($r.gate|length)>0 and ($r.attempts|type)==\"number\" and $r.attempts>=1 and $r.attempts<=5 and $r.blocker==null then $r else error(\"Final quality task did not report an observed pass: \" + ($raw|tostring)) end'",
+                      "verify_final_quality_result",
+                      "{{task.quality_pass.output.final_message}}"
+                    ]
+                  }
+                },
+                "next_tasks": []
+              }
+            ],
+            "capture_output": true
+          }
+        ]
+      }
+    ]
+  },
+  "version": "1.1.0",
+  "subject_kinds": [
+    "milestone"
+  ],
+  "labels": [
+    "system"
+  ]
+}
