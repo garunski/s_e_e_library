@@ -24,7 +24,6 @@ pub fn LibrarySchemaAppSettings() -> Element {
                     code { class: "{INLINE_CODE}", "system" }, "."
                 }
                 li {
-                    code { class: "{INLINE_CODE}", "auto_save" }, ", "
                     code { class: "{INLINE_CODE}", "notifications" }, ", "
                     code { class: "{INLINE_CODE}", "auth_enabled" }, ", "
                     code { class: "{INLINE_CODE}", "mcp_enabled" }, ", "

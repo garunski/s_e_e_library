@@ -1,11 +1,11 @@
 {
   "mcpServers": {
     "see": {
-      "type": "http",
-      "url": "http://127.0.0.1:30127/mcp",
       "headers": {
         "Authorization": "Bearer ${env:SEE_MCP_TOKEN}"
-      }
+      },
+      "type": "http",
+      "url": "http://127.0.0.1:45857/mcp"
     }
   }
 }

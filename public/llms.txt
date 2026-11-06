@@ -127,6 +127,8 @@ Use at most 16 predicates, 100 members per nonempty membership array, 1024 Unico
 
 Selection precedes existing ordering, matching totals and page slicing. Standard offset pages retain `items`, `total`, `offset`, `limit`, and `has_more`, with default limit 50 and maximum 200. Keep predicates on subsequent pages. Other existing responses can be unpaged or omit totals. Use their actual response contract. Native `story_list` traverses matching pages and its text JSON exposes `story_ids` in exactly item order. Pass those IDs directly to `foreach`.
 
+The Board endpoint `GET /api/projects/{project}/stories/columns` applies `limit` and `offset` per status and returns the full matching `stories_total` per status. With `group_by_milestone=true`, paging applies per milestone within each status and `milestone_totals` reports matching counts keyed by milestone ID. The empty key represents unassigned work.
+
 Research retains `documents`, `next_cursor`, and `limit`. Its cursor is bound to the normalized selection and view. Keep both unchanged while following `next_cursor` and discard the cursor when either changes. Protocol catalog cursors from `tools/list`, `prompts/list`, and `resources/list` are separate from entity cursors.
 
 Existing GUI field controls use the same descriptors alongside quick filters. Choose a field and operator, enter a typed value or select enum choices, and remove individual predicates or clear the selection. Changes reset paging/cursors and persist in the URL. Lists distinguish no matching rows from load or access errors. Collection-specific eligibility and saved configuration remain in force.
@@ -2701,7 +2703,7 @@ Source: /schema/app-settings/
 User-level `~/.s_e_e/settings.json`.
 
 - `theme` - `light`, `dark`, or `system`.
-- `auto_save`, `notifications`, `auth_enabled`, `mcp_enabled`, `llm_content_capture_enabled` - booleans.
+- `notifications`, `auth_enabled`, `mcp_enabled`, `llm_content_capture_enabled` - booleans.
 - `default_workflow` - string or null.
 - `server_url`, `api_port`, `cors_origins` - strings.
 - `audit_retention_hours`, `log_retention_hours`, `session_ttl_hours`, `command_timeout_secs` - integer or null.
@@ -2722,7 +2724,6 @@ Download: [app-settings.schema.json](https://garunski.github.io/s_e_e_library/sc
   "additionalProperties": true,
   "properties": {
     "theme": { "enum": ["light", "dark", "system"] },
-    "auto_save": { "type": "boolean" },
     "notifications": { "type": "boolean" },
     "default_workflow": { "type": ["string", "null"] },
     "server_url": { "type": "string" },

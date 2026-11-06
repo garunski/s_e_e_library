@@ -64,80 +64,93 @@
             ]
           },
           {
-            "id": "select_deletions",
-            "name": "Select obsolete records",
+            "id": "list_components_for_prune",
+            "name": "List component records",
             "capture_output": true,
             "wait_for": [
               "for_each_component"
             ],
             "run_when": {
-              "task": "define_components",
+              "op": "eq",
               "path": [
                 "scan_complete"
               ],
-              "op": "eq",
+              "task": "define_components",
               "value": true
             },
             "function": {
-              "name": "command",
+              "name": "s_e_e_action",
               "input": {
-                "prompt": "{{prompt.system-discover-components-prune}}",
-                "config": {
-                  "timeout_secs": 1800
-                }
+                "tool": "knowledge_component_list",
+                "arguments": {}
               }
             },
             "next_tasks": [
               {
-                "id": "for_each_deletion",
-                "name": "For each obsolete record",
+                "capture_output": true,
                 "function": {
-                  "name": "foreach",
+                  "name": "command",
                   "input": {
-                    "collection_task_id": "select_deletions",
-                    "collection_task_path": [
-                      "delete_ids"
-                    ],
-                    "item_runtime_key": "delete_component_id"
+                    "command_id": "workflow-select-obsolete-components",
+                    "config": {
+                      "names": "{{task.define_components.output.component_names}}",
+                      "records": "{{task.list_components_for_prune.output}}"
+                    }
                   }
                 },
+                "id": "select_deletions",
+                "name": "Select obsolete records",
                 "next_tasks": [
                   {
-                    "id": "fetch_component",
-                    "name": "Read component record",
-                    "capture_output": true,
                     "function": {
-                      "name": "s_e_e_action",
                       "input": {
-                        "tool": "item_fetch",
-                        "arguments": {
-                          "project": "{{project.id}}",
-                          "kind": "knowledge_component",
-                          "id": "{{runtime.delete_component_id}}"
-                        }
-                      }
+                        "collection_task_id": "select_deletions",
+                        "collection_task_path": [
+                          "delete_ids"
+                        ],
+                        "item_runtime_key": "delete_component_id"
+                      },
+                      "name": "foreach"
                     },
+                    "id": "for_each_deletion",
+                    "name": "For each obsolete record",
                     "next_tasks": [
                       {
-                        "id": "delete_component",
-                        "name": "Delete component record",
+                        "capture_output": true,
                         "function": {
-                          "name": "s_e_e_action",
                           "input": {
-                            "tool": "item_call",
                             "arguments": {
-                              "project": "{{project.id}}",
-                              "kind": "knowledge_component",
                               "id": "{{runtime.delete_component_id}}",
-                              "action": "knowledge_component_delete",
-                              "arguments": {
-                                "confirm": true,
-                                "conflict_token": "{{task.fetch_component.output.item.conflict_token}}"
-                              }
-                            }
-                          }
+                              "kind": "knowledge_component"
+                            },
+                            "tool": "item_fetch"
+                          },
+                          "name": "s_e_e_action"
                         },
-                        "next_tasks": []
+                        "id": "fetch_component",
+                        "name": "Read component record",
+                        "next_tasks": [
+                          {
+                            "function": {
+                              "input": {
+                                "arguments": {
+                                  "action": "knowledge_component_delete",
+                                  "arguments": {
+                                    "confirm": true,
+                                    "conflict_token": "{{task.fetch_component.output.item.conflict_token}}"
+                                  },
+                                  "id": "{{runtime.delete_component_id}}",
+                                  "kind": "knowledge_component"
+                                },
+                                "tool": "item_call"
+                              },
+                              "name": "s_e_e_action"
+                            },
+                            "id": "delete_component",
+                            "name": "Delete component record",
+                            "next_tasks": []
+                          }
+                        ]
                       }
                     ]
                   }

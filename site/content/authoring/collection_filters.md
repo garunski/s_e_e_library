@@ -20,6 +20,8 @@ Use at most 16 predicates, 100 members per nonempty membership array, 1024 Unico
 
 Selection precedes existing ordering, matching totals and page slicing. Standard offset pages retain `items`, `total`, `offset`, `limit`, and `has_more`, with default limit 50 and maximum 200. Keep predicates on subsequent pages. Other existing responses can be unpaged or omit totals. Use their actual response contract. Native `story_list` traverses matching pages and its text JSON exposes `story_ids` in exactly item order. Pass those IDs directly to `foreach`.
 
+The Board endpoint `GET /api/projects/{project}/stories/columns` applies `limit` and `offset` per status and returns the full matching `stories_total` per status. With `group_by_milestone=true`, paging applies per milestone within each status and `milestone_totals` reports matching counts keyed by milestone ID. The empty key represents unassigned work.
+
 Research retains `documents`, `next_cursor`, and `limit`. Its cursor is bound to the normalized selection and view. Keep both unchanged while following `next_cursor` and discard the cursor when either changes. Protocol catalog cursors from `tools/list`, `prompts/list`, and `resources/list` are separate from entity cursors.
 
 Existing GUI field controls use the same descriptors alongside quick filters. Choose a field and operator, enter a typed value or select enum choices, and remove individual predicates or clear the selection. Changes reset paging/cursors and persist in the URL. Lists distinguish no matching rows from load or access errors. Collection-specific eligibility and saved configuration remain in force.

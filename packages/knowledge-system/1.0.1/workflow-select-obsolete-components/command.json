@@ -1,0 +1,60 @@
+{
+  "id": "workflow-select-obsolete-components",
+  "name": "Select obsolete component records",
+  "icon": "list",
+  "binary": "bash",
+  "base_args": [
+    "-c",
+    "exec jq -cne --argjson names \"$1\" --argjson rows \"$2\" '\n  if ($names | type != \"array\" or length == 0 or any(.[]; type != \"string\" or length == 0)) then\n    error(\"expected a nonempty list of discovered component names\")\n  elif ($rows | type != \"array\" or any(.[]; type != \"object\" or (.id | type != \"string\" or length == 0) or (.name | type != \"string\" or length == 0) or (.is_current | type != \"boolean\"))) then\n    error(\"invalid component list\")\n  elif ($rows | map(.id) | length != (unique | length)) then\n    error(\"duplicate component IDs\")\n  else\n    ($rows | map(select(.is_current) | .name)) as $current\n    | ($names | unique | map(. as $name | select([$current[] | select(. == $name)] | length != 1))) as $ambiguous\n    | if $ambiguous != [] then\n        error(\"expected exactly one current record for: \" + ($ambiguous | join(\", \")))\n      else\n        {delete_ids: [$rows[] | .name as $name\n          | select((.is_current | not) or ($names | index($name) == null))\n          | .id] | sort_by([(try (split(\"-\") | last | tonumber) catch null), .])}\n      end\n  end\n'",
+    "workflow-select-obsolete-components"
+  ],
+  "params": [
+    {
+      "key": "names",
+      "type": "string",
+      "map": {
+        "target": "args_append"
+      }
+    },
+    {
+      "key": "records",
+      "type": "string",
+      "map": {
+        "target": "args_append"
+      }
+    }
+  ],
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": [
+      "exit_code",
+      "stdout_tail",
+      "stderr_tail"
+    ],
+    "extract": [
+      {
+        "name": "delete_ids",
+        "path": "delete_ids",
+        "source": "last_json_line",
+        "type": "string_array"
+      }
+    ],
+    "applied_paths": {
+      "strategy": "none"
+    },
+    "run_id": {
+      "strategy": "none"
+    }
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": {
+      "scope": "spoke",
+      "default_policy": "fail_fast"
+    },
+    "stream": {
+      "format": "lines"
+    },
+    "non_interactive": true
+  }
+}

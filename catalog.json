@@ -373,8 +373,8 @@
           "to": ".s_e_e/prompts/system-discover-components-projects.json"
         },
         {
-          "from": "packages/knowledge-system/1.0.0/system-discover-components-prune-prompt/prompt.json",
-          "to": ".s_e_e/prompts/system-discover-components-prune.json"
+          "from": "packages/knowledge-system/1.0.1/workflow-select-obsolete-components/command.json",
+          "to": ".s_e_e/commands/workflow-select-obsolete-components.json"
         },
         {
           "from": "packages/knowledge-system/1.0.0/system-fix-broken-links-prompt/prompt.json",
@@ -458,7 +458,8 @@
       ],
       "requires": [
         "cursor-agent",
-        "git"
+        "git",
+        "jq"
       ],
       "slug": "knowledge-system",
       "toolIds": [],

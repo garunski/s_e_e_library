@@ -21,21 +21,16 @@
         "function": {
           "name": "s_e_e_action",
           "input": {
-            "tool": "item_call",
+            "tool": "story_list",
             "arguments": {
-              "project": "{{project.id}}",
-              "kind": "story",
-              "action": "story_list",
-              "arguments": {
-                "milestone_id": "{{runtime.milestone_id}}",
-                "filters": [
-                  {
-                    "field": "status",
-                    "op": "ne",
-                    "value": "Done"
-                  }
-                ]
-              }
+              "filters": [
+                {
+                  "field": "status",
+                  "op": "ne",
+                  "value": "Done"
+                }
+              ],
+              "milestone_id": "{{runtime.milestone_id}}"
             }
           }
         },

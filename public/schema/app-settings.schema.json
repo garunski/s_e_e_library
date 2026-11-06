@@ -12,9 +12,6 @@
         "system"
       ]
     },
-    "auto_save": {
-      "type": "boolean"
-    },
     "notifications": {
       "type": "boolean"
     },
