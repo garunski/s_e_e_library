@@ -35,7 +35,6 @@ mise run validate
 mise run discover-bundles
 mise run dev          # http://127.0.0.1:5173/s_e_e_library/
 mise run build        # validate, dx bundle, prerender, stage target/pages-artifact
-mise run quality      # unit tests, build, HTTP smoke on the staged artifact
 ```
 
 `harvest` copies payloads from the sibling hub checkout (`../s_e_e_project` by default). Pass `--hub /path/to/hub` to the catalog tool for another hub root.
@@ -54,7 +53,7 @@ Install `to` paths must start with `.s_e_e/`, `.agents/`, `.cursor/`, or `templa
 
 ## Docs site
 
-The public site is a Dioxus fullstack crate under `site/`. Authoring copy lives in `site/content/authoring/`; schema page copy in `site/content/schema/`. After you change a page, update the matching section in `public/llms.txt`. `mise run quality` runs Rust tests that keep `llms.txt` aligned with the routed pages.
+The public site is a Dioxus fullstack crate under `site/`. Authoring copy lives in `site/content/authoring/`; schema page copy in `site/content/schema/`. After you change a page, update the matching section in `public/llms.txt`.
 
 ## GitHub Pages
 

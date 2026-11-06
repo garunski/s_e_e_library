@@ -1,21 +1,10 @@
-# S E E Library spoke
+# S.E.E. Library
 
-Read `/home/fang/code/s_e_e_project/s_e_e_project/AGENTS.md` for shared workspace rules and root tokens. This checkout owns the public catalog and Dioxus documentation site; it has no hub store. The site uses `<spoke:s_e_e>` as a path dependency. Rust tests follow `<spoke:s_e_e>/AGENTS.md`.
+Read `/home/fang/code/s_e_e_project/s_e_e_project/AGENTS.md` for shared rules. For Rust tests, follow the application spoke's rules.
 
-## Publication
-
-- Catalog payloads live in `<spoke:s_e_e_library>/packages/` and `<spoke:s_e_e_library>/catalog.json`. A build stages them under `<spoke:s_e_e_library>/target/pages-artifact/`; staged package skills must match their source.
-- Published story-authoring skills must preserve store-backed writes, store-assigned names/ids, and the readiness/completion contracts in the canonical story and milestone authoring prompts. Do not embed a competing procedure.
-
-## Documentation synchronization
-
-When catalog wire contracts, category/install/path rules, workflow schemas, template expansion or overlapping in-app Library guidance change, update the corresponding public documentation in the same change or record an explicit follow-up.
-
-The public site must stand alone. Maintain its authoring/schema pages under `<spoke:s_e_e_library>/site/src/pages/`, examples under `<spoke:s_e_e_library>/site/content/`, formal schemas under `<spoke:s_e_e_library>/public/schema/`, and matching `Source: /path/` sections in `<spoke:s_e_e_library>/public/llms.txt`. Keep overlapping help under `<spoke:s_e_e>/gui_kit/src/pages/help_content/articles/` consistent.
-
-## Checks
-
-Run from `<spoke:s_e_e_library>`: `mise run validate` for read-only catalog checks, `mise run build` for Pages staging, and `mise run quality` for changed published pages or schemas (Rust tests, build and smoke checks). Use `mise run dev` only when requested.
+- Keep `packages/` and `catalog.json` in sync. Packaged authoring skills follow the stored procedures and store-assigned IDs.
+- For contract changes, sync the public pages, examples, schemas, matching `public/llms.txt` sections, and overlapping in-app help. Record an explicit follow-up for any deferred update.
+- Use `mise run validate` for catalog checks and `mise run build` for Pages staging. Start the dev site only on request.
 
 <!-- s-e-e:begin -->
 ## S.E.E. project

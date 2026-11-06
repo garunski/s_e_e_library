@@ -20,12 +20,12 @@
     {
       "version": "1.0.1",
       "date": "2026-10-20",
-      "note": "Work each story with the store-only work prompt, let the agent set Done after verification, and run the repository quality gate from AGENTS.md."
+      "note": "Store-backed story work with saved completion and a final repository check."
     },
     {
       "version": "1.1.0",
       "date": "2026-11-06",
-      "note": "Native unfinished-story selection, bounded repair and saved Done/all-checked verification, explicit blockers and one final quality owner. Customized installs require an explicit overwrite upgrade."
+      "note": "Native unfinished-story selection, bounded repair and saved Done/all-checked verification, explicit blockers and one final repository command. Customized installs require an explicit overwrite upgrade."
     }
   ],
   "usageContexts": [

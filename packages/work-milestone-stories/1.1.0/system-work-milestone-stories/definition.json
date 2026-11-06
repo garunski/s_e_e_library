@@ -172,32 +172,10 @@
             "function": {
               "name": "command",
               "input": {
-                "config": {
-                  "timeout_secs": 3600
-                },
-                "prompt": "{{prompt.milestone-final-quality-pass}}"
+                "command_id": "workflow-repository-quality"
               }
             },
-            "next_tasks": [
-              {
-                "id": "verify_final_quality_result",
-                "name": "Require an observed final quality pass",
-                "capture_output": true,
-                "function": {
-                  "name": "cli_command",
-                  "input": {
-                    "command": "bash",
-                    "args": [
-                      "-c",
-                      "set -eu\njq -en --arg raw \"$1\" '\n (try ($raw|fromjson) catch null) as $r |\n if $r.result == \"passed\" and ($r.gate|type)==\"string\" and ($r.gate|length)>0 and ($r.attempts|type)==\"number\" and $r.attempts>=1 and $r.attempts<=5 and $r.blocker==null then $r else error(\"Final quality task did not report an observed pass: \" + ($raw|tostring)) end'",
-                      "verify_final_quality_result",
-                      "{{task.quality_pass.output.final_message}}"
-                    ]
-                  }
-                },
-                "next_tasks": []
-              }
-            ],
+            "next_tasks": [],
             "capture_output": true
           }
         ]

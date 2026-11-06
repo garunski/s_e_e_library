@@ -65,9 +65,9 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 
 **Milestone membership** - `milestone` is a frontmatter field whose value is a milestone id (`m-<n>`). Set it with `story_set_milestone`. Board milestone filters and `story_list` with `arguments.milestone_id` read this field only; do not add an `m-*` label to imply membership.
 
-**Milestone criteria** - Typed `ObjectiveCriterion` rows in frontmatter with stable `criterion_id` (`c-N`). Kinds: `entity_status`, `milestone_progress`, `subject_rules`, `quality_gate`, `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
+**Milestone criteria** - Typed `ObjectiveCriterion` rows in frontmatter with stable `criterion_id` (`c-N`). For milestones, use `entity_status`, `milestone_progress`, `subject_rules`, or `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
 
-**Milestone completion** - Declared status is the completeness claim. A transition to Done requires at least one member, a self-targeting `milestone_progress` criterion at 100 percent, a separate outcome criterion, and all criteria met. Detailed `milestone_get` includes the evaluated result for each criterion. The milestone store cannot observe project execution, issue, and spoke facts, so `quality_gate` is unevaluable for milestone Done. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
+**Milestone completion** - Declared status is the completeness claim. A transition to Done requires at least one member, a self-targeting `milestone_progress` criterion at 100 percent, a separate outcome criterion, and all criteria met. Detailed `milestone_get` includes the evaluated result for each criterion. Use criteria whose evidence the milestone store can observe. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
 
 ## Milestone cut and completion contract
 
@@ -201,7 +201,7 @@ These eight rules come from reading agent runs against real stories. Each one ex
 
 4. **Changing seeded or default data requires an existing-installation criterion.** State the outcome on an installation that already holds the entity, not only on a fresh one. Seeding usually runs once, so editing a seed file changes nothing for anyone already running.
 
-5. **A red completion gate means the story is not Done.** If the gate fails, the story stays In Progress unless a criterion explicitly permits the failure, the failing tests are named, and the evidence that they fail identically at the base commit is recorded. "Unrelated, already dirty" without that evidence is an assertion, not a finding.
+5. Keep the story active while a required check for its changed behavior fails. Record any criterion that explicitly permits a named failure and the evidence that it occurs before the change.
 
 6. **Partial completion is a valid outcome.** Leaving a story In Progress with unchecked criteria and named blockers is correct, and better than ticking a criterion that was not verified. Where a criterion is expected to be hard to verify, say so in the story so the implementer knows stopping is allowed.
 

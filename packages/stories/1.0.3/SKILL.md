@@ -9,7 +9,7 @@ description: >-
 
 # S.E.E. story and milestone authoring
 
-A story is an implementation contract: what to change, why, how, and what observable evidence proves it is done. Repository `AGENTS.md` supplies the local rules, commands, and quality gates; read it for each repository the story touches. This skill covers the store contract and the quality bar.
+A story is an implementation contract: what to change, why, how, and what observable evidence proves it is done. Repository `AGENTS.md` supplies the local rules and commands; read it for each repository the story touches. This skill covers the store contract and the quality bar.
 
 ## Store access
 
@@ -62,7 +62,7 @@ Number each criterion and state one outcome per criterion, in present tense: "`p
 2. Name evidence the implementer does not author: a test result, a process log line, an HTTP response, a rendered screen, a stored record. A criterion satisfied by reading one's own diff is not a criterion.
 3. When integrating with a third-party tool, one criterion states the mechanism that tool actually uses to receive the input, and the plan records where that mechanism was confirmed. Setting an environment variable is not the same as the tool reading it.
 4. When seeded or default data changes, one criterion states the outcome on an installation that already holds that data.
-5. A red completion gate means the story is not Done unless a criterion explicitly allows the named failure with evidence that it fails identically before the change.
+5. Keep the story active while a required check for its changed behavior fails. Record any criterion that explicitly permits a named failure and the evidence that it occurs before the change.
 6. Leaving a story In Progress with named blockers is a valid outcome. Say so in the story when a criterion is expected to be hard to verify.
 7. Never require launching a workflow execution, a probe workflow, or reading a live execution as proof.
 

@@ -74,8 +74,7 @@
             "function": {
               "name": "command",
               "input": {
-                "config": {},
-                "prompt": "Every story in milestone {{runtime.milestone_id}} has been worked. In `{{project.spoke_root}}`, run the completion quality gate named in the repository `AGENTS.md` and fix every failure until it passes. Do not change story or milestone records. If `AGENTS.md` names no quality gate, report that and stop. This runs headless: run every command to completion and leave no process running."
+                "command_id": "workflow-repository-quality"
               }
             },
             "next_tasks": []

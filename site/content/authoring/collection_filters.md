@@ -26,6 +26,6 @@ Existing GUI field controls use the same descriptors alongside quick filters. Ch
 
 ### Milestone workflow release
 
-The current `work-milestone-stories` bundle release is 1.1.0. Its `system-work-milestone-stories` resolver sends `milestone_id` plus `status ne Done` to native `story_list` and consumes `story_ids` directly. Saved Done/all-checked verification, bounded repair attempts, explicit blockers and the final quality owner remain part of the workflow. Verifier scripts still verify completion.
+The current `work-milestone-stories` bundle release is 1.1.0. Its `system-work-milestone-stories` resolver sends `milestone_id` plus `status ne Done` to native `story_list` and consumes `story_ids` directly. Saved Done/all-checked verification, bounded repair attempts, explicit blockers and one final repository check remain part of the workflow. The final check runs a stored command and uses its exit status.
 
 Review the normal Library upgrade plan. Unmodified defaults can upgrade through that plan. Customized files remain conflicts until an explicit overwrite is chosen. Preserve custom selection and worker instructions when reconciling an upgrade. Historical releases remain available.

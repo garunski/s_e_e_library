@@ -1,5 +1,5 @@
 {
   "id": "milestone-final-quality-pass",
   "name": "Own the milestone final repository quality pass",
-  "content": "All selected stories in milestone {{runtime.milestone_id}}, including those already Done, have passed the workflow's saved Done/all-checked verification.\n\nIn {{project.spoke_root}}, follow AGENTS.md and {{project.hub_root}}/.agents/skills/work/SKILL.md. This task owns the normal repository quality gate. Full quality requires an explicit push/install preparation instruction.\n\nRun the gate, repair in-scope failures and rerun after meaningful changes: at most five invocations within 60 minutes. Preserve exit/timeout evidence. Stop on an unresolved external obstruction, unchanged failure or exhausted budget; do not delete caches, weaken tests or extend limits. Leave no owned background processes and do not modify planning records.\n\nReturn one JSON object:\n{\"result\":\"passed|blocked\",\"gate\":\"actual command\",\"attempts\":1,\"blocker\":null}\nPassed requires an observed successful gate; blocked requires a specific nonempty blocker. Report the actual invocation count."
+  "content": "This prompt is retired."
 }

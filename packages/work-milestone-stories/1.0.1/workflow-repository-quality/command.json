@@ -1,0 +1,45 @@
+{
+  "id": "workflow-repository-quality",
+  "name": "Run repository quality",
+  "icon": "check",
+  "binary": "mise",
+  "base_args": [
+    "run",
+    "quality"
+  ],
+  "params": [
+    {
+      "key": "timeout_secs",
+      "type": "number",
+      "default": 3600,
+      "map": {
+        "target": "timeout"
+      }
+    }
+  ],
+  "result": {
+    "success_when": "exit_code == 0",
+    "capture": [
+      "exit_code",
+      "stdout_tail",
+      "stderr_tail"
+    ],
+    "applied_paths": {
+      "strategy": "none"
+    },
+    "run_id": {
+      "strategy": "none"
+    }
+  },
+  "execution": {
+    "cwd": "spoke",
+    "lock": {
+      "scope": "spoke",
+      "default_policy": "fail_fast"
+    },
+    "stream": {
+      "format": "lines"
+    },
+    "non_interactive": true
+  }
+}

@@ -12,10 +12,9 @@ description: >-
 
 Implement an S.E.E. story with tests until all acceptance criteria pass. The story is a markdown file under `.s_e_e/planning/stories/`; there is no CLI. All metadata and content updates are direct file edits.
 
-For **build**, **test**, and **quality** commands: infer from the repo (`mise.toml`, `Cargo.toml`, `Makefile`, `package.json` scripts, CI config). The S.E.E. workspace conventionally uses:
+For **build** and **test** commands: infer from the repo (`mise.toml`, `Cargo.toml`, `Makefile`, `package.json` scripts, CI config). The S.E.E. workspace conventionally uses:
 
 - `cargo check --workspace` and `cargo test -p <crate>` for Rust crates.
-- `mise run quality` for the inner-loop and completion gate (formatters, lint probes, kiss, GUI guards, asset builds, unit tests via the nextest `fast` profile). CI additionally runs `mise run quality-full` (everything in `quality` plus clippy, wasm build, full nextest, npm audit).
 
 Do not assume a specific runner without checking the repo.
 
@@ -91,7 +90,7 @@ After each iteration, state:
 - Which AC(s) now pass.
 - What is next, or: **All AC pass, ready to complete.**
 
-Run **`mise run quality`** after substantive changes during the implement loop and again before declaring done - the completion gate. Do not declare done if `quality` fails.
+Run focused checks for the affected code before declaring the work complete.
 
 ### Per-AC Tracking
 
@@ -102,7 +101,7 @@ As each AC passes, edit the story file and flip its checkbox from `- [ ] #N ...`
 Before marking Done, edit the story file:
 
 - `## Implementation Notes` - short bullet list of what actually changed: modified files, trade-offs, deviations from the plan, key tests added.
-- `## Final Summary` - one-paragraph summary of the outcome and verification (which crates' tests passed, whether `mise run quality` passed, any caveats).
+- `## Final Summary` - one-paragraph summary of the outcome and verification (which crates' tests passed, any caveats).
 
 Both sections must stay between their existing HTML comment markers (`<!-- SECTION:NOTES:BEGIN -->` / `END`, `<!-- SECTION:FINAL_SUMMARY:BEGIN -->` / `END`). Do not duplicate or rename them.
 
@@ -124,7 +123,7 @@ Save. The runtime watcher updates the GUI.
 - Every code change needs a test.
 - Never proceed past a failing build or test.
 - State progress after each iteration.
-- Do not mark Done until all AC pass and `mise run quality` is green.
+- Do not mark Done until all acceptance criteria pass.
 - Do not flip AC checkboxes you did not verify.
 - Keep code and comments minimal and terse.
 - Be terse in assistant responses unless the user asks for detail.
@@ -137,7 +136,6 @@ Save. The runtime watcher updates the GUI.
 - [ ] Final Summary filled in.
 - [ ] `status: Done`, `updated_date` bumped.
 - [ ] Workspace builds; targeted tests pass.
-- [ ] `mise run quality` passes (or any failing probe is unrelated and explicitly called out in Final Summary).
 
 ## Related
 

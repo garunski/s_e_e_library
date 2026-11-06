@@ -67,9 +67,9 @@ Read `see:/projects` for valid ids. Pass that `project` on every MCP call.
 
 **Milestone membership** - `milestone` is a frontmatter field whose value is a milestone id (`m-<n>`). Set it with `story_set_milestone`. Board milestone filters and `story_list` with `arguments.milestone_id` read this field only; do not add an `m-*` label to imply membership.
 
-**Milestone criteria** - Typed `ObjectiveCriterion` rows in frontmatter with stable `criterion_id` (`c-N`). Kinds: `entity_status`, `milestone_progress`, `subject_rules`, `quality_gate`, `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
+**Milestone criteria** - Typed `ObjectiveCriterion` rows in frontmatter with stable `criterion_id` (`c-N`). For milestones, use `entity_status`, `milestone_progress`, `subject_rules`, or `manual`. Derived kinds evaluate on read and have no checked flag. Only `manual` has `checked` and can be toggled. Address by `criterion_id`, never by numeric index. Story acceptance criteria are a numbered markdown checklist in the story body; they are a different model.
 
-**Milestone completion** - Declared status is the completeness claim. A transition to Done requires at least one member, a self-targeting `milestone_progress` criterion at 100 percent, a separate outcome criterion, and all criteria met. Detailed `milestone_get` includes the evaluated result for each criterion. The milestone store cannot observe project execution, issue, and spoke facts, so `quality_gate` is unevaluable for milestone Done. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
+**Milestone completion** - Declared status is the completeness claim. A transition to Done requires at least one member, a self-targeting `milestone_progress` criterion at 100 percent, a separate outcome criterion, and all criteria met. Detailed `milestone_get` includes the evaluated result for each criterion. Use criteria whose evidence the milestone store can observe. Derived member-story counts are display and still feed objective `milestone_progress`. When status is empty, completeness follows criteria if any exist, otherwise derived story counts. Disagreement is shown, not silently resolved.
 
 ## Milestone cut and completion contract
 
@@ -150,7 +150,7 @@ Apply this review before creating a story shell or materially revising a plan. S
 
 ### Commands and working directories
 
-- Resolve the authorized project, hub, code spoke, command workspace, and quality working directory from current SEE configuration. Use absolute paths or explicit root tokens. Never copy another project's paths, ids, endpoint, or status vocabulary.
+- Resolve the authorized project, hub, code spoke, and command workspace from current SEE configuration. Use absolute paths or explicit root tokens. Never copy another project's paths, ids, endpoint, or status vocabulary.
 - Verify the exact pinned tool and subcommand, compatible option combinations, path semantics, defaults, and output locations through installed help, inspected implementation, or version-matched official documentation. Knowing two flags exist does not establish that they work together. Use cheap non-mutating probes within scope; do not run cleanup, installs, full builds, or expensive analysis just to author a story.
 - Specify the intended policy as well as valid syntax. Two cleanup passes can remove the union of age and size matches; that does not implement a policy requiring both conditions. Confirm the supported mechanism before prescribing it.
 - Name each verification command's working directory and required environment. Preserve the underlying operation's failure status with the configured shell's supported pipeline handling or explicit status capture. Output ending in `head` or `tail` is not proof that the producer succeeded.
@@ -161,7 +161,7 @@ Apply this review before creating a story shell or materially revising a plan. S
 - Fetch every dependency's full record and compare status, acceptance criteria, notes, and evidence. A Done label with an unchecked required criterion or an explicit blocker does not establish readiness. Report the inconsistency without silently correcting unrelated records.
 - Resolve credentials, package privileges, platform/display availability, service readiness, and resource requirements. Do not give an unattended agent an instruction that depends on interactive authentication or unspecified external access. Name the exact blocker and its resolution owner; retrying cannot create permission or capacity.
 - A fully specified downstream story may wait on explicit dependencies. Distinguish that from executable work and from unresolved design. Use the configured initial status and supported readiness fields; do not invent a Blocked status or disguise an unresolved choice as a ready story.
-- Model producer and consumer contracts in delivery order. A bootstrap story uses commands available at that stage, with a named downstream owner for the complete gate. It cannot require the build, tests, or quality command that a later story creates.
+- Model producer and consumer contracts in delivery order. A bootstrap story uses commands available at that stage, with a named downstream owner for the complete gate. It cannot require the build or test commands that a later story creates.
 - Settle unknown technical facts before handoff. Follow the project's clarification rules when evidence is unavailable; never embed an investigation, unverified fallback, or deferred design choice in an implementation-ready story.
 
 ### Scope and verification cost
@@ -177,7 +177,7 @@ Apply this review before creating a story shell or materially revising a plan. S
 
 When a workflow will execute the stories, inspect its stored definition, command configuration, and relevant existing execution snapshots without launching a run. Historical execution reads are diagnostic evidence only, never a story's acceptance proof.
 
-- Confirm that the agent workspace, CLI working directory, and final quality step all target the intended code spoke. A correct MCP project id does not establish the correct filesystem directory or quality gate.
+- Confirm that the agent workspace and CLI working directory all target the intended code spoke. A correct MCP project id does not establish the correct filesystem directory.
 - Confirm project, story, and milestone context reaches the worker, store writes use MCP/API with fresh conflict tokens, repository skills are honored, and bootstrap instructions match the available commands.
 - Confirm dependency readiness and acceptance evidence govern progression. An agent's exit zero must not unconditionally set Done. Every required criterion and gate must be verified and read back; milestone outcome gates require separate evaluation.
 - Confirm repair has a final re-verification and stored result. A corrected saved definition does not change an already running execution's snapshot. Keep unchecked manual gates visible.
@@ -253,7 +253,7 @@ These eight rules come from reading agent runs against real stories. Each one ex
 
 4. **Changing seeded or default data requires an existing-installation criterion.** State the outcome on an installation that already holds the entity, not only on a fresh one. Seeding usually runs once, so editing a seed file changes nothing for anyone already running.
 
-5. **A red completion gate means the story is not Done.** If the gate fails, the story stays In Progress unless a criterion explicitly permits the failure, the failing tests are named, and the evidence that they fail identically at the base commit is recorded. "Unrelated, already dirty" without that evidence is an assertion, not a finding.
+5. Keep the story active while a required check for its changed behavior fails. Record any criterion that explicitly permits a named failure and the evidence that it occurs before the change.
 
 6. **Partial completion is a valid outcome.** Leaving a story In Progress with unchecked criteria and named blockers is correct, and better than ticking a criterion that was not verified. Where a criterion is expected to be hard to verify, say so in the story so the implementer knows stopping is allowed.
 

@@ -133,7 +133,7 @@ Existing GUI field controls use the same descriptors alongside quick filters. Ch
 
 ### Milestone workflow release
 
-The current `work-milestone-stories` bundle release is 1.1.0. Its `system-work-milestone-stories` resolver sends `milestone_id` plus `status ne Done` to native `story_list` and consumes `story_ids` directly. Saved Done/all-checked verification, bounded repair attempts, explicit blockers and the final quality owner remain part of the workflow. Verifier scripts still verify completion.
+The current `work-milestone-stories` bundle release is 1.1.0. Its `system-work-milestone-stories` resolver sends `milestone_id` plus `status ne Done` to native `story_list` and consumes `story_ids` directly. Saved Done/all-checked verification, bounded repair attempts, explicit blockers and one final repository check remain part of the workflow. The final check runs a stored command and uses its exit status.
 
 Review the normal Library upgrade plan. Unmodified defaults can upgrade through that plan. Customized files remain conflicts until an explicit overwrite is chosen. Preserve custom selection and worker instructions when reconciling an upgrade. Historical releases remain available.
 
@@ -904,9 +904,8 @@ claiming completion.
 
 The Done transition requires at least one member story, self progress at 100
 percent, a separate outcome criterion, and every criterion met. Detailed
-`milestone_get` shows each criterion's evaluation. The milestone store cannot
-observe project execution, issue, or spoke quality facts, so `quality_gate` is
-unevaluable for milestone Done.
+`milestone_get` shows each criterion's evaluation. Use criteria whose evidence
+the milestone store can observe.
 
 Keep this guidance in the published skill and prompt payloads. S.E.E. Help,
 under **Authoring milestones and making the cut**, explains the membership and
@@ -1354,12 +1353,7 @@ Commit both the payload under `packages/` and the updated `catalog.json`.
 
 ## Docs site
 
-```bash
-mise run quality
-```
-
-`mise run quality` runs catalog validation (`see_library_catalog_tool validate`)
-and site library tests. `mise run site-build` exports the Dioxus static site and
+`mise run site-build` exports the Dioxus static site and
 copies root `catalog.json` and `packages/` into the publish output so GitHub
 Pages serves them at the same public URLs.
 

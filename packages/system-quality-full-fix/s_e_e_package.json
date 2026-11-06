@@ -2,7 +2,7 @@
   "id": "prompt-system-quality-full-fix",
   "slug": "system-quality-full-fix",
   "category": "prompt",
-  "name": "Quality full - fix to green",
+  "name": "Retired repair prompt",
   "description": "",
   "labels": [
     "prompt"
@@ -18,7 +18,7 @@
     {
       "version": "1.0.1",
       "date": "2026-10-20",
-      "note": "Run the full quality gate named in the repository AGENTS.md."
+      "note": "Retired instruction."
     }
   ],
   "usageContexts": [

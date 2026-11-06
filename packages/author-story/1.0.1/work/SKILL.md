@@ -17,8 +17,8 @@ The story is the implementation contract. Repository `AGENTS.md` supplies local 
 ## Implement and verify
 
 - Follow the selected approach in the story. Map each acceptance criterion to the code path and observable evidence that can prove it. If new necessary work appears, surface it before silently widening the story.
-- Make focused changes and use the repository's actual commands and quality gates. Follow an explicit user instruction about verification. Otherwise run the smallest checks that test the changed behavior and the required completion gate from the repository. Do not add tests that merely restate implementation or test infrastructure by copying its current output.
-- If a check fails, investigate the failure. Keep the story active while a required criterion or gate remains unverified. Do not treat a self-authored diff or a launched workflow run as proof of external behavior when the criterion calls for an observed result.
+- Make focused changes and use the repository's actual commands. Follow an explicit user instruction about verification. Otherwise run the smallest checks that test the changed behavior. Do not add tests that merely restate implementation or test infrastructure by copying its current output.
+- If a check fails, investigate the failure. Keep the story active while a required criterion remains unverified. Do not treat a self-authored diff or a launched workflow run as proof of external behavior when the criterion calls for an observed result.
 - Give concise progress updates at meaningful points: changed behavior, evidence obtained, and blockers. Keep implementation details in the work report rather than copying them into `AGENTS.md` or a reusable skill.
 
 ## Update the story through the store
