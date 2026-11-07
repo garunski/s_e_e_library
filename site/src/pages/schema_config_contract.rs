@@ -46,7 +46,7 @@ pub const CONFIG_SCHEMA_PAGES: [ConfigSchemaPageContract; 8] = [
         slug: "stories-config",
         document_title: "Stories config schema",
         schema_filename: "stories-config.schema.json",
-        field_markers: &["project_name", "story_prefix", "default_create_status"],
+        field_markers: &["project_name", "statuses", "default_create_status"],
     },
     ConfigSchemaPageContract {
         slug: "orchestrator-policy",

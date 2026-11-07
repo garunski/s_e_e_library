@@ -25,10 +25,6 @@
         "type": "string"
       }
     },
-    "story_prefix": {
-      "type": "string",
-      "minLength": 1
-    },
     "date_format": {
       "type": "string",
       "minLength": 1

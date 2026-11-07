@@ -2805,7 +2805,6 @@ Stories section of [hub config](/schema/hub-config/).
 - `project_name` - required, non-empty.
 - `statuses` - string array.
 - `labels` - string array.
-- `story_prefix` - non-empty string when present.
 - `date_format` - non-empty string when present.
 - `default_create_status` - string.
 
@@ -2825,7 +2824,6 @@ Download: [stories-config.schema.json](https://garunski.github.io/s_e_e_library/
     "project_name": { "type": "string", "minLength": 1 },
     "statuses": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "labels": { "type": "array", "items": { "type": "string" } },
-    "story_prefix": { "type": "string", "minLength": 1 },
     "date_format": { "type": "string", "minLength": 1 },
     "default_create_status": { "type": "string" }
   }

@@ -22,7 +22,6 @@ pub fn LibrarySchemaStoriesConfig() -> Element {
                 li { code { class: "{INLINE_CODE}", "project_name" }, " - required, non-empty." }
                 li { code { class: "{INLINE_CODE}", "statuses" }, " - string array." }
                 li { code { class: "{INLINE_CODE}", "labels" }, " - string array." }
-                li { code { class: "{INLINE_CODE}", "story_prefix" }, " - non-empty string when present." }
                 li { code { class: "{INLINE_CODE}", "date_format" }, " - non-empty string when present." }
                 li { code { class: "{INLINE_CODE}", "default_create_status" }, " - string." }
             }
