@@ -3,86 +3,178 @@
   "$id": "https://garunski.github.io/s_e_e_library/schema/command.schema.json",
   "title": "Command package payload (command.json)",
   "type": "object",
-  "required": ["id", "binary"],
+  "required": [
+    "id",
+    "binary"
+  ],
   "properties": {
-    "id": { "type": "string", "minLength": 1 },
-    "name": { "type": "string" },
-    "icon": { "type": "string" },
-    "binary": { "type": "string", "minLength": 1 },
-    "base_args": { "type": "array", "items": { "type": "string" } },
-    "forced_args": { "type": "array", "items": { "type": "string" } },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "binary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_args": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forced_args": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "workspace_arg": {
       "type": "object",
       "properties": {
-        "flag": { "type": "string" },
-        "value": { "type": "string" }
+        "flag": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
       }
     },
     "prompt": {
       "type": "object",
-      "properties": { "delivery": { "type": "string" } }
+      "properties": {
+        "delivery": {
+          "type": "string"
+        }
+      }
     },
     "params": {
       "type": "array",
-      "items": { "$ref": "#/$defs/param" }
+      "items": {
+        "$ref": "#/$defs/param"
+      }
     },
     "env": {
       "type": "object",
-      "additionalProperties": { "type": "string" }
+      "additionalProperties": {
+        "type": "string"
+      }
     },
     "result": {
       "type": "object",
       "properties": {
-        "success_when": { "type": "string" },
-        "capture": { "type": "array", "items": { "type": "string" } }
+        "success_when": {
+          "type": "string"
+        },
+        "capture": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "execution": {
       "type": "object",
       "properties": {
-        "cwd": { "enum": ["spoke", "hub"] },
-        "lock": { "type": "object" },
-        "stream": { "type": "object" },
-        "non_interactive": { "type": "boolean" }
+        "cwd": {
+          "enum": [
+            "spoke",
+            "hub"
+          ]
+        },
+        "lock": {
+          "type": "object"
+        },
+        "stream": {
+          "type": "object"
+        },
+        "non_interactive": {
+          "type": "boolean"
+        }
       }
     },
     "mcp": {
       "type": "object",
       "properties": {
-        "enabled": { "type": "boolean" },
-        "mechanism": { "$ref": "#/$defs/mcpMechanism" }
+        "enabled": {
+          "type": "boolean"
+        },
+        "mechanism": {
+          "$ref": "#/$defs/mcpMechanism"
+        }
       }
     }
   },
   "$defs": {
     "mcpMechanism": {
       "type": "object",
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "properties": {
-        "type": { "enum": ["env", "config_file", "arg"] },
-        "path": { "type": "string" },
-        "flag": { "type": "string" },
-        "format": { "type": "string", "enum": ["mcp_servers"] }
+        "type": {
+          "enum": [
+            "env",
+            "config_file",
+            "arg"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "flag": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "mcp_servers"
+          ]
+        }
       }
     },
     "param": {
       "type": "object",
-      "required": ["key"],
+      "required": [
+        "key"
+      ],
       "properties": {
-        "key": { "type": "string", "minLength": 1 },
-        "type": { "type": "string" },
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string"
+        },
         "default": {},
         "map": {
           "type": "object",
-          "required": ["target"],
+          "required": [
+            "target"
+          ],
           "properties": {
             "target": {
-              "enum": ["env", "timeout", "args_append", "lock_policy", "stream_toggle"]
+              "enum": [
+                "env",
+                "timeout",
+                "args_append",
+                "lock_policy",
+                "stream_toggle"
+              ]
             },
-            "name": { "type": "string" }
+            "name": {
+              "type": "string"
+            }
           }
         }
       }
     }
-  }
+  },
+  "description": "Payload ids remain unqualified. Definitions may be stored in Project or This machine. Qualified references machine:<id> and project:<id> identify separate definitions; bare ids remain project-only. Machine-owned definitions may depend only on machine prompts. Home and conflict tokens belong to the API, not definition metadata."
 }

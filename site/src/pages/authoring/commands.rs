@@ -14,6 +14,7 @@ pub fn LibraryAuthoringCommands() -> Element {
         AuthoringGuideFrame {
             document_title: "Commands",
             meta_description: "A command package defines how the S.E.E. engine runs an external agent CLI against a spoke workspace.",
+            s_e_e_gui_kit::components::MarkdownHtml { src: include_str!("../../../content/authoring/definition_commands.md").to_string() }
             section {
                 h2 { "Command fields" }
                 p { class: BODY_TEXT,

@@ -1,0 +1,1 @@
+{"id":"mixed-bundle","slug":"mixed-bundle","name":"Mixed bundle","category":"bundle","version":"1.0.0","author":"example","verified":false,"license":"MIT","requires":[],"dependencies":[],"files":[{"from":"prompt.json","to":".s_e_e/prompts/review.json"},{"from":"SKILL.md","to":".agents/skills/review/SKILL.md"}]}

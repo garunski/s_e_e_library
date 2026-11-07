@@ -20,7 +20,13 @@ fn write_minimal_prerender(dx_public: &std::path::Path, authoring_html: &str, sc
     for route in documentation_route_paths() {
         let dir = site.join(route.trim_start_matches('/'));
         fs::create_dir_all(&dir).expect("mkdir route");
-        let body = if route == "/authoring/" {
+        let workflow_html = format!(
+            "<html><body>{}</body></html>",
+            include_str!("../../site/content/authoring/definition_homes.md")
+        );
+        let body = if route == "/authoring/workflows/" {
+            workflow_html.as_str()
+        } else if route == "/authoring/" {
             authoring_html
         } else if route == "/schema/" {
             schema_html

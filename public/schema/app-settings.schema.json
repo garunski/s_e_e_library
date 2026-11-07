@@ -4,6 +4,11 @@
   "title": "App settings.json",
   "type": "object",
   "additionalProperties": true,
+  "definitions": {
+    "diagnostic_threshold": {
+      "enum": ["trace", "debug", "info", "warn", "error", "off"]
+    }
+  },
   "properties": {
     "theme": {
       "enum": [
@@ -56,6 +61,24 @@
     },
     "schedule_retention": {
       "type": "object"
+    },
+    "log_stream_retention": { "type": "object" },
+    "diagnostic_logging": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default_level": { "$ref": "#/definitions/diagnostic_threshold" },
+        "overrides": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "server": { "$ref": "#/definitions/diagnostic_threshold" },
+            "trace": { "$ref": "#/definitions/diagnostic_threshold" },
+            "timing": { "$ref": "#/definitions/diagnostic_threshold" },
+            "frontend": { "$ref": "#/definitions/diagnostic_threshold" }
+          }
+        }
+      }
     },
     "command_timeout_secs": {
       "type": [

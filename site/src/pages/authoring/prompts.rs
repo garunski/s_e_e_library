@@ -14,6 +14,7 @@ pub fn LibraryAuthoringPrompts() -> Element {
         AuthoringGuideFrame {
             document_title: "Prompts",
             meta_description: "A prompt package stores reusable system prompt text referenced by workflows and commands.",
+            s_e_e_gui_kit::components::MarkdownHtml { src: include_str!("../../../content/authoring/definition_prompts.md").to_string() }
             section {
                 h2 { "Prompt fields" }
                 p { class: BODY_TEXT,

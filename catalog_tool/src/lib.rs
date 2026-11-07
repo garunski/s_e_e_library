@@ -1,3 +1,4 @@
+mod definition_home_docs;
 mod discover_bundles;
 mod harvest;
 mod milestone_prompt;
@@ -52,3 +53,6 @@ mod verify_docs_tests;
 #[cfg(test)]
 #[path = "collection_filter_tests.rs"]
 mod collection_filter_tests;
+
+#[cfg(test)]
+mod definition_examples_tests;

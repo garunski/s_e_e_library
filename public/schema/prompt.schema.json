@@ -3,12 +3,31 @@
   "$id": "https://garunski.github.io/s_e_e_library/schema/prompt.schema.json",
   "title": "Prompt package payload (prompt.json)",
   "type": "object",
-  "required": ["id", "name"],
-  "not": { "required": ["tasks"] },
+  "required": [
+    "id",
+    "name"
+  ],
+  "not": {
+    "required": [
+      "tasks"
+    ]
+  },
   "properties": {
-    "id": { "type": "string", "minLength": 1 },
-    "name": { "type": "string", "minLength": 1 },
-    "content": { "type": "string" },
-    "created_at": { "type": "string", "format": "date-time" }
-  }
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "description": "Payload ids remain unqualified. Definitions may be stored in Project or This machine. Qualified references machine:<id> and project:<id> identify separate definitions; bare ids remain project-only. Machine-owned definitions may depend only on machine prompts. Home and conflict tokens belong to the API, not definition metadata."
 }

@@ -6,7 +6,7 @@ use s_e_e_gui_kit::components::{
 
 #[test]
 fn shell_uses_shared_page_and_frame_tokens() {
-    assert!(PAGE_TITLE_CLASSES.contains("text-base"));
+    assert!(PAGE_TITLE_CLASSES.contains("text-xl"));
     assert!(PAGE_TITLE_CLASSES.contains("font-semibold"));
     assert!(PAGE_HEADER_DESCRIPTION_CLASS.contains("text-xs"));
     assert!(EDITORIAL_FRAME_CLASS.contains("border-zinc-200/80"));

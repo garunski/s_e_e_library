@@ -16,6 +16,11 @@ pub fn LibraryAuthoringBundles() -> Element {
         AuthoringGuideFrame {
             document_title: "Bundles",
             meta_description: "A bundle installs several library packages together using a shared catalog files map.",
+            s_e_e_gui_kit::components::MarkdownHtml { src: include_str!("../../../content/authoring/definition_packages.md").to_string() }
+            h3 { "Definition-only bundle: machine eligible" }
+            CodeExample { text: include_str!("../../../content/authoring/machine_bundle.json") }
+            h3 { "Mixed bundle: project only" }
+            CodeExample { text: include_str!("../../../content/authoring/mixed_bundle.json") }
             section {
                 h2 { "Package metadata" }
                 p { class: BODY_TEXT,

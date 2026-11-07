@@ -37,6 +37,7 @@ pub fn LibrarySchemaWorkflow() -> Element {
                 code { class: "{INLINE_CODE}", ".s_e_e/workflows/definitions/{{slug}}.json" }
                 "."
             }
+            s_e_e_gui_kit::components::MarkdownHtml { src: include_str!("../../../content/authoring/definition_homes.md").to_string() }
             h2 { class: "mt-6 {SECTION_TITLE}", "Envelope" }
             p { class: "text-sm text-zinc-600 dark:text-zinc-400", "An outer envelope wraps the engine ", code { class: "{INLINE_CODE}", "content" }, ":" }
             ul { class: "{LIST}",

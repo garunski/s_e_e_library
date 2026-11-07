@@ -1,10 +1,10 @@
 use dioxus::prelude::*;
 use dioxus_router::Link;
 
+use crate::library_href;
 use crate::pages::authoring_common::{INLINE_CODE, LIST, PAGE_LEDE, SECTION_TITLE};
 use crate::pages::schema_common::{SchemaBlockByName, SchemaGuideFrame};
 use crate::routes::Route;
-use crate::library_href;
 
 #[component]
 pub fn LibrarySchemaBundle() -> Element {
@@ -40,6 +40,7 @@ pub fn LibrarySchemaBundle() -> Element {
             ul { class: "{LIST}",
                 li { code { class: "{INLINE_CODE}", "id" }, ", ", code { class: "{INLINE_CODE}", "slug" }, ", ", code { class: "{INLINE_CODE}", "category" }, " (bundle), ", code { class: "{INLINE_CODE}", "name" }, ", ", code { class: "{INLINE_CODE}", "description" }, ", ", code { class: "{INLINE_CODE}", "labels" }, ", ", code { class: "{INLINE_CODE}", "dependencies" }, "." }
             }
+            s_e_e_gui_kit::components::MarkdownHtml { src: include_str!("../../../content/authoring/definition_packages.md").to_string() }
             h2 { class: "mt-8 {SECTION_TITLE}", "JSON Schema" }
             p { class: "text-sm text-zinc-600 dark:text-zinc-400",
                 "Schema for a bundle's "

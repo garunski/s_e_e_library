@@ -39,7 +39,7 @@
     "spoke_root": {
       "type": "string",
       "minLength": 1,
-      "description": "Optional workspace root for command tasks with cwd spoke and git actions without a per-task spoke. Omit it to use the project default: the project's code folder for story implementation and code knowledge workflows, and the project home folder for every other workflow. An exact {{runtime.KEY}} reference to a string input resolves before execution and resume; an explicit value must be an existing absolute directory. Library packages omit it or use a {{runtime.KEY}} reference"
+      "description": "Optional workspace root for command tasks with cwd spoke and git actions without a per-task spoke. Omit it to use the project default: the project's code folder for story implementation and code knowledge workflows, and the project home folder for every other workflow. An exact {{runtime.KEY}} reference to a string input resolves before execution and resume; an explicit value must be an existing absolute directory. Library packages omit it or use a {{runtime.KEY}} reference. Machine-home workflow content must omit spoke_root entirely; its target project is selected at launch"
     },
     "spoke_lock_policy": {
       "type": "string",
@@ -61,7 +61,7 @@
     "default_command_id": {
       "type": "string",
       "minLength": 1,
-      "description": "Optional command id stored on the workflow for command tasks that omit command_id"
+      "description": "Optional command id stored on the workflow for command tasks that omit command_id; machine:<id> and project:<id> select an explicit home; bare ids are project-only"
     },
     "evidence_contract": {
       "type": "array",
@@ -802,15 +802,23 @@
           },
           "anyOf": [
             {
-              "required": ["manifest_runtime_key"],
+              "required": [
+                "manifest_runtime_key"
+              ],
               "properties": {
-                "manifest_runtime_key": { "minLength": 1 }
+                "manifest_runtime_key": {
+                  "minLength": 1
+                }
               }
             },
             {
-              "required": ["manifest_draft_task_id"],
+              "required": [
+                "manifest_draft_task_id"
+              ],
               "properties": {
-                "manifest_draft_task_id": { "minLength": 1 }
+                "manifest_draft_task_id": {
+                  "minLength": 1
+                }
               }
             }
           ]
@@ -863,7 +871,10 @@
           "properties": {
             "operation": {
               "type": "string",
-              "enum": ["event", "recovery"]
+              "enum": [
+                "event",
+                "recovery"
+              ]
             }
           }
         }
@@ -891,7 +902,12 @@
           "properties": {
             "operation": {
               "type": "string",
-              "enum": ["scope", "decompose", "review", "learn"]
+              "enum": [
+                "scope",
+                "decompose",
+                "review",
+                "learn"
+              ]
             },
             "manifest_runtime_key": {
               "type": "string",

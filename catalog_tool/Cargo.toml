@@ -17,7 +17,10 @@ chrono.workspace = true
 clap.workspace = true
 reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
 see_library_site = { path = "../site", default-features = false }
+scraper = "0.24"
 
 [dev-dependencies]
 tempfile.workspace = true
 jsonschema = "0.46"
+s_e_e_hub = { path = "../../s_e_e/hub" }
+tokio = { version = "1.52", features = ["rt", "macros"] }

@@ -32,6 +32,15 @@ pub fn LibraryAuthoringWorkflows() -> Element {
         AuthoringGuideFrame {
             document_title: "Workflows",
             meta_description: "A workflow package defines tasks the S.E.E. engine runs against a hub or spoke.",
+            s_e_e_gui_kit::components::MarkdownHtml { src: include_str!("../../../content/authoring/definition_homes.md").to_string() }
+            h3 { "Machine workflow" }
+            CodeExample { text: include_str!("../../../content/authoring/machine_workflow.json") }
+            h3 { "Launch in project-a" }
+            CodeExample { text: include_str!("../../../content/authoring/machine_launch_a.json") }
+            h3 { "Launch in project-b" }
+            CodeExample { text: include_str!("../../../content/authoring/machine_launch_b.json") }
+            h3 { "Qualified references" }
+            CodeExample { text: include_str!("../../../content/authoring/definition_references.json") }
             section {
                 h2 { "Native collection selection" }
                 s_e_e_gui_kit::components::MarkdownHtml { src: FILTER_HELP.to_string() }

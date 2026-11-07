@@ -1,0 +1,7 @@
+## Prompt homes and references
+
+Choose This machine or Project: Example before creating a prompt. Project files remain under the project's `.s_e_e/prompts/`; machine files are under `~/.s_e_e/definitions/prompts/`. Duplicate ids do not shadow one another. Use `{{prompt.machine:review}}` and `{{prompt.project:review}}` explicitly; bare ids remain project-only. Machine-owned prompts may reference only machine prompts. Missing saved references remain visible for repair.
+
+The picker inserts the canonical reference and opens the chosen home's editor/history. Copy preview shows dependency renames and rewrites. Saving a shared machine prompt affects future uses across projects; delete requires a current usage check. Already captured run content survives source edits/deletion.
+
+MCP named tools and item actions accept qualified ids; omitted scope with a bare id stays project-only, qualified ids infer their home, and disagreeing explicit scope is rejected. Writes require the current conflict token. Project prompt create/update/history/revert use `/api/projects/{code}/definitions/prompts`; machine definitions use `/api/machine/definitions/prompts`. Machine read/edit grants are separate from project access, default off, and edit implies read. Machine MCP advertisements use `machine.<assignment>` and get/completion require an explicit authorized project. Legacy project slug collisions remain explicit rather than ambiguous.

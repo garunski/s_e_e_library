@@ -33,6 +33,7 @@ pub fn LibrarySchemaCommand() -> Element {
             p { class: "text-sm text-zinc-600 dark:text-zinc-400",
                 "A payload with ", code { class: "{INLINE_CODE}", "content" }, " but no ", code { class: "{INLINE_CODE}", "binary" }, " is treated as a prompt."
             }
+            s_e_e_gui_kit::components::MarkdownHtml { src: include_str!("../../../content/authoring/definition_commands.md").to_string() }
             h2 { class: "mt-8 {SECTION_TITLE}", "JSON Schema" }
             SchemaBlockByName { filename: "command.schema.json" }
             p { class: "mt-6 text-sm text-zinc-600 dark:text-zinc-400",

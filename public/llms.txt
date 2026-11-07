@@ -103,6 +103,66 @@ The Research JSON Schema describes HTTP and MCP wire models for profile descript
 
 Source: /authoring/workflows/
 
+## Definition homes
+
+The home labels are This machine and Project: Example.
+
+This machine contains definitions for the current OS user.
+
+Machine definitions are stored under ~/.s_e_e/definitions/.
+
+Workflow runs, logs, schedules, cycles, and execution history remain per project.
+
+Machine definitions are outside project Git and project backups; back up ~/.s_e_e/definitions/ separately.
+
+A machine workflow runs only after a target project is selected.
+
+Prompts, commands and workflow definitions can live in either home. Duplicate ids and names remain distinct; neither home shadows the other. `machine:review` selects the machine definition; `project:review` selects the target project's definition. A bare `review` remains project-only. Prompt templates use `{{prompt.machine:review}}` or `{{prompt.project:review}}`; legacy `{{prompt.review}}` stays project-only. Missing or incompatible selections stay flagged for repair and are never replaced by the same id in another home.
+
+Machine workflows must omit `spoke_root` everywhere in their content and cannot depend on project-only prompts or commands. Their working context comes from the selected project at launch. Project workflows may use either home. Schedules, cycle stages and project defaults store explicit references but keep their project owner. A run captures definition content, exact home and revision; later edits or deletion do not rewrite that snapshot. Legacy runs with no captured provenance remain unknown.
+
+Definition search retains exact home, kind, path and editor destination for duplicate names. Machine-only search works without selecting a project and exposes only authorized prompt, command and workflow metadata, never project business data. HTTP uses `/api/machine/definitions/search`; selected-project search stays under `/api/projects/{code}/search`. Denied machine access and unauthorized projects do not expose titles, snippets or counts. Reopening search refreshes definition revisions.
+
+Copy previews identify the source, destination, concrete paths and dependency rewrites. Review renamed dependencies and explicit reuse before applying the preview token. Copying leaves the original and existing bindings intact. Editing a machine definition affects future uses across projects. Deletion checks project usage; stale or inaccessible usage blocks deletion. Existing runs retain captured content.
+
+Client grants separate project access from machine definition read/edit permissions. Machine access defaults off; edit implies read. A project-only worker token cannot edit machine definitions. Machine prompt discovery requires machine read and an explicit authorized target project for expansion; project access alone does not grant machine access.
+
+The workflow guide examples use one machine workflow with two different explicit project targets in `workflow_execute` arguments. They illustrate request structure; execution ownership is verified separately. No machine execution endpoint is introduced.
+
+### Machine workflow and launch arguments
+
+Stored definition (no spoke_root):
+
+```json
+{
+  "id": "review",
+  "name": "Review",
+  "version": 1,
+  "is_edited": false,
+  "created_at": "2026-11-07T00:00:00Z",
+  "updated_at": "2026-11-07T00:00:00Z",
+  "content": {
+    "id": "review",
+    "name": "Review",
+    "tasks": [{"id": "inspect", "name": "Inspect", "function": {"name": "cli_command", "input": {"command": "git", "args": ["status", "--short"]}}}]
+  }
+}
+```
+
+workflow_execute for project-a:
+
+```json
+{"project":"project-a","workflow_id":"machine:review","runtime_inputs":{}}
+```
+
+workflow_execute for project-b:
+
+```json
+{"project":"project-b","workflow_id":"machine:review","runtime_inputs":{}}
+```
+
+See [prompt details](/s_e_e_library/authoring/prompts/), [command details](/s_e_e_library/authoring/commands/) and [Library destinations](/s_e_e_library/authoring/bundles/).
+
 ## Native collection selection
 
 ### Discovery and scope
@@ -740,6 +800,14 @@ On disk `content` is a nested JSON object, not a string.
 
 Source: /authoring/prompts/
 
+## Prompt homes and references
+
+Choose This machine or Project: Example before creating a prompt. Project files remain under the project's `.s_e_e/prompts/`; machine files are under `~/.s_e_e/definitions/prompts/`. Duplicate ids do not shadow one another. Use `{{prompt.machine:review}}` and `{{prompt.project:review}}` explicitly; bare ids remain project-only. Machine-owned prompts may reference only machine prompts. Missing saved references remain visible for repair.
+
+The picker inserts the canonical reference and opens the chosen home's editor/history. Copy preview shows dependency renames and rewrites. Saving a shared machine prompt affects future uses across projects; delete requires a current usage check. Already captured run content survives source edits/deletion.
+
+MCP named tools and item actions accept qualified ids; omitted scope with a bare id stays project-only, qualified ids infer their home, and disagreeing explicit scope is rejected. Writes require the current conflict token. Project prompt create/update/history/revert use `/api/projects/{code}/definitions/prompts`; machine definitions use `/api/machine/definitions/prompts`. Machine read/edit grants are separate from project access, default off, and edit implies read. Machine MCP advertisements use `machine.<assignment>` and get/completion require an explicit authorized project. Legacy project slug collisions remain explicit rather than ambiguous.
+
 A **prompt** package stores reusable system prompt text referenced by workflows
 and commands via the `prompt.<id>` template form
 (`{{prompt.<id>}}`). Payload file: `prompt.json`. Installs to
@@ -924,6 +992,14 @@ completion review.
 
 Source: /authoring/commands/
 
+## Command homes and bindings
+
+Choose This machine or Project: Example before creating a command. Project files remain under the project's `.s_e_e/commands/`; machine files are under `~/.s_e_e/definitions/commands/`. Use `machine:runner` or `project:runner` in workflow defaults, tasks, schedules and cycle stages. Bare ids remain project-only. Same-id commands remain separate; missing or CLI-incompatible choices stay flagged without substitution.
+
+Machine commands can use only machine prompt dependencies. Copy preview identifies dependency rewrites and destination paths before applying. Machine edits affect future uses across projects; current usage and stale previews can block deletion. Authentication settings and server secrets remain application settings rather than definition metadata.
+
+Project command create/update/history/revert use `/api/projects/{code}/definitions/commands`; machine definitions use `/api/machine/definitions/commands`. Reads and writes preserve the selected home; writes require its current conflict token. MCP qualified ids infer scope, while an explicit disagreeing scope is rejected. Machine read/edit grants are independent of project access.
+
 A **command** package defines how the S.E.E. engine runs an external agent CLI
 against a spoke workspace. Payload file: `command.json`. Installs to
 `.s_e_e/commands/{id}.json`.
@@ -1041,6 +1117,14 @@ criteria or mark a story Done.
 # Bundles
 
 Source: /authoring/bundles/
+
+## Library destinations
+
+This machine is available only when the complete package/dependency/member closure contains prompts, commands, workflows or definition-only bundles. A mixed bundle containing a skill, starter, cycle, schedule, rule set or knowledge document is project-only. Preview the concrete destination before installing. Project: Example keeps existing `.s_e_e/` package paths; This machine maps definition files into `~/.s_e_e/definitions/` and keeps independent installed state there. Package metadata and old project installations remain compatible; startup does not migrate or seed machine definitions.
+
+Package workflow `spoke_root` values are removed with a visible preview when copying into the machine home. Direct machine workflow saves must omit `spoke_root`. Dependencies are rewritten to machine references; explicitly review reuse or renamed definitions. Copy/install leaves the source and existing bindings intact.
+
+The same package can be installed independently in both homes. Update/uninstall retains the reviewed home even after project switching. Local edits require acknowledgement; usage, inaccessible projects and stale previews can block removal. Project backups do not contain machine definitions: back up `~/.s_e_e/definitions/` separately. Runs, logs, schedules, cycles and execution history remain project-owned.
 
 A **bundle** installs several library packages together. It has no payload file
 of its own; the catalog entry `files[]` lists every member install map.
@@ -2013,6 +2097,66 @@ Package metadata sidecar - download:
 
 Source: /schema/workflow/
 
+## Definition homes
+
+The home labels are This machine and Project: Example.
+
+This machine contains definitions for the current OS user.
+
+Machine definitions are stored under ~/.s_e_e/definitions/.
+
+Workflow runs, logs, schedules, cycles, and execution history remain per project.
+
+Machine definitions are outside project Git and project backups; back up ~/.s_e_e/definitions/ separately.
+
+A machine workflow runs only after a target project is selected.
+
+Prompts, commands and workflow definitions can live in either home. Duplicate ids and names remain distinct; neither home shadows the other. `machine:review` selects the machine definition; `project:review` selects the target project's definition. A bare `review` remains project-only. Prompt templates use `{{prompt.machine:review}}` or `{{prompt.project:review}}`; legacy `{{prompt.review}}` stays project-only. Missing or incompatible selections stay flagged for repair and are never replaced by the same id in another home.
+
+Machine workflows must omit `spoke_root` everywhere in their content and cannot depend on project-only prompts or commands. Their working context comes from the selected project at launch. Project workflows may use either home. Schedules, cycle stages and project defaults store explicit references but keep their project owner. A run captures definition content, exact home and revision; later edits or deletion do not rewrite that snapshot. Legacy runs with no captured provenance remain unknown.
+
+Definition search retains exact home, kind, path and editor destination for duplicate names. Machine-only search works without selecting a project and exposes only authorized prompt, command and workflow metadata, never project business data. HTTP uses `/api/machine/definitions/search`; selected-project search stays under `/api/projects/{code}/search`. Denied machine access and unauthorized projects do not expose titles, snippets or counts. Reopening search refreshes definition revisions.
+
+Copy previews identify the source, destination, concrete paths and dependency rewrites. Review renamed dependencies and explicit reuse before applying the preview token. Copying leaves the original and existing bindings intact. Editing a machine definition affects future uses across projects. Deletion checks project usage; stale or inaccessible usage blocks deletion. Existing runs retain captured content.
+
+Client grants separate project access from machine definition read/edit permissions. Machine access defaults off; edit implies read. A project-only worker token cannot edit machine definitions. Machine prompt discovery requires machine read and an explicit authorized target project for expansion; project access alone does not grant machine access.
+
+The workflow guide examples use one machine workflow with two different explicit project targets in `workflow_execute` arguments. They illustrate request structure; execution ownership is verified separately. No machine execution endpoint is introduced.
+
+### Machine workflow and launch arguments
+
+Stored definition (no spoke_root):
+
+```json
+{
+  "id": "review",
+  "name": "Review",
+  "version": 1,
+  "is_edited": false,
+  "created_at": "2026-11-07T00:00:00Z",
+  "updated_at": "2026-11-07T00:00:00Z",
+  "content": {
+    "id": "review",
+    "name": "Review",
+    "tasks": [{"id": "inspect", "name": "Inspect", "function": {"name": "cli_command", "input": {"command": "git", "args": ["status", "--short"]}}}]
+  }
+}
+```
+
+workflow_execute for project-a:
+
+```json
+{"project":"project-a","workflow_id":"machine:review","runtime_inputs":{}}
+```
+
+workflow_execute for project-b:
+
+```json
+{"project":"project-b","workflow_id":"machine:review","runtime_inputs":{}}
+```
+
+See [prompt details](/s_e_e_library/authoring/prompts/), [command details](/s_e_e_library/authoring/commands/) and [Library destinations](/s_e_e_library/authoring/bundles/).
+
 ## Collection selection arguments
 
 Existing collection tools accept a shared `filters` member. `list_filter_get` with `project` and `collection` returns supported fields, operators, nullable behavior and enum choices. [collection-filter.schema.json](/schema/collection-filter.schema.json) owns predicate shapes and bounds. Descriptor validation enforces same-type operands, enum choices and collection-specific rules. HTTP GET encodes one JSON array. Project, legacy selectors and paging remain operation-specific. The examples and correction guidance are in the workflow authoring section above.
@@ -2271,6 +2415,14 @@ Engine content schema (the object in `content`):
 
 Source: /schema/prompt/
 
+## Prompt homes and references
+
+Choose This machine or Project: Example before creating a prompt. Project files remain under the project's `.s_e_e/prompts/`; machine files are under `~/.s_e_e/definitions/prompts/`. Duplicate ids do not shadow one another. Use `{{prompt.machine:review}}` and `{{prompt.project:review}}` explicitly; bare ids remain project-only. Machine-owned prompts may reference only machine prompts. Missing saved references remain visible for repair.
+
+The picker inserts the canonical reference and opens the chosen home's editor/history. Copy preview shows dependency renames and rewrites. Saving a shared machine prompt affects future uses across projects; delete requires a current usage check. Already captured run content survives source edits/deletion.
+
+MCP named tools and item actions accept qualified ids; omitted scope with a bare id stays project-only, qualified ids infer their home, and disagreeing explicit scope is rejected. Writes require the current conflict token. Project prompt create/update/history/revert use `/api/projects/{code}/definitions/prompts`; machine definitions use `/api/machine/definitions/prompts`. Machine read/edit grants are separate from project access, default off, and edit implies read. Machine MCP advertisements use `machine.<assignment>` and get/completion require an explicit authorized project. Legacy project slug collisions remain explicit rather than ambiguous.
+
 Category `prompt`. Payload file `prompt.json`. Installs to
 `.s_e_e/prompts/{file}.json`.
 
@@ -2348,6 +2500,14 @@ See the [skill authoring guide](/authoring/skills/) and the
 # Command schema
 
 Source: /schema/command/
+
+## Command homes and bindings
+
+Choose This machine or Project: Example before creating a command. Project files remain under the project's `.s_e_e/commands/`; machine files are under `~/.s_e_e/definitions/commands/`. Use `machine:runner` or `project:runner` in workflow defaults, tasks, schedules and cycle stages. Bare ids remain project-only. Same-id commands remain separate; missing or CLI-incompatible choices stay flagged without substitution.
+
+Machine commands can use only machine prompt dependencies. Copy preview identifies dependency rewrites and destination paths before applying. Machine edits affect future uses across projects; current usage and stale previews can block deletion. Authentication settings and server secrets remain application settings rather than definition metadata.
+
+Project command create/update/history/revert use `/api/projects/{code}/definitions/commands`; machine definitions use `/api/machine/definitions/commands`. Reads and writes preserve the selected home; writes require its current conflict token. MCP qualified ids infer scope, while an explicit disagreeing scope is rejected. Machine read/edit grants are independent of project access.
 
 Category `command`. Payload file `command.json`. Installs to
 `.s_e_e/commands/{id}.json` (the `to` path must equal this exactly).
@@ -2493,6 +2653,14 @@ See the [catalog schema](/schema/catalog/) for the manifest and install-path rul
 # Bundle schema
 
 Source: /schema/bundle/
+
+## Library destinations
+
+This machine is available only when the complete package/dependency/member closure contains prompts, commands, workflows or definition-only bundles. A mixed bundle containing a skill, starter, cycle, schedule, rule set or knowledge document is project-only. Preview the concrete destination before installing. Project: Example keeps existing `.s_e_e/` package paths; This machine maps definition files into `~/.s_e_e/definitions/` and keeps independent installed state there. Package metadata and old project installations remain compatible; startup does not migrate or seed machine definitions.
+
+Package workflow `spoke_root` values are removed with a visible preview when copying into the machine home. Direct machine workflow saves must omit `spoke_root`. Dependencies are rewritten to machine references; explicitly review reuse or renamed definitions. Copy/install leaves the source and existing bindings intact.
+
+The same package can be installed independently in both homes. Update/uninstall retains the reviewed home even after project switching. Local edits require acknowledgement; usage, inaccessible projects and stale previews can block removal. Project backups do not contain machine definitions: back up `~/.s_e_e/definitions/` separately. Runs, logs, schedules, cycles and execution history remain project-owned.
 
 Category `bundle`. No payload of its own.
 
@@ -2700,6 +2868,10 @@ Download: [global-config.schema.json](https://garunski.github.io/s_e_e_library/s
 
 Source: /schema/app-settings/
 
+## Definition storage and grants
+
+Machine definitions belong to the current OS user under `~/.s_e_e/definitions/`, separately from application settings and secrets in `~/.s_e_e/settings.json`. Back up that definition directory separately from project backups and Git. Client grants default machine definition read/edit off; edit implies read. Project authorization is separate. Runs, logs, schedules, cycles and execution history remain per project.
+
 User-level `~/.s_e_e/settings.json`.
 
 - `theme` - `light`, `dark`, or `system`.
@@ -2708,8 +2880,31 @@ User-level `~/.s_e_e/settings.json`.
 - `server_url`, `api_port`, `cors_origins` - strings.
 - `audit_retention_hours`, `log_retention_hours`, `session_ttl_hours`, `command_timeout_secs` - integer or null.
 - `schedule_retention` - object.
+- `log_stream_retention` - per-stream retention days. Null keeps a stream indefinitely.
+- `diagnostic_logging` - diagnostic JSON capture policy, defaulting to Info with no category overrides.
 - `command_binary_allowlist` - string array.
 - `command_secrets` - string map.
+
+## Diagnostic logging
+
+Settings > Retention > Logging edits `diagnostic_logging`. Stored `default_level` and `overrides` values are `trace`, `debug`, `info`, `warn`, `error` or `off`. Overrides accept `server`, `trace`, `timing` and `frontend`. Each threshold captures its level and higher. Off suppresses every diagnostic level in that category. Inherit removes the category key.
+
+```json
+{
+  "diagnostic_logging": {
+    "default_level": "info",
+    "overrides": {"server": "debug", "trace": "off"}
+  }
+}
+```
+
+This fragment captures server Debug diagnostics, suppresses trace diagnostics and leaves timing/frontend at Info. Missing policy defaults to Info with no overrides. An API update omitting the policy preserves its previous value. Supplying it replaces the whole policy. An empty object resets it to defaults, and empty overrides restores category inheritance.
+
+Saved policy applies immediately to subsequent server writes. Workers keep their launch snapshot, and newly launched workers receive updates. `RUST_LOG` independently controls ordinary tracing. Viewer filters select stored entries. Verbosity changes leave historical files intact, while retention determines file expiry.
+
+Audit, process lifecycle and raw output, workflow history and LLM accounting remain captured at diagnostic Off under their independent capture and retention policies. Raw stdout and stderr use Trace with `severity_origin=raw_capture` and separate source labels. Successful polling/search diagnostics are Debug, meaningful changes are Info, recoverable failures are Warn and terminal failures are Error.
+
+Stream retention defaults in days are `audit_days=365`, `llm_days=365`, `server_days=30`, `trace_days=30` (also timing), `workflow_days=30`, `frontend_days=30`, `process_days=14` and `entity_change_meta_days=90`. A null value retains that stream indefinitely. Stream values take precedence over `log_retention_hours`, whose fallback is 48 hours. The legacy `audit_retention_hours` field does not control stream expiry.
 
 ## JSON Schema
 
@@ -2722,6 +2917,9 @@ Download: [app-settings.schema.json](https://garunski.github.io/s_e_e_library/sc
   "title": "App settings.json",
   "type": "object",
   "additionalProperties": true,
+  "definitions": {
+    "diagnostic_threshold": { "enum": ["trace", "debug", "info", "warn", "error", "off"] }
+  },
   "properties": {
     "theme": { "enum": ["light", "dark", "system"] },
     "notifications": { "type": "boolean" },
@@ -2734,6 +2932,24 @@ Download: [app-settings.schema.json](https://garunski.github.io/s_e_e_library/sc
     "auth_enabled": { "type": "boolean" },
     "session_ttl_hours": { "type": ["integer", "null"], "minimum": 0 },
     "schedule_retention": { "type": "object" },
+    "log_stream_retention": { "type": "object" },
+    "diagnostic_logging": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default_level": { "$ref": "#/definitions/diagnostic_threshold" },
+        "overrides": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "server": { "$ref": "#/definitions/diagnostic_threshold" },
+            "trace": { "$ref": "#/definitions/diagnostic_threshold" },
+            "timing": { "$ref": "#/definitions/diagnostic_threshold" },
+            "frontend": { "$ref": "#/definitions/diagnostic_threshold" }
+          }
+        }
+      }
+    },
     "command_timeout_secs": { "type": ["integer", "null"], "minimum": 0 },
     "command_binary_allowlist": { "type": "array", "items": { "type": "string" } },
     "command_secrets": { "type": "object", "additionalProperties": { "type": "string" } },

@@ -52,5 +52,6 @@
         "type": "string"
       }
     }
-  }
+  },
+  "description": "Stored definition payload ids remain unqualified. References may use machine:<id> or project:<id>; bare ids remain project-only. Home is selected by the API, not an envelope scope field."
 }

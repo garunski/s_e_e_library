@@ -20,11 +20,17 @@ fn library_fixture_root() -> PathBuf {
 fn write_minimal_prerender(dx_public: &Path) {
     let authoring = fixture_authoring_index_html();
     let schema = fixture_schema_index_html();
+    let workflow = format!(
+        "<html><body>{}</body></html>",
+        include_str!("../../site/content/authoring/definition_homes.md")
+    );
     let site = dx_public.join(DEFAULT_PAGES_BASE);
     for route in documentation_route_paths() {
         let dir = site.join(route.trim_start_matches('/'));
         fs::create_dir_all(&dir).expect("mkdir route");
-        let body = if route == "/authoring/" {
+        let body = if route == "/authoring/workflows/" {
+            workflow.as_str()
+        } else if route == "/authoring/" {
             authoring.as_str()
         } else if route == "/schema/" {
             schema.as_str()

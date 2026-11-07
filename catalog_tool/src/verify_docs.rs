@@ -290,6 +290,9 @@ pub fn verify_staged_docs(root: &Path, staging: &Path) -> Result<(), String> {
     }
 
     errors.extend(verify_internal_links(staging));
+    errors.extend(crate::definition_home_docs::verify_definition_home_docs(
+        root, staging,
+    ));
 
     if errors.is_empty() {
         Ok(())
