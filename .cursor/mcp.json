@@ -5,7 +5,7 @@
         "Authorization": "Bearer ${env:SEE_MCP_TOKEN}"
       },
       "type": "http",
-      "url": "http://127.0.0.1:45857/mcp"
+      "url": "http://127.0.0.1:46573/mcp"
     }
   }
 }

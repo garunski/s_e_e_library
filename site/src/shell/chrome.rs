@@ -114,7 +114,6 @@ fn LibraryThemeControl() -> Element {
                 Icon {
                     name: icon.to_string(),
                     class: Some("shrink-0".to_string()),
-                    size: Some("h-[18px] w-[18px]".to_string()),
                     variant: Some("outline".to_string()),
                 }
         }
