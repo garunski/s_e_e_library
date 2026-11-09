@@ -10,6 +10,7 @@
     }
   },
   "properties": {
+    "editor_auto_save": { "type": "boolean", "default": false },
     "theme": {
       "enum": [
         "light",

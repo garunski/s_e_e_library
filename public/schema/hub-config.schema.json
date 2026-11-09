@@ -7,7 +7,79 @@
   "additionalProperties": true,
   "properties": {
     "project": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "experimental_features": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "orchestrator": {
+              "type": "boolean",
+              "default": false
+            },
+            "orchestrator_cycle": {
+              "type": "boolean",
+              "default": false
+            },
+            "knowledge_cycle": {
+              "type": "boolean",
+              "default": false
+            },
+            "planning_cycle": {
+              "type": "boolean",
+              "default": false
+            },
+            "knowledge_research": {
+              "type": "boolean",
+              "default": false
+            },
+            "global_chat": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "admin_spoke": {
+          "type": "string"
+        },
+        "spokes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "path"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "default_command_id": {
+          "type": "string"
+        },
+        "default_workflow_by_command": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
     },
     "overrides": {
       "type": "object"
@@ -20,6 +92,15 @@
     },
     "llm": {
       "type": "object"
+    },
+    "knowledge": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "cycle_enabled": {
+          "type": "boolean"
+        }
+      }
     },
     "orchestrator": {
       "type": "object"

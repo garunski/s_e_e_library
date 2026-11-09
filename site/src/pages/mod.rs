@@ -100,3 +100,6 @@ pub fn LibraryNotFound(segments: Vec<String>) -> Element {
         }
     }
 }
+
+#[cfg(all(test, feature = "server"))]
+mod experimental_features_docs_tests;

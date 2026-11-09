@@ -112,6 +112,10 @@ pub fn LibrarySchemaIndex() -> Element {
                     }
                     section {
                         h2 { id: "knowledge", class: "scroll-mt-24", "Knowledge" }
+                        p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
+                            "Component updates at " code { "/api/projects/{{project}}/knowledge/components/{{id}}" }
+                            " require the current conflict token. PUT accepts body, verified_against, and conflict_token. A stale token or superseded note returns 409 WORKSPACE_CONFLICT with the current note and token without creating a revision. Success creates a new current note: use its returned id and token for subsequent updates."
+                        }
                         ul { class: INDEX_LINK_LIST,
                             NamedSchemaLink {
                                 route: Route::SchemaResearch {},

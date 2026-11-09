@@ -1186,6 +1186,9 @@
   .flex-1 {
     flex: 1;
   }
+  .flex-\[1_1_12rem\] {
+    flex: 1 1 12rem;
+  }
   .flex-\[2\] {
     flex: 2;
   }
@@ -2512,6 +2515,9 @@
   }
   .pr-4 {
     padding-right: calc(var(--spacing) * 4);
+  }
+  .pb-0\.5 {
+    padding-bottom: calc(var(--spacing) * 0.5);
   }
   .pb-1 {
     padding-bottom: calc(var(--spacing) * 1);
@@ -4261,6 +4267,11 @@
       grid-column-start: 2;
     }
   }
+  .sm\:mt-4 {
+    @media (width >= 40rem) {
+      margin-top: calc(var(--spacing) * 4);
+    }
+  }
   .sm\:ml-auto {
     @media (width >= 40rem) {
       margin-left: auto;
@@ -4359,6 +4370,11 @@
   .sm\:w-\[min\(100\%\,66\.666vw\)\] {
     @media (width >= 40rem) {
       width: min(100%, 66.666vw);
+    }
+  }
+  .sm\:w-auto {
+    @media (width >= 40rem) {
+      width: auto;
     }
   }
   .sm\:max-w-\[20rem\] {

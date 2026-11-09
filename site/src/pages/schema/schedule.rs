@@ -47,6 +47,22 @@ pub fn LibrarySchemaSchedule() -> Element {
                 Link { to: Route::SchemaScheduleRuleSet {}, class: "font-semibold text-sky-700 hover:text-sky-600 dark:text-sky-300", "rule set" }
                 " by id."
             }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Conditional HTTP updates" }
+            p { class: "text-sm text-zinc-600 dark:text-zinc-400",
+                "PUT /api/projects/{{project}}/workflow-schedules/{{id}} accepts a schedule object and optional expected_updated_at from the latest response. The comparison and replacement are serialized. A stale revision or deleted record returns HTTP 409 without mutation. Omitting expected_updated_at preserves unconditional upsert behavior."
+            }
+            pre { code { {r#"{
+  "schedule": {
+    "id": "nightly",
+    "name": "Nightly",
+    "workflow_id": "project:quality",
+    "kind": { "kind": "interval", "every_seconds": 3600 },
+    "enabled": false,
+    "created_at": "2026-11-08T00:00:00Z",
+    "updated_at": "2026-11-08T00:00:00Z"
+  },
+  "expected_updated_at": "2026-11-08T00:00:00Z"
+}"#} } }
             h2 { class: "mt-8 {SECTION_TITLE}", "JSON Schema" }
             SchemaBlockByName { filename: "schedule.schema.json" }
         }

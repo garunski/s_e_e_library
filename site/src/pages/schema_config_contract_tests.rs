@@ -35,3 +35,50 @@ fn hub_config_route_matches_slug() {
     assert_eq!(schema_path(page.slug), "/schema/hub-config/");
     assert!(!page.field_markers.is_empty());
 }
+
+#[test]
+fn experimental_features_docs_public_schema_matches_application_contract() {
+    let public: serde_json::Value =
+        serde_json::from_str(schema_download("hub-config.schema.json").unwrap().json).unwrap();
+    let source_path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../s_e_e/core/schema/hub-config.schema.json");
+    let mut source: serde_json::Value =
+        serde_json::from_str(&std::fs::read_to_string(source_path).unwrap()).unwrap();
+    source["$id"] = public["$id"].clone();
+    assert_eq!(public, source);
+    let flags = &public["properties"]["project"]["properties"]["experimental_features"];
+    assert_eq!(flags["additionalProperties"], false);
+    for key in [
+        "orchestrator",
+        "orchestrator_cycle",
+        "knowledge_cycle",
+        "planning_cycle",
+        "knowledge_research",
+        "global_chat",
+    ] {
+        assert_eq!(flags["properties"][key]["type"], "boolean");
+        assert_eq!(flags["properties"][key]["default"], false);
+    }
+    assert!(CONFIG_SCHEMA_PAGES[0]
+        .field_markers
+        .contains(&"project.experimental_features"));
+    let llms = include_str!("../../../public/llms.txt");
+    let section = llms
+        .split("Source: /schema/hub-config/")
+        .nth(1)
+        .unwrap()
+        .split("\nSource: ")
+        .next()
+        .unwrap();
+    let json = section
+        .split("```json\n")
+        .nth(1)
+        .unwrap()
+        .split("```")
+        .next()
+        .unwrap();
+    assert_eq!(
+        serde_json::from_str::<serde_json::Value>(json).unwrap(),
+        public
+    );
+}

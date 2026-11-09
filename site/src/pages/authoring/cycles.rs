@@ -104,6 +104,14 @@ pub fn LibraryAuthoringCycles() -> Element {
                 }
             }
             section {
+                h2 { "Saving edits" }
+                p { class: BODY_TEXT, "Project settings > Experimental controls host availability. Orchestrator requires orchestrator and orchestrator_cycle, Knowledge requires knowledge_cycle, and Planning requires planning_cycle. All default to false. Disabled hosts are omitted from cycle management and their launch, edit, activation and revert operations are denied. Stored cycle packages, reusable workflow definitions and Library package storage remain available." }
+                p { class: BODY_TEXT, "Disabling preserves schedules and saved run controls and does not cancel admitted work. It suppresses fresh timer, catchup, event and manual admission. Generic execution, process, log and stop controls remain available. Subsequent disabled feature-owned operations fail explicitly with EXPERIMENTAL_FEATURE_DISABLED. Enabling may resume scheduled work on the next normal tick. Manual story and milestone planning remains available. There is no Planning cycle-control HTTP endpoint or manual-stage HTTP route." }
+                p { class: BODY_TEXT,
+                    "Existing cycle edits use the revision returned when the document was loaded. A stale revision, including one for a deleted document, is rejected without overwriting newer data. Reload revision retains local edits; use Save to apply them after reviewing the changes. Saving does not activate a different cycle or request a run."
+                }
+            }
+            section {
                 h2 { "Triggers" }
                 p { class: "{BODY_TEXT}", "Each stage has exactly one trigger:" }
                 ul { class: "{LIST}",
@@ -159,7 +167,7 @@ pub fn LibraryAuthoringCycles() -> Element {
                     code { class: "{INLINE_CODE}", "stories" }
                     " and "
                     code { class: "{INLINE_CODE}", "events" }
-                    " as host values, but the app does not install or activate cycles for those hosts yet."
+                    " as host values. Planning uses the stories host when planning_cycle is enabled. Events has no Experimental switch."
                 }
             }
             section {

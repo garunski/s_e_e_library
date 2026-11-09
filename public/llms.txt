@@ -65,6 +65,8 @@ Schema:
 
 Source: /authoring/
 
+Project settings > Experimental controls project-local runtime availability. All six switches default to off. Package storage and reusable workflows remain available. MCP discovery across authorized projects can expose a tool enabled elsewhere, while every invocation checks its target project. See [Experimental configuration and API contract](/schema/hub-config/) and [Research profiles, availability and MCP examples](/schema/knowledge-research/).
+
 Every package in the Official Library is one of six types. Pick the type, write
 its payload, then publish it to the catalog.
 
@@ -90,6 +92,10 @@ its payload, then publish it to the catalog.
 ## Knowledge Research schema
 
 Source: /schema/knowledge-research/
+
+Enable `knowledge_research` in Project settings > Experimental for the target project. It defaults to false independently of Knowledge Cycle and Orchestrator. Disabling preserves documents, pages and immutable editions while omitting Research views, shared search hits, exact-project resources and qualified Research prompts. Subsequent HTTP and MCP operations return `EXPERIMENTAL_FEATURE_DISABLED`. Ordinary knowledge docs and decisions remain available.
+
+After enabling, call `knowledge_research_profile_get` with `{"project":"example","kind":"research"}`, then `knowledge_research_list` with `{"project":"example"}`. Pass the explicit target project on every call and the latest aggregate `conflict_token` on writes. Read editions using existing document/page view selectors. Search uses shared story search. There is no separate Research edition or search HTTP endpoint. Mixed-project MCP discovery may advertise tools enabled in another authorized project. Invocation still checks the target project.
 
 Collection selection uses `list_filter_get` for `knowledge_research`. Typed filters compose with existing `kind`, `tag`, `query` and `view` using AND. The response retains `documents`, `next_cursor` and `limit`. Retain normalized selection and view while following a cursor. Restart without the cursor when either changes. Entity-resource query templates retain this cursor independently of protocol catalog pagination. Shared predicate shapes are defined in [collection-filter.schema.json](/schema/collection-filter.schema.json).
 
@@ -879,6 +885,19 @@ The body carries task-specific procedure and constraints that change what the
 agent does. Keep activation text short and use authoritative references for
 details needed only in particular situations.
 
+## Editing installed skills
+
+GET `/api/projects/:project/spokes/:spoke/agent-skills/:id` returns a
+`content` string. PUT accepts `content` and optional `expected_content`, the exact
+previously loaded text. Conditional updates require nonempty content and an
+existing matching file. Stale or deleted files return 409 without writing;
+success remains 204. Omission retains unconditional create or overwrite behavior.
+Only `SKILL.md` changes; other skill files are preserved.
+
+```json
+{"content":"Updated skill body","expected_content":"Previously loaded skill body"}
+```
+
 ## Where guidance belongs
 
 Repository `AGENTS.md` holds durable local operating rules. A skill holds
@@ -1231,6 +1250,10 @@ Paths use forward slashes and must be unique within the package.
 
 Source: /authoring/cycles/
 
+Project settings > Experimental controls host availability. Orchestrator requires `orchestrator` and `orchestrator_cycle`, Knowledge requires `knowledge_cycle`, and Planning requires `planning_cycle`. All default to false. Disabled hosts are omitted from cycle management and their launch, edit, activation and revert operations are denied. Stored cycle packages, reusable workflow definitions and Library package storage remain available.
+
+Disabling preserves schedules and saved run controls and does not cancel admitted work. It suppresses fresh timer, catchup, event and manual admission. Generic execution, process, log and stop controls remain available. Subsequent disabled feature-owned operations fail explicitly with `EXPERIMENTAL_FEATURE_DISABLED`. Enabling may resume scheduled work on the next normal tick. Manual story and milestone planning remains available. There is no Planning cycle-control HTTP endpoint or manual-stage HTTP route.
+
 A **cycle** package describes how workflows connect stores on a host. Payload
 file: `cycle.json`. Installs to `.s_e_e/cycles/{id}.json` where `id` matches the
 document `id` field.
@@ -1248,6 +1271,10 @@ orchestrator host.
 
 Each stage has exactly one trigger: `tick`, `schedule`, `event`, or `manual`.
 
+## Saving edits
+
+Existing cycle edits use the revision returned when the document was loaded. A stale revision, including one for a deleted document, is rejected without overwriting newer data. Reload revision retains local edits; use Save to apply them after reviewing the changes. Saving does not activate a different cycle or request a run.
+
 ## Store registry
 
 Store keys are not free-form. The app ships a fixed registry per host. A key
@@ -1259,8 +1286,7 @@ outside the list is rejected on install and reported again at activation.
 **Knowledge host:** `spokes`, `changes`, `components`, `impacts`, `audits`,
 `docs`, `decisions`, `links`.
 
-The JSON Schema allows `stories` and `events` as host values, but the app does
-not install or activate cycles for those hosts yet.
+The JSON Schema allows `stories` and `events` as host values. Planning uses the stories host when planning_cycle is enabled. Events has no Experimental switch.
 
 ## The orchestrator gate
 
@@ -1484,6 +1510,8 @@ Source: /schema/
 - [Schedule rule set](/schema/schedule-rule-set/)
 
 ## Knowledge
+
+Component updates at `/api/projects/{project}/knowledge/components/{id}` require the current conflict token. PUT accepts `body`, `verified_against`, and `conflict_token`. A stale token or superseded note returns `409 WORKSPACE_CONFLICT` with the current note and token without creating a revision. Success creates a new current note: use its returned id and token for subsequent updates.
 
 - [Knowledge Research](/schema/knowledge-research/)
 
@@ -2806,6 +2834,14 @@ See the [catalog schema](/schema/catalog/).
 
 Source: /schema/hub-config/
 
+Project settings > Experimental manages `project.experimental_features`. Its six boolean keys are `orchestrator`, `orchestrator_cycle`, `knowledge_cycle`, `planning_cycle`, `knowledge_research` and `global_chat`. Existing and new projects resolve missing objects or keys to false without an eager migration write. Unknown experiment keys and non-boolean values are rejected. Only `orchestrator_cycle` depends on its configured parent `orchestrator`. Other switches, including Global Chat, are independent.
+
+`GET /api/projects/{project}/experimental-features` returns `configured`, `effective` and `conflict_token`. `PATCH` on that path accepts `{"changes":{"global_chat":true},"conflict_token":"latest-read-token"}`. Send only changed boolean keys. Stale tokens return HTTP 409 without mutation. Use the canonical successful response for subsequent writes. Effective values and tokens are response fields. Stored configuration contains configured booleans only.
+
+Disabling preserves data, schedules and saved run controls and does not cancel admitted work. Fresh admission stops. Subsequent feature-owned HTTP and MCP calls, including calls from existing runs, fail explicitly with `EXPERIMENTAL_FEATURE_DISABLED`. Generic execution, process, log and stop controls remain available. Enabling may resume scheduling on the next normal tick. Manual stories, milestones, shared objectives, knowledge docs and decisions, reusable workflows and Library package storage remain available. Providers, models, routing, spend, `/v1/chat/completions` and workflow-space defaults remain available.
+
+MCP tool discovery is the union across authorized projects, restricted to the bound project when present. A mixed-project client can see a tool enabled elsewhere. Every invocation checks the target project afresh. Exact-project resources and qualified Research prompts follow target availability. Clients supporting list-change notifications refresh discovery after changes. Cached tool lists do not authorize calls.
+
 Hub data-root `config.json`. Must be a non-empty JSON object.
 
 - `project` - object; typically includes `id`.
@@ -2816,6 +2852,10 @@ Hub data-root `config.json`. Must be a non-empty JSON object.
 - `orchestrator` - see [orchestrator policy](/schema/orchestrator-policy/).
 
 Unknown top-level keys are kept.
+
+## Conditional project settings writes
+
+Project settings writes accept an optional expected_settings object containing the last-read values for the edited section. The expected_settings fields on PUT /api/projects/{project} are name, hub_path, and command_timeout_secs (null means no override). On PUT /api/projects/{project}/command-defaults they are default_command_id (null means none) and default_workflow_by_command. The patch still uses clear_command_timeout:true or clear_default_command:true to remove the respective override. Comparison and patch run together under the server write coordinator; stale values return HTTP 409 without mutation. Omission preserves existing unconditional callers. For example, send {"name":"New name","expected_settings":{"name":"Old name"}}. Use current values from the latest project read or successful write; hub_path corresponds to the project response path field. Timeout updates persist in hub config and preserve other sections.
 
 ## JSON Schema
 
@@ -2830,12 +2870,105 @@ Download: [hub-config.schema.json](https://garunski.github.io/s_e_e_library/sche
   "minProperties": 1,
   "additionalProperties": true,
   "properties": {
-    "project": { "type": "object" },
-    "overrides": { "type": "object" },
-    "stories": { "type": "object" },
-    "library": { "type": "object" },
-    "llm": { "type": "object" },
-    "orchestrator": { "type": "object" }
+    "project": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "experimental_features": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "orchestrator": {
+              "type": "boolean",
+              "default": false
+            },
+            "orchestrator_cycle": {
+              "type": "boolean",
+              "default": false
+            },
+            "knowledge_cycle": {
+              "type": "boolean",
+              "default": false
+            },
+            "planning_cycle": {
+              "type": "boolean",
+              "default": false
+            },
+            "knowledge_research": {
+              "type": "boolean",
+              "default": false
+            },
+            "global_chat": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "admin_spoke": {
+          "type": "string"
+        },
+        "spokes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "path"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "default_command_id": {
+          "type": "string"
+        },
+        "default_workflow_by_command": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "overrides": {
+      "type": "object"
+    },
+    "stories": {
+      "type": "object"
+    },
+    "library": {
+      "type": "object"
+    },
+    "llm": {
+      "type": "object"
+    },
+    "knowledge": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "cycle_enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "orchestrator": {
+      "type": "object"
+    }
   }
 }
 ```
@@ -2876,6 +3009,7 @@ User-level `~/.s_e_e/settings.json`.
 
 - `theme` - `light`, `dark`, or `system`.
 - `notifications`, `auth_enabled`, `mcp_enabled`, `llm_content_capture_enabled` - booleans.
+- `editor_auto_save` - boolean, default false. Reserved for the editor autosave rollout; the switch is not exposed yet. Legacy `auto_save` is ignored. Settings PUTs omitting `editor_auto_save` preserve its saved value.
 - `default_workflow` - string or null.
 - `server_url`, `api_port`, `cors_origins` - strings.
 - `audit_retention_hours`, `log_retention_hours`, `session_ttl_hours`, `command_timeout_secs` - integer or null.
@@ -2923,6 +3057,7 @@ Download: [app-settings.schema.json](https://garunski.github.io/s_e_e_library/sc
   "properties": {
     "theme": { "enum": ["light", "dark", "system"] },
     "notifications": { "type": "boolean" },
+    "editor_auto_save": { "type": "boolean", "default": false },
     "default_workflow": { "type": ["string", "null"] },
     "server_url": { "type": "string" },
     "api_port": { "type": "string" },
@@ -3058,6 +3193,8 @@ Orchestrator policy. Stored as `orchestrator` in [hub config](/schema/hub-config
 - `policy` - required. `levels` maps action classes to `auto`, `propose`, or `forbid`.
 - `budgets` - required object (run caps, spend caps, window).
 
+GET and PUT `/api/projects/{project}/orchestrator/policy` return a section `conflict_token`. Pass the last returned token on PUT to reject stale edits with HTTP 409. Omitting the token preserves legacy unconditional updates. Omitting `auto_mode` preserves the current mode. Writes preserve other hub configuration sections and do not start a run.
+
 ## JSON Schema
 
 Download: [orchestrator-policy.schema.json](https://garunski.github.io/s_e_e_library/schema/orchestrator-policy.schema.json)
@@ -3102,6 +3239,25 @@ Workflow schedule. Installs to `.s_e_e/workflows/schedules/{id}.json`. Bundles m
 
 Subject filters can point at a [rule set](/schema/schedule-rule-set/) by id.
 
+## Conditional HTTP updates
+
+`PUT /api/projects/{project}/workflow-schedules/{id}` accepts `{ "schedule": { ... }, "expected_updated_at": "2026-11-08T00:00:00Z" }`. Use the `updated_at` returned by the latest read or successful write. The comparison and replacement are serialized with schedule writes. A stale revision or deleted record returns HTTP 409 without mutation. Omitting `expected_updated_at` preserves unconditional upsert behavior.
+
+```json
+{
+  "schedule": {
+    "id": "nightly",
+    "name": "Nightly",
+    "workflow_id": "project:quality",
+    "kind": { "kind": "interval", "every_seconds": 3600 },
+    "enabled": false,
+    "created_at": "2026-11-08T00:00:00Z",
+    "updated_at": "2026-11-08T00:00:00Z"
+  },
+  "expected_updated_at": "2026-11-08T00:00:00Z"
+}
+```
+
 ## JSON Schema
 
 Download: [schedule.schema.json](https://garunski.github.io/s_e_e_library/schema/schedule.schema.json)
@@ -3142,6 +3298,10 @@ Schedule rule set. Installs to `.s_e_e/workflows/schedule_rule_sets/{id}.json`.
 - `rules` - object (statuses, labels, acceptance-criteria flags).
 
 See [schedule](/schema/schedule/) for `story_rules` that point at a rule set id.
+
+## Conditional HTTP updates
+
+PUT /api/projects/{project}/workflow-schedule-rule-sets/{id} accepts the rule set fields and an optional expected_updated_at timestamp from the last GET or successful save. For example, add `"expected_updated_at": "2026-11-08T00:00:01Z"` beside id and name. The comparison and write are serialized. A stale timestamp or deleted record returns HTTP 409 without changing the record. Omitting the field preserves unconditional upsert behavior. Successful saves return the stored rule set and its new updated_at; expected_updated_at is request-only and is not stored.
 
 ## JSON Schema
 

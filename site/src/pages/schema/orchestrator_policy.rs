@@ -36,6 +36,7 @@ pub fn LibrarySchemaOrchestratorPolicy() -> Element {
                 }
                 li { code { class: "{INLINE_CODE}", "budgets" }, " - required object (run caps, spend caps, window)." }
             }
+            p { class: "{PAGE_LEDE}", "GET and PUT /api/projects/<project>/orchestrator/policy return a section conflict_token. Pass the last returned token on PUT to reject stale edits with HTTP 409. Omitting the token preserves legacy unconditional updates. Omitting auto_mode preserves the current mode. Writes preserve other hub configuration sections and do not start a run." }
             h2 { class: "mt-8 {SECTION_TITLE}", "JSON Schema" }
             SchemaBlockByName { filename: "orchestrator-policy.schema.json" }
         }

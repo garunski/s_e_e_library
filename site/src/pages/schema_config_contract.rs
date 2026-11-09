@@ -17,6 +17,7 @@ pub const CONFIG_SCHEMA_PAGES: [ConfigSchemaPageContract; 8] = [
         schema_filename: "hub-config.schema.json",
         field_markers: &[
             "project",
+            "project.experimental_features",
             "overrides",
             "library",
             "stories",

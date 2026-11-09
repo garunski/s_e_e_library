@@ -30,6 +30,7 @@ pub fn LibrarySchemaAppSettings() -> Element {
                     code { class: "{INLINE_CODE}", "llm_content_capture_enabled" }, " - booleans."
                 }
                 li { code { class: "{INLINE_CODE}", "default_workflow" }, " - string or null." }
+                li { code { class: "{INLINE_CODE}", "editor_auto_save" }, " - boolean, default false. Reserved for the editor autosave rollout; the switch is not exposed yet. Legacy auto_save is ignored. Settings PUTs omitting editor_auto_save preserve its saved value." }
                 li {
                     code { class: "{INLINE_CODE}", "server_url" }, ", "
                     code { class: "{INLINE_CODE}", "api_port" }, ", "

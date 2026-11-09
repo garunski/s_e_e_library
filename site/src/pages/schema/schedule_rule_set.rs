@@ -35,6 +35,10 @@ pub fn LibrarySchemaScheduleRuleSet() -> Element {
                 code { class: "{INLINE_CODE}", "story_rules" }
                 " that point at a rule set id."
             }
+            h2 { class: "mt-8 {SECTION_TITLE}", "Conditional HTTP updates" }
+            p { class: "{PAGE_LEDE}",
+                "PUT /api/projects/{{project}}/workflow-schedule-rule-sets/{{id}} accepts the rule set fields and an optional expected_updated_at timestamp from the last GET or successful save. For example, add \"expected_updated_at\": \"2026-11-08T00:00:01Z\" beside id and name. The comparison and write are serialized. A stale timestamp or deleted record returns HTTP 409 without changing the record. Omitting the field preserves unconditional upsert behavior. Successful saves return the stored rule set and its new updated_at; expected_updated_at is request-only and is not stored."
+            }
             h2 { class: "mt-8 {SECTION_TITLE}", "JSON Schema" }
             SchemaBlockByName { filename: "schedule-rule-set.schema.json" }
         }

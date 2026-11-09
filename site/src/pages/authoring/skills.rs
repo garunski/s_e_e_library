@@ -6,6 +6,8 @@ use crate::pages::authoring_common::{
 use crate::routes::Route;
 
 const EXAMPLE: &str = include_str!("../../../content/authoring/skills_example.md");
+const EDIT_REQUEST: &str =
+    r#"{"content":"Updated skill body","expected_content":"Previously loaded skill body"}"#;
 const INSTALL: &str = include_str!("../../../content/authoring/skills_install.json");
 
 #[component]
@@ -37,6 +39,13 @@ pub fn LibraryAuthoringSkills() -> Element {
                 p { class: "{BODY_TEXT}",
                     "The body carries task-specific procedure and constraints that change what the agent does. Keep activation text short and use authoritative references for details needed only in particular situations."
                 }
+            }
+            section {
+                h2 { "Editing installed skills" }
+                p { class: BODY_TEXT,
+                    "GET /api/projects/:project/spokes/:spoke/agent-skills/:id returns a content string. PUT accepts content and an optional expected_content string containing the exact previously loaded text. A conditional update requires a nonempty body and an existing matching file; a stale or deleted file returns 409 without writing. Success remains 204. Omit expected_content to retain unconditional create or overwrite behavior. Updates change only SKILL.md; other files in the skill directory are preserved."
+                }
+                CodeExample { text: EDIT_REQUEST }
             }
             section {
                 h2 { "Where guidance belongs" }

@@ -21,6 +21,9 @@ pub fn LibrarySchemaResearch() -> Element {
                 a { href: library_href("/schema/knowledge-research.schema.json"), class: "font-semibold text-sky-700 dark:text-sky-300", "knowledge-research.schema.json" }
                 "."
             }
+            h2 { class: "mt-6 {SECTION_TITLE}", "Project availability" }
+            p { class: "mt-2 text-sm", { "Enable knowledge_research in Project settings > Experimental for the target project. It defaults to false independently of Knowledge Cycle and Orchestrator. Disabling preserves documents, pages and immutable editions while omitting Research views, shared search hits, exact-project resources and qualified Research prompts. Subsequent HTTP and MCP operations return EXPERIMENTAL_FEATURE_DISABLED. Ordinary knowledge docs and decisions remain available." } }
+            p { class: "mt-2 text-sm", { "After enabling, call knowledge_research_profile_get with {\"project\":\"example\",\"kind\":\"research\"}, then knowledge_research_list with {\"project\":\"example\"}. Pass the explicit target project on every call and the latest aggregate conflict_token on writes. Read editions using existing document/page view selectors. Search uses shared story search. There is no separate Research edition or search HTTP endpoint. Mixed-project MCP discovery may advertise tools enabled in another authorized project. Invocation still checks the target project." } }
             h2 { class: "mt-6 {SECTION_TITLE}", "Profile authority and versions" }
             p { class: "mt-2 text-sm text-zinc-600 dark:text-zinc-400",
                 "Call " code { class: "{INLINE_CODE}", "knowledge_research_profile_get" }
