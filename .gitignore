@@ -6,3 +6,4 @@ out/
 public/catalog.json
 public/packages/
 /.s_e_e/logs/
+/.s_e_e/.config.lock
