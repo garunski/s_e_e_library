@@ -3,13 +3,13 @@ use dioxus::prelude::*;
 use crate::pages::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
     LibraryAuthoringIndex, LibraryAuthoringPrompts, LibraryAuthoringPublish,
-    LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome, LibraryNotFound,
-    LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCatalog, LibrarySchemaCommand, LibrarySchemaCycle,
-    LibrarySchemaGlobalConfig, LibrarySchemaHubConfig, LibrarySchemaIndex,
-    LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt, LibrarySchemaResearch,
-    LibrarySchemaRoutingRules, LibrarySchemaRuleTemplate, LibrarySchemaSchedule,
-    LibrarySchemaScheduleRuleSet, LibrarySchemaSkill, LibrarySchemaStoriesConfig,
-    LibrarySchemaWorkflow,
+    LibraryAuthoringResearch, LibraryAuthoringSkills, LibraryAuthoringWorkflows, LibraryHome,
+    LibraryNotFound, LibrarySchemaAppSettings, LibrarySchemaBundle, LibrarySchemaCatalog,
+    LibrarySchemaCommand, LibrarySchemaCycle, LibrarySchemaGlobalConfig, LibrarySchemaHubConfig,
+    LibrarySchemaIndex, LibrarySchemaOrchestratorPolicy, LibrarySchemaPrompt,
+    LibrarySchemaResearch, LibrarySchemaRoutingRules, LibrarySchemaRuleTemplate,
+    LibrarySchemaSchedule, LibrarySchemaScheduleRuleSet, LibrarySchemaSkill,
+    LibrarySchemaStoriesConfig, LibrarySchemaWorkflow,
 };
 use crate::shell::LibraryShell;
 
@@ -35,6 +35,8 @@ pub enum Route {
         AuthoringCycles {},
         #[route("/authoring/publish/")]
         AuthoringPublish {},
+        #[route("/authoring/research/")]
+        AuthoringResearch {},
         #[route("/schema/")]
         SchemaIndex {},
         #[route("/schema/catalog/")]
@@ -91,6 +93,7 @@ pub fn route_for_path(href: &str) -> Option<Route> {
         "/authoring/bundles/" => Route::AuthoringBundles {},
         "/authoring/cycles/" => Route::AuthoringCycles {},
         "/authoring/publish/" => Route::AuthoringPublish {},
+        "/authoring/research/" => Route::AuthoringResearch {},
         "/schema/" => Route::SchemaIndex {},
         "/schema/catalog/" => Route::SchemaCatalog {},
         "/schema/workflow/" => Route::SchemaWorkflow {},
@@ -118,6 +121,11 @@ fn Home() -> Element {
     rsx! {
         LibraryHome {}
     }
+}
+
+#[component]
+fn AuthoringResearch() -> Element {
+    rsx! { LibraryAuthoringResearch {} }
 }
 
 #[component]

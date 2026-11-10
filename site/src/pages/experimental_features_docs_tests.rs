@@ -53,7 +53,7 @@ fn experimental_features_docs_public_rendered_pages_and_llms_sections() {
                 "knowledge_research_profile_get",
                 "knowledge_research_list",
                 "explicit target project",
-                "no separate Research edition or search HTTP endpoint",
+                "knowledge_research_search",
             ],
         ),
         (
@@ -112,7 +112,7 @@ fn experimental_features_docs_public_core_guides_and_reference_links() {
     }
     let index = render("/authoring/");
     assert!(index.contains("/schema/hub-config/"));
-    assert!(index.contains("/schema/knowledge-research/"));
+    assert!(index.contains("/authoring/research/"));
     for path in [
         "/schema/hub-config/",
         "/schema/knowledge-research/",

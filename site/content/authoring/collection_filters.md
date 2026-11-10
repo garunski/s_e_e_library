@@ -22,7 +22,7 @@ Selection precedes existing ordering, matching totals and page slicing. Standard
 
 The Board endpoint `GET /api/projects/{project}/stories/columns` applies `limit` and `offset` per status and returns the full matching `stories_total` per status. With `group_by_milestone=true`, paging applies per milestone within each status and `milestone_totals` reports matching counts keyed by milestone ID. The empty key represents unassigned work.
 
-Research retains `documents`, `next_cursor`, and `limit`. Its cursor is bound to the normalized selection and view. Keep both unchanged while following `next_cursor` and discard the cursor when either changes. Protocol catalog cursors from `tools/list`, `prompts/list`, and `resources/list` are separate from entity cursors.
+Scoped Research returns `items`, `next_cursor`, and `limit`. Its retained typed filters compose with `kind`, `tag`, `query` and catalogue `state` using AND before pagination. Its cursor is bound to that normalized selection. Keep the selection unchanged while following `next_cursor` and discard the cursor when it changes. Content `view` is separate from catalogue `state`. Protocol catalog cursors from `tools/list`, `prompts/list`, and `resources/list` are separate from entity cursors.
 
 Existing GUI field controls use the same descriptors alongside quick filters. Choose a field and operator, enter a typed value or select enum choices, and remove individual predicates or clear the selection. Changes reset paging/cursors and persist in the URL. Lists distinguish no matching rows from load or access errors. Collection-specific eligibility and saved configuration remain in force.
 

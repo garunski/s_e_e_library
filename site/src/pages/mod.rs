@@ -1,18 +1,21 @@
-mod authoring;
+pub(crate) mod authoring;
 mod authoring_common;
 mod authoring_guides_contract;
 mod authoring_index;
 mod home;
 pub(crate) mod page_links;
-mod schema;
+pub(crate) mod schema;
 mod schema_assets;
 mod schema_common;
 mod schema_config_contract;
 mod schema_package_contract;
 
+#[cfg(test)]
+mod research_contract_tests;
+
 pub use authoring::{
     LibraryAuthoringBundles, LibraryAuthoringCommands, LibraryAuthoringCycles,
-    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringSkills,
+    LibraryAuthoringPrompts, LibraryAuthoringPublish, LibraryAuthoringResearch, LibraryAuthoringSkills,
     LibraryAuthoringWorkflows,
 };
 pub use authoring_index::LibraryAuthoringIndex;

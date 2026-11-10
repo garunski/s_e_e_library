@@ -9,7 +9,7 @@ mod index;
 mod index_markers;
 mod orchestrator_policy;
 mod prompt;
-mod research;
+pub(crate) mod research;
 mod routing_rules;
 mod rule_template;
 mod schedule;

@@ -16,8 +16,8 @@ fi
 
 routes_json="$(cargo run -q --manifest-path "${site_root}/Cargo.toml" --bin see_library_site_routes)"
 route_count="$(echo "${routes_json}" | jq 'length')"
-if [[ "${route_count}" != "27" ]]; then
-  echo "site-prerender: expected 27 routes, got ${route_count}" >&2
+if [[ "${route_count}" != "28" ]]; then
+  echo "site-prerender: expected 28 routes, got ${route_count}" >&2
   exit 1
 fi
 

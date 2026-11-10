@@ -8,6 +8,7 @@ pub const AUTHORING_SLUGS: &[&str] = &[
     "bundles",
     "cycles",
     "publish",
+    "research",
 ];
 
 pub const SCHEMA_SLUGS: &[&str] = &[
@@ -32,7 +33,7 @@ pub const SCHEMA_SLUGS: &[&str] = &[
 
 /// Every public documentation URL path (leading slash, trailing slash except home is `/`).
 pub fn documentation_route_paths() -> Vec<&'static str> {
-    let mut paths = Vec::with_capacity(27);
+    let mut paths = Vec::with_capacity(28);
     paths.push("/");
     paths.push("/authoring/");
     for slug in AUTHORING_SLUGS {
@@ -54,6 +55,7 @@ pub fn authoring_path(slug: &str) -> &'static str {
         "bundles" => "/authoring/bundles/",
         "cycles" => "/authoring/cycles/",
         "publish" => "/authoring/publish/",
+        "research" => "/authoring/research/",
         _ => "/authoring/",
     }
 }

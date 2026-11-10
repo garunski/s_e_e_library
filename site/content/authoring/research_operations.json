@@ -1,0 +1,385 @@
+[
+  {
+    "name": "knowledge_research_profile_get",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/profiles/{kind}",
+    "scope": "Versioned profile descriptor",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_list",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/",
+    "scope": "Document summaries only; kind,tag,query,state filters",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "invalid_cursor",
+      "stale_cursor",
+      "invalid_filter"
+    ]
+  },
+  {
+    "name": "knowledge_research_get",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}",
+    "scope": "Document metadata and counts only",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_create",
+    "method": "POST",
+    "path": "/api/projects/{project}/knowledge/research/",
+    "scope": "Metadata only; allocate id",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_put",
+    "method": "PUT",
+    "path": "/api/projects/{project}/knowledge/research/{id}",
+    "scope": "Metadata only with document token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_delete",
+    "method": "DELETE",
+    "path": "/api/projects/{project}/knowledge/research/{id}",
+    "scope": "Explicit confirm and current tree token; delete exact document",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "tree_changed"
+    ]
+  },
+  {
+    "name": "knowledge_research_page_list",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages",
+    "scope": "Page summaries; query filter and explicit positions",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "invalid_cursor",
+      "stale_cursor",
+      "invalid_filter",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_page_get",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}",
+    "scope": "Page metadata and section count only",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_page_create",
+    "method": "POST",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages",
+    "scope": "Create metadata and append key atomically; document token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "already_exists",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_page_put",
+    "method": "PUT",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}",
+    "scope": "Page metadata only; page token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_page_delete",
+    "method": "DELETE",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}",
+    "scope": "Empty page only; page and document tokens; no cascading deletion",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "nonempty_page",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_pages_reorder",
+    "method": "PUT",
+    "path": "/api/projects/{project}/knowledge/research/{id}/page-order",
+    "scope": "Exact ordered page keys; document token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "invalid_order"
+    ]
+  },
+  {
+    "name": "knowledge_research_section_list",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}/sections",
+    "scope": "Section summaries; role,query filters and explicit positions",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "invalid_cursor",
+      "stale_cursor",
+      "invalid_filter",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_section_get",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}/sections/{section}",
+    "scope": "Exactly one section with Markdown, evidence and section token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_section_create",
+    "method": "POST",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}/sections",
+    "scope": "One section and append key atomically; page token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "already_exists",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_section_put",
+    "method": "PUT",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}/sections/{section}",
+    "scope": "Exactly one section; section token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_section_delete",
+    "method": "DELETE",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}/sections/{section}",
+    "scope": "Explicit confirm; section and page tokens",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_sections_reorder",
+    "method": "PUT",
+    "path": "/api/projects/{project}/knowledge/research/{id}/pages/{page}/section-order",
+    "scope": "Exact section keys; page token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "invalid_order"
+    ]
+  },
+  {
+    "name": "knowledge_research_source_list",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/sources",
+    "scope": "Source summaries; query,access_status,locator_kind filters",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "invalid_cursor",
+      "stale_cursor",
+      "invalid_filter",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_source_get",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/sources/{source}",
+    "scope": "Exactly one source record and source token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_source_create",
+    "method": "POST",
+    "path": "/api/projects/{project}/knowledge/research/{id}/sources",
+    "scope": "One source; create-if-absent stable source_id",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "already_exists",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_source_put",
+    "method": "PUT",
+    "path": "/api/projects/{project}/knowledge/research/{id}/sources/{source}",
+    "scope": "Exactly one source; source token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_source_delete",
+    "method": "DELETE",
+    "path": "/api/projects/{project}/knowledge/research/{id}/sources/{source}",
+    "scope": "Confirm and source token; reject if referenced",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "referenced_source",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_search",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/search",
+    "scope": "Bounded section hits; document,page,kind,role,tag,view,edition filters",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "invalid_cursor",
+      "stale_cursor",
+      "invalid_filter",
+      "view_not_found"
+    ]
+  },
+  {
+    "name": "knowledge_research_validate",
+    "method": "POST",
+    "path": "/api/projects/{project}/knowledge/research/{id}/validate",
+    "scope": "Consistent complete-tree validation; paged diagnostics and tree token",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "invalid_cursor",
+      "stale_cursor",
+      "tree_changed",
+      "invalid_content"
+    ]
+  },
+  {
+    "name": "knowledge_research_publish",
+    "method": "POST",
+    "path": "/api/projects/{project}/knowledge/research/{id}/publish",
+    "scope": "Current validated tree token; immutable separate-files edition",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "missing_token",
+      "stale_token",
+      "tree_changed",
+      "invalid_publication"
+    ]
+  },
+  {
+    "name": "knowledge_research_edition_list",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/editions",
+    "scope": "Edition summaries only",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "invalid_cursor",
+      "stale_cursor",
+      "invalid_filter"
+    ]
+  },
+  {
+    "name": "knowledge_research_edition_get",
+    "method": "GET",
+    "path": "/api/projects/{project}/knowledge/research/{id}/editions/{edition}",
+    "scope": "Edition metadata and counts only",
+    "errors": [
+      "invalid_key",
+      "unknown_fields",
+      "not_found",
+      "view_not_found"
+    ]
+  }
+]

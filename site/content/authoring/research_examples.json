@@ -1,0 +1,806 @@
+[
+  {
+    "kind": "research",
+    "instructions": "Illustrative Draft sequence; substitute allocated IDs and FROM_* markers from the latest reads. Cover all profile roles before validation/publication; publish only on request.",
+    "calls": [
+      {
+        "tool": "knowledge_research_profile_get",
+        "arguments": {
+          "project": "example",
+          "kind": "research"
+        }
+      },
+      {
+        "tool": "knowledge_research_search",
+        "arguments": {
+          "project": "example",
+          "query": "topic",
+          "view": "draft",
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_list",
+        "arguments": {
+          "project": "example",
+          "state": "draft",
+          "filters": [
+            {
+              "field": "title",
+              "op": "contains",
+              "value": "topic"
+            }
+          ],
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_create",
+        "arguments": {
+          "project": "example",
+          "document": {
+            "kind": "research",
+            "profile_version": 1,
+            "title": "Topic research",
+            "audience": "Maintainers",
+            "purpose": "Explain the bounded topic",
+            "key_message": "Illustrative draft",
+            "scope": "One topic",
+            "basis": "Supplied notes",
+            "tags": [
+              "example"
+            ]
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_page_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "document_token": "FROM_DOCUMENT_GET",
+          "page": {
+            "page_key": "topic",
+            "title": "Topic",
+            "summary": "One coherent topic"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_page_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_source_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "source_token": "FROM_SOURCE_GET",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "page_token": "FROM_PAGE_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_section_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "section_token": "FROM_SECTION_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_validate",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "limit": 25
+        }
+      }
+    ]
+  },
+  {
+    "kind": "report",
+    "instructions": "Illustrative Draft sequence; substitute allocated IDs and FROM_* markers from the latest reads. Cover all profile roles before validation/publication; publish only on request.",
+    "calls": [
+      {
+        "tool": "knowledge_research_profile_get",
+        "arguments": {
+          "project": "example",
+          "kind": "report"
+        }
+      },
+      {
+        "tool": "knowledge_research_search",
+        "arguments": {
+          "project": "example",
+          "query": "topic",
+          "view": "draft",
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_list",
+        "arguments": {
+          "project": "example",
+          "state": "draft",
+          "filters": [
+            {
+              "field": "title",
+              "op": "contains",
+              "value": "topic"
+            }
+          ],
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_create",
+        "arguments": {
+          "project": "example",
+          "document": {
+            "kind": "report",
+            "profile_version": 1,
+            "title": "Topic report",
+            "audience": "Maintainers",
+            "purpose": "Explain the bounded topic",
+            "key_message": "Illustrative draft",
+            "scope": "One topic",
+            "basis": "Supplied notes",
+            "tags": [
+              "example"
+            ],
+            "reporting_context": {
+              "kind": "as_of",
+              "as_of_date": "2026-11-09"
+            }
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_page_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "document_token": "FROM_DOCUMENT_GET",
+          "page": {
+            "page_key": "topic",
+            "title": "Topic",
+            "summary": "One coherent topic"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_page_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_source_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "source_token": "FROM_SOURCE_GET",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "page_token": "FROM_PAGE_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_section_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "section_token": "FROM_SECTION_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_validate",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "limit": 25
+        }
+      }
+    ]
+  },
+  {
+    "kind": "analysis",
+    "instructions": "Illustrative Draft sequence; substitute allocated IDs and FROM_* markers from the latest reads. Cover all profile roles before validation/publication; publish only on request.",
+    "calls": [
+      {
+        "tool": "knowledge_research_profile_get",
+        "arguments": {
+          "project": "example",
+          "kind": "analysis"
+        }
+      },
+      {
+        "tool": "knowledge_research_search",
+        "arguments": {
+          "project": "example",
+          "query": "topic",
+          "view": "draft",
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_list",
+        "arguments": {
+          "project": "example",
+          "state": "draft",
+          "filters": [
+            {
+              "field": "title",
+              "op": "contains",
+              "value": "topic"
+            }
+          ],
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_create",
+        "arguments": {
+          "project": "example",
+          "document": {
+            "kind": "analysis",
+            "profile_version": 1,
+            "title": "Topic analysis",
+            "audience": "Maintainers",
+            "purpose": "Explain the bounded topic",
+            "key_message": "Illustrative draft",
+            "scope": "One topic",
+            "basis": "Supplied notes",
+            "tags": [
+              "example"
+            ]
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_page_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "document_token": "FROM_DOCUMENT_GET",
+          "page": {
+            "page_key": "topic",
+            "title": "Topic",
+            "summary": "One coherent topic"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_page_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_source_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "source_token": "FROM_SOURCE_GET",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "page_token": "FROM_PAGE_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_section_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "section_token": "FROM_SECTION_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_validate",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "limit": 25
+        }
+      }
+    ]
+  },
+  {
+    "kind": "guide",
+    "instructions": "Illustrative Draft sequence; substitute allocated IDs and FROM_* markers from the latest reads. Cover all profile roles before validation/publication; publish only on request.",
+    "calls": [
+      {
+        "tool": "knowledge_research_profile_get",
+        "arguments": {
+          "project": "example",
+          "kind": "guide"
+        }
+      },
+      {
+        "tool": "knowledge_research_search",
+        "arguments": {
+          "project": "example",
+          "query": "topic",
+          "view": "draft",
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_list",
+        "arguments": {
+          "project": "example",
+          "state": "draft",
+          "filters": [
+            {
+              "field": "title",
+              "op": "contains",
+              "value": "topic"
+            }
+          ],
+          "limit": 25
+        }
+      },
+      {
+        "tool": "knowledge_research_create",
+        "arguments": {
+          "project": "example",
+          "document": {
+            "kind": "guide",
+            "profile_version": 1,
+            "title": "Topic guide",
+            "audience": "Maintainers",
+            "purpose": "Explain the bounded topic",
+            "key_message": "Illustrative draft",
+            "scope": "One topic",
+            "basis": "Supplied notes",
+            "tags": [
+              "example"
+            ]
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_page_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "document_token": "FROM_DOCUMENT_GET",
+          "page": {
+            "page_key": "topic",
+            "title": "Topic",
+            "summary": "One coherent topic"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_page_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_source_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_source_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "source_id": "provided-notes",
+          "source_token": "FROM_SOURCE_GET",
+          "source": {
+            "source_id": "provided-notes",
+            "title": "Provided notes",
+            "locator_kind": "file",
+            "locator": "operator-supplied-notes",
+            "access_status": "provided",
+            "inspected_scope": "Only supplied excerpt",
+            "limitation": "Original source not inspected"
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_create",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "page_token": "FROM_PAGE_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_section_put",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "section_token": "FROM_SECTION_GET",
+          "section": {
+            "section_key": "context",
+            "role": "context",
+            "heading": "Context",
+            "content": "Illustrative supplied Markdown.\n\n```text\nKeep exact content.\n```\n",
+            "source_ids": [
+              "provided-notes"
+            ],
+            "evidence_basis": "source_backed",
+            "evidence_note": "Supplied excerpt only",
+            "action_items": []
+          }
+        }
+      },
+      {
+        "tool": "knowledge_research_section_get",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "page_key": "topic",
+          "section_key": "context",
+          "view": "draft"
+        }
+      },
+      {
+        "tool": "knowledge_research_validate",
+        "arguments": {
+          "project": "example",
+          "research_id": "research-1",
+          "limit": 25
+        }
+      }
+    ]
+  }
+]

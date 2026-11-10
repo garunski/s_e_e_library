@@ -311,6 +311,7 @@ pub(crate) fn fixture_authoring_index_html() -> String {
         "commands",
         "bundles",
         "cycles",
+        "research",
     ] {
         html.push_str(&format!(
             "<a href=\"{}/authoring/{}/\">{slug}</a>",

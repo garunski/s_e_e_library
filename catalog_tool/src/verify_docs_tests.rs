@@ -63,8 +63,8 @@ fn copy_schemas_and_logos(root: &std::path::Path, dest_public: &std::path::Path)
 use crate::verify_docs::{fixture_authoring_index_html, fixture_schema_index_html};
 
 #[test]
-fn llms_source_path_count_is_twenty_six() {
-    assert_eq!(llms_source_paths().len(), 26);
+fn llms_source_path_count_is_twenty_seven() {
+    assert_eq!(llms_source_paths().len(), 27);
 }
 
 #[test]
@@ -78,9 +78,9 @@ fn verify_llms_sections_fails_with_missing_source_path() {
 }
 
 #[test]
-fn verify_authoring_index_requires_six_package_guides_and_publish() {
+fn verify_authoring_index_requires_six_package_guides_research_and_publish() {
     let errors = verify_authoring_index_links("<html></html>");
-    assert_eq!(errors.len(), 7);
+    assert_eq!(errors.len(), 8);
     let html = fixture_authoring_index_html();
     assert!(verify_authoring_index_links(&html).is_empty());
 }

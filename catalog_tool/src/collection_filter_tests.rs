@@ -278,16 +278,16 @@ fn collection_filter_research_schema_preserves_typed_and_http_query_contracts() 
         .build(&http_schema)
         .unwrap();
     let predicates = json!([{"field":"is_published","op":"eq","value":true}]);
-    let example = json!({"project":"s-e-e","view":"published","limit":20,"filters":predicates});
+    let example = json!({"project":"s-e-e","state":"published","limit":20,"filters":predicates});
     assert!(mcp.is_valid(&example));
-    let request: FilteredRequest<s_e_e_shapes::wire::ResearchListQuery> =
+    let request: FilteredRequest<s_e_e_shapes::wire::ResearchScopedListRequest> =
         serde_json::from_value(example).unwrap();
     CompiledCollectionFilter::compile(
         &descriptor("knowledge_research"),
         request.filters.as_deref(),
     )
     .unwrap();
-    assert!(http.is_valid(&json!({"view":"published","limit":20,"filters":predicates.to_string()})));
+    assert!(http.is_valid(&json!({"state":"published","limit":20,"filters":predicates.to_string()})));
     assert!(!http.is_valid(&json!({"filters":predicates})));
     assert!(!mcp.is_valid(
         &json!({"project":"s-e-e","filters":[{"field":"is_published","op":"eq","value":null}]})

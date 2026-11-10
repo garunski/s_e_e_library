@@ -155,9 +155,9 @@ pub fn run_package_pages(root: &Path, dx_public: &Path, staging: &Path) -> Resul
 
 pub fn verify_documentation_routes(staging: &Path) -> Result<(), String> {
     let routes = documentation_route_paths();
-    if routes.len() != 27 {
+    if routes.len() != 28 {
         return Err(format!(
-            "expected 27 documentation routes, got {}",
+            "expected 28 documentation routes, got {}",
             routes.len()
         ));
     }

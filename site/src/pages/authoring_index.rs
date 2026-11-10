@@ -56,7 +56,7 @@ pub fn LibraryAuthoringIndex() -> Element {
                         p { "Project settings > Experimental controls project-local runtime availability. All six switches default to off. Package storage and reusable workflows remain available. MCP discovery across authorized projects can expose a tool enabled elsewhere, while every invocation checks its target project." }
                         ul { class: INDEX_LINK_LIST,
                             li { AppLink { class: LINK, path: "/schema/hub-config/", "Experimental configuration and API contract" } }
-                            li { AppLink { class: LINK, path: "/schema/knowledge-research/", "Research profiles, availability and MCP examples" } }
+                            li { AppLink { class: LINK, path: "/authoring/research/", "Research profiles, availability and MCP examples" } }
                             li {
                                 AppLink { class: LINK, path: "/schema/catalog/", "Catalog schema" }
                                 ", per-type payload schemas, and hub document schemas"

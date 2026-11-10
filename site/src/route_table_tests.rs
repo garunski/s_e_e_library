@@ -6,12 +6,12 @@ use crate::Route;
 
 #[test]
 fn documentation_route_count_matches_published_pages() {
-    assert_eq!(documentation_route_paths().len(), 27);
+    assert_eq!(documentation_route_paths().len(), 28);
 }
 
 #[test]
 fn authoring_and_schema_slug_counts_match_authoring_pages_script() {
-    assert_eq!(AUTHORING_SLUGS.len(), 7);
+    assert_eq!(AUTHORING_SLUGS.len(), 8);
     assert_eq!(SCHEMA_SLUGS.len(), 17);
 }
 

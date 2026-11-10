@@ -156,7 +156,7 @@ fn packaging_drops_removed_package_files_and_ignores_unregistered_pages() {
     fs::write(root.join("packages/stale-pkg/1.0.0/file.txt"), "v1").expect("file");
     let dx = root.join("dx");
     write_minimal_prerender(&dx);
-    let stale_page = dx.join(DEFAULT_PAGES_BASE).join("authoring/research");
+    let stale_page = dx.join(DEFAULT_PAGES_BASE).join("authoring/obsolete");
     fs::create_dir_all(&stale_page).expect("stale route directory");
     fs::write(stale_page.join("index.html"), "old guide").expect("stale route HTML");
     let staging = root.join("artifact");
@@ -164,7 +164,7 @@ fn packaging_drops_removed_package_files_and_ignores_unregistered_pages() {
     assert!(staging.join("packages/stale-pkg/1.0.0/file.txt").is_file());
     fs::remove_dir_all(root.join("packages/stale-pkg")).expect("remove source pkg");
     run_package_pages(root, &dx, &staging).expect("second package");
-    assert!(!staging.join("authoring/research").exists());
+    assert!(!staging.join("authoring/obsolete").exists());
     assert!(
         !staging.join("packages/stale-pkg").exists(),
         "stale package directory must not remain"

@@ -59,6 +59,7 @@ pub fn route_current_path(route: &Route) -> &'static str {
         Route::AuthoringBundles {} => "/authoring/bundles/",
         Route::AuthoringCycles {} => "/authoring/cycles/",
         Route::AuthoringPublish {} => "/authoring/publish/",
+        Route::AuthoringResearch {} => "/authoring/research/",
         Route::SchemaIndex {} => "/schema/",
         Route::SchemaCatalog {} => "/schema/catalog/",
         Route::SchemaWorkflow {} => "/schema/workflow/",
