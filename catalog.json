@@ -28,7 +28,7 @@
           "to": ".s_e_e/prompts/system-stories-from-doc-authoring.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
@@ -104,7 +104,7 @@
           "to": ".s_e_e/prompts/system-story-authoring.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
@@ -180,7 +180,7 @@
           "to": ".s_e_e/prompts/system-workflow-authoring.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
@@ -294,7 +294,7 @@
           "to": ".s_e_e/prompts/system-implement-story.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
@@ -483,7 +483,7 @@
           "to": ".s_e_e/prompts/system-mcp-claude-delivery.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
@@ -495,7 +495,7 @@
           "to": ".s_e_e/prompts/system-mcp-cursor-delivery.json"
         },
         {
-          "from": "packages/system-orchestrator-chat/1.0.1/prompt.json",
+          "from": "packages/system-orchestrator-chat/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-orchestrator-chat.json"
         },
         {
@@ -564,7 +564,7 @@
           "to": ".s_e_e/prompts/system-work-story.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
@@ -643,7 +643,7 @@
           "to": ".s_e_e/prompts/system-work-story.json"
         },
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         },
         {
@@ -1010,7 +1010,7 @@
       "description": "Shared MCP store contract expanded by other prompts.",
       "files": [
         {
-          "from": "packages/system-mcp-contract/1.0.1/prompt.json",
+          "from": "packages/system-mcp-contract/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-mcp-contract.json"
         }
       ],
@@ -1030,6 +1030,11 @@
           "date": "2026-10-20",
           "note": "Generic store contract without hub-specific references.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-11-11",
+          "note": "Document Knowledge Draft body updates and conflict tokens.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1039,7 +1044,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -1239,7 +1244,7 @@
       "description": "Chat agent preamble loaded from the hub prompt store.",
       "files": [
         {
-          "from": "packages/system-orchestrator-chat/1.0.1/prompt.json",
+          "from": "packages/system-orchestrator-chat/1.0.2/prompt.json",
           "to": ".s_e_e/prompts/system-orchestrator-chat.json"
         }
       ],
@@ -1259,6 +1264,11 @@
           "date": "2026-10-08",
           "note": "Document explicit Knowledge Draft search and paged read for operator chat.",
           "version": "1.0.1"
+        },
+        {
+          "date": "2026-11-11",
+          "note": "Search all Knowledge Drafts with no archive filter.",
+          "version": "1.0.2"
         }
       ],
       "requires": [],
@@ -1268,7 +1278,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.1"
+      "version": "1.0.2"
     },
     {
       "author": "garunski",
@@ -2860,5 +2870,5 @@
       "name": "Cursor"
     }
   ],
-  "updated": "2026-11-06T08:07:18.513Z"
+  "updated": "2026-11-11T16:54:06.003Z"
 }

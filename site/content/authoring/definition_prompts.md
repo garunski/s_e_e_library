@@ -5,3 +5,7 @@ Choose This machine or Project: Example before creating a prompt. Project files 
 The picker inserts the canonical reference and opens the chosen home's editor/history. Copy preview shows dependency renames and rewrites. Saving a shared machine prompt affects future uses across projects; delete requires a current usage check. Already captured run content survives source edits/deletion.
 
 MCP named tools and item actions accept qualified ids; omitted scope with a bare id stays project-only, qualified ids infer their home, and disagreeing explicit scope is rejected. Writes require the current conflict token. Project prompt create/update/history/revert use `/api/projects/{code}/definitions/prompts`; machine definitions use `/api/machine/definitions/prompts`. Machine read/edit grants are separate from project access, default off, and edit implies read. Machine MCP advertisements use `machine.<assignment>` and get/completion require an explicit authorized project. Legacy project slug collisions remain explicit rather than ambiguous.
+
+## Prompts that edit Knowledge Drafts
+
+The shared MCP contract prompt describes `knowledge_draft_put`. Pass the current `conflict_token` and include `raw_text` to replace the body. Omit `raw_text` for metadata-only updates. Read back the saved draft before using it as input for further work.

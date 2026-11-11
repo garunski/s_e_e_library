@@ -23,6 +23,11 @@
       "version": "1.0.1",
       "date": "2026-10-08",
       "note": "Document explicit Knowledge Draft search and paged read for operator chat."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-11-11",
+      "note": "Search all Knowledge Drafts with no archive filter."
     }
   ],
   "usageContexts": [

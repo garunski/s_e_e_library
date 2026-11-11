@@ -19,6 +19,11 @@
       "version": "1.0.1",
       "date": "2026-10-20",
       "note": "Generic store contract without hub-specific references."
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-11-11",
+      "note": "Document Knowledge Draft body updates and conflict tokens."
     }
   ],
   "usageContexts": [
