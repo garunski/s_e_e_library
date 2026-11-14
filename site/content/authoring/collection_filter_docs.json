@@ -1,7 +1,0 @@
-{
-  "project": "s-e-e",
-  "filters": [
-    { "field": "type", "op": "eq", "value": "specification" },
-    { "field": "tags", "op": "contains_all", "value": ["api", "filters"] }
-  ]
-}

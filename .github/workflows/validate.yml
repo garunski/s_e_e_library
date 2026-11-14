@@ -29,7 +29,6 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: "1.96.0"
-          targets: wasm32-unknown-unknown
 
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
@@ -39,5 +38,5 @@ jobs:
       - name: Validate catalog
         run: cargo run -p see_library_catalog_tool -- validate
 
-      - name: Test catalog tool and site
-        run: cargo test -p see_library_catalog_tool && cargo test -p see_library_site --lib
+      - name: Test catalog tool
+        run: cargo test -p see_library_catalog_tool

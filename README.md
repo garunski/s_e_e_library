@@ -1,65 +1,43 @@
 # S.E.E. Official Library
 
-Public catalog source for the [S.E.E.](https://github.com/garunski/s_e_e) Official Library: versioned packages of workflows, prompts, skills, commands, and bundles that install into hub or spoke projects.
+The Official Library distributes versioned workflows, prompts, skills, commands,
+bundles, and cycles for [S.E.E.](https://github.com/garunski/s_e_e).
 
-## Catalog URL
+- [Catalog manifest](https://garunski.github.io/s_e_e_library/catalog.json) uses `see.library/v2`.
+- Packages are published at `https://garunski.github.io/s_e_e_library/packages/{slug}/{version}/{file}`.
+- Open **Help** in S.E.E. for authoring guides and product reference.
 
-After GitHub Pages deploy:
+## Repository layout
 
-- Manifest: `https://garunski.github.io/s_e_e_library/catalog.json`
-- Payloads: `https://garunski.github.io/s_e_e_library/packages/{slug}/{version}/{file}`
-- Every page as one text file: `https://garunski.github.io/s_e_e_library/llms.txt`
-
-Schema: `see.library/v1`; see the `/schema/` pages.
-
-## Layout
-
-- `catalog.json`: manifest (`packages[]` entries with `files[]` install map)
-- `packages/{slug}/{version}/`: package payloads (source of truth at the repo root)
-- `public/schema/`: formal JSON Schema files
-- `public/llms.txt`: every authoring guide and schema page as one text file for agents
-- `site/`: Dioxus 0.7.10 documentation site (`/authoring/` guides, `/schema/` contracts)
-- `catalog_tool/`: Rust CLI for validate, catalog, harvest, discover-bundles, and Pages staging checks
-- `scripts/stacks.json` and `scripts/bundles.json`: marketplace and bundle discovery data
+- `catalog.json` contains the package entries and their install maps.
+- `packages/` holds versioned payloads and package metadata.
+- `public/schema/` holds the JSON schemas used by published packages and schema references.
+- `catalog_tool/` validates and generates the catalog, harvests hub payloads,
+  and checks the Pages artifact.
+- `scripts/stacks.json` and `scripts/bundles.json` hold marketplace and bundle data.
 
 ## Local development
 
-Requires [mise](https://mise.jdx.dev/) (`mise install` provisions Rust 1.96.0, `wasm32-unknown-unknown`, and Dioxus CLI 0.7.10). The site crate path-depends on a sibling checkout of `s_e_e` at `../s_e_e`; CI checks out `s_e_e` `main` there.
+Use [mise](https://mise.jdx.dev/) to install Rust 1.96.0. The catalog tool
+uses application crates from a sibling `../s_e_e` checkout.
 
-From the library repository root:
-
-```bash
-mise run harvest
-mise run catalog
-mise run validate
-mise run discover-bundles
-mise run dev          # http://127.0.0.1:5173/s_e_e_library/
-mise run build        # validate, dx bundle, prerender, stage target/pages-artifact
+```sh
+mise run validate          # Read-only catalog and payload validation
+mise run catalog           # Regenerate catalog.json
+mise run harvest           # Import payloads from ../s_e_e_project
+mise run discover-bundles  # Print bundle IDs and member edges
+mise run build             # Validate and stage the Pages artifact
+mise run site-smoke-pages  # Check staged catalog and package URLs
 ```
 
-`harvest` copies payloads from the sibling hub checkout (`../s_e_e_project` by default). Pass `--hub /path/to/hub` to the catalog tool for another hub root.
-
-`discover-bundles` prints bundle ids and member edges to stdout. Pass `--write` to refresh `scripts/bundles.json`.
-
-`validate` is read-only and fails when `catalog.json` is stale relative to `packages/`.
-
-## Adding a package
-
-1. Add payload under `packages/{slug}/{version}/`.
-2. Append a manifest entry to `catalog.json` (`id`, `slug`, `category`, `version`, `author`, `verified`, `license`, `requires`, `dependencies`, `files[]`).
-3. Run `mise run catalog` and commit both the payload and updated `catalog.json`.
-
-Install `to` paths must start with `.s_e_e/`, `.agents/`, `.cursor/`, or `templates/`.
-
-## Docs site
-
-The public site is a Dioxus fullstack crate under `site/`. Authoring copy lives in `site/content/authoring/`; schema page copy in `site/content/schema/`. After you change a page, update the matching section in `public/llms.txt`.
+To add a package, place its payload and metadata in `packages/` and run `mise run catalog`.
+Commit the payload, metadata, and generated catalog together.
 
 ## GitHub Pages
 
-1. Repo **Settings, Pages, Build and deployment, Source: GitHub Actions**.
-2. Push to `main`; `.github/workflows/pages.yml` validates the catalog, builds and prerenders the Dioxus site, stages `target/pages-artifact`, and deploys that tree (docs, `catalog.json`, `packages/`, schemas, `llms.txt`).
+The Pages workflow publishes `catalog.json`, `packages/`, and machine-readable
+schemas from `target/pages-artifact`.
 
 ## License
 
-AGPL-3.0-only; see [LICENSE](LICENSE).
+AGPL-3.0-only. See [LICENSE](LICENSE).

@@ -3,8 +3,8 @@
 Read `/home/fang/code/s_e_e_project/s_e_e_project/AGENTS.md` for shared rules. For Rust tests, follow the application spoke's rules.
 
 - Keep `packages/` and `catalog.json` in sync. Packaged authoring skills follow the stored procedures and store-assigned IDs.
-- For contract changes, sync the public pages, examples, schemas, matching `public/llms.txt` sections, and overlapping in-app help. Record an explicit follow-up for any deferred update.
-- Use `mise run validate` for catalog checks and `mise run build` for Pages staging. Start the dev site only on request.
+- For contract changes, sync the JSON schemas in `public/schema/` and overlapping S.E.E. Help. Record an explicit follow-up for any deferred update.
+- Use `mise run validate` for catalog checks and `mise run build` to stage the catalog and payloads for Pages.
 
 <!-- s-e-e:begin -->
 ## S.E.E. project

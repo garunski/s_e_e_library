@@ -17,7 +17,7 @@ trap 'kill "${httpd_pid}" 2>/dev/null || true' EXIT
 
 ready=0
 for _ in $(seq 1 30); do
-  if curl -sf -o /dev/null "http://127.0.0.1:${port}/"; then
+  if curl -sf -o /dev/null "http://127.0.0.1:${port}/catalog.json"; then
     ready=1
     break
   fi

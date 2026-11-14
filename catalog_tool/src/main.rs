@@ -2,8 +2,8 @@ use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
 use see_library_catalog_tool::{
-    default_dx_public, default_hub_root, default_staging, run_catalog, run_discover_bundles,
-    run_harvest, run_package_pages, run_validate, run_verify_docs, smoke_pages_artifact,
+    default_hub_root, default_staging, run_catalog, run_discover_bundles, run_harvest,
+    run_package_pages, run_validate, smoke_pages_artifact,
 };
 
 #[derive(Parser)]
@@ -32,10 +32,8 @@ enum Command {
         #[arg(long)]
         write: bool,
     },
-    /// Stage Dioxus output and library payloads into target/pages-artifact.
+    /// Stage the catalog and package payloads into target/pages-artifact.
     PackagePages {
-        #[arg(long)]
-        dx_public: Option<PathBuf>,
         #[arg(long)]
         staging: Option<PathBuf>,
     },
@@ -45,11 +43,6 @@ enum Command {
         staging: Option<PathBuf>,
         #[arg(long)]
         base_url: String,
-    },
-    /// Verify staged documentation HTML, llms.txt coverage, and internal links.
-    VerifyDocs {
-        #[arg(long)]
-        staging: Option<PathBuf>,
     },
 }
 
@@ -64,18 +57,13 @@ fn main() {
             run_harvest(&root, &hub)
         }
         Command::DiscoverBundles { write } => run_discover_bundles(&root, write),
-        Command::PackagePages { dx_public, staging } => {
-            let dx_public = dx_public.unwrap_or_else(|| default_dx_public(&root));
+        Command::PackagePages { staging } => {
             let staging = staging.unwrap_or_else(|| default_staging(&root));
-            run_package_pages(&root, &dx_public, &staging)
+            run_package_pages(&root, &staging)
         }
         Command::SmokePages { staging, base_url } => {
             let staging = staging.unwrap_or_else(|| default_staging(&root));
             smoke_pages_artifact(&root, &staging, &base_url)
-        }
-        Command::VerifyDocs { staging } => {
-            let staging = staging.unwrap_or_else(|| default_staging(&root));
-            run_verify_docs(&root, &staging)
         }
     };
     if let Err(message) = result {

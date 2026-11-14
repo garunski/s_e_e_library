@@ -38,17 +38,11 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: "1.96.0"
-          targets: wasm32-unknown-unknown
 
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: s_e_e_library -> target
-
-      - name: Install dioxus-cli
-        uses: taiki-e/install-action@v2
-        with:
-          tool: dioxus-cli@0.7.10
 
       - name: Install static server for smoke checks
         run: sudo apt-get update && sudo apt-get install -y busybox-static
@@ -58,20 +52,6 @@ jobs:
 
       - name: Validate catalog
         run: cargo run -p see_library_catalog_tool -- validate
-
-      - name: Build and prerender documentation site
-        env:
-          DIOXUS_ASSET_ROOT: /s_e_e_library
-          SEE_LIBRARY_PAGES_BASE: /s_e_e_library
-        run: |
-          set -euo pipefail
-          cd site
-          dx bundle --release --web --fullstack --package see_library_site \
-            --client-target wasm32-unknown-unknown \
-            --base-path s_e_e_library \
-            @client --no-default-features --features web \
-            @server --no-default-features --features server --target x86_64-unknown-linux-gnu
-          SEE_LIBRARY_PAGES_BASE=/s_e_e_library bash ../scripts/site-prerender.sh
 
       - name: Stage GitHub Pages artifact
         run: bash scripts/site-package-pages.sh

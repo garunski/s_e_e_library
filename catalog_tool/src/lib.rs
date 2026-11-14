@@ -1,4 +1,3 @@
-mod definition_home_docs;
 mod discover_bundles;
 mod harvest;
 mod milestone_prompt;
@@ -6,7 +5,6 @@ mod package_meta;
 mod pages_artifact;
 mod payload_meta;
 mod validate;
-mod verify_docs;
 
 pub use discover_bundles::{discover_bundles, run_discover_bundles, BundleDef};
 pub use harvest::{default_hub_root, package_signatures_from_catalog, run_harvest};
@@ -16,11 +14,9 @@ pub use package_meta::{
     stable_stringify,
 };
 pub use pages_artifact::{
-    default_dx_public, default_staging, run_package_pages, smoke_pages_artifact,
-    verify_staged_bytes,
+    default_staging, run_package_pages, smoke_pages_artifact, verify_staged_bytes,
 };
 pub use validate::{run_catalog, run_validate};
-pub use verify_docs::{run_verify_docs, verify_staged_docs};
 
 #[cfg(test)]
 #[path = "package_meta_tests.rs"]
@@ -45,14 +41,3 @@ mod harvest_tests;
 #[cfg(test)]
 #[path = "pages_artifact_tests.rs"]
 mod pages_artifact_tests;
-
-#[cfg(test)]
-#[path = "verify_docs_tests.rs"]
-mod verify_docs_tests;
-
-#[cfg(test)]
-#[path = "collection_filter_tests.rs"]
-mod collection_filter_tests;
-
-#[cfg(test)]
-mod definition_examples_tests;
