@@ -57,6 +57,7 @@
       ],
       "minimum": 0
     },
+    "experimental_authentication": { "type": "boolean", "default": false, "examples": [false, true] },
     "auth_enabled": {
       "type": "boolean"
     },

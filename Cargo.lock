@@ -2187,6 +2187,7 @@ version = "1.0.7437"
 dependencies = [
  "chrono",
  "fd-lock",
+ "markdown",
  "regex",
  "s_e_e_hub",
  "s_e_e_markdown",

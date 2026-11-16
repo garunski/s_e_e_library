@@ -507,6 +507,11 @@
           "$ref": "#/$defs/WorkflowExecutionStatus",
           "description": "Authoritative execution status; a successful worker spawn is not completion."
         },
+        "task_logs_incomplete": {
+          "default": false,
+          "description": "True when the worker or server could not confirm the entire task transcript was saved.",
+          "type": "boolean"
+        },
         "total_tasks": {
           "description": "Total action count only after all future loop work is settled; null while future work remains unknown.",
           "format": "uint64",

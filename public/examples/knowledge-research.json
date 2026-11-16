@@ -1,0 +1,65 @@
+{
+  "root": {
+    "id": "build-times",
+    "metadata": {
+      "title": "Build times",
+      "short_description": "A study of local Rust build times.",
+      "tags": [
+        "rust",
+        "builds"
+      ]
+    },
+    "body": "\nMeasure how long a clean build takes.\n"
+  },
+  "pages": [
+    {
+      "page": {
+        "id": "build-timing",
+        "metadata": {
+          "title": "Build timing",
+          "short_description": "How clean builds are measured.",
+          "sections": [
+            "timing-method.md"
+          ],
+          "sources": [
+            {
+              "id": "build-command",
+              "title": "Build command",
+              "link": "https://example.com/build-command"
+            },
+            {
+              "id": "timing-procedure",
+              "title": "Timing procedure",
+              "link": "https://example.com/timing-procedure"
+            },
+            {
+              "id": "build-cache",
+              "title": "Build cache",
+              "link": "https://example.com/build-cache"
+            }
+          ]
+        },
+        "body": "\nThis page describes the clean build measurement.\n"
+      },
+      "sections": [
+        {
+          "id": "timing-method",
+          "metadata": {
+            "title": "Timing method",
+            "evidence": [
+              {
+                "id": "timing-evidence",
+                "title": "Clean build timing",
+                "sources": [
+                  "build-command",
+                  "timing-procedure"
+                ]
+              }
+            ]
+          },
+          "body": "\nMeasure elapsed time from the start of the build command until it exits.\n[Timing evidence](#timing-evidence)\n"
+        }
+      ]
+    }
+  ]
+}
