@@ -199,19 +199,10 @@
       },
       "type": "object"
     },
-    "ResearchCatalogueState": {
-      "enum": [
-        "all",
-        "draft",
-        "published"
-      ],
-      "type": "string"
-    },
     "ResearchContentView": {
       "enum": [
         "default",
-        "draft",
-        "edition"
+        "draft"
       ],
       "type": "string"
     },
@@ -526,21 +517,8 @@
     "ResearchScopedDocumentSummary": {
       "additionalProperties": false,
       "properties": {
-        "is_published": {
-          "type": "boolean"
-        },
         "kind": {
           "$ref": "#/$defs/ResearchKind"
-        },
-        "latest_edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
-          ]
         },
         "page_count": {
           "format": "uint",
@@ -574,68 +552,7 @@
         "purpose",
         "tags",
         "page_count",
-        "is_published",
         "updated_at"
-      ],
-      "type": "object"
-    },
-    "ResearchScopedEditionResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "document": {
-          "$ref": "#/$defs/ResearchDocumentMetadata"
-        },
-        "edition_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "page_count": {
-          "format": "uint",
-          "minimum": 0,
-          "type": "integer"
-        },
-        "published_at": {
-          "format": "partial-date-time",
-          "type": "string"
-        },
-        "research_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "section_count": {
-          "format": "uint",
-          "minimum": 0,
-          "type": "integer"
-        },
-        "source_count": {
-          "format": "uint",
-          "minimum": 0,
-          "type": "integer"
-        }
-      },
-      "required": [
-        "research_id",
-        "edition_id",
-        "published_at",
-        "document",
-        "page_count",
-        "section_count",
-        "source_count"
-      ],
-      "type": "object"
-    },
-    "ResearchScopedEditionSummary": {
-      "additionalProperties": false,
-      "properties": {
-        "edition_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "published_at": {
-          "format": "partial-date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "edition_id",
-        "published_at"
       ],
       "type": "object"
     },
@@ -1098,48 +1015,7 @@
     },
     "ResearchViewQuery": {
       "additionalProperties": false,
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
         "view": {
           "$ref": "#/$defs/ResearchContentView",
           "default": "default"
@@ -1261,167 +1137,8 @@
       "title": "ResearchScopedDeleteResponse",
       "type": "object"
     },
-    "knowledge_research_edition_getRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "edition_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "project": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "research_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        }
-      },
-      "required": [
-        "project",
-        "research_id",
-        "edition_id"
-      ],
-      "title": "ResearchScopedEditionGetRequest",
-      "type": "object"
-    },
-    "knowledge_research_edition_getResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "document": {
-          "$ref": "#/$defs/ResearchDocumentMetadata"
-        },
-        "edition_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "page_count": {
-          "format": "uint",
-          "minimum": 0,
-          "type": "integer"
-        },
-        "published_at": {
-          "format": "partial-date-time",
-          "type": "string"
-        },
-        "research_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "section_count": {
-          "format": "uint",
-          "minimum": 0,
-          "type": "integer"
-        },
-        "source_count": {
-          "format": "uint",
-          "minimum": 0,
-          "type": "integer"
-        }
-      },
-      "required": [
-        "research_id",
-        "edition_id",
-        "published_at",
-        "document",
-        "page_count",
-        "section_count",
-        "source_count"
-      ],
-      "title": "ResearchScopedEditionResponse",
-      "type": "object"
-    },
-    "knowledge_research_edition_listRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "cursor": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "limit": {
-          "$ref": "#/$defs/ResearchLimit",
-          "default": 25
-        },
-        "project": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "research_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        }
-      },
-      "required": [
-        "project",
-        "research_id"
-      ],
-      "title": "ResearchScopedEditionListRequest",
-      "type": "object"
-    },
-    "knowledge_research_edition_listResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "items": {
-          "items": {
-            "$ref": "#/$defs/ResearchScopedEditionSummary"
-          },
-          "type": "array"
-        },
-        "limit": {
-          "$ref": "#/$defs/ResearchLimit"
-        },
-        "next_cursor": {
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      },
-      "required": [
-        "items",
-        "limit"
-      ],
-      "title": "ResearchScopedPage",
-      "type": "object"
-    },
     "knowledge_research_getRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
         "project": {
           "$ref": "#/$defs/ResearchRecordKey"
         },
@@ -1439,7 +1156,7 @@
       ],
       "title": "ResearchScopedGetRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_getResponse": {
       "additionalProperties": false,
@@ -1536,10 +1253,6 @@
             "string",
             "null"
           ]
-        },
-        "state": {
-          "$ref": "#/$defs/ResearchCatalogueState",
-          "default": "all"
         },
         "tag": {
           "type": [
@@ -1681,48 +1394,7 @@
       "type": "object"
     },
     "knowledge_research_page_getRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
         "page_key": {
           "$ref": "#/$defs/ResearchRecordKey"
         },
@@ -1744,7 +1416,7 @@
       ],
       "title": "ResearchScopedPageGetRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_page_getResponse": {
       "additionalProperties": false,
@@ -1788,52 +1460,11 @@
       "type": "object"
     },
     "knowledge_research_page_listRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
         "cursor": {
           "type": [
             "string",
             "null"
-          ]
-        },
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
           ]
         },
         "limit": {
@@ -1863,7 +1494,7 @@
       ],
       "title": "ResearchScopedPageListRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_page_listResponse": {
       "additionalProperties": false,
@@ -2088,44 +1719,6 @@
       "title": "ResearchProfileDescriptor",
       "type": "object"
     },
-    "knowledge_research_publishRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "project": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "research_id": {
-          "$ref": "#/$defs/ResearchRecordKey"
-        },
-        "tree_token": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "project",
-        "research_id",
-        "tree_token"
-      ],
-      "title": "ResearchScopedPublishRequest",
-      "type": "object"
-    },
-    "knowledge_research_publishResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "edition": {
-          "$ref": "#/$defs/ResearchScopedEditionResponse"
-        },
-        "tree_token": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "edition",
-        "tree_token"
-      ],
-      "title": "ResearchScopedPublishResponse",
-      "type": "object"
-    },
     "knowledge_research_putRequest": {
       "additionalProperties": false,
       "properties": {
@@ -2211,57 +1804,11 @@
       "type": "object"
     },
     "knowledge_research_searchRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
-      "if": {
-        "required": [
-          "edition_id"
-        ]
-      },
       "properties": {
         "cursor": {
           "type": [
             "string",
             "null"
-          ]
-        },
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
           ]
         },
         "kind": {
@@ -2329,19 +1876,9 @@
         "project",
         "query"
       ],
-      "then": {
-        "properties": {
-          "research_id": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "research_id"
-        ]
-      },
       "title": "ResearchScopedSearchRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_searchResponse": {
       "additionalProperties": false,
@@ -2510,48 +2047,7 @@
       "type": "object"
     },
     "knowledge_research_section_getRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
         "page_key": {
           "$ref": "#/$defs/ResearchRecordKey"
         },
@@ -2577,7 +2073,7 @@
       ],
       "title": "ResearchScopedSectionGetRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_section_getResponse": {
       "additionalProperties": false,
@@ -2609,52 +2105,11 @@
       "type": "object"
     },
     "knowledge_research_section_listRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
         "cursor": {
           "type": [
             "string",
             "null"
-          ]
-        },
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
           ]
         },
         "limit": {
@@ -2698,7 +2153,7 @@
       ],
       "title": "ResearchScopedSectionListRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_section_listResponse": {
       "additionalProperties": false,
@@ -2961,48 +2416,7 @@
       "type": "object"
     },
     "knowledge_research_source_getRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
         "project": {
           "$ref": "#/$defs/ResearchRecordKey"
         },
@@ -3024,7 +2438,7 @@
       ],
       "title": "ResearchScopedSourceGetRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_source_getResponse": {
       "additionalProperties": false,
@@ -3052,37 +2466,6 @@
       "type": "object"
     },
     "knowledge_research_source_listRequest": {
-      "allOf": [
-        {
-          "else": {
-            "not": {
-              "required": [
-                "edition_id"
-              ]
-            }
-          },
-          "if": {
-            "properties": {
-              "view": {
-                "const": "edition"
-              }
-            },
-            "required": [
-              "view"
-            ]
-          },
-          "then": {
-            "properties": {
-              "edition_id": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "edition_id"
-            ]
-          }
-        }
-      ],
       "properties": {
         "access_status": {
           "anyOf": [
@@ -3098,16 +2481,6 @@
           "type": [
             "string",
             "null"
-          ]
-        },
-        "edition_id": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResearchRecordKey"
-            },
-            {
-              "type": "null"
-            }
           ]
         },
         "limit": {
@@ -3147,7 +2520,7 @@
       ],
       "title": "ResearchScopedSourceListRequest",
       "type": "object",
-      "unevaluatedProperties": false
+      "additionalProperties": false
     },
     "knowledge_research_source_listResponse": {
       "additionalProperties": false,
@@ -3338,10 +2711,6 @@
             "string",
             "null"
           ]
-        },
-        "state": {
-          "$ref": "#/$defs/ResearchCatalogueState",
-          "default": "all"
         },
         "tag": {
           "type": [
@@ -3756,54 +3125,6 @@
         "arguments"
       ],
       "type": "object"
-    },
-    {
-      "additionalProperties": false,
-      "properties": {
-        "arguments": {
-          "$ref": "#/$defs/knowledge_research_publishRequest"
-        },
-        "tool": {
-          "const": "knowledge_research_publish"
-        }
-      },
-      "required": [
-        "tool",
-        "arguments"
-      ],
-      "type": "object"
-    },
-    {
-      "additionalProperties": false,
-      "properties": {
-        "arguments": {
-          "$ref": "#/$defs/knowledge_research_edition_listRequest"
-        },
-        "tool": {
-          "const": "knowledge_research_edition_list"
-        }
-      },
-      "required": [
-        "tool",
-        "arguments"
-      ],
-      "type": "object"
-    },
-    {
-      "additionalProperties": false,
-      "properties": {
-        "arguments": {
-          "$ref": "#/$defs/knowledge_research_edition_getRequest"
-        },
-        "tool": {
-          "const": "knowledge_research_edition_get"
-        }
-      },
-      "required": [
-        "tool",
-        "arguments"
-      ],
-      "type": "object"
     }
   ],
   "title": "S.E.E. scoped Research wire contract",
@@ -3811,7 +3132,7 @@
     "knowledge_research_create": {
       "error_schema": "#/$defs/ResearchScopedError",
       "method": "POST",
-      "path": "/api/projects/{project}/knowledge/research/",
+      "path": "/api/projects/{project}/knowledge/research",
       "request_schema": "#/$defs/knowledge_research_createRequest",
       "response_schema": "#/$defs/knowledge_research_createResponse",
       "errors": [
@@ -3835,34 +3156,6 @@
         "tree_changed"
       ]
     },
-    "knowledge_research_edition_get": {
-      "error_schema": "#/$defs/ResearchScopedError",
-      "method": "GET",
-      "path": "/api/projects/{project}/knowledge/research/{id}/editions/{edition}",
-      "request_schema": "#/$defs/knowledge_research_edition_getRequest",
-      "response_schema": "#/$defs/knowledge_research_edition_getResponse",
-      "errors": [
-        "invalid_key",
-        "unknown_fields",
-        "not_found",
-        "view_not_found"
-      ]
-    },
-    "knowledge_research_edition_list": {
-      "error_schema": "#/$defs/ResearchScopedError",
-      "method": "GET",
-      "path": "/api/projects/{project}/knowledge/research/{id}/editions",
-      "request_schema": "#/$defs/knowledge_research_edition_listRequest",
-      "response_schema": "#/$defs/knowledge_research_edition_listResponse",
-      "errors": [
-        "invalid_key",
-        "unknown_fields",
-        "not_found",
-        "invalid_cursor",
-        "stale_cursor",
-        "invalid_filter"
-      ]
-    },
     "knowledge_research_get": {
       "error_schema": "#/$defs/ResearchScopedError",
       "method": "GET",
@@ -3879,7 +3172,7 @@
     "knowledge_research_list": {
       "error_schema": "#/$defs/ResearchScopedError",
       "method": "GET",
-      "path": "/api/projects/{project}/knowledge/research/",
+      "path": "/api/projects/{project}/knowledge/research",
       "request_schema": "#/$defs/knowledge_research_listRequest",
       "response_schema": "#/$defs/knowledge_research_listResponse",
       "errors": [
@@ -3991,22 +3284,6 @@
         "invalid_key",
         "unknown_fields",
         "not_found"
-      ]
-    },
-    "knowledge_research_publish": {
-      "error_schema": "#/$defs/ResearchScopedError",
-      "method": "POST",
-      "path": "/api/projects/{project}/knowledge/research/{id}/publish",
-      "request_schema": "#/$defs/knowledge_research_publishRequest",
-      "response_schema": "#/$defs/knowledge_research_publishResponse",
-      "errors": [
-        "invalid_key",
-        "unknown_fields",
-        "not_found",
-        "missing_token",
-        "stale_token",
-        "tree_changed",
-        "invalid_publication"
       ]
     },
     "knowledge_research_put": {

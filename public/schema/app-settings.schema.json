@@ -6,11 +6,17 @@
   "additionalProperties": true,
   "definitions": {
     "diagnostic_threshold": {
-      "enum": ["trace", "debug", "info", "warn", "error", "off"]
+      "enum": [
+        "trace",
+        "debug",
+        "info",
+        "warn",
+        "error",
+        "off"
+      ]
     }
   },
   "properties": {
-    "editor_auto_save": { "type": "boolean", "default": false },
     "theme": {
       "enum": [
         "light",
@@ -21,11 +27,9 @@
     "notifications": {
       "type": "boolean"
     },
-    "default_workflow": {
-      "type": [
-        "string",
-        "null"
-      ]
+    "editor_auto_save": {
+      "type": "boolean",
+      "default": false
     },
     "server_url": {
       "type": "string"
@@ -34,6 +38,9 @@
       "type": "string"
     },
     "cors_origins": {
+      "type": "string"
+    },
+    "mcp_allowed_browser_origins": {
       "type": "string"
     },
     "audit_retention_hours": {
@@ -53,6 +60,9 @@
     "auth_enabled": {
       "type": "boolean"
     },
+    "mcp_auth_enabled": {
+      "type": "boolean"
+    },
     "session_ttl_hours": {
       "type": [
         "integer",
@@ -63,20 +73,32 @@
     "schedule_retention": {
       "type": "object"
     },
-    "log_stream_retention": { "type": "object" },
+    "log_stream_retention": {
+      "type": "object"
+    },
     "diagnostic_logging": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "default_level": { "$ref": "#/definitions/diagnostic_threshold" },
+        "default_level": {
+          "$ref": "#/definitions/diagnostic_threshold"
+        },
         "overrides": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "server": { "$ref": "#/definitions/diagnostic_threshold" },
-            "trace": { "$ref": "#/definitions/diagnostic_threshold" },
-            "timing": { "$ref": "#/definitions/diagnostic_threshold" },
-            "frontend": { "$ref": "#/definitions/diagnostic_threshold" }
+            "server": {
+              "$ref": "#/definitions/diagnostic_threshold"
+            },
+            "trace": {
+              "$ref": "#/definitions/diagnostic_threshold"
+            },
+            "timing": {
+              "$ref": "#/definitions/diagnostic_threshold"
+            },
+            "frontend": {
+              "$ref": "#/definitions/diagnostic_threshold"
+            }
           }
         }
       }
@@ -99,9 +121,6 @@
       "additionalProperties": {
         "type": "string"
       }
-    },
-    "mcp_enabled": {
-      "type": "boolean"
     },
     "llm_content_capture_enabled": {
       "type": "boolean"

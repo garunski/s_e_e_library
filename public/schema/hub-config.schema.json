@@ -30,10 +30,6 @@
               "type": "boolean",
               "default": false
             },
-            "knowledge_research": {
-              "type": "boolean",
-              "default": false
-            },
             "global_chat": {
               "type": "boolean",
               "default": false
@@ -72,12 +68,6 @@
         },
         "default_command_id": {
           "type": "string"
-        },
-        "default_workflow_by_command": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
         }
       }
     },

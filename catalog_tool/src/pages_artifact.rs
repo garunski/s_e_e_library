@@ -64,13 +64,15 @@ pub fn run_package_pages(root: &Path, staging: &Path) -> Result<(), String> {
     fs::create_dir_all(staging).map_err(|e| format!("mkdir {staging:?}: {e}"))?;
     copy_file_same_bytes(&root.join("catalog.json"), &staging.join("catalog.json"))?;
     copy_dir_recursive(&root.join("packages"), &staging.join("packages"))?;
+    copy_dir_recursive(&root.join("public/schema"), &staging.join("schema"))?;
     fs::write(staging.join(".nojekyll"), "").map_err(|e| format!("write .nojekyll: {e}"))?;
     verify_staged_bytes(root, staging)
 }
 
 pub fn verify_staged_bytes(root: &Path, staging: &Path) -> Result<(), String> {
     compare_file(&root.join("catalog.json"), &staging.join("catalog.json"))?;
-    compare_tree(&root.join("packages"), &staging.join("packages"))
+    compare_tree(&root.join("packages"), &staging.join("packages"))?;
+    crate::pages_schema::verify(root, staging)
 }
 
 fn compare_file(src: &Path, staged: &Path) -> Result<(), String> {
@@ -105,6 +107,7 @@ pub fn smoke_pages_artifact(
     staging: &Path,
     base_url: &str,
 ) -> Result<(), String> {
+    verify_staged_bytes(library_root, staging)?;
     let base = base_url.trim_end_matches('/');
     let client = reqwest::blocking::Client::builder()
         .timeout(std::time::Duration::from_secs(10))
@@ -124,7 +127,8 @@ pub fn smoke_pages_artifact(
         return Err("staged catalog.json HTTP body differs from artifact file".into());
     }
 
-    smoke_catalog_parser_and_packages(&client, library_root, base, &catalog_bytes)
+    smoke_catalog_parser_and_packages(&client, library_root, base, &catalog_bytes)?;
+    crate::pages_schema::smoke(&client, library_root, base)
 }
 
 fn smoke_catalog_parser_and_packages(

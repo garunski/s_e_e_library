@@ -3,6 +3,7 @@ mod harvest;
 mod milestone_prompt;
 mod package_meta;
 mod pages_artifact;
+mod pages_schema;
 mod payload_meta;
 mod validate;
 
@@ -41,3 +42,6 @@ mod harvest_tests;
 #[cfg(test)]
 #[path = "pages_artifact_tests.rs"]
 mod pages_artifact_tests;
+
+#[cfg(test)]
+mod public_schema_tests;
