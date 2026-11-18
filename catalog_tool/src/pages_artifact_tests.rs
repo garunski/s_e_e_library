@@ -29,6 +29,7 @@ fn packaging_drops_removed_package_files() {
         root.join("catalog.json"),
     )
     .expect("catalog");
+    fs::copy(library_fixture_root().join("LICENSE"), root.join("LICENSE")).unwrap();
     fs::create_dir_all(root.join("packages/stale-pkg/1.0.0")).expect("pkg dir");
     fs::write(root.join("packages/stale-pkg/1.0.0/file.txt"), "v1").expect("file");
     fs::create_dir_all(root.join("public/schema")).unwrap();
@@ -58,6 +59,14 @@ fn package_pages_against_real_library_tree() {
     let staging = tmp.path().join("artifact");
     run_package_pages(&root, &staging).expect("package pages");
     verify_staged_bytes(&root, &staging).expect("byte identity");
+    assert_eq!(
+        fs::read(root.join("LICENSE")).unwrap(),
+        fs::read(staging.join("LICENSE")).unwrap()
+    );
+    fs::write(staging.join("LICENSE"), "Incorrect license").unwrap();
+    assert!(verify_staged_bytes(&root, &staging)
+        .unwrap_err()
+        .contains("LICENSE"));
 }
 
 #[test]

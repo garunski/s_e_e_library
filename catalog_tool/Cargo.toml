@@ -1,4 +1,6 @@
 [package]
+license-file.workspace = true
+publish.workspace = true
 name = "see_library_catalog_tool"
 version.workspace = true
 edition.workspace = true

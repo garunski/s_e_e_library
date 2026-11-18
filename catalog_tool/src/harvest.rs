@@ -14,7 +14,7 @@ use s_e_e_library_ops::library_portability::spoke_root_is_portable;
 
 const VERSION: &str = "1.0.0";
 const AUTHOR: &str = "garunski";
-const LICENSE: &str = "AGPL-3.0-only";
+const LICENSE: &str = "LicenseRef-SEE-Proprietary";
 
 const PROMPTS: &[&str] = &[
     "system-implement-story",

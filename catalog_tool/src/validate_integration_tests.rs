@@ -49,7 +49,7 @@ fn invalid_cases_return_path_and_reason() {
             "version": "1.0.0",
             "author": "test",
             "verified": false,
-            "license": "AGPL-3.0-only",
+            "license": "LicenseRef-SEE-Proprietary",
             "requires": [],
             "dependencies": [],
             "files": [{ "to": ".s_e_e/prompts/bad.json", "from": "packages/bad-pkg/1.0.0/prompt.json" }]
@@ -78,7 +78,7 @@ fn invalid_cases_return_path_and_reason() {
             "version": "1.0.0",
             "author": "test",
             "verified": false,
-            "license": "AGPL-3.0-only",
+            "license": "LicenseRef-SEE-Proprietary",
             "requires": [],
             "dependencies": [],
             "files": [{ "to": ".s_e_e/prompts/x.json", "from": "packages/missing-file/1.0.0/prompt.json" }]
@@ -109,7 +109,7 @@ fn invalid_cases_return_path_and_reason() {
             "version": "1.0.0",
             "author": "test",
             "verified": false,
-            "license": "AGPL-3.0-only",
+            "license": "LicenseRef-SEE-Proprietary",
             "requires": [],
             "dependencies": [],
             "files": [{ "to": "templates/cmd.json", "from": "packages/bad-dest/1.0.0/cmd.json" }]
@@ -167,7 +167,7 @@ fn invalid_package_metadata_returns_path_and_reason() {
             "version": "1.0.0",
             "author": "test",
             "verified": false,
-            "license": "AGPL-3.0-only",
+            "license": "LicenseRef-SEE-Proprietary",
             "requires": [],
             "dependencies": [],
             "files": [{ "to": ".s_e_e/prompts/bad.json", "from": "packages/bad-pkg/1.0.0/prompt.json" }]

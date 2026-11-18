@@ -35,9 +35,21 @@ Commit the payload, metadata, and generated catalog together.
 
 ## GitHub Pages
 
-The Pages workflow publishes `catalog.json`, `packages/`, and machine-readable
+The Pages workflow publishes `LICENSE`, `catalog.json`, `packages/`, and machine-readable
 schemas from `target/pages-artifact`.
 
 ## License
 
-AGPL-3.0-only. See [LICENSE](LICENSE).
+Proprietary. Copyright (c) 2026 Garunski LLC. All rights reserved. See [LICENSE](LICENSE).
+
+Catalog entries use `LicenseRef-SEE-Proprietary` to identify these terms.
+Use, modification, or redistribution requires prior written authorization.
+
+Users are responsible for reviewing AI output and for commands, automation,
+permissions, security, backups, data sharing, and provider charges. See [LICENSE](LICENSE)
+for the user-responsibility, warranty, and liability terms covering Garunski LLC
+and its owners, staff, contributors, and agents, subject to applicable law.
+
+The contractual terms require express acceptance in a separate written or
+electronic agreement identifying the applicable license version. Publication
+of this notice alone does not establish a user's agreement to those terms.

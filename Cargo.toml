@@ -3,6 +3,8 @@ members = ["catalog_tool"]
 resolver = "2"
 
 [workspace.package]
+license-file = "LICENSE"
+publish = false
 version = "0.1.0"
 edition = "2021"
 

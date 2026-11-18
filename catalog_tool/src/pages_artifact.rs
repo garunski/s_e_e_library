@@ -59,10 +59,12 @@ fn remove_dir_if_exists(path: &Path) -> Result<(), String> {
 pub fn run_package_pages(root: &Path, staging: &Path) -> Result<(), String> {
     require_path(&root.join("catalog.json"), "catalog.json")?;
     require_path(&root.join("packages"), "packages directory")?;
+    require_path(&root.join("LICENSE"), "LICENSE")?;
 
     remove_dir_if_exists(staging)?;
     fs::create_dir_all(staging).map_err(|e| format!("mkdir {staging:?}: {e}"))?;
     copy_file_same_bytes(&root.join("catalog.json"), &staging.join("catalog.json"))?;
+    copy_file_same_bytes(&root.join("LICENSE"), &staging.join("LICENSE"))?;
     copy_dir_recursive(&root.join("packages"), &staging.join("packages"))?;
     copy_dir_recursive(&root.join("public/schema"), &staging.join("schema"))?;
     fs::write(staging.join(".nojekyll"), "").map_err(|e| format!("write .nojekyll: {e}"))?;
@@ -71,6 +73,7 @@ pub fn run_package_pages(root: &Path, staging: &Path) -> Result<(), String> {
 
 pub fn verify_staged_bytes(root: &Path, staging: &Path) -> Result<(), String> {
     compare_file(&root.join("catalog.json"), &staging.join("catalog.json"))?;
+    compare_file(&root.join("LICENSE"), &staging.join("LICENSE"))?;
     compare_tree(&root.join("packages"), &staging.join("packages"))?;
     crate::pages_schema::verify(root, staging)
 }

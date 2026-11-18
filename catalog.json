@@ -49,7 +49,7 @@
         "knowledge",
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author stories from doc",
       "releases": [
         {
@@ -124,7 +124,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author story from description",
       "releases": [
         {
@@ -200,7 +200,7 @@
       "labels": [
         "bundle"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author workflow",
       "releases": [
         {
@@ -251,7 +251,7 @@
         "knowledge",
         "milestone"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Generate milestone summary",
       "releases": [
         {
@@ -319,7 +319,7 @@
         "bulk",
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Implement Story workflows",
       "releases": [
         {
@@ -442,7 +442,7 @@
         "knowledge",
         "system"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Knowledge system",
       "releases": [
         {
@@ -519,7 +519,7 @@
       "labels": [
         "system"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Orchestrator",
       "releases": [
         {
@@ -594,7 +594,7 @@
         "milestone",
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Work milestone stories",
       "releases": [
         {
@@ -665,7 +665,7 @@
         "story",
         "swimlane"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Work swimlane stories",
       "releases": [
         {
@@ -714,7 +714,7 @@
       "labels": [
         "command"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Claude Code",
       "releases": [
         {
@@ -754,7 +754,7 @@
       "labels": [
         "command"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Cursor Agent",
       "releases": [
         {
@@ -795,7 +795,7 @@
         "cycle",
         "knowledge"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Knowledge default",
       "releases": [
         {
@@ -837,7 +837,7 @@
         "cycle",
         "orchestrator"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Orchestrator default",
       "releases": [
         {
@@ -884,7 +884,7 @@
         "cycle",
         "stories"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Stories default",
       "releases": [
         {
@@ -926,7 +926,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Implement story",
       "releases": [
         {
@@ -975,7 +975,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "MCP delivery (Claude Code)",
       "releases": [
         {
@@ -1018,7 +1018,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "MCP contract (any client)",
       "releases": [
         {
@@ -1067,7 +1067,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Cursor MCP caveats (measured)",
       "releases": [
         {
@@ -1113,7 +1113,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "MCP delivery (Cursor)",
       "releases": [
         {
@@ -1156,7 +1156,7 @@
       "labels": [
         "milestone"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author milestone",
       "releases": [
         {
@@ -1207,7 +1207,7 @@
       "labels": [
         "milestone"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Milestone summary doc",
       "releases": [
         {
@@ -1252,7 +1252,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Orchestrator chat",
       "releases": [
         {
@@ -1298,7 +1298,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Orchestrator learning",
       "releases": [
         {
@@ -1333,7 +1333,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Retired repair prompt",
       "releases": [
         {
@@ -1373,7 +1373,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author stories from doc",
       "releases": [
         {
@@ -1413,7 +1413,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author story",
       "releases": [
         {
@@ -1460,7 +1460,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Work story (/work skill)",
       "releases": [
         {
@@ -1507,7 +1507,7 @@
       "labels": [
         "prompt"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author workflow",
       "releases": [
         {
@@ -1557,7 +1557,7 @@
       "labels": [
         "skill"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "doc",
       "releases": [
         {
@@ -1610,7 +1610,7 @@
       "labels": [
         "skill"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "stories",
       "releases": [
         {
@@ -1668,7 +1668,7 @@
       "labels": [
         "skill"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "work",
       "releases": [
         {
@@ -1721,7 +1721,7 @@
       "labels": [
         "skill"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "workflow",
       "releases": [
         {
@@ -1773,7 +1773,7 @@
         "knowledge",
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author stories from doc",
       "releases": [
         {
@@ -1824,7 +1824,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author story from description",
       "releases": [
         {
@@ -1875,7 +1875,7 @@
       "labels": [
         "workflow"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Author workflow",
       "releases": [
         {
@@ -1924,7 +1924,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Decompose planning stories",
       "releases": [
         {
@@ -1966,7 +1966,7 @@
         "knowledge",
         "milestone"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Generate milestone summary doc",
       "releases": [
         {
@@ -2015,7 +2015,7 @@
         "bulk",
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Implement stories (bulk)",
       "releases": [
         {
@@ -2066,7 +2066,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Implement story",
       "releases": [
         {
@@ -2115,7 +2115,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Learn planning lesson",
       "releases": [
         {
@@ -2154,7 +2154,7 @@
       "labels": [
         "system"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Judge outcome against intent",
       "releases": [
         {
@@ -2195,7 +2195,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Plan stories coverage",
       "releases": [
         {
@@ -2234,7 +2234,7 @@
       "labels": [
         "system"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Rank candidate actions",
       "releases": [
         {
@@ -2275,7 +2275,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Review planning suite",
       "releases": [
         {
@@ -2314,7 +2314,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Publish planning readiness",
       "releases": [
         {
@@ -2353,7 +2353,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Observe planning objectives",
       "releases": [
         {
@@ -2389,7 +2389,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Check planning Knowledge coverage",
       "releases": [
         {
@@ -2425,7 +2425,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Reap completed planning stories",
       "releases": [
         {
@@ -2461,7 +2461,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Recover planning observation",
       "releases": [
         {
@@ -2497,7 +2497,7 @@
       "labels": [
         "story"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Scope planning milestone",
       "releases": [
         {
@@ -2537,7 +2537,7 @@
         "milestone",
         "system"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Set milestone stories status",
       "releases": [
         {
@@ -2583,7 +2583,7 @@
       "labels": [
         "system"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Shape and prepare work",
       "releases": [
         {
@@ -2629,7 +2629,7 @@
       "labels": [
         "repository"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Update repository AGENTS.md",
       "releases": [
         {
@@ -2676,7 +2676,7 @@
         "story",
         "swimlane"
       ],
-      "license": "AGPL-3.0-only",
+      "license": "LicenseRef-SEE-Proprietary",
       "name": "Work swimlane stories",
       "releases": [
         {
