@@ -1336,7 +1336,7 @@
       "type": "string"
     }
   },
-  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow-execution.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/workflow-execution.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Current workflow execution returned by HTTP and MCP. runtime_progress describes the flat runtime and supervised worker; unknown future work has a null total.",
   "properties": {

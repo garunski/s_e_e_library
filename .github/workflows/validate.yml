@@ -17,10 +17,10 @@ jobs:
         with:
           path: s_e_e_library
 
-      - name: Checkout s_e_e (path dependencies)
+      - name: Checkout S.E.E. (path dependencies)
         uses: actions/checkout@v7
         with:
-          repository: garunski/s_e_e
+          repository: workwithsee/app
           ref: main
           path: s_e_e
           ssh-key: ${{ secrets.SEE_CHECKOUT_KEY }}

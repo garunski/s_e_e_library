@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://garunski.github.io/s_e_e_library/schema/package-meta.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/package-meta.schema.json",
   "title": "Package metadata sidecar (s_e_e_package.json)",
   "type": "object",
   "required": [

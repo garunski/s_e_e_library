@@ -1905,7 +1905,7 @@
       }
     }
   },
-  "$id": "https://garunski.github.io/s_e_e_library/schema/knowledge-research.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/knowledge-research.schema.json",
   "x-operations": {
     "knowledge_research_list": {
       "method": "GET",

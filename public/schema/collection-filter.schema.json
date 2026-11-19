@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://garunski.github.io/s_e_e_library/schema/collection-filter.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/collection-filter.schema.json",
   "title": "S.E.E. collection filter request",
   "description": "Shared optional selection member for existing collection requests. Collection descriptors constrain fields, operators, enum choices and nullability. Decoded serialized filters are bounded to 16384 UTF-8 bytes. Project, legacy selection and pagination belong to each operation's own contract.",
   "type": "object",

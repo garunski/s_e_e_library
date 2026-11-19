@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://garunski.github.io/s_e_e_library/schema/prompt.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/prompt.schema.json",
   "title": "Prompt package payload (prompt.json)",
   "type": "object",
   "required": [

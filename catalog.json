@@ -172,11 +172,11 @@
       "description": "Packages linked by template references: workflows, prompts, commands.",
       "files": [
         {
-          "from": "packages/workflow/1.0.2/SKILL.md",
+          "from": "packages/workflow/1.0.3/SKILL.md",
           "to": ".agents/skills/workflow/SKILL.md"
         },
         {
-          "from": "packages/system-workflow-authoring/1.0.2/prompt.json",
+          "from": "packages/system-workflow-authoring/1.0.3/prompt.json",
           "to": ".s_e_e/prompts/system-workflow-authoring.json"
         },
         {
@@ -217,6 +217,11 @@
           "date": "2026-10-20",
           "note": "Install the generic skills and prompts, and workflows that default their folder and agent command.",
           "version": "1.0.2"
+        },
+        {
+          "date": "2026-11-19",
+          "note": "Use the workwithsee Library schema addresses.",
+          "version": "1.0.3"
         }
       ],
       "requires": [],
@@ -226,7 +231,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.2"
+      "version": "1.0.3"
     },
     {
       "author": "garunski",
@@ -1499,7 +1504,7 @@
       ],
       "files": [
         {
-          "from": "packages/system-workflow-authoring/1.0.2/prompt.json",
+          "from": "packages/system-workflow-authoring/1.0.3/prompt.json",
           "to": ".s_e_e/prompts/system-workflow-authoring.json"
         }
       ],
@@ -1524,6 +1529,11 @@
           "date": "2026-10-20",
           "note": "Omit spoke_root by default and drop hub-specific references.",
           "version": "1.0.2"
+        },
+        {
+          "date": "2026-11-19",
+          "note": "Use the workwithsee Library schema addresses.",
+          "version": "1.0.3"
         }
       ],
       "requires": [],
@@ -1533,7 +1543,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.2"
+      "version": "1.0.3"
     },
     {
       "author": "garunski",
@@ -1713,7 +1723,7 @@
       "description": "Create or revise S.E.E. workflow definitions and Library workflow packages.",
       "files": [
         {
-          "from": "packages/workflow/1.0.2/SKILL.md",
+          "from": "packages/workflow/1.0.3/SKILL.md",
           "to": ".agents/skills/workflow/SKILL.md"
         }
       ],
@@ -1738,6 +1748,11 @@
           "date": "2026-10-20",
           "note": "Omit spoke_root by default and drop path tokens.",
           "version": "1.0.2"
+        },
+        {
+          "date": "2026-11-19",
+          "note": "Use the workwithsee Library schema addresses.",
+          "version": "1.0.3"
         }
       ],
       "requires": [],
@@ -1750,7 +1765,7 @@
         "standalone"
       ],
       "verified": true,
-      "version": "1.0.2"
+      "version": "1.0.3"
     },
     {
       "author": "garunski",
@@ -2870,5 +2885,5 @@
       "name": "Cursor"
     }
   ],
-  "updated": "2026-11-11T16:54:06.003Z"
+  "updated": "2026-11-19T16:37:40.659Z"
 }

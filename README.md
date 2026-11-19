@@ -1,10 +1,10 @@
 # S.E.E. Official Library
 
 The Official Library distributes versioned workflows, prompts, skills, commands,
-bundles, and cycles for [S.E.E.](https://github.com/garunski/s_e_e).
+bundles, and cycles for [S.E.E.](https://workwithsee.com/).
 
-- [Catalog manifest](https://garunski.github.io/s_e_e_library/catalog.json) uses `see.library/v2`.
-- Packages are published at `https://garunski.github.io/s_e_e_library/packages/{slug}/{version}/{file}`.
+- [Catalog manifest](https://workwithsee.github.io/library/catalog.json) uses `see.library/v2`.
+- Packages are published at `https://workwithsee.github.io/library/packages/{slug}/{version}/{file}`.
 - Open **Help** in S.E.E. for authoring guides and product reference.
 
 ## Repository layout

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow-engine.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/workflow-engine.schema.json",
   "title": "Workflow Schema",
   "description": "Schema for workflow definitions with tasks and dependencies",
   "version": "1.0.6",

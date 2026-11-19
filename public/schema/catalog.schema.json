@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://garunski.github.io/s_e_e_library/schema/catalog.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/catalog.schema.json",
   "title": "S.E.E. Library catalog manifest",
   "type": "object",
   "required": [

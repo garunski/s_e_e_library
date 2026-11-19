@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://garunski.github.io/s_e_e_library/schema/workflow-definition.schema.json",
+  "$id": "https://workwithsee.github.io/library/schema/workflow-definition.schema.json",
   "title": "Stored workflow definition envelope",
   "type": "object",
   "required": [

@@ -8,6 +8,62 @@ fn public(name: &str) -> Value {
 }
 
 #[test]
+fn current_public_schema_identities_use_library_host() {
+    let directory = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../public/schema");
+    for entry in std::fs::read_dir(directory).unwrap() {
+        let path = entry.unwrap().path();
+        let Some(name) = path
+            .file_name()
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .strip_suffix(".schema.json")
+        else {
+            continue;
+        };
+        assert_eq!(
+            public(name)["$id"],
+            format!("https://workwithsee.github.io/library/schema/{name}.schema.json")
+        );
+    }
+}
+
+#[test]
+fn execution_schemas_match_application_and_validate_current_documents() {
+    for (name, current) in [
+        (
+            "workflow-execution",
+            s_e_e_core::validation::schema::load_workflow_execution_schema(),
+        ),
+        (
+            "execution-error",
+            s_e_e_core::validation::schema::load_execution_error_schema(),
+        ),
+    ] {
+        assert_eq!(
+            current["$id"],
+            format!("https://workwithsee.github.io/library/schema/{name}.schema.json")
+        );
+        assert_eq!(public(name), current, "{name}");
+    }
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../public/examples/workflow-execution.json");
+    let example: Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+    let validator = jsonschema::validator_for(&public("workflow-execution")).unwrap();
+    assert!(validator.is_valid(&example));
+    let mut invalid = example.clone();
+    invalid["runtime_progress"]["completed_tasks"] = json!(-1);
+    assert!(!validator.is_valid(&invalid));
+    let mut invalid = example;
+    invalid["status"] = json!("worker_started");
+    assert!(!validator.is_valid(&invalid));
+    let errors = jsonschema::validator_for(&public("execution-error")).unwrap();
+    assert!(errors
+        .is_valid(&json!({"error":"resource limit reached","code":"resource_limit_exceeded"})));
+    assert!(!errors.is_valid(&json!({"error":""})));
+}
+
+#[test]
 fn settings_metadata_matches_application_with_public_identity() {
     for (name, mut current) in [
         (
@@ -22,7 +78,7 @@ fn settings_metadata_matches_application_with_public_identity() {
         let published = public(name);
         assert_eq!(
             published["$id"],
-            format!("https://garunski.github.io/s_e_e_library/schema/{name}.schema.json")
+            format!("https://workwithsee.github.io/library/schema/{name}.schema.json")
         );
         current["$id"] = published["$id"].clone();
         assert_eq!(published, current, "{name}");
